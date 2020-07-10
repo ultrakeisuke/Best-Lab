@@ -1,0 +1,6 @@
+ja:
+  users:
+    show:
+      title: '%{user_name}さんのユーザ情報'
+    edit:
+      title: '%{user_name}さんのユーザ情報を編集'

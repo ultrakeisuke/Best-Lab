@@ -14,7 +14,16 @@ module BestLab
     # time_zone => Tokyo
     config.time_zone = 'Tokyo'
 
-    # generate rspec test files
+    # DBに登録する際に created_at をPCの時刻に設定
+    config.active_record.default_timezone = :local
+
+    # デフォルトのlocaleを日本語にする
+    config.i18n.default_locale = :ja
+
+    # 複数のロケールファイルが読み込まれるようにする
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
+
+    # Rspecのテストファイルを生成
     config.generators do |g|
       g.test_framework :rspec,
                         fixtures: true,
