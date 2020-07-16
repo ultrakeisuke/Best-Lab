@@ -11,7 +11,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     @user = User.new(sign_up_params)
     if @user.save
-      redirect_to root_url, notice: "Please check your email to activate your account"
+      redirect_to root_url, notice: "登録いただいたメールアドレスに本登録用のメールを送信しました。メール内のリンクからアカウントを有効化してください。"
     else
       render :new
     end

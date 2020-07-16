@@ -7,7 +7,7 @@ gem 'devise'
 gem 'omniauth-twitter'
 gem 'puma', '~> 4.1'
 gem 'bootstrap-sass'
-gem 'sass-rails', '>= 6'
+gem 'sass-rails', '>= 6.0.0'
 gem 'webpacker', '~> 4.0'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.7'
@@ -34,6 +34,7 @@ group :test do
   gem 'selenium-webdriver'
   gem 'webdrivers'
   gem 'rails-controller-testing'
+  gem 'database_rewinder'
 end
 
 group :production do

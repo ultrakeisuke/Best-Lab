@@ -1,9 +1,10 @@
 <% provide(:title, "パスワード登録") %>
 
-<h2><%= "パスワードの登録" %></h2>
+<h2><%= "パスワードを登録してください。" %></h2>
 
 <%= form_for(resource, as: resource_name, url: users_confirm_path) do |f| %>
-  <%= devise_error_messages! %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+
 
   <div class~"field">
     <%= f.label :password %>
@@ -21,6 +22,6 @@
   <%= f.hidden_field :confirmation_token %>
 
   <div class="actions">
-    <%= f.submit "登録" %>
+    <%= f.submit "送信" %>
   </div>
 <% end %>
