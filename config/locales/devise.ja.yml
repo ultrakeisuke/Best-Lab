@@ -1,5 +1,3 @@
-# Additional translations at https://github.com/plataformatec/devise/wiki/I18n
-
 ja:
   devise:
     confirmations:
@@ -9,10 +7,10 @@ ja:
     failure:
       already_authenticated: 'すでにログインしています。'
       inactive: 'アカウントが有効化されていません。メールに記載された手順にしたがって、アカウントを有効化してください。'
-      invalid: "%{authentication_keys} もしくはパスワードが不正です。"
+      invalid: "%{authentication_keys}もしくはパスワードが正しくありません。"
       locked: 'あなたのアカウントは凍結されています。'
       last_attempt: 'あなたのアカウントが凍結される前に、複数回の操作がおこなわれています。'
-      not_found_in_database: "%{authentication_keys} もしくはパスワードが不正です。"
+      not_found_in_database: "%{authentication_keys}もしくはパスワードが正しくありません。"
       timeout: 'セッションがタイムアウトしました。もう一度ログインしてください。'
       unauthenticated: 'アカウント登録もしくはログインしてください。'
       unconfirmed: 'メールアドレスの本人確認が必要です。'
@@ -40,6 +38,7 @@ ja:
       signed_up_but_inactive: 'ログインするためには、アカウントを有効化してください。'
       signed_up_but_locked: 'アカウントが凍結されているためログインできません。'
       signed_up_but_unconfirmed: '本人確認用のメールを送信しました。メール内のリンクからアカウントを有効化させてください。'
+      signed_up_but_needs_confirmation: '登録いただいたメールアドレスにアカウント有効化のためのメールを送信しました。メール内のリンクから有効化を完了してください。'
       update_needs_confirmation: 'アカウント情報を変更しました。変更されたメールアドレスの本人確認のため、本人確認用メールより確認処理をおこなってください。'
       updated: 'アカウント情報を変更しました。'
     sessions:
@@ -57,6 +56,12 @@ ja:
       expired: 'の有効期限が切れました。新しくリクエストしてください。'
       not_found: 'は見つかりませんでした。'
       not_locked: 'は凍結されていません。'
-      not_saved:
-        one: "エラーが発生したため %{resource} は保存されませんでした:"
-        other: "%{count} 件のエラーが発生したため %{resource} は保存されませんでした:"
+      not_saved: "エラーが発生したため%{resource}は保存されませんでした。"
+        # one: "エラーが発生したため %{resource} は保存されませんでした:"
+        # other: "%{count} 件のエラーが発生したため %{resource} は保存されませんでした"
+      taken: "は既に使用されています。"
+      blank: "が入力されていません。"
+      too_short: "は%{count}文字以上に設定してください。"
+      too_long: "は%{count}文字以下に設定してください。"
+      invalid: "は有効でありません。"
+      confirmation: "が正しくありません。"

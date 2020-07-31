@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UsersController < Users::ApplicationController
 
   def index

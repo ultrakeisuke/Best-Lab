@@ -13,8 +13,8 @@
     <header>
       <nav>
         <% if user_signed_in? %>
-          <strong><%= link_to current_user.name, user_path(current_user) %></strong>
-          <%= link_to 'プロフィール変更', edit_user_registration_path(@user) %>
+          <%= link_to 'ホーム', users_path %>
+          <%= link_to 'プロフィール', current_user %>
           <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
         <% else %>
           <%= link_to '新規登録', new_user_registration_path %>

@@ -1,24 +1,18 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
-  before_action :configure_sign_up_params, only: [:create]
-  # before_action :configure_account_update_params, only: [:update]
+  before_action :authenticate_user!, only: [:edit, :update, :destroy]
 
   def new
-    @user = User.new
+    super
   end
 
   def create
-    @user = User.new(sign_up_params)
-    if @user.save
-      redirect_to root_url, notice: "登録いただいたメールアドレスに本登録用のメールを送信しました。メール内のリンクからアカウントを有効化してください。"
-    else
-      render :new
-    end
+    super
   end
 
   def edit
-    @user = User.find_by(params[:id])
+    super
   end
 
   def update
@@ -40,22 +34,18 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   protected
 
-  # If you have extra params to permit, append them to the sanitizer.
-  def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [ :name ])
-  end
-
-  # If you have extra params to permit, append them to the sanitizer.
-  # def configure_account_update_params
-  #   devise_parameter_sanitizer.permit(:account_update), keys: [:name, :profile])
+  # def configure_sign_up_params
+  #   devise_parameter_sanitizer.permit(:sign_up, keys: add_attr)
   # end
 
-  # アカウント編集後、プロフィール画面に移動する
+  # def configure_account_update_params
+  #   devise_parameter_sanitizer.permit(:account_update, keys: add_attr)
+  # end
+
   # def after_update_path_for(resource)
   #   user_path(id: current_user.id)
   # end
 
-  # ログイン後、users/indexに移動する
   # def after_sign_up_path_for(resource)
   #   users_path
   # end
