@@ -6,20 +6,10 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :profile, length: { maximum: 200 }
 
-  # 新規登録時にパスワードが空でも送信できるようにする
-  def password_required?
-    super && confirmed?
-  end
+  # プロフィールのバリデーションを追加
+ 
 
-  # パスワードのバリデーションを追加
-  def password_match?
-    self.errors[:password] << "を入力してください。" if password.blank?
-    self.errors[:password_confirmation] << "を入力してください。" if password_confirmation.blank?
-    self.errors[:password_confirmation] << "が間違っています。" if password != password_confirmation
-    password == password_confirmation && !password.blank?
-  end  
-
-  # confirmed_at に最初は値が入っていないのでfalseが返りログインを防ぐ
+  # 新規登録完了時の自動ログインの防止
   def active_for_authentication?
     super && confirmed?
   end
