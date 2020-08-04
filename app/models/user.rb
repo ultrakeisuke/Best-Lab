@@ -3,11 +3,10 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable
 
+  mount_uploader :picture, PictureUploader
   validates :name, presence: true
   validates :profile, length: { maximum: 200 }
 
-  # プロフィールのバリデーションを追加
- 
 
   # 新規登録完了時の自動ログインの防止
   def active_for_authentication?
