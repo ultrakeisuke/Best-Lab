@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class UsersController < Users::ApplicationController
+class UsersController < ApplicationController
 
   def index
     @users = User.all

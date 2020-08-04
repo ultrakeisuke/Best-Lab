@@ -37,6 +37,9 @@ RSpec.configure do |config|
   # deviseのhelperをcontroller内で使用
   config.include Devise::Test::ControllerHelpers, type: :controller
 
+  # macrosファイルを読み込む
+  config.include ControllerMacros, type: :controller
+
   # FactoryBotのメソッドを使用する際にクラス名の指定を省略
   config.include FactoryBot::Syntax::Methods
 

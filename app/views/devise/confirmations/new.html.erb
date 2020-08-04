@@ -1,8 +1,8 @@
-<% provide(:title, "ユーザー認証のためのメールの再送信") %>
+<% provide(:title, "本人確認") %>
 
-<h3>ユーザー認証のためのメールの再送信</h3>
+<h3>本人確認のためのメールを送信します</h3>
 
-<%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+<%= form_with model: @user, url: user_confirmation_path, local: true do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class="field">

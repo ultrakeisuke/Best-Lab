@@ -35,10 +35,11 @@ module BestLab
       g.fixture_replacement :factory_bot, dir: "spec/factories"
     end
 
-    # Settings in config/environments/* take precedence over those specified here.
-    # Application configuration can go into files in config/initializers
-    # -- all .rb files in that directory are automatically loaded after loading
-    # the framework and any gems in your application.
+    # フォーム入力のバリデーションエラー発生時にデザインが崩れるのを防ぐ
+    config.action_view.field_error_proc = Proc.new do |html_tag, instance|
+      html_tag
+    end
+
   end
 
 end
