@@ -1,5 +1,9 @@
-<p>ようこそ、<%= @user.name %>さま</p>
+<p><%= @resource.name %>さま</p>
 
-<p>下記のリンクをクリックし、本登録を完了してください</p>
+<p>このたびはBest-Labにご登録いただきましてありがとうございます。</p>
 
-<p><%= link_to 'こちらをクリックしてください。', confirmation_url(@resource, confirmation_token: @token) %></p>
+<p>下記のリンクをクリックし、本登録を完了させてください</p>
+
+<p><%= link_to "Let's get started!", confirmation_url(@resource, confirmation_token: @token) %></p>
+
+<p>このメールに覚えのない場合は、お手数ですがメールを破棄してください。</p>

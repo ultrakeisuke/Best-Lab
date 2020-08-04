@@ -3,7 +3,7 @@ require 'rails_helper'
 describe UsersController, type: :controller do
   let(:user) { create(:user) }
 
-  # indexページ用テスト
+  # indexアクションのテスト
   describe 'GET #index' do
     # 正常なレスポンスとindexページを返す
     it "responds successfully" do
@@ -13,7 +13,7 @@ describe UsersController, type: :controller do
     end
   end
 
-  # showページ用テスト
+  # showアクションのテスト
   describe 'GET #show' do
     # 正常なレスポンスとshowページを返す
     it "responds successfully" do

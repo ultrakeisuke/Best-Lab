@@ -42,9 +42,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   devise_parameter_sanitizer.permit(:account_update, keys: add_attr)
   # end
 
-  # def after_update_path_for(resource)
-  #   user_path(id: current_user.id)
-  # end
+  def after_update_path_for(resource)
+    user_path(id: current_user.id)
+  end
 
   # def after_sign_up_path_for(resource)
   #   users_path

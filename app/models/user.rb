@@ -16,7 +16,21 @@ class User < ApplicationRecord
 
   # エラー時のフラッシュメッセージのキーを返す
   def inactive_message
-    confirmed? ? super : :needs_confirmation
+    confirmed? ? super : :unconfirmed
+  end
+
+  # 現在のパスワードを入力することなくプロフィールを更新する
+  def update_with_password(params, *options)
+    params.delete(:current_password)
+    if params[:password].blank? && params[:password_confirmation].blank?
+      params.delete(:password)
+      params.delete(:password_confirmation)
+    end
+
+    result = update(params, *options)
+
+    clean_up_passwords # これの説明できるようになっておく
+    result
   end
 
 end
