@@ -15,6 +15,11 @@ RSpec.configure do |config|
   # shared_contextに渡されたメタデータが、includeした側のhost_groupに適応される
   config.shared_context_metadata_behavior = :apply_to_host_groups
 
+  # フィーチャースペック内でFactoryBotを使えるようにする
+  config.before(:all) do
+    FactoryBot.reload
+  end
+
 # The settings below are suggested to provide a good initial experience
 # with RSpec, but feel free to customize to your heart's content.
 =begin
