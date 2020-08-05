@@ -22,7 +22,7 @@
 
   <div class="field">
     <%= f.label :picture %><br />
-    <%= f.text_field :picture %>
+    <%= f.file_field :picture %>
   </div>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
