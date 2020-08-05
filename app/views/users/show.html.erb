@@ -1,5 +1,11 @@
 <% provide(:title, @user.name) %>
 
+<% if @user.picture? %>
+  <%= image_tag @user.picture.url %>
+<% else %>
+  <%= image_tag "noimage.png" %>
+<% end %>
+
 <h3><%= @user.name %></h3>
 <p><%= @user.profile %></p>
 
