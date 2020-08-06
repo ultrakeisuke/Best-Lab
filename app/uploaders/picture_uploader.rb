@@ -29,17 +29,17 @@ class PictureUploader < CarrierWave::Uploader::Base
   # def scale(width, height)
   #   # do something
   # end
-
-  # サムネイルを生成
-  version :thumb do
-    process resize_to_fit: [50, 50]
-  end
-
+  
   # 上限変更
   process :resize_to_limit => [700, 700]
-
+  
   # JPGで保存
   process :convert => 'jpg'
+  
+  # サムネイルを生成
+  version :thumb do
+    process resize_to_fill: [80, 80]
+  end
 
   # jpg, jpeg, gif, pngのみ保存
   def extension_whitelist
