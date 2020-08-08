@@ -41,30 +41,6 @@ RSpec.describe User, type: :model do
     expect(user).to be_valid
   end
 
-  it "パスワードが空なら無効" do
-    user.password = ""
-    user.valid?
-    expect(user.errors[:password]).to include "が入力されていません。"
-  end
 
-  it "確認用パスワードが空なら無効" do
-    user.password_confirmation = ""
-    user.valid?
-    expect(user.errors[:password_confirmation]).to include "が正しくありません。"
-  end
-
-  it "パスワードが6文字未満なら無効" do
-    user.password = "a"*5
-    user.password_confirmation = "a"*5
-    user.valid?
-    expect(user.errors[:password]).to include "は6文字以上に設定してください。"
-  end
-
-  it "パスワードが129文字以上なら無効" do
-    user.password = "a"*129
-    user.password_confirmation = "a"*129
-    user.valid?
-    expect(user.errors[:password]).to include "は128文字以下に設定してください。"
-  end
 
 end
