@@ -4,7 +4,7 @@ class User < ApplicationRecord
          :confirmable
 
   mount_uploader :picture, PictureUploader
-  validates :name, presence: true
+  validates :name, presence: true, length: { maximum: 50 }
   validates :profile, length: { maximum: 200 }
 
 
