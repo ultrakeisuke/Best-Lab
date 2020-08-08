@@ -21,6 +21,9 @@ feature 'User picture' do
   # ユーザーのプロフィールの編集
   click_link 'プロフィール'
   click_link 'プロフィールを編集'
-
+  attach_file 'プロフィール画像', "#{Rails.root}/spec/factories/images/rails.png"
+  click_button '保存'
+  expect(page).to have_selector("img[src$='#{Time.now.strftime('%Y%m%d%H%M%S') + '.jpg'}']")
+  
   end
 end
