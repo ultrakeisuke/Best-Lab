@@ -17,7 +17,14 @@ RSpec.describe User, type: :model do
     expect(user.errors[:name]).to include("が入力されていません。")
   end
 
-  it "名前が入力されれば有効" do
+  it "51文字以上の名前が入力されれば無効" do
+    user.name = "a"*51
+    user.valid?
+    expect(user.errors[:name]).to include("は50文字以下に設定してください。")
+  end
+
+  it "50文字以内の名前が入力されれば有効" do
+    user.name = "a"*50
     user.valid?
     expect(user).to be_valid
   end
