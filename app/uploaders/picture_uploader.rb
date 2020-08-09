@@ -41,18 +41,4 @@ class PictureUploader < CarrierWave::Uploader::Base
     %w(jpg jpeg gif png)
   end
 
-  # ファイル名を変更し拡張子を統一する
-  def filename
-    if original_filename.present?
-      super.chomp(File.extname(super)) + '.jpg'
-    end
-  end
-
-  # 日付で保存
-  def filename
-    time = Time.now
-    name = time.strftime('%Y%m%d%H%M%S') + '.jpg'
-    name.downcase
-  end
-
 end
