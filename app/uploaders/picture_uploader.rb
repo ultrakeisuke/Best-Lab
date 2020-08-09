@@ -11,9 +11,15 @@ class PictureUploader < CarrierWave::Uploader::Base
 
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
+
   def store_dir
-    "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+    if Rails.env.production?
+      "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+    else
+      "uploads_#{Rails.env}/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+    end
   end
+
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
   # def default_url(*args)
@@ -29,17 +35,6 @@ class PictureUploader < CarrierWave::Uploader::Base
   # def scale(width, height)
   #   # do something
   # end
-  
-  # 上限変更
-  process :resize_to_limit => [700, 700]
-  
-  # JPGで保存
-  process :convert => 'jpg'
-  
-  # サムネイルを生成
-  version :thumb do
-    process resize_to_limit: [80, 80]
-  end
 
   # jpg, jpeg, gif, pngのみ保存
   def extension_whitelist
