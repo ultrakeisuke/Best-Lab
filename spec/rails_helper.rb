@@ -55,7 +55,7 @@ RSpec.configure do |config|
   # テスト終了時に画像を削除する
   config.after(:all) do
     if Rails.env.test?
-      FileUtils.rm_rf(Dir["#{Rails.root}/public/uploads/user/picture"])
+      FileUtils.rm_rf(Dir["#{Rails.root}/public/uploads_#{Rails.env}/"])
     end
   end
 
