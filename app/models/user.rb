@@ -5,7 +5,7 @@ class User < ApplicationRecord
 
   mount_uploader :picture, PictureUploader
   validates :name, presence: true, length: { maximum: 50 }
-  validates :affiliation, inclusion: { in: [true, false] }
+  enum  affiliation: { undergraduate: 0, graduate: 1 }
   validates :profile, length: { maximum: 200 }
 
 
