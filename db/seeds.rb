@@ -5,3 +5,9 @@
 #     password: "password"
 #   )
 # end
+
+User.create!(name: "admin",
+             email: "admin@example.com",
+             password: "1234567",
+             password_confirmation: "1234567",
+             admin: true)
