@@ -9,10 +9,8 @@
 <h3><%= @user.name %></h3>
 <p><%= @user.profile %></p>
 
-<% if current_user == @user || current_user.admin? %>
-  <%= link_to 'プロフィールを編集', edit_user_registration_path %>
-<% end %>
-
-<% if current_user.admin? && current_user != @user %>
-  <%= link_to 'このユーザーを削除', @user, method: :delete, data: { confirm: "本当に削除しますか？" } %>
+<% if user_signed_in? %>
+  <% if current_user == @user || current_user.admin? %>
+    <%= link_to 'プロフィールを編集', edit_user_registration_path %>
+  <% end %>
 <% end %>
