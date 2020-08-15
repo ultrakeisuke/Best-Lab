@@ -2,6 +2,7 @@
 
 class Users::RegistrationsController < Devise::RegistrationsController
   before_action :authenticate_user!, only: [:edit, :update, :destroy]
+  before_action :admin_user, only: :destroy
 
   def new
     super
@@ -54,4 +55,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+
+  # 管理者だけがユーザーを削除できる
+  def admin_user
+    redirect_to root_url unless current_user.admin?
+  end
+
 end
