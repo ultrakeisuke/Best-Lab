@@ -13,5 +13,5 @@ Rails.application.routes.draw do
     get      "sign_in",  to:"users/sessions#new"
     delete   "sign_out", to:"users/sessions#destroy"
   end
-   resources :users, only: [:show]
+   resources :users, only: [:show, :destroy]
 end
