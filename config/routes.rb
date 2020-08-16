@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :admins
   root 'homes#index'
   get  '/help',    to:'homes#help'
   get  '/about',   to:'homes#about'
