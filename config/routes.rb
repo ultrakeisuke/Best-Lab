@@ -4,8 +4,6 @@ Rails.application.routes.draw do
   get  '/about',   to:'homes#about'
   get  '/contact', to:'homes#contact'
   devise_for :admins, :controllers => {
-    :passwords     => 'admins/passwords',
-    :registrations => 'admins/registrations',
     :sessions      => 'admins/sessions'
   }
   devise_for :users, :controllers => {
