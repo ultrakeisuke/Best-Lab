@@ -9,5 +9,10 @@ class Admins::UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
   end
+
+  def destroy
+    User.find(params[:id]).destroy
+    redirect_to admins_users_path
+  end
   
 end
