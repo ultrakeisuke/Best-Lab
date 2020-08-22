@@ -10,7 +10,7 @@ RSpec.describe Admins::UsersController, type: :controller do
         admin.confirm
         get :index
         expect(response).to have_http_status "302"
-        expect(response).to redirect_to new_admin_session_path
+        expect(response).to redirect_to about_path
       end
     end
     context "ログインしている場合" do
@@ -29,7 +29,7 @@ RSpec.describe Admins::UsersController, type: :controller do
         admin.confirm
         get :show, params: { id: user.id }
         expect(response).to have_http_status "302"
-        expect(response).to redirect_to new_admin_session_path
+        expect(response).to redirect_to about_path
       end
     end
     context "ログインしている場合" do
@@ -48,7 +48,7 @@ RSpec.describe Admins::UsersController, type: :controller do
         admin.confirm
         get :destroy, params: { id: user.id }
         expect(response).to have_http_status "302"
-        expect(response).to redirect_to new_admin_session_path
+        expect(response).to redirect_to about_path
       end
     end
     context "ログインしている場合" do
