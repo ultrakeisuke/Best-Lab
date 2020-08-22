@@ -23,7 +23,7 @@ RSpec.describe Users::RegistrationsController, type: :controller do
         expect(user.reload.profile).to eq "1"*200
         expect(response).to have_http_status "302"
         expect(assigns(:user)).to eq user
-        expect(response).to redirect_to user_path(user)
+        expect(response).to redirect_to users_profile_path(user)
       end
     end
   end
