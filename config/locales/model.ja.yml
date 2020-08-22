@@ -15,6 +15,18 @@ ja:
         current_password: 現在のパスワード
         remember_me: 次回から自動的にログイン
         confirmation_token: 認証
+      admin:
+        id: ID
+        name: 名前
+        email: メールアドレス
+        affiliation: 所属
+        profile: 自己紹介
+        picture: プロフィール画像
+        password: パスワード
+        password_confirmation: 確認用パスワード
+        current_password: 現在のパスワード
+        remember_me: 次回から自動的にログイン
+        confirmation_token: 認証
   attributes:
     created_at: 作成日
     updated_at: 更新日
