@@ -10,10 +10,6 @@ gem 'webpacker', '~> 4.0'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.7'
 gem 'bootsnap', '>= 1.4.2', require: false
-gem 'devise'
-gem 'rails-i18n'
-gem 'carrierwave'
-gem 'mini_magick'
 
 group :development, :test do
   gem 'sqlite3', '1.3.13'
@@ -46,3 +42,9 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+gem 'devise'
+gem 'rails-i18n'
+gem 'carrierwave'
+gem 'mini_magick'
+gem 'kaminari'

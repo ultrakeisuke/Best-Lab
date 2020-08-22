@@ -7,9 +7,7 @@
   user.confirm
 end
 
-admin_user = User.create!(name: "admin",
-                          email: "admin@example.com",
-                          password: "1234567",
-                          password_confirmation: "1234567",
-                          admin: true)
+admin_user = Admin.create!(name: "admin",
+                           email: "admin@example.com",
+                           password: "1234567")
 admin_user.confirm
