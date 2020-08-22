@@ -8,7 +8,7 @@ feature 'User picture' do
   end
 
   scenario '画像アップロード' do
-  visit root_path
+  visit about_path
   expect(page).to have_http_status :ok
 
   # ログインに成功
