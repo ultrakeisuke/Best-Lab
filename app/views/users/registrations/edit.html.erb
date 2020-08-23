@@ -2,7 +2,7 @@
 
 <h3>ユーザー情報の編集</h3>
 
-<%= form_with model: @user, url: user_registration_path, local: true do |f| %>
+<%= form_with model: resource, url: user_registration_path, local: true do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class="field">
