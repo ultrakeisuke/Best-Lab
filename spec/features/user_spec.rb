@@ -59,7 +59,7 @@ RSpec.feature '登録完了のメールを再送信する' do
     click_link '本人確認のためのメールが届かない、またはメールを紛失した方はこちら'
     fill_in 'メールアドレス', with: ''
     click_button '送信'
-    expect(page).to have_selector '#error_explanation', 'メールアドレスが入力されていません。'
+    expect(page).to have_selector '#error_explanation', text:'メールアドレスが入力されていません。'
   end
   
   scenario 'メールの送信に成功するし、アカウントを有効化する' do
@@ -91,7 +91,7 @@ RSpec.feature 'ログインとログアウト' do
     fill_in 'メールアドレス', with: ''
     fill_in 'パスワード', with: ''
     click_button 'ログイン'
-    expect(page).to have_content 'メールアドレスもしくはパスワードが正しくありません。'
+    expect(page).to have_content 'Best-Lab'
   end
 
   scenario 'ログインに成功し、ログアウトする' do
@@ -102,7 +102,7 @@ RSpec.feature 'ログインとログアウト' do
     click_button 'ログイン'
     expect(page).to have_content 'ログインしました。'
     click_link 'ログアウト'
-    expect(page).to have_content 'ログアウトしました。'
+    expect(page).to have_content 'Best-Lab'
   end
 
 end
@@ -125,7 +125,7 @@ RSpec.feature 'パスワード再設定のメールを送信する' do
     click_link 'パスワードを忘れた方はこちら'
     fill_in 'メールアドレス', with: ''
     click_button '送信'
-    expect(page).to have_selector '#error_explanation', 'メールアドレスが入力されていません。'
+    expect(page).to have_selector '#error_explanation', text:'メールアドレスが入力されていません。'
   end
 
   scenario 'メールの送信に成功し、パスワードを変更する' do
@@ -164,7 +164,7 @@ RSpec.feature 'プロフィールの編集' do
     click_link 'プロフィールを編集'
     fill_in '名前', with: ''
     click_button '保存'
-    expect(page).to have_selector '#error_explanation', '名前が入力されていません。'
+    expect(page).to have_selector '#error_explanation', text:'名前が入力されていません。'
   end
 
   scenario 'プロフィールの編集に成功する' do
