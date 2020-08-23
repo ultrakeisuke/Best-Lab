@@ -39,6 +39,7 @@ RSpec.configure do |config|
 
   # macrosファイルを読み込む
   config.include ControllerMacros, type: :controller
+  config.include LoginMacros
 
   # FactoryBotのメソッドを使用する際にクラス名の指定を省略
   config.include FactoryBot::Syntax::Methods
