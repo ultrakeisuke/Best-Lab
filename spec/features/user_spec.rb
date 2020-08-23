@@ -178,12 +178,14 @@ RSpec.feature 'プロフィールの編集' do
     click_link 'プロフィールを編集'
     fill_in '名前', with: 'user!'
     fill_in 'メールアドレス', with: 'user123@example.com'
+    find('input[id=user_affiliation_graduate]').click # ラジオボタンで大学院生を選択
     fill_in '自己紹介', with: 'Hello World!'
     fill_in 'パスワード', with: '123456'
     fill_in '確認用パスワード', with: '123456'
     click_button '保存'
     expect(page).to have_content 'user!'
     expect(page).to have_content 'Hello World!'
+    expect(page).to have_content '大学院生'
   end
 
 end
