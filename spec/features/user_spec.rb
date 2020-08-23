@@ -148,7 +148,7 @@ end
 
 RSpec.feature 'プロフィールの編集' do
   background do
-    user = User.create!(name: 'user', email: 'user@example.com', password: '1234567')
+    user = User.create!(name: 'user', email: 'user@example.com', affiliation: 0 , password: '1234567')
     user.skip_confirmation!
     user.save
   end
