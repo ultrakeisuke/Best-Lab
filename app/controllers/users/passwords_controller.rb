@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Users::PasswordsController < Devise::PasswordsController
+  before_action :user_params, only: [:update]
+  
   # GET /resource/password/new
   # def new
   #   super
@@ -30,6 +32,10 @@ class Users::PasswordsController < Devise::PasswordsController
     # The path used after sending reset password instructions
     def after_sending_reset_password_instructions_path_for(resource_name)
       super(resource_name)
+    end
+
+    def user_params
+      params.require(:user).permit(:password, :password_confirmation)
     end
 
 end
