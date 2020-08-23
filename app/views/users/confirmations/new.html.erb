@@ -2,7 +2,7 @@
 
 <h3>本人確認のためのメールを送信します</h3>
 
-<%= form_with model: @user, url: user_confirmation_path, local: true do |f| %>
+<%= form_with model: resource, url: user_confirmation_path, local: true do |f| %>
   <%= render "users/shared/error_messages", resource: resource %>
 
   <div class="field">
