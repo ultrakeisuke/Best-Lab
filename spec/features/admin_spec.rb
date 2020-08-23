@@ -12,7 +12,7 @@ RSpec.feature 'ログインとログアウト' do
     fill_in 'メールアドレス', with: ''
     fill_in 'パスワード', with: ''
     click_button 'ログイン'
-    expect(page).to have_content 'メールアドレスもしくはパスワードが正しくありません。'
+    expect(page).to have_content 'Best-Lab'
   end
 
   scenario 'ログインに成功したのちログアウトする' do
@@ -22,7 +22,7 @@ RSpec.feature 'ログインとログアウト' do
     click_button 'ログイン'
     expect(page).to have_content 'ログインしました。'
     click_link 'ログアウト'
-    expect(page).to have_content 'ログアウトしました。'
+    expect(page).to have_content 'Best-Lab'
   end
 
 end
