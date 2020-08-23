@@ -16,10 +16,10 @@ Rails.application.routes.draw do
     get    "sign_in",  to:"users/sessions#new"
     delete "sign_out", to:"users/sessions#destroy"
   end
-  namespace :users do
+   namespace :users do
     resources :profiles, only: [:show]
-  end
-  namespace :admins do
+   end
+   namespace :admins do
     resources :users, only: [:index, :show, :destroy]
-  end
+   end
 end
