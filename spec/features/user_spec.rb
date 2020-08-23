@@ -177,6 +177,7 @@ RSpec.feature 'プロフィールの編集' do
     click_link 'プロフィール' 
     click_link 'プロフィールを編集'
     fill_in '名前', with: 'user!'
+    fill_in 'メールアドレス', with: 'user123@example.com'
     fill_in '自己紹介', with: 'Hello World!'
     fill_in 'パスワード', with: '123456'
     fill_in '確認用パスワード', with: '123456'
