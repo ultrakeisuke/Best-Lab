@@ -146,7 +146,7 @@ RSpec.feature 'パスワード再設定のメールを送信する' do
 end
 
 
-RSpec.feature 'プロフィールの編集' do
+RSpec.feature 'プロフィールの編集とアカウント削除' do
   background do
     user = User.create!(name: 'user', email: 'user@example.com', affiliation: 0 , password: '1234567')
     user.skip_confirmation!
@@ -167,7 +167,7 @@ RSpec.feature 'プロフィールの編集' do
     expect(page).to have_selector '#error_explanation', text:'名前が入力されていません。'
   end
 
-  scenario 'プロフィールの編集に成功する' do
+  scenario 'プロフィールの編集に成功したのちアカウントを削除する' do
     visit about_path
     click_link 'ログイン'
     fill_in 'メールアドレス', with: 'user@example.com'
@@ -179,7 +179,7 @@ RSpec.feature 'プロフィールの編集' do
 
     click_link '戻る'
     click_link 'プロフィールを編集'
-    
+
     fill_in '名前', with: 'user!'
     fill_in 'メールアドレス', with: 'user123@example.com'
     find('input[id=user_affiliation_graduate]').click # ラジオボタンで大学院生を選択
@@ -190,6 +190,9 @@ RSpec.feature 'プロフィールの編集' do
     expect(page).to have_content 'user!'
     expect(page).to have_content 'Hello World!'
     expect(page).to have_content '大学院生'
+
+    click_link 'プロフィールを編集'
+    expect { click_button 'アカウントの削除'}.to change(User, :count).by(-1)
   end
 
 end
