@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Users::PasswordsController < Devise::PasswordsController
-  before_action :user_params, only: [:update]
+  before_action :user_params, only: [:create, :update]
   
   # GET /resource/password/new
   # def new
@@ -35,7 +35,7 @@ class Users::PasswordsController < Devise::PasswordsController
     end
 
     def user_params
-      params.require(:user).permit(:password, :password_confirmation)
+      params.require(:user).permit(:email, :password, :password_confirmation)
     end
 
 end
