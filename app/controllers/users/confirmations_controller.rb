@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Users::ConfirmationsController < Devise::ConfirmationsController
-  before_action :user_params, only: [:post]
+  before_action :user_params, only: [:create]
   
   # GET /resource/confirmation/new
   # def new
