@@ -176,6 +176,10 @@ RSpec.feature 'プロフィールの編集' do
     # 上記はmacrosファイルに定義しておく
     click_link 'プロフィール' 
     click_link 'プロフィールを編集'
+
+    click_link '戻る'
+    click_link 'プロフィールを編集'
+    
     fill_in '名前', with: 'user!'
     fill_in 'メールアドレス', with: 'user123@example.com'
     find('input[id=user_affiliation_graduate]').click # ラジオボタンで大学院生を選択
