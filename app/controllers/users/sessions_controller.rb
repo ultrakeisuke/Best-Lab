@@ -25,4 +25,8 @@ class Users::SessionsController < Devise::SessionsController
       devise_parameter_sanitizer.permit(:sign_in, keys: [:email])
     end
 
+    def after_sign_out_path_for(resource_name)
+      about_path
+    end
+
 end
