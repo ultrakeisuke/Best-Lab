@@ -36,9 +36,9 @@ RSpec.feature 'ユーザーの新規登録' do
 end
 
 RSpec.feature '登録完了のメールを再送信する' do
+  let(:user) { create(:user) }
   background do
     ActionMailer::Base.deliveries.clear
-    user = User.create!(name: 'user', email: 'user@example.com', password: '1234567')
   end
 
   scenario 'メールの送信に失敗する' do
@@ -54,7 +54,7 @@ RSpec.feature '登録完了のメールを再送信する' do
     visit about_path
     find('a.sign-up').click
     click_link '本人確認のためのメールが届かない、またはメールを紛失した方はこちら'
-    fill_in 'メールアドレス', with: 'user@example.com'
+    fill_in 'メールアドレス', with: user.email
     expect { click_button '送信' }.to change { ActionMailer::Base.deliveries.size }.by(1)
 
     expect(page).to have_current_path '/users/sign_in'
@@ -85,8 +85,8 @@ RSpec.feature 'ログインとログアウト' do
   scenario 'ログインに成功し、ログアウトする' do
     visit about_path
     click_link 'ログイン'
-    fill_in 'メールアドレス', with: 'user@example.com'
-    fill_in 'パスワード', with: '1234567'
+    fill_in 'メールアドレス', with: user.email
+    fill_in 'パスワード', with: user.password
     click_button 'ログイン'
     expect(page).to have_content 'ログインしました。'
     click_link 'ログアウト'
@@ -97,9 +97,9 @@ end
 
 
 RSpec.feature 'パスワード再設定のメールを送信する' do
+  let(:user) { create(:user) }
   background do
     ActionMailer::Base.deliveries.clear
-    user = User.create!(name: 'user', email: 'user@example.com', password: '1234567')
   end
 
   scenario 'メールの送信に失敗する' do
@@ -115,7 +115,7 @@ RSpec.feature 'パスワード再設定のメールを送信する' do
     visit about_path
     click_link 'ログイン'
     click_link 'パスワードを忘れた方はこちら'
-    fill_in 'メールアドレス', with: 'user@example.com'
+    fill_in 'メールアドレス', with: user.email
     expect { click_button '送信' }.to change { ActionMailer::Base.deliveries.size }.by(1)
 
     expect(page).to have_current_path '/users/sign_in'
