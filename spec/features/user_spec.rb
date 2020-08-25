@@ -7,12 +7,6 @@ RSpec.feature 'ユーザーの新規登録' do
     ActionMailer::Base.deliveries.clear
   end
 
-  # 送信したメールからパスワード設定画面のURLを抽出する
-  def extract_confirmation_url(mail)
-    body = mail.body.encoded
-    body[/http[^"]+/]
-  end
-
   scenario '新規登録に失敗する' do
     visit about_path
     find('a.sign-up').click
@@ -34,9 +28,7 @@ RSpec.feature 'ユーザーの新規登録' do
     # expect(page).to have_current_path '/about'
     expect(page).to have_content '本人確認用のメールを送信しました。メール内のリンクから登録を完了させてください。'
 
-    mail = ActionMailer::Base.deliveries.last
-    url = extract_confirmation_url(mail)
-    visit url
+    visit_url_in_mail
     expect(page).to have_content 'アカウント登録が完了しました。'
   end
 
@@ -46,11 +38,6 @@ RSpec.feature '登録完了のメールを再送信する' do
   background do
     ActionMailer::Base.deliveries.clear
     user = User.create!(name: 'user', email: 'user@example.com', password: '1234567')
-  end
-
-  def extract_confirmation_url(mail)
-    body = mail.body.encoded
-    body[/http[^"]+/]
   end
 
   scenario 'メールの送信に失敗する' do
@@ -70,9 +57,8 @@ RSpec.feature '登録完了のメールを再送信する' do
     expect { click_button '送信' }.to change { ActionMailer::Base.deliveries.size }.by(1)
     expect(page).to have_content 'ログイン'
     expect(page).to have_content 'アカウントの有効化について数分以内にメールでご連絡いたします。'
-    mail = ActionMailer::Base.deliveries.last
-    url = extract_confirmation_url(mail)
-    visit url
+
+    visit_url_in_mail
     expect(page).to have_content 'アカウント登録が完了しました。'
   end
 end
@@ -114,11 +100,6 @@ RSpec.feature 'パスワード再設定のメールを送信する' do
     user = User.create!(name: 'user', email: 'user@example.com', password: '1234567')
   end
 
-  def extract_confirmation_url(mail)
-    body = mail.body.encoded
-    body[/http[^"]+/]
-  end
-
   scenario 'メールの送信に失敗する' do
     visit about_path
     click_link 'ログイン'
@@ -135,9 +116,9 @@ RSpec.feature 'パスワード再設定のメールを送信する' do
     fill_in 'メールアドレス', with: 'user@example.com'
     expect { click_button '送信' }.to change { ActionMailer::Base.deliveries.size }.by(1)
     expect(page).to have_content 'パスワードの再設定について数分以内にメールでご連絡いたします。'
-    mail = ActionMailer::Base.deliveries.last
-    url = extract_confirmation_url(mail)
-    visit url
+
+    visit_url_in_mail
+    
     fill_in '新しいパスワード', with: '123456'
     fill_in '確認用パスワード', with: '123456'
     click_button '保存'
