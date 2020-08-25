@@ -25,7 +25,8 @@ RSpec.feature 'ユーザーの新規登録' do
     fill_in 'パスワード', with: '1234567'
     fill_in '確認用パスワード', with: '1234567'
     expect { click_button '送信'}.to change { ActionMailer::Base.deliveries.size }.by(1).and change(User, :count).by(1)
-    # expect(page).to have_current_path '/about'
+
+    expect(page).to have_current_path '/users/sign_in'
     expect(page).to have_content '本人確認用のメールを送信しました。メール内のリンクから登録を完了させてください。'
 
     visit_url_in_mail
@@ -55,7 +56,8 @@ RSpec.feature '登録完了のメールを再送信する' do
     click_link '本人確認のためのメールが届かない、またはメールを紛失した方はこちら'
     fill_in 'メールアドレス', with: 'user@example.com'
     expect { click_button '送信' }.to change { ActionMailer::Base.deliveries.size }.by(1)
-    expect(page).to have_content 'ログイン'
+
+    expect(page).to have_current_path '/users/sign_in'
     expect(page).to have_content 'アカウントの有効化について数分以内にメールでご連絡いたします。'
 
     visit_url_in_mail
@@ -115,10 +117,12 @@ RSpec.feature 'パスワード再設定のメールを送信する' do
     click_link 'パスワードを忘れた方はこちら'
     fill_in 'メールアドレス', with: 'user@example.com'
     expect { click_button '送信' }.to change { ActionMailer::Base.deliveries.size }.by(1)
+
+    expect(page).to have_current_path '/users/sign_in'
     expect(page).to have_content 'パスワードの再設定について数分以内にメールでご連絡いたします。'
 
     visit_url_in_mail
-    
+
     fill_in '新しいパスワード', with: '123456'
     fill_in '確認用パスワード', with: '123456'
     click_button '保存'
