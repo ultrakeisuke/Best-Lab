@@ -79,8 +79,8 @@ end
 
 
 RSpec.feature 'ログインとログアウト' do
+  let(:user) { create(:user) }
   background do
-    user = User.create!(name: 'user', email: 'user@example.com', password: '1234567')
     user.skip_confirmation!
     user.save
   end
@@ -147,19 +147,14 @@ end
 
 
 RSpec.feature 'プロフィールの編集とアカウント削除' do
+  let(:user) { create(:user) }
   background do
-    user = User.create!(name: 'user', email: 'user@example.com', affiliation: 0 , password: '1234567')
     user.skip_confirmation!
     user.save
   end
 
   scenario 'プロフィールの編集に失敗する' do
-    visit about_path
-    click_link 'ログイン'
-    fill_in 'メールアドレス', with: 'user@example.com'
-    fill_in 'パスワード', with: '1234567'
-    click_button 'ログイン'
-    # 上記はmacrosファイルに定義しておく
+    login(user)
     click_link 'プロフィール' 
     click_link 'プロフィールを編集'
     fill_in '名前', with: ''
@@ -168,12 +163,7 @@ RSpec.feature 'プロフィールの編集とアカウント削除' do
   end
 
   scenario 'プロフィールの編集に成功したのちアカウントを削除する' do
-    visit about_path
-    click_link 'ログイン'
-    fill_in 'メールアドレス', with: 'user@example.com'
-    fill_in 'パスワード', with: '1234567'
-    click_button 'ログイン'
-    # 上記はmacrosファイルに定義しておく
+    login(user)
     click_link 'プロフィール' 
     click_link 'プロフィールを編集'
 
@@ -187,6 +177,7 @@ RSpec.feature 'プロフィールの編集とアカウント削除' do
     fill_in 'パスワード', with: '123456'
     fill_in '確認用パスワード', with: '123456'
     click_button '保存'
+
     expect(page).to have_content 'user!'
     expect(page).to have_content 'Hello World!'
     expect(page).to have_content '大学院生'
