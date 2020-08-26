@@ -13,7 +13,7 @@ RSpec.feature 'プロフィール画像のアップロード' do
 
     # ログインに成功
     click_link 'ログイン'
-    fill_in 'メールアドレス', with: 'user@example.com'
+    fill_in 'メールアドレス', with: user.email
     fill_in 'パスワード', with: '1234567'
     click_button 'ログイン'
     expect(page).to have_content 'ログインしました。'
