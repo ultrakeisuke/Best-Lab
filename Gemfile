@@ -34,6 +34,7 @@ group :test do
   gem 'webdrivers'
   gem 'rails-controller-testing'
   gem 'database_rewinder'
+  gem 'simplecov'
 end
 
 group :production do
