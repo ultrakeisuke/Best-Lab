@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'User picture' do  
+RSpec.feature 'User picture' do  
   let(:user) { create(:user) }
 
   before do
