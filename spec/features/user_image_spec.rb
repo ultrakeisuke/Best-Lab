@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature 'User picture' do  
+RSpec.feature 'プロフィール画像のアップロード' do  
   let(:user) { create(:user) }
 
   before do
