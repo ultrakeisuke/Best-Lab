@@ -40,6 +40,9 @@ module BestLab
       html_tag
     end
 
+    # lib以下のファイルの読み込み
+    config.autoload_paths << Rails.root.join('lib')
+
   end
 
 end

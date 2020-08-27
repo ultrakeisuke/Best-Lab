@@ -2,8 +2,8 @@
 
 <h3>ユーザー情報の編集</h3>
 
-<%= form_with model: @user, url: user_registration_path, local: true do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+<%= form_with model: resource, url: user_registration_path, local: true do |f| %>
+  <%= render "users/shared/error_messages", resource: resource %>
 
   <div class="field">
     <%= f.label :name %><br />
@@ -13,6 +13,13 @@
   <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div>
+
+  <div class="field">
+    <%= f.radio_button :affiliation, :undergraduate %>
+    <%= f.label :affiliation, "大学生" %>
+    <%= f.radio_button :affiliation, :graduate %>
+    <%= f.label :affiliation, "大学院生" %>
   </div>
 
   <div class="field">

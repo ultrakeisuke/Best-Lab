@@ -27,6 +27,11 @@ ja:
         current_password: 現在のパスワード
         remember_me: 次回から自動的にログイン
         confirmation_token: 認証
+  enums:
+    user:
+      affiliation:
+        undergraduate: 大学生
+        graduate: 大学院生
   attributes:
     created_at: 作成日
     updated_at: 更新日

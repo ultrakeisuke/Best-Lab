@@ -3,6 +3,7 @@ FactoryBot.define do
   factory :user, class: User do
     name { 'user' }
     email { 'user@example.com' }
+    affiliation { 0 }
     password { '1234567' }
   end
 

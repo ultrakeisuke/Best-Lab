@@ -1,5 +1,5 @@
 require 'spec_helper'
-ENV['RAILS_ENV'] ||= 'test'
+ENV['RAILS_ENV'] = 'test'
 require File.expand_path('../config/environment', __dir__)
 # 本番環境でDBのテーブルから全ての行を削除するのを防ぐ
 abort("The Rails environment is running in production mode!") if Rails.env.production?
@@ -39,6 +39,8 @@ RSpec.configure do |config|
 
   # macrosファイルを読み込む
   config.include ControllerMacros, type: :controller
+  config.include LoginMacros
+  config.include VisitUrlMacros
 
   # FactoryBotのメソッドを使用する際にクラス名の指定を省略
   config.include FactoryBot::Syntax::Methods

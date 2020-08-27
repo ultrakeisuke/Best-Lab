@@ -34,6 +34,7 @@ group :test do
   gem 'webdrivers'
   gem 'rails-controller-testing'
   gem 'database_rewinder'
+  gem 'simplecov'
 end
 
 group :production do
@@ -48,3 +49,4 @@ gem 'rails-i18n'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'kaminari'
+gem 'enum_help'
