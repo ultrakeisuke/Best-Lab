@@ -1,7 +1,9 @@
-0.upto(4) do |n|
+100.times do |n|
+  name = Faker::Name.name
+  email = Faker::Internet.email
   user = User.create(
-    name: "name-#{n + 1}",
-    email: "email-#{n + 1}@example.com",
+    name: name,
+    email: email,
     password: "password"
   )
   user.confirm
