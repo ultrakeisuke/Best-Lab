@@ -16,7 +16,7 @@ RSpec.feature 'ログインとログアウト' do
 
   scenario 'ログインに成功したのちログアウトする' do
     visit new_admin_session_path
-    fill_in 'メールアドレス', with: 'admin@example.com'
+    fill_in 'メールアドレス', with: admin.email
     fill_in 'パスワード', with: '1234567'
     click_button 'ログイン'
     expect(page).to have_content 'ログインしました。'
@@ -36,7 +36,7 @@ RSpec.feature 'ユーザー情報の閲覧と削除' do
 
   scenario 'ユーザー情報を閲覧する' do
     visit new_admin_session_path
-    fill_in 'メールアドレス', with: 'admin@example.com'
+    fill_in 'メールアドレス', with: admin.email
     fill_in 'パスワード', with: '1234567'
     click_button 'ログイン'
     expect(page).to have_content 'すべてのユーザー'
