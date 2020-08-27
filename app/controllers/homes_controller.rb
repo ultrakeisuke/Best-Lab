@@ -1,7 +1,7 @@
 class HomesController < ApplicationController
   before_action :authenticate_user!, only: :index
   
-  def index
+  def top
   end
 
   def help
