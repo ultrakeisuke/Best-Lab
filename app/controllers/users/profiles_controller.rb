@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class UsersController < ApplicationController
+class Users::ProfilesController < ApplicationController
 
   def show
     @user = User.find(params[:id])

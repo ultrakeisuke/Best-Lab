@@ -1,4 +1,8 @@
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+# カバレッジを把握するためのgem(simplecov)を設定
+require 'simplecov'
+SimpleCov.start 'rails'
+
 RSpec.configure do |config|
 
   config.expect_with :rspec do |expectations|
