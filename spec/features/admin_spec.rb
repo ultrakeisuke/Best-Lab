@@ -47,7 +47,7 @@ RSpec.feature 'ユーザー情報の閲覧と削除' do
     expect(page).to have_selector 'h3', text: 'userさんのプロフィール'
   end
 
-  scenario 'ユーザー情報を削除する' do
+  scenario 'ユーザーアカウントを削除する' do
     visit new_admin_session_path
     fill_in 'メールアドレス', with: 'admin@example.com'
     fill_in 'パスワード', with: '1234567'
