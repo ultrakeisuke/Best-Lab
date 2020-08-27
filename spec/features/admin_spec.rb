@@ -27,13 +27,11 @@ RSpec.feature 'ログインとログアウト' do
 end
 
 RSpec.feature 'ユーザー情報の閲覧と削除' do
+  let(:admin) { create(:admin) }
+  let(:user) { create(:user) }
   background do
-    admin = Admin.create!(email: 'admin@example.com', password: '1234567')
-    admin.skip_confirmation!
-    admin.save
-    user = User.create!(name: 'user', email: 'user@example.com', password: '123456')
-    user.skip_confirmation!
-    user.save
+    admin.confirm
+    user.confirm
   end
 
   scenario 'ユーザー情報を閲覧する' do
