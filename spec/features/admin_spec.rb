@@ -1,10 +1,9 @@
 require 'rails_helper'
 
 RSpec.feature 'ログインとログアウト' do
+  let(:admin) { create(:admin) }
   background do
-    admin = Admin.create!(email: 'admin@example.com', password: '1234567')
-    admin.skip_confirmation!
-    admin.save
+    admin.confirm
   end
 
   scenario 'ログインに失敗する' do
