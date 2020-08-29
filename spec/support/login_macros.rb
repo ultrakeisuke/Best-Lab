@@ -1,5 +1,5 @@
 module LoginMacros
-  def login(user)
+  def login_as_user(user)
     visit sign_in_path
     fill_in 'メールアドレス', with: user.email
     fill_in 'パスワード', with: '1234567'
@@ -7,7 +7,7 @@ module LoginMacros
     expect(page).to have_content 'ログインしました。'
   end
 
-  def login_admin(admin)
+  def login_as_admin(admin)
     visit new_admin_session_path
     fill_in 'メールアドレス', with: admin.email
     fill_in 'パスワード', with: '1234567'
