@@ -7,6 +7,13 @@ module LoginMacros
     expect(page).to have_content 'ログインしました。'
   end
 
+  def login_admin(admin)
+    visit new_admin_session_path
+    fill_in 'メールアドレス', with: admin.email
+    fill_in 'パスワード', with: '1234567'
+    click_button 'ログイン'
+  end
+
   def logout
     click_link 'ログアウト'
     expect(page).to have_content 'ログアウトしました。'
