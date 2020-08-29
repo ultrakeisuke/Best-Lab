@@ -4,10 +4,13 @@ RSpec.describe Admins::UsersController, type: :controller do
   let(:user) { create(:user) }
   let(:admin) { create(:admin) }
 
+  before do
+    admin.confirm
+  end
+
   describe "indexアクション" do
     context "ログインしていない場合" do
       it "ホーム画面にリダイレクト" do
-        admin.confirm
         get :index
         expect(response).to have_http_status "302"
         expect(response).to redirect_to about_path
@@ -15,7 +18,6 @@ RSpec.describe Admins::UsersController, type: :controller do
     end
     context "ログインしている場合" do
       it "indexページを返す" do
-        admin.confirm
         sign_in admin
         get :index
         expect(response).to have_http_status "200"
@@ -26,7 +28,6 @@ RSpec.describe Admins::UsersController, type: :controller do
   describe "showアクション" do
     context "ログインしていない場合" do
       it "ホーム画面にリダイレクト" do
-        admin.confirm
         get :show, params: { id: user.id }
         expect(response).to have_http_status "302"
         expect(response).to redirect_to about_path
@@ -34,7 +35,6 @@ RSpec.describe Admins::UsersController, type: :controller do
     end
     context "ログインしている場合" do
       it "showページを返す" do
-        admin.confirm
         sign_in admin
         get :show, params: { id: user.id }
         expect(response).to have_http_status "200"
@@ -45,7 +45,6 @@ RSpec.describe Admins::UsersController, type: :controller do
   describe "destroyアクション" do
     context "ログインしていない場合" do
       it "ホーム画面にリダイレクト" do
-        admin.confirm
         get :destroy, params: { id: user.id }
         expect(response).to have_http_status "302"
         expect(response).to redirect_to about_path
@@ -53,7 +52,6 @@ RSpec.describe Admins::UsersController, type: :controller do
     end
     context "ログインしている場合" do
       it "aboutページを返す" do
-        admin.confirm
         sign_in admin
         get :destroy, params: { id: user.id }
         expect(response).to have_http_status "302"
