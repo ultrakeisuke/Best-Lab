@@ -49,7 +49,7 @@ RSpec.feature 'ページネーション表示' do
   let(:admin) { create(:admin) }
   background do
     admin.confirm
-    users = build_list(:users, 200, confirmed_at: Time.current, created_at: Time.current, updated_at: Time.current)
+    users = build_list(:users, 200)
     users.each do |user|
       user.save
     end
