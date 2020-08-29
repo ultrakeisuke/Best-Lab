@@ -13,9 +13,9 @@ Rails.application.routes.draw do
     :sessions      => 'users/sessions'
   }
   devise_scope :user do
-    get    "sign_in",  to:"users/sessions#new"
-    delete "sign_out", to:"users/sessions#destroy"
-    post   "users/guest_sign_in", to: 'users/sessions#new_guest'
+    get    'sign_in',  to:'users/sessions#new'
+    delete 'sign_out', to:'users/sessions#destroy'
+    post   'users/guest_sign_in', to: 'users/sessions#new_guest'
   end
   namespace :users do
     resources :profiles, only: [:show]
