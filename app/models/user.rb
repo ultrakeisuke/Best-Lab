@@ -33,4 +33,12 @@ class User < ApplicationRecord
     result
   end
 
+  # ゲストユーザーでログインする際に必要なデータを作成
+  def self.guest
+    find_or_create_by!(name: 'guest', email: 'guest@example.com') do |user|
+      user.password = SecureRandom.urlsafe_base64
+      user.confirmed_at = Time.now
+    end
+  end
+
 end
