@@ -73,15 +73,12 @@ RSpec.feature 'ページネーション表示' do
     fill_in 'パスワード', with: '1234567'
     click_button 'ログイン'
 
-    expect(page).to have_selector 'a', text: 'user-25'
-    expect(page).not_to have_selector 'a', text: 'user-26'
+    expect(all('li').size).to eq(25)
     expect(page).to have_selector 'a', text: '次'
     expect(page).to have_selector 'a', text: '最後'
     expect(page).to have_content '...'
     
     click_link '最後'
-    expect(page).to have_selector 'a', text: 'user-200'
-    expect(page).not_to have_selector 'a', text: 'user-201'
     expect(page).to have_content '...'
     expect(page).to have_selector 'a', text: '最初'
     expect(page).to have_selector 'a', text: '前'
