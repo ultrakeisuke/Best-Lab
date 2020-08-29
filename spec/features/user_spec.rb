@@ -69,8 +69,7 @@ end
 RSpec.feature 'ログインとログアウト' do
   let(:user) { create(:user) }
   background do
-    user.skip_confirmation!
-    user.save
+    user.confirm
   end
 
   scenario 'ログインに失敗する' do
@@ -134,8 +133,7 @@ end
 RSpec.feature 'プロフィールの編集とアカウント削除' do
   let(:user) { create(:user) }
   background do
-    user.skip_confirmation!
-    user.save
+    user.confirm
   end
 
   scenario 'プロフィールの編集に失敗する' do
