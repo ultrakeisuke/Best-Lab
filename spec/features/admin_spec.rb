@@ -34,17 +34,11 @@ RSpec.feature 'ユーザー情報の閲覧と削除' do
     user.confirm
   end
 
-  scenario 'ユーザー情報を閲覧する' do
+  scenario 'ユーザー情報の閲覧とアカウント削除が正常に動作する' do
     login_as_admin(admin)
     expect(page).to have_content 'すべてのユーザー'
     click_link 'user'
     expect(page).to have_selector 'h3', text: 'userさんのプロフィール'
-  end
-
-  scenario 'ユーザーアカウントを削除する' do
-    login_as_admin(admin)
-    expect(page).to have_content 'すべてのユーザー'
-    click_link 'user'
     expect{ click_button 'アカウントの削除' }.to change(User, :count).by(-1)
   end
 
