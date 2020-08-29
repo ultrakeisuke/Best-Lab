@@ -37,7 +37,7 @@ RSpec.feature 'ユーザー情報の閲覧とアカウント削除' do
     end
   end
   
-  scenario 'ページごとのユーザー数とアカウントの削除が正常に作動する' do
+  scenario 'ユーザー情報の閲覧とアカウント削除が正常に作動する' do
     login_as_admin(admin)
 
     expect(page).to have_content 'すべてのユーザー'
