@@ -67,7 +67,7 @@ RSpec.feature 'ページネーション表示' do
     end
   end
   
-  scenario 'ページリンクの表示を確認する' do
+  scenario 'ページごとのユーザー数とページネーションリンクを正常に表示する' do
     visit new_admin_session_path
     fill_in 'メールアドレス', with: admin.email
     fill_in 'パスワード', with: '1234567'
