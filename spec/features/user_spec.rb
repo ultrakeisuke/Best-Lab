@@ -139,7 +139,7 @@ RSpec.feature 'プロフィールの編集とアカウント削除' do
   end
 
   scenario 'プロフィールの編集に失敗する' do
-    login(user)
+    login_as_user(user)
     click_link 'プロフィール' 
     click_link 'プロフィールを編集'
     fill_in '名前', with: ''
@@ -148,7 +148,7 @@ RSpec.feature 'プロフィールの編集とアカウント削除' do
   end
 
   scenario 'プロフィールの編集に成功したのちアカウントを削除する' do
-    login(user)
+    login_as_user(user)
     click_link 'プロフィール' 
     click_link 'プロフィールを編集'
 
