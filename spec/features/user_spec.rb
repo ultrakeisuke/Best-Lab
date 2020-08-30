@@ -167,6 +167,7 @@ RSpec.feature 'プロフィールの編集とアカウント削除' do
 
     click_link 'プロフィールを編集'
     expect { click_button 'アカウントの削除'}.to change(User, :count).by(-1)
+    expect(page).to have_current_path about_path
   end
 
 end
