@@ -47,7 +47,7 @@ RSpec.describe Users::SessionsController, type: :controller do
   describe "destroyアクション" do
     it "正常なレスポンスとページを返す" do
       @request.env["devise.mapping"] = Devise.mappings[:user]
-      delete :destroy, params: { id: user.id }
+      delete :destroy
       expect(response).to have_http_status "302"
       expect(response).to redirect_to about_path
     end
