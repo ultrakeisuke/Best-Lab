@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Users::RegistrationsController, type: :controller do
   let(:user) { create(:user) }
+  let(:guest_user) { create(:guest_user) }
 
   describe "createアクション" do
     context "新規登録に失敗した場合" do
@@ -41,5 +42,14 @@ RSpec.describe Users::RegistrationsController, type: :controller do
       end
     end
   end
-
+  describe "destroyアクション" do
+    context "ゲストユーザーを削除しようとした場合" do
+      it "ゲストユーザーは削除されず、プロフィール画面にリダイレクトする" do
+        login_user(guest_user)
+        expect{ delete :destroy }.not_to change(User, :count)
+        expect(response).to have_http_status "302"
+        expect(response).to redirect_to users_profile_path(guest_user)
+      end
+    end
+  end
 end
