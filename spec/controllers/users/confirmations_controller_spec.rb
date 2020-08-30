@@ -15,7 +15,7 @@ RSpec.describe Users::ConfirmationsController, type: :controller do
     context "本人確認のためのメール送信に成功する場合" do
       it "ログイン画面にリダイレクトする" do
         @request.env["devise.mapping"] = Devise.mappings[:user]
-        post :create, params: { id: user.id, user: { email: "user@example.com" } }
+        post :create, params: { id: user.id, user: { email: user.email } }
         expect(response).to have_http_status "302"
         expect(assigns(:user)).to eq user
         expect(response).to redirect_to new_user_session_path
