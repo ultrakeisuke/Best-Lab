@@ -43,6 +43,14 @@ RSpec.describe Users::RegistrationsController, type: :controller do
     end
   end
   describe "destroyアクション" do
+    context "ユーザーを削除しようとした場合" do
+      it "ユーザーが削除され、プロフィール画面にリダイレクトする" do
+        login_user(user)
+        expect{ delete :destroy }.to change(User, :count).by(-1)
+        expect(response).to have_http_status "302"
+        expect(response).to redirect_to about_path
+      end
+    end
     context "ゲストユーザーを削除しようとした場合" do
       it "ゲストユーザーは削除されず、プロフィール画面にリダイレクトする" do
         login_user(guest_user)
