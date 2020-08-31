@@ -33,7 +33,7 @@ class Users::SessionsController < Devise::SessionsController
     end
 
     def after_sign_out_path_for(resource_name)
-      about_path
+      root_path
     end
 
 end
