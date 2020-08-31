@@ -21,8 +21,8 @@ RSpec.describe Users::SessionsController, type: :controller do
       it "ログイン画面にリダイレクトする" do
         @request.env["devise.mapping"] = Devise.mappings[:user]
         post :create, params: { user: { email: "", password: "" } }
-        expect(response).to have_http_status "302"
-        expect(response).to redirect_to new_user_session_path
+        expect(response).to have_http_status "200"
+        expect(response).to render_template :new
       end
     end
     context "ログインに成功した場合" do
