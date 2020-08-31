@@ -18,11 +18,11 @@ RSpec.describe Users::SessionsController, type: :controller do
   end
   describe "createアクション" do
     context "ログインに失敗した場合" do
-      it "取り扱い説明画面にリダイレクトする" do
+      it "ログイン画面にリダイレクトする" do
         @request.env["devise.mapping"] = Devise.mappings[:user]
         post :create, params: { user: { email: "", password: "" } }
         expect(response).to have_http_status "302"
-        expect(response).to redirect_to about_path
+        expect(response).to redirect_to new_user_session_path
       end
     end
     context "ログインに成功した場合" do
@@ -31,7 +31,7 @@ RSpec.describe Users::SessionsController, type: :controller do
         post :create, params: { user: { email: "user@example.com", password: "1234567" } }
         expect(response).to have_http_status "302"
         expect(assigns(:user)).to eq user
-        expect(response).to redirect_to root_path
+        expect(response).to redirect_to users_basics_path
       end
     end
     context "ゲストユーザーでログインした場合" do
@@ -40,7 +40,7 @@ RSpec.describe Users::SessionsController, type: :controller do
         post :create, params: { user: { email: guest_user.email, password: "1234567" } }
         expect(response).to have_http_status "302"
         expect(assigns(:user)).to eq guest_user
-        expect(response).to redirect_to root_path
+        expect(response).to redirect_to users_basics_path
       end
     end
   end
@@ -49,7 +49,7 @@ RSpec.describe Users::SessionsController, type: :controller do
       @request.env["devise.mapping"] = Devise.mappings[:user]
       delete :destroy
       expect(response).to have_http_status "302"
-      expect(response).to redirect_to about_path
+      expect(response).to redirect_to root_path
     end
   end
 
