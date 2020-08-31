@@ -52,7 +52,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
 
     def after_update_path_for(resource)
-      users_profile_path(id: current_user.id)
+      users_basic_path(current_user)
     end
 
     # The path used after sign up.
