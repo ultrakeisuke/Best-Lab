@@ -8,7 +8,7 @@ RSpec.feature 'ユーザーの新規登録' do
   end
 
   scenario '新規登録に失敗する' do
-    visit about_path
+    visit root_path
     find('a.sign-up').click
     fill_in '名前', with: ''
     fill_in 'メールアドレス', with: ''
@@ -18,7 +18,7 @@ RSpec.feature 'ユーザーの新規登録' do
   end
 
   scenario '新規登録に成功する' do
-    visit about_path
+    visit root_path
     find('a.sign-up').click
     fill_in '名前', with: 'user'
     fill_in 'メールアドレス', with: 'user@example.com'
@@ -42,7 +42,7 @@ RSpec.feature '登録完了のメールを再送信する' do
   end
 
   scenario 'メールの送信に失敗する' do
-    visit about_path
+    visit root_path
     find('a.sign-up').click
     click_link '本人確認のためのメールが届かない、またはメールを紛失した方はこちら'
     fill_in 'メールアドレス', with: ''
@@ -51,7 +51,7 @@ RSpec.feature '登録完了のメールを再送信する' do
   end
   
   scenario 'メールの送信に成功するし、アカウントを有効化する' do
-    visit about_path
+    visit root_path
     find('a.sign-up').click
     click_link '本人確認のためのメールが届かない、またはメールを紛失した方はこちら'
     fill_in 'メールアドレス', with: user.email
@@ -73,7 +73,7 @@ RSpec.feature 'ログインとログアウト' do
   end
 
   scenario 'ログインに失敗する' do
-    visit about_path
+    visit root_path
     click_link 'ログイン'
     fill_in 'メールアドレス', with: ''
     fill_in 'パスワード', with: ''
@@ -82,7 +82,7 @@ RSpec.feature 'ログインとログアウト' do
   end
 
   scenario 'ログインに成功し、ログアウトする' do
-    visit about_path
+    visit root_path
     click_link 'ログイン'
     fill_in 'メールアドレス', with: user.email
     fill_in 'パスワード', with: user.password
@@ -102,7 +102,7 @@ RSpec.feature 'パスワード再設定のメールを送信する' do
   end
 
   scenario 'メールの送信に失敗する' do
-    visit about_path
+    visit root_path
     click_link 'ログイン'
     click_link 'パスワードを忘れた方はこちら'
     fill_in 'メールアドレス', with: ''
@@ -111,7 +111,7 @@ RSpec.feature 'パスワード再設定のメールを送信する' do
   end
 
   scenario 'メールの送信に成功し、パスワードを変更する' do
-    visit about_path
+    visit root_path
     click_link 'ログイン'
     click_link 'パスワードを忘れた方はこちら'
     fill_in 'メールアドレス', with: user.email
@@ -167,7 +167,7 @@ RSpec.feature 'プロフィールの編集とアカウント削除' do
 
     click_link 'プロフィールを編集'
     expect { click_button 'アカウントの削除'}.to change(User, :count).by(-1)
-    expect(page).to have_current_path about_path
+    expect(page).to have_current_path root_path
   end
 
 end
