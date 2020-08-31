@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class Users::BasicsController < ApplicationController
-  before_action :authenticate_user!, only: :home
+  before_action :authenticate_user!, only: :index
   
-  def home
+  def index
     @users = User.all
   end
   
