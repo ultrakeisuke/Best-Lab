@@ -78,7 +78,7 @@ RSpec.feature 'ログインとログアウト' do
     fill_in 'メールアドレス', with: ''
     fill_in 'パスワード', with: ''
     click_button 'ログイン'
-    expect(page).to have_content 'Best-Lab'
+    expect(page).to have_current_path '/users/sign_in'
   end
 
   scenario 'ログインに成功し、ログアウトする' do
@@ -89,7 +89,7 @@ RSpec.feature 'ログインとログアウト' do
     click_button 'ログイン'
     expect(page).to have_content 'ログインしました。'
     click_link 'ログアウト'
-    expect(page).to have_content 'Best-Lab'
+    expect(page).to have_current_path '/'
   end
 
 end
