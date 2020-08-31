@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     post   'users/guest_sign_in', to: 'users/sessions#new_guest'
   end
   namespace :users do
-    resources :basics, only: [:home, :show]
+    resources :basics, only: [:index, :show]
   end
   namespace :admins do
     resources :users, only: [:index, :show, :destroy]
