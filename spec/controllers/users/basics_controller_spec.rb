@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Users::ProfilesController, type: :controller do
+RSpec.describe Users::BasicsController, type: :controller do
   let(:user) { create(:user) }
 
   describe 'showアクション' do
