@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  root 'homes#top'
-  get  '/help',    to:'homes#help'
-  get  '/contact', to:'homes#contact'
+  root 'static_pages#top'
+  get  '/help',    to:'static_pages#help'
+  get  '/contact', to:'static_pages#contact'
   devise_for :admins, :controllers => {
     :sessions      => 'admins/sessions'
   }
