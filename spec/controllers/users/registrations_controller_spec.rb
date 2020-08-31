@@ -38,17 +38,17 @@ RSpec.describe Users::RegistrationsController, type: :controller do
         expect(user.reload.profile).to eq "1"*200
         expect(response).to have_http_status "302"
         expect(assigns(:user)).to eq user
-        expect(response).to redirect_to users_profile_path(user)
+        expect(response).to redirect_to users_basic_path(user)
       end
     end
   end
   describe "destroyアクション" do
     context "ユーザーを削除しようとした場合" do
-      it "ユーザーが削除され、プロフィール画面にリダイレクトする" do
+      it "ユーザーが削除され、トップ画面にリダイレクトする" do
         login_user(user)
         expect{ delete :destroy }.to change(User, :count).by(-1)
         expect(response).to have_http_status "302"
-        expect(response).to redirect_to about_path
+        expect(response).to redirect_to root_path
       end
     end
     context "ゲストユーザーを削除しようとした場合" do
@@ -56,7 +56,7 @@ RSpec.describe Users::RegistrationsController, type: :controller do
         login_user(guest_user)
         expect{ delete :destroy }.not_to change(User, :count)
         expect(response).to have_http_status "302"
-        expect(response).to redirect_to users_profile_path(guest_user)
+        expect(response).to redirect_to users_basic_path(guest_user)
       end
     end
   end
