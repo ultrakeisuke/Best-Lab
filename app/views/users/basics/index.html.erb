@@ -1,0 +1,7 @@
+<% provide(:title, "ホーム") %>
+
+<h3>ホーム</h3>
+
+<% @users.each do |user| %>
+  <%= link_to user.name, users_basic_path(user) %>
+<% end %>
