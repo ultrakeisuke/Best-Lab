@@ -1,8 +1,7 @@
 Rails.application.routes.draw do
-  root 'homes#top'
-  get  '/help',    to:'homes#help'
-  get  '/about',   to:'homes#about'
-  get  '/contact', to:'homes#contact'
+  root 'static_pages#top'
+  get  '/help',    to:'static_pages#help'
+  get  '/contact', to:'static_pages#contact'
   devise_for :admins, :controllers => {
     :sessions      => 'admins/sessions'
   }
@@ -18,7 +17,7 @@ Rails.application.routes.draw do
     post   'users/guest_sign_in', to: 'users/sessions#new_guest'
   end
   namespace :users do
-    resources :profiles, only: [:show]
+    resources :basics, only: [:index, :show]
   end
   namespace :admins do
     resources :users, only: [:index, :show, :destroy]

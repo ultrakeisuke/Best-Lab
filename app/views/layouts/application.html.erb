@@ -13,8 +13,8 @@
     <header>
       <nav>
         <% if user_signed_in? %>
-          <%= link_to 'ホーム', root_path %>
-          <%= link_to 'プロフィール', users_profile_path(current_user) %>
+          <%= link_to 'ホーム', users_basics_path %>
+          <%= link_to 'プロフィール', users_basic_path(current_user) %>
           <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
         <% elsif admin_signed_in? %>
           <%= link_to 'すべてのユーザー', admins_users_path %>
