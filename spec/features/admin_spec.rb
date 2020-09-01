@@ -33,9 +33,7 @@ RSpec.feature 'ユーザー情報の閲覧とアカウント削除' do
   background do
     admin.confirm
     users = build_list(:users, 100)
-    users.each do |user|
-      user.save
-    end
+    User.import users
   end
   
   scenario 'ユーザー情報の閲覧とアカウント削除が正常に作動する' do
