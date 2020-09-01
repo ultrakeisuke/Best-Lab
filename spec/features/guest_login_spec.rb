@@ -9,6 +9,7 @@ RSpec.feature 'ゲストログインとアカウント削除' do
   scenario 'ゲストユーザーのアカウントを削除できない' do
     visit root_path
     click_link 'ゲストログイン(閲覧用)'
+    expect(page).to have_current_path '/users/basics'
     expect(page).to have_content 'ゲストユーザーとしてログインしました。'
 
     click_link 'プロフィール'
