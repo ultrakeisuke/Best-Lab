@@ -16,6 +16,7 @@ RSpec.feature 'ゲストログインとアカウント削除' do
     expect{ click_button 'アカウントの削除' }.not_to change(User, :count)
     
     expect(page).to have_current_path users_basic_path(guest_user)
+    expect(page).to have_content 'ゲストユーザーは削除できません。'
     expect(page).to have_selector 'h3', text: guest_user.name
   end
 
