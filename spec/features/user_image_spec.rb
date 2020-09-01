@@ -15,6 +15,8 @@ RSpec.feature 'プロフィール画像のアップロード' do
     click_link 'プロフィールを編集'
     attach_file 'プロフィール画像', "#{Rails.root}/spec/factories/images/rails.png"
     click_button '保存'
+
+    # 画像のアップロードを確認
     expect(page).to have_selector("img[src$='rails.png']")
   end
 end
