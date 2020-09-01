@@ -19,6 +19,7 @@ group :development, :test do
   gem 'rails-controller-testing'
   gem 'pry-rails'
   gem 'pry-byebug'
+  gem 'activerecord-import'
 end
 
 group :development do
