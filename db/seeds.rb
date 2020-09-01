@@ -11,4 +11,3 @@ User.import users
 
 admin_user = Admin.create!(email: "admin@example.com",
                            password: "1234567")
-admin_user.confirm
