@@ -8,15 +8,7 @@ RSpec.feature 'プロフィール画像のアップロード' do
   end
 
   scenario '画像アップロード' do
-    visit about_path
-    expect(page).to have_http_status :ok
-
-    # ログインに成功
-    click_link 'ログイン'
-    fill_in 'メールアドレス', with: user.email
-    fill_in 'パスワード', with: '1234567'
-    click_button 'ログイン'
-    expect(page).to have_content 'ログインしました。'
+    login_as_user(user)
 
     # ユーザーのプロフィールの編集
     click_link 'プロフィール'
