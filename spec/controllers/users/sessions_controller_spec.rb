@@ -37,9 +37,8 @@ RSpec.describe Users::SessionsController, type: :controller do
     context "ゲストユーザーでログインした場合" do
       it "ホーム画面にリダイレクトする" do
         @request.env["devise.mapping"] = Devise.mappings[:user]
-        post :create, params: { user: { email: guest_user.email, password: "1234567" } }
+        post :new_guest, params: { user: { name: guest_user.name, email: guest_user.email } }
         expect(response).to have_http_status "302"
-        expect(assigns(:user)).to eq guest_user
         expect(response).to redirect_to users_basics_path
       end
     end
