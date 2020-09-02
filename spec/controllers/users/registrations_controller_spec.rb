@@ -4,10 +4,13 @@ RSpec.describe Users::RegistrationsController, type: :controller do
   let(:user) { create(:user) }
   let(:guest_user) { create(:guest_user) }
 
+  before do
+    @request.env["devise.mapping"] = Devise.mappings[:user]
+  end
+
   describe "createアクション" do
     context "新規登録に失敗した場合" do
       it "新規登録画面にレンダリングする" do
-        @request.env["devise.mapping"] = Devise.mappings[:user]
         post :create, params: { user: { name: "", email: "", password: "", password_confirmation: "" } }
         expect(response).to have_http_status "200"
         expect(response).to render_template :new
@@ -15,7 +18,6 @@ RSpec.describe Users::RegistrationsController, type: :controller do
     end
     context "新規登録成功した場合" do
       it "ログイン画面にリダイレクトする" do
-        @request.env["devise.mapping"] = Devise.mappings[:user]
         post :create, params: { user: { name: "user", email: "user@example.com", password: "1234567", password_confirmation: "1234567" } }
         expect(response).to have_http_status "302"
         expect(response).to redirect_to new_user_session_path
