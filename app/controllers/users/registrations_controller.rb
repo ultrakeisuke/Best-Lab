@@ -65,6 +65,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
       new_user_session_path
     end
 
+    def update_resource(resource, params)
+      resource.update_without_current_password(params)
+    end
+
     # ゲストユーザーの場合は削除できないようにする
     def check_guest
       if resource.email == 'guest@example.com'
