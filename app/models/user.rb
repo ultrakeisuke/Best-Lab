@@ -20,7 +20,7 @@ class User < ApplicationRecord
   end
 
   # 現在のパスワードを入力することなくプロフィールを更新する
-  def update_with_password(params, *options)
+  def update_without_password(params, *options)
     params.delete(:current_password)
     if params[:password].blank? && params[:password_confirmation].blank?
       params.delete(:password)
