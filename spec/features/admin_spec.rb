@@ -2,9 +2,6 @@ require 'rails_helper'
 
 RSpec.feature 'ログインとログアウト' do
   let(:admin) { create(:admin) }
-  background do
-    admin.confirm
-  end
 
   scenario 'ログインに失敗する' do
     visit new_admin_session_path
@@ -31,7 +28,6 @@ end
 RSpec.feature 'ユーザー情報の閲覧とアカウント削除' do
   let(:admin) { create(:admin) }
   background do
-    admin.confirm
     users = build_list(:users, 100)
     User.import users
   end
