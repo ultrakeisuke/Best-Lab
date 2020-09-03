@@ -5,7 +5,8 @@ users = []
   users << User.new(name: name,
                     email: email,
                     password: "1234567",
-                    password_confirmation: "1234567")
+                    password_confirmation: "1234567",
+                    confirmed_at: Time.now)
 end
 User.import users
 
