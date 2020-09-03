@@ -1,5 +1,5 @@
 module CarrierWave
-  module Minimagick
+  module MiniMagick
     def quality(percentage)
       manipulate! do |img|
         img.quality(percentage.to_s)
