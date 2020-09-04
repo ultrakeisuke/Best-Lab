@@ -7,7 +7,8 @@ class User < ApplicationRecord
   validates :name, presence: true, length: { maximum: 50 }
   enum  affiliation: { undergraduate: 0, graduate: 1 }
   validates :profile, length: { maximum: 200 }
-
+  has_many :entries, dependent: :destroy
+  has_many :messages, dependent: :destroy
 
   # 新規登録完了時の自動ログインの防止
   def active_for_authentication?
