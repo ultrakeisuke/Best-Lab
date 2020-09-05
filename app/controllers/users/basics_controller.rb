@@ -21,6 +21,7 @@ class Users::BasicsController < ApplicationController
         @another_user_entry.each do |another|
           if current.room_id == another.room_id
             @is_room = true
+            @room_id = current.room_id
           end
         end
       end
