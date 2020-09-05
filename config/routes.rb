@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   end
   namespace :users do
     resources :basics, only: [:index, :show]
+    resources :messages, only: [:create, :destroy]
   end
   namespace :admins do
     resources :users, only: [:index, :show, :destroy]
