@@ -1,7 +1,7 @@
 users = []
 100.times do |n|
   name = Faker::Name.name
-  email = Faker::Internet.email
+  email = "user-#{n+1}@example.com"
   users << User.new(name: name,
                     email: email,
                     password: "1234567",
