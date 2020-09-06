@@ -8,7 +8,7 @@ class Users::MessagesController < ApplicationController
     if massage.save
       redirect_to room_path(message.room)
     else
-      redirect_to 
+      redirect_to users_basics_path
     end
   end
 
