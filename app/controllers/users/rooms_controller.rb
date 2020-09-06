@@ -22,7 +22,7 @@ class Users::RoomsController < ApplicationController
       my_room_ids << entry.room.id
     end
     # ログインユーザーが参加しているすべてのroomから、user_idがログインユーザーでないレコードを取得
-    another_entries = Entry.where(room_id: my_room_ids).where.not(user_id: current_user.id)
+    @another_entries = Entry.where(room_id: my_room_ids).where.not(user_id: current_user.id)
   end
 
   def show
