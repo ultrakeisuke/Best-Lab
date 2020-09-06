@@ -27,6 +27,8 @@ ja:
         current_password: 現在のパスワード
         remember_me: 次回から自動的にログイン
         confirmation_token: 認証
+      message:
+        body: メッセージ
   enums:
     user:
       affiliation:
