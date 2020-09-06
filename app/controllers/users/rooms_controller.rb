@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Users::RoomsController < ApplicationController
+  before_action :authenticate_user!, only: [:index, :show, :create]
 
   def create
     # メッセージルームを作成
