@@ -4,10 +4,6 @@ RSpec.describe Admins::UsersController, type: :controller do
   let(:user) { create(:user) }
   let(:admin) { create(:admin) }
 
-  before do
-    admin.confirm
-  end
-
   describe "indexアクション" do
     context "ログインしていない場合" do
       it "ホーム画面にリダイレクト" do
