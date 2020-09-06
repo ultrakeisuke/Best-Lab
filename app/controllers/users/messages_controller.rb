@@ -4,8 +4,8 @@ class Users::MessagesController < ApplicationController
 
   def create
     message = Message.new(message_params)
-    message.user_id = current_user_id
-    if massage.save
+    message.user_id = current_user.id
+    if message.save
       redirect_to users_room_path(message.room)
     else
       redirect_to users_basics_path
