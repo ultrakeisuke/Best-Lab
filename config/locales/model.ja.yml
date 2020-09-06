@@ -29,6 +29,7 @@ ja:
         confirmation_token: 認証
       message:
         body: メッセージ
+        picture: 画像
   enums:
     user:
       affiliation:
