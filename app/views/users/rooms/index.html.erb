@@ -1,0 +1,15 @@
+<% provide(:title, "メッセージ") %>
+
+<h3>メッセージ</h3>
+
+<% @another_entries.each do |entry| %>
+  <ul>
+    <li>
+      <%= link_to entry.user.picture, users_basic_path(entry.user) %>
+      <%= link_to(users_room_path(entry.room)) do %>
+        <p><%= entry.user.name %></p>
+        <p><%= Message.find_by(id: entry.room.message_ids.last)&.body %></p>
+      <% end %>
+    </li>
+  </ul>
+<% end %>
