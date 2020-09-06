@@ -6,8 +6,8 @@
   <ul>
     <li>
       <%= link_to message.user.name, users_basic_path(message.user) %><br />
-      <%= message.body %>
-    </li>
+      <%= message.body %><br />
+      <%= image_tag message.picture.url %>
   </ul>
 <% end %>
 
