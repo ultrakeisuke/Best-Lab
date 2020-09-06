@@ -1,0 +1,26 @@
+<% provide(:title, @another_entry.user.name) %>
+
+<h3><%= link_to @another_entry.user.name, users_basic_path(@another_entry.user) %></h3>
+
+<% @room.messages.each do |message| %>
+  <ul>
+    <li>
+      <%= link_to message.user.name, users_basic_path(message.user) %>
+      <%= message.body %>
+    </li>
+  </ul>
+<% end %>
+
+<%= form_with model: @message, url: users_messages_path, local: true do |f| %>
+  <%= f.hidden_field :room_id, value: @room.id %>
+
+  <div class="field" >
+    <%= f.label :body %><br />
+    <%= f.text_field :body %>
+  </div>
+
+  <div class="actions" >
+    <%= f.submit '送信' %>
+  </div>
+
+<% end %>
