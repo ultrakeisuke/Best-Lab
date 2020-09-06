@@ -12,6 +12,7 @@
   <body>
     <header>
       <nav>
+        <%= link_to "Best-Lab", root_path %>
         <% if user_signed_in? %>
           <%= link_to 'ホーム', users_basics_path %>
           <%= link_to 'プロフィール', users_basic_path(current_user) %>
