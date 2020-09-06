@@ -6,7 +6,7 @@ class Users::MessagesController < ApplicationController
     message = Message.new(message_params)
     message.user_id = current_user_id
     if massage.save
-      redirect_to room_path(message.room)
+      redirect_to users_room_path(message.room)
     else
       redirect_to users_basics_path
     end
