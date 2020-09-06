@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Users::MessagesController < ApplicationController
+  before_action :authenticate_user!, only: [:create, :destroy]
 
   def create
     message = Message.new(message_params)
