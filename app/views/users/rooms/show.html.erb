@@ -5,7 +5,7 @@
 <% @room.messages.each do |message| %>
   <ul>
     <li>
-      <%= link_to message.user.name, users_basic_path(message.user) %>
+      <%= link_to message.user.name, users_basic_path(message.user) %><br />
       <%= message.body %>
     </li>
   </ul>
