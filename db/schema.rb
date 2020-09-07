@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_06_221411) do
+ActiveRecord::Schema.define(version: 2020_09_07_110955) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,14 @@ ActiveRecord::Schema.define(version: 2020_09_06_221411) do
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
+  create_table "pictures", force: :cascade do |t|
+    t.bigint "message_id", null: false
+    t.string "picture"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["message_id"], name: "index_pictures_on_message_id"
+  end
+
   create_table "rooms", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -87,4 +95,5 @@ ActiveRecord::Schema.define(version: 2020_09_06_221411) do
   add_foreign_key "entries", "users"
   add_foreign_key "messages", "rooms"
   add_foreign_key "messages", "users"
+  add_foreign_key "pictures", "messages"
 end
