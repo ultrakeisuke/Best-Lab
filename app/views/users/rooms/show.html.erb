@@ -17,6 +17,9 @@
   <div class="field" >
     <%= f.label :body %><br />
     <%= f.text_field :body %>
+    <%= f.fields_for :pictures, @message.pictures.build do |pi| %>
+      <%= pi.file_field :picture %>
+    <% end %>
   </div>
 
   <div class="actions" >
