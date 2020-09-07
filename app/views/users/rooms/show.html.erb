@@ -7,7 +7,10 @@
     <li>
       <%= link_to message.user.name, users_basic_path(message.user) %><br />
       <%= message.body %><br />
-      <%= image_tag message.picture.url %>
+      <% if message.picture.present? %>
+        <%= image_tag message.picture.url %>
+      <% else %>
+      <% end %>
     </li>
   </ul>
 <% end %>
