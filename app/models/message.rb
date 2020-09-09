@@ -1,6 +1,6 @@
 class Message < ApplicationRecord
   belongs_to :user
   belongs_to :room
-  has_many :pictures
+  has_many :pictures, dependent: :destroy
   accepts_nested_attributes_for :pictures
 end
