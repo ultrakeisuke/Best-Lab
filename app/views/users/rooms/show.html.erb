@@ -7,6 +7,9 @@
     <li>
       <%= link_to message.user.name, users_basic_path(message.user) %><br />
       <%= message.body %><br />
+      <% message.pictures.each do |message_picture| %>
+        <%= image_tag message_picture.picture.url %>
+      <% end %>
     </li>
   </ul>
 <% end %>
@@ -17,9 +20,11 @@
   <div class="field" >
     <%= f.label :body %><br />
     <%= f.text_field :body %>
-    <%= f.fields_for :pictures, @message.pictures.build do |pi| %>
-      <%= pi.file_field :picture %>
-    <% end %>
+    <div class="message-pictures" >
+      <%= f.fields_for :pictures, @message.pictures.build do |pi| %>
+        <%= pi.file_field :picture %>
+      <% end %>
+    </div>
   </div>
 
   <div class="actions" >
