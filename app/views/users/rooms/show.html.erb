@@ -22,7 +22,9 @@
     <%= f.text_field :body %>
     <div class="message-pictures" >
       <%= f.fields_for :pictures, @message.pictures.build do |pi| %>
-        <%= pi.file_field :picture %>
+        <%= pi.file_field :picture, type: 'file', name: "message[pictures_attributes][][picture]", value: "", style: "display:none", id: "picture-file" %>
+        <label for="picture-file">
+        <i class="fas fa-camera"></i>
       <% end %>
     </div>
   </div>
