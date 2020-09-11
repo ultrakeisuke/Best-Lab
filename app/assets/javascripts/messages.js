@@ -10,7 +10,16 @@ $(function () {
     //読み込み完了後にファイルのURLをsrcに格納するイベントを設定
     fileReader.onloadend = function () {
       var src = fileReader.result
-      var html = `<img src="${src}" width="100" height="80">`
+      var html = `<div class='message-picture' data-picture="${file.name}">
+                    <div class='message-picture__content'>
+                      <div class='message-picture__content--icon'>
+                        <img src=${src} width='100' height='80'>
+                      </div>
+                    </div>
+                    <div class='message-picture__operation'>
+                      <div class='message-picture__operation--delete'>削除</div>
+                    </div>
+                  </div>`
       //#picture-containerの前にhtmlを挿入
       $('#picture-container').before(html);
     }
