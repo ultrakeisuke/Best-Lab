@@ -26,4 +26,12 @@ $(function () {
     //読み込みを実行
     fileReader.readAsDataURL(file);
   });
+  $(document).on("click", '.message-picture__operation--delete', function () {
+    //プレビュー要素(.message-picture)を取得
+    var target_picture = $(this).parent().parent()
+    //プレビュー全体を消去
+    target_picture.remove();
+    //inputタグに入ったファイルを削除
+    file_field.val("")
+  })
 });
