@@ -45,9 +45,28 @@ $(function () {
   $(document).on("click", '.message-picture__operation--delete', function () {
     //プレビュー要素(.message-picture)を取得
     var target_picture = $(this).parent().parent()
-    //プレビュー全体を消去
-    target_picture.remove();
-    //inputタグに入ったファイルを削除
-    file_field.val("")
+    //削除ボタンを押された画像のfile名を取得
+    var target_name = $(target_picture).data('picture')
+    //プレビューがひとつだけの場合file_fieldを削除
+    if (file_field.files.length == 1) {
+      //inputタグに入ったファイルを削除
+      $('input[type=file]').val(null)
+      //dataTransfer内のデータを削除
+      dataBox.clearData();
+      console.log(dataBox)
+    } else {
+      $.each(file_field.files, function (i, input) {
+        if (input.name == target_name) {
+          dataBox.items.remove(i)
+        }
+      })
+      file_field.files = dataBox.files
+    }
+    //対象のプレビューを消去
+    target_picture.remove()
+    //#picture-containerクラスを持つdivタグをファイル削除のたびに変更
+    var num = $('.message-picture').length
+    $('#picture-container').show()
+    $('#picture-container').attr('class', `picture-num-${num}`)
   })
 });
