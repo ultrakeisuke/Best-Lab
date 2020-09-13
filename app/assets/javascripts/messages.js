@@ -20,7 +20,7 @@ $(function () {
       fileReader.readAsDataURL(file);
       //画像が4枚になったらdataBoxを削除
       if (num == 4) {
-        $('#picture-container').css('display', 'none')
+        $('#picture-box__container').css('display', 'none')
       }
       //読み込み完了後にファイルのURLをsrcに格納するイベントを設定
       fileReader.onloadend = function () {
@@ -35,11 +35,11 @@ $(function () {
                         <div class='message-picture__operation--delete'>削除</div>
                       </div>
                     </div>`
-        //#picture-containerの前にhtmlを挿入
-        $('#picture-container').before(html);
+        //#picture-box__containerの前にhtmlを挿入
+        $('#picture-box__container').before(html);
       }
-      //#picture-containerクラスを変更し、CSSでドロップボックスの大きさを変更
-      $('#picture-container').attr('class', `picture-num-${num}`)
+      //#picture-box__containerクラスを変更し、CSSでドロップボックスの大きさを変更
+      $('#picture-box__container').attr('class', `picture-num-${num}`)
     });
   });
   $(document).on("click", '.message-picture__operation--delete', function () {
@@ -64,9 +64,9 @@ $(function () {
     }
     //対象のプレビューを消去
     target_picture.remove()
-    //#picture-containerクラスを持つdivタグをファイル削除のたびに変更
+    //#picture-box__containerクラスを持つdivタグをファイル削除のたびに変更
     var num = $('.message-picture').length
-    $('#picture-container').show()
-    $('#picture-container').attr('class', `picture-num-${num}`)
+    $('#picture-box__container').show()
+    $('#picture-box__container').attr('class', `picture-num-${num}`)
   })
 });

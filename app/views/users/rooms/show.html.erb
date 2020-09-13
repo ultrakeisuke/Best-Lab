@@ -20,7 +20,7 @@
   <div class="field" >
     <%= f.label :body %><br />
     <%= f.text_field :body %>
-    <div id="picture-container" >
+    <div class="picture-num-0" id="picture-box__container" >
       <%= f.fields_for :pictures, @message.pictures.build do |pi| %>
         <%= pi.file_field :picture, type: 'file', name: "message[pictures_attributes][][picture]", value: "", style: "display:none", id: "picture-file" %>
         <label for="picture-file">
