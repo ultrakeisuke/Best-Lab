@@ -20,13 +20,13 @@
   <div class="field" >
     <%= f.label :body %><br />
     <%= f.text_field :body %>
+    <label for="picture-file">
+      <i class="fas fa-camera"></i>
+    </label>
     <div id="picture-box">
       <div class="picture-num-0" id="picture-box__container" >
         <%= f.fields_for :pictures, @message.pictures.build do |pi| %>
           <%= pi.file_field :picture, type: 'file', name: "message[pictures_attributes][][picture]", value: "", style: "display:none", id: "picture-file" %>
-          <label for="picture-file">
-            <i class="fas fa-camera"></i>
-          </label>
         <% end %>
       </div>
     </div>
