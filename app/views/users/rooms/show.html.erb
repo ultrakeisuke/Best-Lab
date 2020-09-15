@@ -5,7 +5,10 @@
 <% @room.messages.each do |message| %>
   <ul>
     <li>
-      <%= link_to message.user.name, users_basic_path(message.user) %><br />
+      <%= link_to(users_basic_path(message.user)) do %>
+        <%= image_tag message.user.picture.url %>
+        <%= message.user.name %><br />
+      <% end %>
       <%= message.body %><br />
       <% message.pictures.each do |message_picture| %>
         <%= image_tag message_picture.picture.url %>
