@@ -29,7 +29,7 @@ $(function () {
         var html = `<div class='message-picture' data-picture="${file.name}">
                       <div class='message-picture__content'>
                         <div class='message-picture__content--icon'>
-                          <img src=${src} width='100%' height='150'>
+                          <img src=${src} width='100%' height='80'>
                         </div>
                       </div>
                       <div class='message-picture__operation'>
