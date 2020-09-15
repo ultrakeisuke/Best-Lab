@@ -33,7 +33,9 @@ $(function () {
                         </div>
                       </div>
                       <div class='message-picture__operation'>
-                        <div class='message-picture__operation--delete'>削除</div>
+                        <div class='message-picture__operation--delete'>
+                          <i class="far fa-times-circle"></i>
+                        </div>
                       </div>
                     </div>`
         //#picture-box__containerの前にhtmlを挿入
