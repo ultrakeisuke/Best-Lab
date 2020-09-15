@@ -30,7 +30,7 @@
     <div id="picture-box">
       <div class="picture-num-0" id="picture-box__container" >
         <%= f.fields_for :pictures, @message.pictures.build do |pi| %>
-          <%= pi.file_field :picture, type: 'file', name: "message[pictures_attributes][][picture]", value: "", style: "display:none", id: "picture-file" %>
+          <%= pi.file_field :picture, type: 'file', multiple: "multiple", name: "message[pictures_attributes][][picture]", value: "", style: "display:none", id: "picture-file" %>
         <% end %>
       </div>
     </div>
