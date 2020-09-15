@@ -3,7 +3,8 @@ $(function () {
   var dataBox = new DataTransfer();
   //querySelectorでfile_fieldを取得
   var file_field = document.querySelector('input[type="file"]')
-  //fileが選択した際にイベントが発生
+
+  //fileを選択するとイベントが発生
   $('#picture-file').change(function () {
     //アップロードするファイルにアクセス
     var files = $('input[type="file"]').prop('files')[0];
@@ -20,7 +21,7 @@ $(function () {
       fileReader.readAsDataURL(file);
       //画像が4枚になったらdataBoxを削除
       if (num == 4) {
-        $('#picture-box__container').css('display', 'none')
+        $('.picture-icon').css('display', 'none')
       }
       //読み込み完了後にファイルのURLをsrcに格納するイベントを設定
       fileReader.onloadend = function () {
