@@ -41,8 +41,6 @@ $(function () {
         //#picture-box__containerの前にhtmlを挿入
         $('#picture-box__container').before(html);
       }
-      //#picture-box__containerクラスを変更し、CSSでドロップボックスの大きさを変更
-      $('#picture-box__container').attr('class', `picture-num-${num}`)
     });
   });
   $(document).on("click", '.message-picture__operation--delete', function () {
@@ -67,9 +65,5 @@ $(function () {
     }
     //対象のプレビューを消去
     target_picture.remove()
-    //#picture-box__containerクラスを持つdivタグをファイル削除のたびに変更
-    var num = $('.message-picture').length
-    $('#picture-box__container').show()
-    $('#picture-box__container').attr('class', `picture-num-${num}`)
   })
 });
