@@ -5,8 +5,12 @@
 <% @another_entries.each do |entry| %>
   <ul>
     <li>
-      <%= link_to entry.user.picture, users_basic_path(entry.user) %>
       <%= link_to(users_room_path(entry.room)) do %>
+        <% if entry.user.picture? %>
+          <%= image_tag entry.user.picture.url %>
+        <% else %>
+          <%= image_tag 'round-flask.jpeg' %>
+        <% end %>
         <p><%= entry.user.name %></p>
         <p><%= Message.find_by(id: entry.room.message_ids.last)&.body %></p>
       <% end %>
