@@ -30,6 +30,16 @@
     }
   }
 }
+.post-field {
+  label {
+    margin: 0;
+    vertical-align: middle;
+    cursor: pointer;
+    i {
+      font-size: 22px;
+    }
+  }
+}
 .message-picture {
   margin-top: 14px;
   margin-bottom: 14px;
