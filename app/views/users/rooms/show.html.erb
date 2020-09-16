@@ -7,7 +7,11 @@
     <div class="message-field__content">
       <div class="message-field__content--profile">
         <%= link_to(users_basic_path(message.user)) do %>
-          <%= image_tag message.user.picture.url %>
+          <% if message.user.picture? %>
+            <%= image_tag message.user.picture.url %>
+          <% else %>
+            <%= image_tag 'round-flask.jpeg' %>
+          <% end %>
           <%= message.user.name %><br />
         <% end %>
       </div>
