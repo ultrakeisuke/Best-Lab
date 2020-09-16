@@ -3,7 +3,7 @@
 <% if @user.picture? %>
   <%= image_tag @user.picture.url %>
 <% else %>
-  <%= image_tag "round-flask.jpeg" %>
+  <%= image_tag "default.jpeg" %>
 <% end %>
 
 <h3><%= @user.name %></h3>

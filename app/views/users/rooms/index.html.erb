@@ -9,7 +9,7 @@
         <% if entry.user.picture? %>
           <%= image_tag entry.user.picture.url %>
         <% else %>
-          <%= image_tag 'round-flask.jpeg' %>
+          <%= image_tag 'default.jpeg' %>
         <% end %>
         <p><%= entry.user.name %></p>
         <p><%= Message.find_by(id: entry.room.message_ids.last)&.body %></p>
