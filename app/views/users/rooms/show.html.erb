@@ -15,10 +15,12 @@
         <% end %>
       </div>
       <div class="message-field__content--message">
-        <%= message.body %><br />
-        <% message.pictures.each do |message_picture| %>
-          <%= image_tag message_picture.picture.url %>
-        <% end %>
+        <p><%= message.body %></p>
+        <p>
+          <% message.pictures.each do |message_picture| %>
+            <%= image_tag message_picture.picture.url %>
+          <% end %>
+        </p>
       </div>
     </div>
   <% end %>
