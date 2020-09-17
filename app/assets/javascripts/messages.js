@@ -7,7 +7,6 @@ $(function () {
   //fileを選択するとイベントが発生
   $('#picture-file').change(function () {
     //アップロードするファイルにアクセス
-    var files = $('input[type="file"]').prop('files')[0];
     $.each(this.files, function (i, file) {
       //ファイルをURIとして読み込む処理を設定
       var fileReader = new FileReader();
