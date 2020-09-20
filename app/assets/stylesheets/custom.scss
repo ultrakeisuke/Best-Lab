@@ -47,6 +47,14 @@ li {
     text-align: right;
     .message-field__content {
       flex-direction: row-reverse;
+      &:before {
+        content: "";
+        position: absolute;
+        top: 20%;
+        right: 40px;
+        border: 8px solid transparent;
+        border-left: 8px solid #00BFFF;
+      }
       .message-field__content--profile {
         margin-left: 15px;
       }
@@ -54,14 +62,25 @@ li {
   }
   .left-message {
     text-align: left;
-    .message-field__content--profile {
-      margin-right: 15px;
+    .message-field__content {
+      &:before {
+        content: "";
+        position: absolute;
+        top: 20%;
+        left: 40px;
+        border: 8px solid transparent;
+        border-right: 8px solid #00BFFF;
+      }
+      .message-field__content--profile {
+        margin-right: 15px;
+      }
     }
   }
   border-radius: 5px;
   .message-field__content {
     padding: 0;
     margin-bottom: 10px;
+    position: relative;
     display: flex;
     vertical-align: middle;
     border-radius: 5px;
