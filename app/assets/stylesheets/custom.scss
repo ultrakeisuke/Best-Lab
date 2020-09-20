@@ -11,7 +11,10 @@ li {
 }
 
 .container {
-  width: 90%;
+  padding: 0;
+  margin: 0 auto;
+  width: 70%;
+  background-color: silver;
 }
 
 //users/roomsフォルダ
@@ -39,16 +42,33 @@ li {
 }
 //show
 .message-field {
-  display: inline-block;
-  flex-direction: column;
+  padding: 12px 40px;
+  .right-message {
+    text-align: right;
+    .message-field__content {
+      flex-direction: row-reverse;
+      .message-field__content--profile {
+        margin-left: 15px;
+      }
+    }
+  }
+  .left-message {
+    text-align: left;
+    .message-field__content--profile {
+      margin-right: 15px;
+    }
+  }
+  border-radius: 5px;
   .message-field__content {
     padding: 0;
     margin-bottom: 10px;
+    display: flex;
     vertical-align: middle;
     border-radius: 5px;
     .message-field__content--profile {
+      margin-bottom: 8px;
       img {
-        width: 30px;
+        width: 40px;
         border-radius: 50%;
       }
     }
@@ -58,6 +78,7 @@ li {
       background-color: #00BFFF;
       p {
         margin: 0;
+        font-size: 15px;
       }
       img {
         width: 50px;
