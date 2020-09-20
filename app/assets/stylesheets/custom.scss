@@ -10,6 +10,27 @@ li {
 }
 
 //message-room
+.room-list {
+  border: 1.5px solid grey;
+  background-color: silver;
+  ul > li {
+    padding: 5px;
+    display: flex;
+    border-bottom: 1px solid black;
+    .room-list__image {
+      img {
+        width: 50px;
+        border-radius: 50%;
+        vertical-align: middle;
+      }
+    }
+    .room-list__text {
+      p {
+        font-size: 14px;
+      }
+    }
+  }
+}
 .message-field {
   display: inline-block;
   flex-direction: column;
