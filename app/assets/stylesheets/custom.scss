@@ -10,7 +10,8 @@ li {
   list-style: none;
 }
 
-//message-room
+//users/roomsフォルダ
+//index
 .room-list {
   border: 1.5px solid grey;
   background-color: silver;
@@ -32,6 +33,7 @@ li {
     }
   }
 }
+//show
 .message-field {
   display: inline-block;
   flex-direction: column;
