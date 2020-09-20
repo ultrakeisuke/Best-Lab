@@ -43,6 +43,9 @@ li {
 //show
 .message-field {
   padding: 12px 40px;
+  width: 60%;
+  height: 500px;
+  overflow: scroll;
   .right-message {
     text-align: right;
     .message-field__content {
@@ -57,6 +60,11 @@ li {
       }
       .message-field__content--profile {
         margin-left: 15px;
+      }
+      .message-field__content--message {
+        p {
+          text-align: left;
+        }
       }
     }
   }
@@ -84,6 +92,7 @@ li {
     display: flex;
     vertical-align: middle;
     border-radius: 5px;
+    word-wrap: break-word;
     .message-field__content--profile {
       margin-bottom: 8px;
       img {
@@ -93,6 +102,7 @@ li {
     }
     .message-field__content--message {
       padding: 8px;
+      max-width: 80%;
       border-radius: 3px; 
       background-color: #00BFFF;
       p {
@@ -107,10 +117,6 @@ li {
   }
 }
 .post-field {
-  textarea {
-    white-space: pre-wrap;
-    word-wrap: break-word;
-  }
   label {
     margin: 0;
     vertical-align: middle;
