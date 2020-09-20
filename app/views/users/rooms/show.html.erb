@@ -2,25 +2,51 @@
 
 <h3><%= link_to @another_entry.user.name, users_basic_path(@another_entry.user) %></h3>
 
-<div class="message-field">
+<div class="message-field container">
   <% @room.messages.each do |message| %>
-    <div class="message-field__content">
-      <div class="message-field__content--profile">
-        <%= link_to(users_basic_path(message.user)) do %>
-          <% if message.user.picture? %>
-            <%= image_tag message.user.picture.url %>
-          <% else %>
-            <%= image_tag 'default.jpeg' %>
-          <% end %>
-        <% end %>
+    <% if message.user_id == current_user.id %>
+      <div class="right-message">
+        <div class="message-field__content">
+          <div class="message-field__content--profile">
+            <%= link_to(users_basic_path(message.user)) do %>
+              <% if message.user.picture? %>
+                <%= image_tag message.user.picture.url %>
+              <% else %>
+                <%= image_tag 'default.jpeg' %>
+              <% end %>
+            <% end %>
+          </div>
+          <div class="message-field__content--message">
+            <p><%= message.body %></p>
+            <% message.pictures.each do |message_picture| %>
+              <%= image_tag message_picture.picture.url %>
+            <% end %>
+          </div>
+        </div>
+        <br />
       </div>
-      <div class="message-field__content--message">
-        <p><%= message.body %></p>
-        <% message.pictures.each do |message_picture| %>
-          <%= image_tag message_picture.picture.url %>
-        <% end %>
+    <% else %>
+      <div class="left-message">
+        <div class="message-field__content">
+          <div class="message-field__content--profile">
+            <%= link_to(users_basic_path(message.user)) do %>
+              <% if message.user.picture? %>
+                <%= image_tag message.user.picture.url %>
+              <% else %>
+                <%= image_tag 'default.jpeg' %>
+              <% end %>
+            <% end %>
+          </div>
+          <div class="message-field__content--message">
+            <p><%= message.body %></p>
+            <% message.pictures.each do |message_picture| %>
+              <%= image_tag message_picture.picture.url %>
+            <% end %>
+          </div>
+        </div>
+        <br />
       </div>
-    </div>
+    <% end %>
   <% end %>
  </div>
 
