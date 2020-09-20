@@ -2,18 +2,20 @@
 
 <h3>メッセージ</h3>
 
-<% @another_entries.each do |entry| %>
-  <ul>
-    <li>
-      <%= link_to(users_room_path(entry.room)) do %>
-        <% if entry.user.picture? %>
-          <%= image_tag entry.user.picture.url %>
-        <% else %>
-          <%= image_tag 'default.jpeg' %>
+<div class="message-list">
+  <% @another_entries.each do |entry| %>
+    <ul>
+      <li>
+        <%= link_to(users_room_path(entry.room)) do %>
+          <% if entry.user.picture? %>
+            <%= image_tag entry.user.picture.url %>
+          <% else %>
+            <%= image_tag 'default.jpeg' %>
+          <% end %>
+          <p><%= entry.user.name %></p>
+          <p><%= Message.find_by(id: entry.room.message_ids.last)&.body %></p>
         <% end %>
-        <p><%= entry.user.name %></p>
-        <p><%= Message.find_by(id: entry.room.message_ids.last)&.body %></p>
-      <% end %>
-    </li>
-  </ul>
-<% end %>
+      </li>
+    </ul>
+  <% end %>
+</div>
