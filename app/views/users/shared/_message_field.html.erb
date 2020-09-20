@@ -1,0 +1,18 @@
+<div class="message-field__content">
+  <div class="message-field__content--profile">
+    <%= link_to(users_basic_path(message.user)) do %>
+      <% if message.user.picture? %>
+        <%= image_tag message.user.picture.url %>
+      <% else %>
+        <%= image_tag 'default.jpeg' %>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="message-field__content--message">
+    <p><%= message.body %></p>
+    <% message.pictures.each do |message_picture| %>
+      <%= image_tag message_picture.picture.url %>
+    <% end %>
+  </div>
+</div>
+<br />
