@@ -6,49 +6,15 @@
   <% @room.messages.each do |message| %>
     <% if message.user_id == current_user.id %>
       <div class="right-message">
-        <div class="message-field__content">
-          <div class="message-field__content--profile">
-            <%= link_to(users_basic_path(message.user)) do %>
-              <% if message.user.picture? %>
-                <%= image_tag message.user.picture.url %>
-              <% else %>
-                <%= image_tag 'default.jpeg' %>
-              <% end %>
-            <% end %>
-          </div>
-          <div class="message-field__content--message">
-            <p><%= message.body %></p>
-            <% message.pictures.each do |message_picture| %>
-              <%= image_tag message_picture.picture.url %>
-            <% end %>
-          </div>
-        </div>
-        <br />
+        <%= render "users/shared/message_field", message: message %>
       </div>
     <% else %>
       <div class="left-message">
-        <div class="message-field__content">
-          <div class="message-field__content--profile">
-            <%= link_to(users_basic_path(message.user)) do %>
-              <% if message.user.picture? %>
-                <%= image_tag message.user.picture.url %>
-              <% else %>
-                <%= image_tag 'default.jpeg' %>
-              <% end %>
-            <% end %>
-          </div>
-          <div class="message-field__content--message">
-            <p><%= message.body %></p>
-            <% message.pictures.each do |message_picture| %>
-              <%= image_tag message_picture.picture.url %>
-            <% end %>
-          </div>
-        </div>
-        <br />
+        <%= render "users/shared/message_field", message: message %>
       </div>
     <% end %>
   <% end %>
- </div>
+</div>
 
 <%= form_with model: @message, url: users_messages_path, local: true do |f| %>
   <%= f.hidden_field :room_id, value: @room.id %>
