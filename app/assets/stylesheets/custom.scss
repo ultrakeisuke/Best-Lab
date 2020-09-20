@@ -1,6 +1,10 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+li {
+  list-style: none;
+}
+
 //message-room
 .message-field {
   display: inline-block;
