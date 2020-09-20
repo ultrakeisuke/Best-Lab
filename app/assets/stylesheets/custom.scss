@@ -88,6 +88,10 @@ li {
   }
 }
 .post-field {
+  textarea {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
   label {
     margin: 0;
     vertical-align: middle;
