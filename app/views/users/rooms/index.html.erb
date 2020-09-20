@@ -6,7 +6,7 @@
   <% @another_entries.each do |entry| %>
     <ul>
       <li>
-        <%= link_to(users_room_path(entry.room)) do %>
+        <%= link_to(users_basic_path(entry.user)) do %>
           <div class="room-list__image">
             <% if entry.user.picture? %>
               <%= image_tag entry.user.picture.url %>
@@ -14,6 +14,8 @@
               <%= image_tag 'default.jpeg' %>
             <% end %>
           </div>
+        <% end %>
+        <%= link_to(users_room_path(entry.room)) do %>
           <div class="room-list__text">
             <p><%= entry.user.name %></p>
             <p><%= Message.find_by(id: entry.room.message_ids.last)&.body %></p>
