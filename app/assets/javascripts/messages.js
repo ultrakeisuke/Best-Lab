@@ -20,7 +20,7 @@ $(function () {
       fileReader.readAsDataURL(file);
       //画像が4枚になったらdataBoxを削除
       if (num == 4) {
-        $('.picture-icon').css('display', 'none')
+        $('.post-field__picture').css('display', 'none')
       }
       //読み込み完了後にファイルのURLをsrcに格納するイベントを設定
       fileReader.onloadend = function () {
