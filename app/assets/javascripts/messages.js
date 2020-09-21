@@ -37,8 +37,8 @@ $(function () {
                         </div>
                       </div>
                     </div>`
-        //#picture-box__containerの前にhtmlを挿入
-        $('#picture-box__container').before(html);
+        //.post-fieldの前にhtmlを挿入
+        $('.post-field').before(html);
       }
     });
   });
