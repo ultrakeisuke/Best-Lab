@@ -27,7 +27,9 @@
     </label>
     <%= f.text_area :body, :placeholder => "新しいメッセージを作成してください" %>
     <div class="actions" >
-      <%= f.submit '送信' %>
+      <%= button_tag type: 'submit', class:"submit-btn" do %>
+        <i class="fas fa-paper-plane"></i>
+      <% end %>
     </div>
   </div>
 
