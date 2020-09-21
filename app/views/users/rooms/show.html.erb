@@ -21,22 +21,22 @@
 <%= form_with model: @message, url: users_messages_path, local: true do |f| %>
   <%= f.hidden_field :room_id, value: @room.id %>
 
-    <div class="post-field container" >
-      <label for="picture-file" >
-        <i class="fas fa-camera"></i>
-      </label>
-      <%= f.text_area :body %>
-      <div class="actions" >
-        <%= f.submit '送信' %>
-      </div>
+  <div class="post-field container" >
+    <label for="picture-file" >
+      <i class="fas fa-camera"></i>
+    </label>
+    <%= f.text_area :body, :placeholder => "新しいメッセージを作成してください" %>
+    <div class="actions" >
+      <%= f.submit '送信' %>
     </div>
+  </div>
 
-    <div id="picture-box">
-      <div id="picture-box__container" >
-        <%= f.fields_for :pictures, @message.pictures.build do |pi| %>
-          <%= pi.file_field :picture, type: 'file', multiple: "multiple", name: "message[pictures_attributes][][picture]", value: "", style: "display:none", id: "picture-file" %>
-        <% end %>
-      </div>
+  <div id="picture-box">
+    <div id="picture-box__container" >
+      <%= f.fields_for :pictures, @message.pictures.build do |pi| %>
+        <%= pi.file_field :picture, type: 'file', multiple: "multiple", name: "message[pictures_attributes][][picture]", value: "", style: "display:none", id: "picture-file" %>
+      <% end %>
     </div>
+  </div>
 
 <% end %>
