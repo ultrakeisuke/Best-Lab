@@ -37,8 +37,8 @@ $(function () {
                         </div>
                       </div>
                     </div>`
-        //.post-fieldの前にhtmlを挿入
-        $('.post-field').before(html);
+        //.insert-pointの後にhtmlを挿入
+        $('.insert-point').after(html);
       }
     });
   });
