@@ -21,13 +21,14 @@
 <%= form_with model: @message, url: users_messages_path, local: true do |f| %>
   <%= f.hidden_field :room_id, value: @room.id %>
 
-  <div class="field" >
-
-    <div class="post-field" >
-      <%= f.text_area :body %>
+    <div class="post-field container" >
       <label for="picture-file" >
         <i class="fas fa-camera"></i>
       </label>
+      <%= f.text_area :body %>
+      <div class="actions" >
+        <%= f.submit '送信' %>
+      </div>
     </div>
 
     <div id="picture-box">
@@ -37,10 +38,5 @@
         <% end %>
       </div>
     </div>
-  </div>
-
-  <div class="actions" >
-    <%= f.submit '送信' %>
-  </div>
 
 <% end %>
