@@ -66,3 +66,9 @@ $(function () {
     target_picture.remove()
   })
 });
+
+//メッセージ相手と最後にやりとりした部分から表示する処理
+$(function () {
+  var element = document.getElementById('message-field__scroll');
+  element.scrollIntoView(false);
+});
