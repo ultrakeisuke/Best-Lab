@@ -21,12 +21,16 @@
 <%= form_with model: @message, url: users_messages_path, local: true do |f| %>
   <%= f.hidden_field :room_id, value: @room.id %>
 
-  <div class="post-field container" >
-    <label for="picture-file" >
-      <i class="fas fa-camera"></i>
-    </label>
-    <%= f.text_area :body, :placeholder => "新しいメッセージを作成してください" %>
-    <div class="actions" >
+  <div class="post-field container">
+    <div class="post-field__picture">
+      <label for="picture-file" >
+        <i class="fas fa-camera"></i>
+      </label>
+    </div>
+    <div class="post-field__textarea">
+      <%= f.text_area :body, :placeholder => "新しいメッセージを作成してください" %>
+    </div>
+    <div class="post-field__submit" >
       <%= button_tag type: 'submit', class:"submit-btn" do %>
         <i class="fas fa-paper-plane"></i>
       <% end %>
