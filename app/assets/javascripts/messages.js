@@ -44,7 +44,7 @@ $(function () {
   });
   $(document).on("click", '.message-picture__operation--delete', function () {
     //プレビュー要素(.message-picture)を取得
-    var target_picture = $(this).parent().parent()
+    var target_picture = $(this).parent().parent().parent();
     //削除ボタンを押された画像のfile名を取得
     var target_name = $(target_picture).data('picture')
     //プレビューがひとつだけの場合file_fieldを削除
