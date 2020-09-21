@@ -3,17 +3,19 @@
 <h3><%= link_to @another_entry.user.name, users_basic_path(@another_entry.user) %></h3>
 
 <div class="message-field container">
-  <% @room.messages.each do |message| %>
-    <% if message.user_id == current_user.id %>
-      <div class="right-message">
-        <%= render "users/shared/message_field", message: message %>
-      </div>
-    <% else %>
-      <div class="left-message">
-        <%= render "users/shared/message_field", message: message %>
-      </div>
+  <div id="message-field__scroll">
+    <% @room.messages.each do |message| %>
+      <% if message.user_id == current_user.id %>
+        <div class="right-message">
+          <%= render "users/shared/message_field", message: message %>
+        </div>
+      <% else %>
+        <div class="left-message">
+          <%= render "users/shared/message_field", message: message %>
+        </div>
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
 </div>
 
 <%= form_with model: @message, url: users_messages_path, local: true do |f| %>
