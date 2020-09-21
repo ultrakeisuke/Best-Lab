@@ -27,13 +27,13 @@ $(function () {
         var src = fileReader.result
         var html = `<div class='message-picture' data-picture="${file.name}">
                       <div class='message-picture__content'>
-                        <div class='message-picture__content--icon'>
+                        <div class='message-picture__picture'>
                           <img src=${src} width='100%' height='80'>
                         </div>
-                      </div>
-                      <div class='message-picture__operation'>
-                        <div class='message-picture__operation--delete'>
-                          <i class="far fa-times-circle"></i>
+                        <div class='message-picture__operation'>
+                          <div class='message-picture__operation--delete'>
+                            <i class="far fa-times-circle"></i>
+                          </div>
                         </div>
                       </div>
                     </div>`
