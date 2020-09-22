@@ -69,8 +69,62 @@ $(function () {
   })
 });
 
+
 //メッセージ相手と最後にやりとりした部分から表示する処理
 $(function () {
   var element = document.getElementById('message-field__scroll');
   element.scrollIntoView(false);
+});
+
+
+//画像をポップアップで表示する処理
+$(function () {
+  $('#popup-background').hide();
+  $('#popup-item').hide();
+
+  //popupimgがクリックされたときのイベント
+  $('.popupimg').bind('click', function () {
+    //新たなimg要素を作成
+    var img = new Image();
+    var imgsrc = this.src;
+    //Imageのロードイベントを定義
+    $(img).load(function () {
+      $('#popup-item').attr('src', imgsrc);
+      //ポップアップで表示する表示するためのimgタグに画像が読み込まれているか確認
+      $('#popup-item').each(function () {
+        //読み込みが完了していた場合、ポップアップ表示用の関数を呼び出す
+        if (this.complete) {
+          imgload(img);
+          return;
+        }
+      });
+      //imgタグのロードイベントを定義
+      $('#popup-item').bind('load', function () {
+        //画像がロードされたらポップアップ表示用の関数を呼び出す
+        imgload(img);
+      });
+    });
+    //Image()に画像を読み込ませる
+    img.src = imgsrc;
+  });
+
+  //ポップアップされた領域のクリックイベント
+  $('#popup-background, #popup-item').bind('click', function () {
+    $('#popup-background').fadeOut();
+    $('#popup-item').fadeOut();
+  });
+
+  //ポップアップ表示用関数を定義
+  function imgload() {
+    //ポップアップの背景部分を表示する
+    $('#popup-background').fadeIn(function () {
+      var cssObj = {
+        marginTop: -250,
+        marginLeft: -200,
+        width: 400,
+        height: 500
+      }
+      $('#popup-item').css(cssObj).fadeIn(100);
+    });
+  }
 });
