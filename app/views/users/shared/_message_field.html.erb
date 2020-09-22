@@ -8,7 +8,7 @@
       <% end %>
     <% end %>
   </div>
-  <div class="message-field__content--message">
+  <div class="message-field__message">
     <p><%= simple_format(message.body) %></p>
     <% message.pictures.each do |message_picture| %>
       <%= image_tag message_picture.picture.url %>
