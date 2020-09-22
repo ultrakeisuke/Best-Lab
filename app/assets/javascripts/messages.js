@@ -64,6 +64,8 @@ $(function () {
     }
     //対象のプレビューを消去
     target_picture.remove()
+    //枚数の上限に達した時にプレビューの削除ボタンを押すと画像投稿用アイコンが再表示される
+    $('.post-field__picture').show();
   })
 });
 
