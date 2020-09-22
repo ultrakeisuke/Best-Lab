@@ -1,5 +1,5 @@
 <div class="message-field__content">
-  <div class="message-field__content--profile">
+  <div class="message-field__profile">
     <%= link_to(users_basic_path(message.user)) do %>
       <% if message.user.picture? %>
         <%= image_tag message.user.picture.url %>
