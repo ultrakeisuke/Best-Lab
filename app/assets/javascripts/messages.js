@@ -15,7 +15,7 @@ $(function () {
       //転送中のファイル一覧をfile_fieldに代入
       file_field.files = dataBox.files
       //プレビューのファイル数をnumに代入
-      var num = $('.message-picture').length + 1 + i
+      var num = $('.preview').length + 1 + i
       //ブラウザに画像ファイルを表示
       fileReader.readAsDataURL(file);
       //画像が4枚になったらdataBoxを削除
@@ -25,13 +25,13 @@ $(function () {
       //読み込み完了後にファイルのURLをsrcに格納するイベントを設定
       fileReader.onloadend = function () {
         var src = fileReader.result
-        var html = `<div class='message-picture' data-picture="${file.name}">
-                      <div class='message-picture__content'>
-                        <div class='message-picture__picture'>
+        var html = `<div class='preview-field__box' data-picture="${file.name}">
+                      <div class='preview-field__content'>
+                        <div class='preview-field__picture'>
                           <img src=${src} width='100%' height='80'>
                         </div>
-                        <div class='message-picture__operation'>
-                          <div class='message-picture__operation--delete'>
+                        <div class='preview-field__operation'>
+                          <div class='preview-field__operation--delete'>
                             <i class="far fa-times-circle"></i>
                           </div>
                         </div>
@@ -42,8 +42,8 @@ $(function () {
       }
     });
   });
-  $(document).on("click", '.message-picture__operation--delete', function () {
-    //プレビュー要素(.message-picture)を取得
+  $(document).on("click", '.preview-field__operation--delete', function () {
+    //プレビュー要素(.preview)を取得
     var target_picture = $(this).parent().parent().parent();
     //削除ボタンを押された画像のfile名を取得
     var target_name = $(target_picture).data('picture')
