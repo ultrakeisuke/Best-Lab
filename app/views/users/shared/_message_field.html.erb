@@ -9,7 +9,7 @@
     <% end %>
   </div>
   <div class="message-field__message">
-    <p><%= simple_format(message.body) %></p>
+    <%= simple_format(message.body) %>
     <% message.pictures.each do |message_picture| %>
       <%= image_tag message_picture.picture.url , class:"popupimg"%>
     <% end %>
