@@ -18,8 +18,8 @@
     <div id ="message-field__menu">
       <ul>
         <li>
-          <%= button_to(users_message_path(current_user.id), data: { confirm: '本当に削除しますか？' }, method: :delete) do %>
-            <p>削除</p>
+          <%= form_for(@message, url: users_message_path(message.id), method: :delete, local: true) do |f| %>
+            <%= f.submit "削除", data: { confirm: "本当に削除しますか？"} %>
           <% end %>
         </li>
       </ul>
