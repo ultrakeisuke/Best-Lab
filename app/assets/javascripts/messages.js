@@ -128,3 +128,12 @@ $(function () {
     });
   }
 });
+
+
+//メッセージを右クリックすると削除ボタンなどのリストが表示される処理
+//_message_field.html.erbの11行目に記載した、<%= message.id %>にあたる部分の書き方を知りたいです
+$(function () {
+  document.getElementById(`message-id-${<%= message.id %>}`).addEventListener('contextmenu', function() {
+    document.getElementById(`message - id - ${<%= message.id %>}__menu`).style.display="block";
+  });
+});
