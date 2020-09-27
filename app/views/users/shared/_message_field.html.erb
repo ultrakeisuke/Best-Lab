@@ -8,14 +8,14 @@
       <% end %>
     <% end %>
   </div>
-  <div class="message-field__message">
+  <div id="message-id-<%= message.id %>" class="message-field__message" >
     <%= simple_format(message.body) %>
     <% message.pictures.each do |message_picture| %>
       <%= image_tag message_picture.picture.url , class:"popupimg"%>
     <% end %>
   </div>
   <% if message.user_id == current_user.id %>
-    <div id ="message-field__menu">
+    <div id ="message-id-<%= message.id %>__menu" class="message-field__menu">
       <ul>
         <li>
           <%= form_for(@message, url: users_message_path(message.id), method: :delete, local: true) do |f| %>
