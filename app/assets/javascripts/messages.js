@@ -132,7 +132,9 @@ $(function () {
 
 //メッセージを右クリックすると削除ボタンなどのリストが表示される処理
 $(document).on("contextmenu", '.message-field__message', function (e) {
+  //右クリックのデフォルトの表示をキャンセル
   e.preventDefault();
+  //右クリックした要素のidと対応するリストのidを取得し表示
   id = $(this).attr('id') + "__menu"
   document.getElementById(id).style.display = "block";
   //リスト外をクリックしたときにリストを非表示にする処理
