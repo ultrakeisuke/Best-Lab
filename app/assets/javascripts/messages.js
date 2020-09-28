@@ -135,4 +135,8 @@ $(document).on("contextmenu", '.message-field__message', function (e) {
   e.preventDefault();
   id = $(this).attr('id') + "__menu"
   document.getElementById(id).style.display = "block";
+  //リスト外をクリックしたときにリストを非表示にする処理
+  $(document).on("click", function () {
+    document.getElementById(id).style.display = "none";
+  });
 });
