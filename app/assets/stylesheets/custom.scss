@@ -116,7 +116,27 @@ li {
       }
     }
     .message-field__menu {
+      padding-top: 4px;
+      padding-bottom: 4px;
       display: none;
+      position: fixed;
+      width: 100px;
+      text-align-last: left;
+      border: 1px solid #CCC;
+      border-radius: 4px;
+      background-color: #fff;
+      input {
+        padding-right: 12px;
+        padding-left: 12px;
+        width: 100%;
+        border: none;
+        color: #666;
+        background-color: #fff;
+        &:hover {
+          color: #fff;
+          background-color: #136FFF;
+        }
+      }
     }
   }
   #popup-background {
