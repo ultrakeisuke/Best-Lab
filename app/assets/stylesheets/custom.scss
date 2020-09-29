@@ -52,14 +52,6 @@ li {
     text-align: right;
     .message-field__content {
       flex-direction: row-reverse;
-      &:before {
-        content: "";
-        position: absolute;
-        top: 20%;
-        right: 40px;
-        border: 8px solid transparent;
-        border-left: 8px solid #00BFFF;
-      }
       .message-field__profile {
         margin-left: 15px;
       }
