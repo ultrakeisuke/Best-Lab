@@ -42,7 +42,7 @@ li {
 }
 //show
 .message-field {
-  padding: 12px 40px;
+  padding: 12px 14px;
   height: 500px;
   overflow-y: scroll;
   border: 1px solid grey;
@@ -52,9 +52,6 @@ li {
     text-align: right;
     .message-field__content {
       flex-direction: row-reverse;
-      .message-field__profile {
-        margin-left: 15px;
-      }
       .message-field__message {
         p {
           text-align: left;
