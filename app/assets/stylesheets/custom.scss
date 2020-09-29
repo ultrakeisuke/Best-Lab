@@ -14,7 +14,7 @@ li {
   padding: 0;
   margin: 0 auto;
   width: 65%;
-  background-color: silver;
+  background-color: #fff;
 }
 
 //users/roomsフォルダ
@@ -45,7 +45,7 @@ li {
   padding: 12px 14px;
   height: 500px;
   overflow-y: scroll;
-  border: 1px solid grey;
+  border: 1px solid lightgrey;
   border-bottom: none;
   border-radius: 5px 5px 0px 0px;
   .right-message {
@@ -148,14 +148,14 @@ li {
 .preview-field {
   display: flex;
   justify-content: center;
-  border-top: 1px solid grey;
+  border-top: 1px solid lightgrey;
 }
 .post-field {
   padding: 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border: 1px solid grey;
+  border: 1px solid lightgrey;
   border-radius: 0px 0px 5px 5px;
   .post-field__picture {
     label {
