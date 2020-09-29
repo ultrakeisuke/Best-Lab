@@ -147,4 +147,9 @@ $(document).on("contextmenu", '.message-field__message', function (e) {
   $(document).on("click", function () {
     document.getElementById(id).style.display = "none";
   });
+  //他のメッセージを右クリックすると新たなリストが表示され、もとのリストは非表示になる処理
+  $(document).on("contextmenu", '.message-field__message', function () {
+    contextmenu.style.display = "none";
+    document.getElementById(id).style.display = "block";
+  });
 });
