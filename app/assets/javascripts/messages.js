@@ -83,7 +83,7 @@ $(function () {
   $('#popup-item').hide();
 
   //popupimgがクリックされたときのイベント
-  $('.popupimg').bind('click', function () {
+  $('.popupimg').on('click', function () {
     //新たなimg要素を作成
     var img = new Image();
     var imgsrc = this.src;
@@ -99,7 +99,7 @@ $(function () {
         }
       });
       //imgタグのロードイベントを定義
-      $('#popup-item').bind('load', function () {
+      $('#popup-item').on('load', function () {
         //画像がロードされたらポップアップ表示用の関数を呼び出す
         imgload(img);
       });
@@ -109,7 +109,7 @@ $(function () {
   });
 
   //ポップアップされた領域のクリックイベント
-  $('#popup-background, #popup-item').bind('click', function () {
+  $('#popup-background, #popup-item').on('click', function () {
     $('#popup-background').fadeOut();
     $('#popup-item').fadeOut();
   });
