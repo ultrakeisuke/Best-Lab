@@ -68,7 +68,7 @@ li {
         top: 20%;
         left: 40px;
         border: 8px solid transparent;
-        border-right: 8px solid #00BFFF;
+        border-right: 8px solid lightskyblue;
       }
       .message-field__profile {
         margin-right: 15px;
@@ -94,8 +94,8 @@ li {
     .message-field__message {
       padding: 8px;
       max-width: 80%;
-      border-radius: 3px; 
-      background-color: #00BFFF;
+      border-radius: 12px; 
+      background-color: lightskyblue;
       p {
         margin: 0;
         font-size: 15px;
@@ -165,6 +165,7 @@ li {
       cursor: pointer;
       i {
         font-size: 22px;
+        color: lightskyblue;
       }
     }
   }
@@ -175,6 +176,7 @@ li {
       height: 2em;
       resize: none;
       overflow: hidden;
+      border-color: lightskyblue;
       border-radius: 5px;
       outline: none;
     }
@@ -186,6 +188,7 @@ li {
     }
     i {
       font-size: 22px;
+      color: lightskyblue;
       background-color: none;
     }
   }
