@@ -16,6 +16,9 @@
       <%= image_tag message_picture.picture.url , class:"popupimg"%>
     <% end %>
   </div>
+  <div class="message-field__created_at">
+    <p><%= l message.created_at %></p>
+  </div>
   <% if message.user_id == current_user.id %>
     <div id ="message-id-<%= message.id %>__menu" class="message-field__menu">
       <ul>
@@ -27,8 +30,5 @@
       </ul>
     </div>
   <% end %>
-</div>
-<div class="message-field__created_at">
-  <p><%= l message.created_at %></p>
 </div>
 <br />
