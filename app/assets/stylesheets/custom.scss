@@ -57,6 +57,9 @@ li {
           text-align: left;
         }
       }
+      .message-field__created_at {
+        margin-right: 10px;
+      }
     }
   }
   .left-message {
@@ -99,6 +102,9 @@ li {
         border-bottom: 16px solid #fff;
         border-top: 16px solid transparent;
         border-right: 16px solid transparent;
+      }
+      .message-field__created_at {
+        margin-left: 10px;
       }
     }
   }
