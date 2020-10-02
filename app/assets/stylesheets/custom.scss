@@ -182,7 +182,8 @@ li {
 .preview-field {
   display: flex;
   justify-content: center;
-  border-top: 1px solid lightgrey;
+  border: 1px solid lightgrey;
+  border-bottom: none;
 }
 .post-field {
   padding: 10px;
