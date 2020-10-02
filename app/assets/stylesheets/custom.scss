@@ -62,14 +62,6 @@ li {
   .left-message {
     text-align: left;
     .message-field__content {
-      &:before {
-        content: "";
-        position: absolute;
-        top: 20%;
-        left: 40px;
-        border: 8px solid transparent;
-        border-right: 8px solid lightskyblue;
-      }
       .message-field__profile {
         margin-right: 15px;
       }
@@ -80,7 +72,7 @@ li {
     margin-bottom: 10px;
     position: relative;
     display: flex;
-    vertical-align: middle;
+    align-items: flex-end;
     border-radius: 5px;
     word-wrap: break-word;
     .message-field__profile {
