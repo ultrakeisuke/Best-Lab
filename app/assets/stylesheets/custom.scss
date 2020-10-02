@@ -65,6 +65,41 @@ li {
       .message-field__profile {
         margin-right: 15px;
       }
+      .message-field__message {
+        position: relative;
+        z-index: 100;
+      }
+      &:before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 4px;
+        left: 48px;
+        width: 0;
+        height: 0;
+        transform: rotate(-50deg);
+        border-radius: 50%;
+        border-left: 16px solid lightskyblue;
+        border-bottom: 16px solid lightskyblue;
+        border-top: 16px solid transparent;
+        border-right: 16px solid transparent;
+      }
+      &:after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: -2px;
+        left: 46px;
+        z-index: 1;
+        width: 0;
+        height: 0;
+        transform: rotate(-50deg);
+        border-radius: 50%;
+        border-left: 16px solid #fff;
+        border-bottom: 16px solid #fff;
+        border-top: 16px solid transparent;
+        border-right: 16px solid transparent;
+      }
     }
   }
   .message-field__content {
