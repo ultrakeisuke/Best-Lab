@@ -3,4 +3,4 @@ ja:
     formats:
       default: "%H:%M"
       month: "%-m月%-d日 (%a)"
-      year: "%Y/%m/%d %H:%M"
+      year: "%-Y年%-m月%-d日 (%a)"
