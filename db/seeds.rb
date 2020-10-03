@@ -1,5 +1,5 @@
 users = []
-2.times do |n|
+10.times do |n|
   name = Faker::Name.name
   email = "user-#{n+1}@example.com"
   users << User.new(name: name,
@@ -14,14 +14,14 @@ admin_user = Admin.create!(email: "admin@example.com",
                            password: "1234567")
 
 rooms = []
-1.times do |n|
+45.times do |n|
   rooms << Room.new
 end
 Room.import rooms
 
 entries = []
-2.times do |n|
-  entries << Entry.new(user_id: "#{n+1}",
-                       room_id: "1")
+90.times do |n|
+  entries << Entry.new(user_id: 1..10,
+                       room_id: 1..45)
 end
 Entry.import entries
