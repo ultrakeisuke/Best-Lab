@@ -14,7 +14,7 @@
   <% if @is_room == true %>
     <%= link_to "メッセージ", users_room_path(@room_id) %>
   <% else %>
-    <% form_with model: @room, url: users_rooms_path, local: true do |f| %>
+    <%= form_with model: @room, url: users_rooms_path, local: true do |f| %>
       <%= f.fields_for @entry do |e| %>
         <%= e.hidden_field :user_id, value: @user.id %>
       <% end %>
