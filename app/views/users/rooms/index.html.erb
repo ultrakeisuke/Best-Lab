@@ -2,8 +2,12 @@
 
 <h3>メッセージ</h3>
 
-<div class="room-list">
-  <% @another_entries.each do |entry| %>
+<% if @current_rooms.blank? %>
+  <p>話したい相手を探してみましょう！</p>
+<% end %>
+
+<% @another_entries.each do |entry| %>
+  <div class="room-list">
     <ul>
       <li>
         <%= link_to(users_basic_path(entry.user)) do %>
@@ -23,5 +27,5 @@
         <% end %>
       </li>
     </ul>
-  <% end %>
-</div>
+  </div>
+<% end %>
