@@ -2,4 +2,5 @@ ja:
   time:
     formats:
       default: "%H:%M"
+      month: "%-m月%-d日 (%a)"
       long: "%Y/%m/%d %H:%M"
