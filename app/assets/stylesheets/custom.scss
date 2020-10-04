@@ -17,6 +17,52 @@ li {
   background-color: #fff;
 }
 
+//layoutsフォルダ
+//application
+header {
+  padding: 80px 20px 0 120px;
+  width: 25%;
+  text-align: center;
+  nav {
+    display: flex;
+    flex-direction: column;
+    a {
+      padding: 20px;
+      color: lightskyblue;
+      border: 1px solid lightskyblue;
+      font-size: 18px;
+      &:hover {
+        background-color: lightskyblue;
+        color: #fff;
+        text-decoration: none;
+      }
+      &:last-of-type {
+        border-bottom: none;
+      }
+    }
+    a + a {
+      border-top: none;
+    }
+    form {
+      &:hover {
+        input {
+          background-color: lightskyblue;
+          color: #fff;
+          text-decoration: none;
+        }
+      }
+      input {
+        width: 100%;
+        padding: 20px;
+        background-color: #fff;
+        color: lightskyblue;
+        border: 1px solid lightskyblue;
+        font-size: 18px;
+      }
+    }
+  }
+}
+
 //users/roomsフォルダ
 //index
 .room-list {
