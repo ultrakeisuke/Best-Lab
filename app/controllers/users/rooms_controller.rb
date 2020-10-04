@@ -11,7 +11,7 @@ class Users::RoomsController < ApplicationController
     # Entryモデルに相手のレコードを作成
     another_entry = Entry.create(user_id: params[:entry][:user_id], room_id: room.id)
     # 作成した部屋を表示
-    redirect_to room_path(room)
+    redirect_to users_room_path(room.id)
   end
 
   def index
