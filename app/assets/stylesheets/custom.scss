@@ -36,9 +36,6 @@ header {
         color: #fff;
         text-decoration: none;
       }
-      &:last-of-type {
-        border-bottom: none;
-      }
     }
     a + a {
       border-top: none;
@@ -57,6 +54,7 @@ header {
         background-color: #fff;
         color: lightskyblue;
         border: 1px solid lightskyblue;
+        border-top: none;
         font-size: 18px;
       }
     }
