@@ -72,6 +72,20 @@ header {
   }
 }
 
+//users/basicsフォルダ
+//index
+
+//show
+.information {
+  padding: 20px 0px 20px 20px;
+  width: 55%;
+  border-bottom: 2px solid lavender;
+  .information__title {
+    color: lightskyblue;
+    font-size: 18px;
+  }
+}
+
 //users/roomsフォルダ
 //index
 .room-list {
