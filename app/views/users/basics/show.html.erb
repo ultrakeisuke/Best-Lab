@@ -1,5 +1,9 @@
 <% provide(:title, @user.name) %>
 
+<div class="information">
+  <h4 class="information__title">プロフィール</h4>
+</div>
+
 <% if @user.picture? %>
   <%= image_tag @user.picture.url %>
 <% else %>
