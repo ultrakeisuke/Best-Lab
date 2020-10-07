@@ -19,7 +19,9 @@
       <h3><%= @user.name %></h3>
       <p><%= @user.affiliation_i18n %></p>
     </div>
-    <p><%= @user.profile %></p>
+    <div class="profile__text--bottom">
+      <p><%= @user.profile %></p>
+    </div>
 
     <div class="profile__edit">
       <% if user_signed_in? %>
