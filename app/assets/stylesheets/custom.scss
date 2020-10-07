@@ -86,6 +86,55 @@ header {
   }
 }
 
+.profile {
+  width: 55%;
+  border-bottom: 2px solid lavender;
+  .profile__picture {
+    padding-top: 20px;
+    padding-left: 15px;
+    img {
+      width: 100px;
+      height: 100px;
+      border: 2px solid lavender;
+      border-radius: 50%;
+    }
+  }
+  .profile__text {
+    padding-top: 20px;
+    padding-right: 10px;
+    padding-left: 15px;
+    .profile__text--top {
+      display: flex;
+      #user_affiliation {
+        margin-left: 12px;
+        padding: 5px;
+        display: inline-block;
+        border-radius: 5px;
+      }
+      .undergraduate {
+        color: #fff;
+        background-color: tomato;
+      }
+      .graduate {
+        color: #fff;
+        background-color: silver;
+      }
+    }
+    .profile__text--bottom {
+      margin-top: 12px;
+      font-size: 14px;
+    }
+    .profile__edit {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      a {
+        color: lightskyblue;
+        font-size: 15px;
+      }
+    }
+  }
+}
+
 //users/roomsフォルダ
 //index
 .room-list {
