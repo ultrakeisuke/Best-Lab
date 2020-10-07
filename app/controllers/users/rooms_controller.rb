@@ -9,7 +9,7 @@ class Users::RoomsController < ApplicationController
     # Entryモデルにログインユーザーのレコードを作成
     current_entry = Entry.create(user_id: current_user.id, room_id: room.id)
     # Entryモデルに相手のレコードを作成
-    another_entry = Entry.create(user_id: params[:entry][:user_id], room_id: room.id)
+    another_entry = Entry.create(user_id: entry_params[:user_id], room_id: room.id)
     # 作成した部屋を表示
     redirect_to users_room_path(room.id)
   end
@@ -37,5 +37,11 @@ class Users::RoomsController < ApplicationController
     # ログインユーザーでないほうのuser_idから取得できるentryはメッセージ相手のものとなる
     @another_entry = @room.entries.find_by('user_id != ?', current_user.id)
   end
+
+  private
+
+    def entry_params
+      params.require(:entry).permit(:user_id)
+    end
 
 end
