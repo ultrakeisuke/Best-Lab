@@ -15,8 +15,10 @@
   </div>
 
   <div class="profile__text">
-    <h3><%= @user.name %></h3>
-    <p><%= @user.affiliation_i18n %></p>
+    <div class="profile__text--top">
+      <h3><%= @user.name %></h3>
+      <p><%= @user.affiliation_i18n %></p>
+    </div>
     <p><%= @user.profile %></p>
 
     <div class="profile__edit">
