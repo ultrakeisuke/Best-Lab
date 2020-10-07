@@ -10,10 +10,6 @@ li {
   list-style: none;
 }
 
-.content {
-  display: flex;
-}
-
 .yield {
   width: 100%;
 }
@@ -28,16 +24,15 @@ li {
 //layoutsフォルダ
 //application
 header {
-  padding: 80px 20px 0 120px;
-  width: 25%;
-  height: 100vh;
-  border-right: 2px solid lavender;
-  text-align: center;
+  padding: 10px;
+  margin: 0 auto;
+  width: 80%;
   nav {
-    display: flex;
-    flex-direction: column;
+    text-align: center;
+    font-size: 0;
     a {
       padding: 20px;
+      display: inline-block;
       color: lightskyblue;
       border: 1px solid lightskyblue;
       font-size: 18px;
@@ -48,9 +43,10 @@ header {
       }
     }
     a + a {
-      border-top: none;
+      border-left: none;
     }
     form {
+      display: inline-block;
       &:hover {
         input {
           background-color: lightskyblue;
@@ -59,12 +55,11 @@ header {
         }
       }
       input {
-        width: 100%;
         padding: 20px;
         background-color: #fff;
         color: lightskyblue;
         border: 1px solid lightskyblue;
-        border-top: none;
+        border-left: none;
         font-size: 18px;
         white-space: normal;
       }
