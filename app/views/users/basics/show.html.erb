@@ -5,6 +5,7 @@
 </div>
 
 <div class="profile">
+
   <div class="profile__picture">
     <% if @user.picture? %>
       <%= image_tag @user.picture.url %>
@@ -12,10 +13,12 @@
       <%= image_tag "default.jpeg" %>
     <% end %>
   </div>
+
   <div class="profile__text">
     <h3><%= @user.name %></h3>
     <p><%= @user.affiliation_i18n %></p>
     <p><%= @user.profile %></p>
+
     <div class="profile__edit">
       <% if user_signed_in? %>
         <% if current_user == @user %>
@@ -23,18 +26,20 @@
         <% end %>
       <% end %>
     </div>
+    
   </div>
-</div>
 
-<% unless current_user == @user %>
-  <% if @is_room == true %>
-    <%= link_to "メッセージ", users_room_path(@room_id) %>
-  <% else %>
-    <%= form_with model: @entry.room, url: users_rooms_path, method: :post, local: true do |f| %>
-      <%= f.fields_for @entry do |e| %>
-        <%= e.hidden_field :user_id, value: @user.id %>
+  <% unless current_user == @user %>
+    <% if @is_room == true %>
+      <%= link_to "メッセージ", users_room_path(@room_id) %>
+    <% else %>
+      <%= form_with model: @entry.room, url: users_rooms_path, method: :post, local: true do |f| %>
+        <%= f.fields_for @entry do |e| %>
+          <%= e.hidden_field :user_id, value: @user.id %>
+        <% end %>
+        <%= f.submit 'メッセージ' %>
       <% end %>
-      <%= f.submit 'メッセージ' %>
     <% end %>
   <% end %>
-<% end %>
+
+</div>
