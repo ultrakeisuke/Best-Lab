@@ -9,11 +9,11 @@ class Users::MessagesController < ApplicationController
     if message.save
       redirect_to users_room_path(message.room)
     elsif message.body.blank? && message.pictures.blank?
-      redirect_to users_room_path(message.room)
       flash[:alert] = 'メッセージを送信するには文字か画像を入力してください。'
-    else
       redirect_to users_room_path(message.room)
+    else
       flash[:alert] = '送信できる文字数の上限は10000文字です。'
+      redirect_to users_room_path(message.room)
     end
   end
 
