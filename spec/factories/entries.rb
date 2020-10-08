@@ -1,6 +1,6 @@
 FactoryBot.define do
-  factory :entry do
-    user { nil }
-    room { nil }
+  factory :entry, class: Entry do
+    user { 1 }
+    room { 1 }
   end
 end
