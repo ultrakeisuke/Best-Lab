@@ -26,7 +26,7 @@ RSpec.describe Users::MessagesController, type: :controller do
     context "メッセージが10000文字以内だった場合" do
       it "メッセージは保存され、メッセージ画面にリダイレクトする" do
         login_user(user)
-        post :create, params: { message: { user_id: user.id, room_id: room.id, body: "Hello World!" } }
+        expect{ post :create, params: { message: { user_id: user.id, room_id: room.id, body: "MyText" } } }.to change(Message, :count).by(1)
         expect(response).to have_http_status "302"
         expect(response).to redirect_to users_room_path(room.id)
       end
