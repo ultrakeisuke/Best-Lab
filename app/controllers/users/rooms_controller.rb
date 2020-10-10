@@ -7,9 +7,9 @@ class Users::RoomsController < ApplicationController
     # メッセージルームを作成
     room = Room.create
     # Entryモデルにログインユーザーのレコードを作成
-    current_entry = Entry.create(user_id: current_user.id, room_id: room.id)
+    @current_entry = Entry.create(user_id: current_user.id, room_id: room.id)
     # Entryモデルに相手のレコードを作成
-    another_entry = Entry.create(user_id: entry_params[:user_id], room_id: room.id)
+    @another_entry = Entry.create(user_id: entry_params[:user_id], room_id: room.id)
     # 作成した部屋を表示
     redirect_to users_room_path(room.id)
   end
