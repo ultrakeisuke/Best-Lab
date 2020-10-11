@@ -16,10 +16,10 @@ class Users::RoomsController < ApplicationController
 
   def index
     # ログインユーザーのすべてのentryを取得
-    current_entries = current_user.entries
+    @current_entries = current_user.entries
     my_room_ids = []
     # ログインユーザーのentryをもとに、room_idをひとつずつmy_room_idsに格納
-    current_entries.each do |entry|
+    @current_entries.each do |entry|
       my_room_ids << entry.room.id
     end
     # ログインユーザーが参加しているすべてのroomから、user_idがログインユーザーでないレコードを取得
