@@ -33,4 +33,17 @@ RSpec.describe Users::MessagesController, type: :controller do
     end
   end
 
+
+  describe "destroyアクション" do
+    context "自分のメッセージを削除する場合" do
+      it "メッセージを削除し、再度メッセージ画面を表示する" do
+        login_user(user)
+        message = Message.create(user_id: user.id, room_id: room.id, body: "MyText")
+        expect { delete :destroy, params: { id: message.id } }.to change(Message, :count).by(-1)
+        expect(response).to have_http_status "302"
+        expect(response).to redirect_to users_room_path(room.id)
+      end
+    end
+  end
+
 end
