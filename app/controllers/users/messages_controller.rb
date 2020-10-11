@@ -19,8 +19,11 @@ class Users::MessagesController < ApplicationController
 
   def destroy
     message = Message.find(params[:id])
-    message.destroy
-    redirect_to users_room_path(message.room_id)
+    # 自分のメッセージ以外は削除できないようにする
+    if message.user_id == current_user.id
+      message.destroy
+      redirect_to users_room_path(message.room_id)
+    end
   end
 
   private
