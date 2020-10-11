@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Users::MessagesController, type: :controller do
   let(:user) { create(:user) }
+  let(:another_user) { create(:another_user) }
   let(:room) { create(:room) }
     
   describe "createアクション" do
@@ -42,6 +43,14 @@ RSpec.describe Users::MessagesController, type: :controller do
         expect { delete :destroy, params: { id: message.id } }.to change(Message, :count).by(-1)
         expect(response).to have_http_status "302"
         expect(response).to redirect_to users_room_path(room.id)
+      end
+    end
+
+    context "他のユーザーのメッセージを削除しようとした場合" do
+      it "メッセージは削除できない" do
+        login_user(user)
+        message = Message.create(user_id: another_user.id, room_id: room.id, body: "MyText")
+        expect { delete :destroy, params: { id: message.id } }.not_to change(Message, :count)
       end
     end
   end
