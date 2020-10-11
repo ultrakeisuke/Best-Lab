@@ -22,11 +22,18 @@ RSpec.describe Users::BasicsController, type: :controller do
   end
 
   describe 'showアクション' do
-    it "正常なレスポンスとshowページを返す" do
-      get :show, params: { id: user.id }
+    let(:another_user) { create(:another_user) }
+    it "インスタンスが期待した値を返し、正常なレスポンスを返す" do
+      create_list(:rooms, 5)
+      create_list(:current_entries, 5, user_id: user.id)
+      current_entry = Entry.where(user_id: user.id)
+      
+      login_user(user)
+      get :show, params: { id: another_user.id }
+      expect(assigns(:user)).to eq another_user
+      expect(assigns(:current_entry)).to eq current_entry
       expect(response).to have_http_status "200"
       expect(response).to render_template :show
-      expect(assigns(:user)).to eq user
     end
   end
 
