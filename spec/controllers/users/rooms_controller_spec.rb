@@ -20,4 +20,18 @@ RSpec.describe Users::RoomsController, type: :controller do
     end
   end
 
+  describe "indexアクション" do
+    it "インスタンスが期待した値を返し、正常なレスポンスを返す" do
+      create_list(:rooms, 5)
+      create_list(:current_entries, 5, user_id: user.id)
+      current_entries = user.entries
+
+      login_user(user)
+      get :index
+      expect(assigns(:current_entries)).to eq current_entries
+      expect(response).to have_http_status "200"
+      expect(response).to render_template :index
+    end
+  end
+
 end
