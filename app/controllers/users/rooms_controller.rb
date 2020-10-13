@@ -24,8 +24,6 @@ class Users::RoomsController < ApplicationController
     end
     # ログインユーザーが参加しているすべてのroomから、user_idがログインユーザーでないレコードを取得
     @another_entries = Entry.where(room_id: my_room_ids).where.not(user_id: current_user.id)
-    # ログインユーザーが作成したすべてのroom
-    @current_rooms = Room.where(id: my_room_ids)
   end
 
   def show
