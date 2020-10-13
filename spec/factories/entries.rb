@@ -6,4 +6,8 @@ FactoryBot.define do
     sequence(:room_id) {|n| "#{n+1}"}
   end
 
+  factory :another_entries, class: Entry do
+    sequence(:room_id) {|n| "#{n+1}"}
+  end
+
 end
