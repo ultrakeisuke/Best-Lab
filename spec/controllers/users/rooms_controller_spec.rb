@@ -24,11 +24,23 @@ RSpec.describe Users::RoomsController, type: :controller do
     it "インスタンスが期待した値を返し、正常なレスポンスを返す" do
       create_list(:rooms, 5)
       create_list(:current_entries, 5, user_id: user.id)
+      create_list(:another_entries, 5, user_id: another_user.id)
+      # userが持つすべてのentryを定義
       current_entries = user.entries
+      
+      # userが持つすべてのroom_idを定義
+      my_room_ids = []
+      current_entries.each do |entry|
+        my_room_ids << entry.room_id
+      end
+
+      # another_userがuserと共有するentryを定義
+      another_entries = Entry.where(room_id: my_room_ids).where.not(user_id: user.id)
 
       login_user(user)
       get :index
       expect(assigns(:current_entries)).to eq current_entries
+      expect(assigns(:another_entries)).to eq another_entries
       expect(response).to have_http_status "200"
       expect(response).to render_template :index
     end
