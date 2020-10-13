@@ -46,4 +46,21 @@ RSpec.describe Users::RoomsController, type: :controller do
     end
   end
 
+  describe "showアクション" do
+    let(:room) { create(:room) }
+    let(:current_entry) { create(:entry, user_id: user.id, room_id: room.id) }
+    it "インスタンスが期待した値を返し、正常なレスポンスを返す" do
+      # another_userがuserと共有するentryを作成
+      create(:entry, user_id: another_user.id, room_id: room.id)
+      # another_userがuserと共有するentryをanother_entryに定義
+      another_entry = room.entries.find_by('user_id != ?', user.id)
+
+      login_user(user)
+      get :show, params: { id: room.id }
+      expect(response).to have_http_status "200"
+      expect(assigns(:another_entry)).to eq another_entry
+      expect(response).to render_template :show
+    end
+  end
+
 end
