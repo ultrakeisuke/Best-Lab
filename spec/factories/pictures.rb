@@ -1,6 +1,5 @@
 FactoryBot.define do
-  factory :picture do
-    message { nil }
+  factory :picture, class: Picture do
     picture { "MyString" }
   end
 end
