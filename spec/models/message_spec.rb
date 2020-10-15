@@ -16,9 +16,9 @@ RSpec.describe Message, type: :model do
     expect(message).to be_valid
   end
 
-  # メッセージが入力されていません。というエラーを返します
   it "メッセージの文字が空で画像が空でないなら有効" do
     create(:picture, message_id: message.id, picture: Rack::Test::UploadedFile.new(File.join(Rails.root, 'spec/factories/images/rails.png'), 'image/png'))
+    message.reload
     message.body = ""
     expect(message).to be_valid
   end
