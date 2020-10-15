@@ -6,7 +6,7 @@ RSpec.describe Message, type: :model do
   let(:message) { create(:message, user_id: user.id, room_id: room.id)}
   
   it "メッセージの文字と画像が空なら無効" do
-    create_list(:picture, 4, message_id: message.id)
+    create(:picture, message_id: message.id)
     message.body = ""
     expect(message).not_to be_valid
   end
