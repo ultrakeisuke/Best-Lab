@@ -1,5 +1,5 @@
 class Picture < ApplicationRecord
-  MAX_PICTURES_COUNT = 5
+  MAX_PICTURES_COUNT = 4
 
   belongs_to :message
   mount_uploader :picture, PictureUploader
