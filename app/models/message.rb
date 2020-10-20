@@ -4,7 +4,7 @@ class Message < ApplicationRecord
   validates :body, length: { maximum: 10000 }
   has_many :pictures, dependent: :destroy
   validates :body_or_pictures, presence: true
-  accepts_nested_attributes_for :pictures, allow_destroy: true
+  # accepts_nested_attributes_for :pictures, allow_destroy: true
 
   private
   # メッセージに文章か画像が含まれれば送信可能とする
