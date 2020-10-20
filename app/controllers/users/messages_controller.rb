@@ -8,11 +8,14 @@ class Users::MessagesController < ApplicationController
     message.user_id = current_user.id
     if message.save
       redirect_to users_room_path(message.room)
-    elsif message.body.blank? && message.pictures.blank?
-      flash[:alert] = 'メッセージを送信するには文字か画像を入力してください。'
+    elsif message.pictures.length > 4
+      flash[:alert] = '投稿できる画像は4枚までです。'
+      redirect_to users_room_path(message.room)
+    elsif message.body.length > 10000
+      flash[:alert] = '送信できる文字は10000文字までです。'
       redirect_to users_room_path(message.room)
     else
-      flash[:alert] = '送信できる文字数の上限は10000文字です。'
+      flash[:alert] = 'メッセージを送信するには文字か画像を入力してください。'
       redirect_to users_room_path(message.room)
     end
   end
