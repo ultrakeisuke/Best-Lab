@@ -6,9 +6,10 @@ class Picture < ApplicationRecord
   validate :pictures_count_must_be_within_limit
 
   private
-  
     def pictures_count_must_be_within_limit
-      errors.add(:base, "画像の最大投稿数は#{MAX_PICTURES_COUNT}枚です") if message.pictures.count >= MAX_PICTURES_COUNT
+      if message && message.pictures.length > MAX_PICTURES_COUNT
+        errors.add(:base, "投稿できる画像は#{MAX_PICTURES_COUNT}枚までです。")
+      end
     end
 
 end
