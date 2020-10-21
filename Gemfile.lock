@@ -113,6 +113,7 @@ GEM
       railties (>= 5.0.0)
     faker (2.14.0)
       i18n (>= 1.6, < 2)
+    fastri (0.3.1.1)
     ffi (1.13.1)
     font-awesome-sass (5.13.0)
       sassc (>= 1.11)
@@ -216,6 +217,7 @@ GEM
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
+    rcodetools (0.8.5.0)
     regexp_parser (1.7.1)
     responders (3.0.1)
       actionpack (>= 5.0)
@@ -317,6 +319,7 @@ DEPENDENCIES
   enum_help
   factory_bot_rails
   faker
+  fastri
   font-awesome-sass
   jbuilder (~> 2.7)
   jquery-rails
@@ -330,6 +333,7 @@ DEPENDENCIES
   rails (~> 6.0.3, >= 6.0.3.2)
   rails-controller-testing
   rails-i18n
+  rcodetools
   rspec-rails
   ruby-debug-ide
   sass-rails (>= 6.0.0)
