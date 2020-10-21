@@ -91,6 +91,9 @@ GEM
     concurrent-ruby (1.1.7)
     crass (1.0.6)
     database_rewinder (0.9.4)
+    debase (0.2.4.1)
+      debase-ruby_core_source (>= 0.10.2)
+    debase-ruby_core_source (0.10.11)
     devise (4.7.2)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -234,6 +237,8 @@ GEM
       rspec-mocks (~> 3.9)
       rspec-support (~> 3.9)
     rspec-support (3.9.3)
+    ruby-debug-ide (0.7.2)
+      rake (>= 0.8.1)
     ruby-vips (2.0.17)
       ffi (~> 1.9)
     rubyzip (2.3.0)
@@ -307,6 +312,7 @@ DEPENDENCIES
   capybara (>= 2.15)
   carrierwave
   database_rewinder
+  debase
   devise
   enum_help
   factory_bot_rails
@@ -325,6 +331,7 @@ DEPENDENCIES
   rails-controller-testing
   rails-i18n
   rspec-rails
+  ruby-debug-ide
   sass-rails (>= 6.0.0)
   selenium-webdriver
   simplecov
