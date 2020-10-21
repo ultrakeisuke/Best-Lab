@@ -20,8 +20,6 @@ group :development, :test do
   gem 'pry-rails'
   gem 'pry-byebug'
   gem 'activerecord-import'
-  gem 'debase'
-  gem 'ruby-debug-ide'
 end
 
 group :development do
