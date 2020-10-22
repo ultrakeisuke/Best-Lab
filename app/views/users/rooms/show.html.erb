@@ -32,8 +32,8 @@
       <label for="picture-file" >
         <i class="fas fa-camera"></i>
       </label>
-      <%= f.fields_for :pictures, @message.pictures.build do |pi| %>
-        <%= pi.file_field :picture, type: 'file', multiple: "multiple", name: "message[pictures_attributes][][picture]", value: "", style: "display:none", id: "picture-file" %>
+      <%= f.fields_for :pictures, @message.pictures.build do |picture| %>
+        <%= picture.file_field :picture, type: 'file', multiple: "multiple", name: "message[pictures_attributes][][picture]", value: "", style: "display:none", id: "picture-file" %>
       <% end %>
     </div>
     <div class="post-field__textarea">
