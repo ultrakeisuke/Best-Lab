@@ -6,7 +6,7 @@ class Users::MessagesController < ApplicationController
   def create
     # FormObjectを使用するためMessageFormクラスでメッセージを作成
     @message_form = MessageForm.new(body: params[:body])
-    if @message.save
+    if @message_form.save
       redirect_to users_room_path(@message_form.room_id)
     else
       redirect_to users_room_path(@message_form.room_id)
