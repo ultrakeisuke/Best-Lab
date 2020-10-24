@@ -24,7 +24,7 @@
   <div class="insert-point"></div>
 </div>
 
-<%= form_with model: @message, url: users_messages_path, local: true do |f| %>
+<%= form_with model: @message_form, url: users_messages_path, local: true do |f| %>
   <%= f.hidden_field :room_id, value: @room.id %>
 
   <div class="post-field container">
