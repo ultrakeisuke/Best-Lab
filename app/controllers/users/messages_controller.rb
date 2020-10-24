@@ -4,19 +4,12 @@ class Users::MessagesController < ApplicationController
   before_action :authenticate_user!, only: [:create, :destroy]
 
   def create
-    message = Message.new(message_params)
-    message.user_id = current_user.id
-    if message.save
-      redirect_to users_room_path(message.room)
-    elsif message.pictures.length > 4
-      flash[:alert] = '投稿できる画像は4枚までです。'
-      redirect_to users_room_path(message.room)
-    elsif message.body.length > 10000
-      flash[:alert] = '送信できる文字は10000文字までです。'
-      redirect_to users_room_path(message.room)
+    # FormObjectを使用するためMessageFormクラスでメッセージを作成
+    @message_form = MessageForm.new(message_params)
+    if @message.save
+      redirect_to users_room_path(@message_form.room_id)
     else
-      flash[:alert] = 'メッセージを送信するには文字か画像を入力してください。'
-      redirect_to users_room_path(message.room)
+      redirect_to users_room_path(@message_form.room_id)
     end
   end
 
