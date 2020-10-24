@@ -5,7 +5,7 @@ class Users::MessagesController < ApplicationController
 
   def create
     # FormObjectを使用するためMessageFormクラスでメッセージを作成
-    @message_form = MessageForm.new(message_params)
+    @message_form = MessageForm.new(body: params[:body])
     if @message.save
       redirect_to users_room_path(@message_form.room_id)
     else
@@ -24,8 +24,8 @@ class Users::MessagesController < ApplicationController
 
   private
 
-    def message_params
-      params.require(:message_form).permit(:user_id, :room_id, :body, pictures_attributes: [:picture]).merge(user_id: current_user.id)
-    end
+    # def message_params
+    #   params.require(:message_form).permit(:user_id, :room_id, :body, pictures_attributes: [:picture]).merge(user_id: current_user.id)
+    # end
 
 end
