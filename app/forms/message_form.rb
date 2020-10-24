@@ -20,7 +20,7 @@ class MessageForm
 
     # メッセージに文章か画像が含まれるよう制限する
     def body_or_pictures
-      body.presence or picture.presence
+      body.presence or pictures.presence
     end
 
 end
