@@ -20,6 +20,7 @@ group :development, :test do
   gem 'pry-rails'
   gem 'pry-byebug'
   gem 'activerecord-import'
+  gem 'virtus'
 end
 
 group :development do
