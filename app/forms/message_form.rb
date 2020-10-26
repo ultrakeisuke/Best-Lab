@@ -30,6 +30,10 @@ class MessageForm
     end
   end
 
+  # saveメソッドを追加
+  def save
+  end
+
   private
 
     # メッセージに文章か画像が含まれるよう制限する
