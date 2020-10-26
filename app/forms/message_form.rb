@@ -18,6 +18,18 @@ class MessageForm
 
   attr_accessor :pictures
 
+  # newでformオブジェクトを生成する際に実行されるセッターを定義
+  def pictures_attributes=(attributes)
+    # 投稿する画像を格納するために空の配列@picturesを作成
+    @pictures ||= []
+    # attributesから値を取り出し、それをもとにpictureインスタンスを生成
+    attributes.each do |i, picture_params|
+      picture = Picture.new(picture_params)
+      # pictureを@picturesに格納
+      @pictures.push(picture)
+    end
+  end
+
   private
 
     # メッセージに文章か画像が含まれるよう制限する
