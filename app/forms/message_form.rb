@@ -30,8 +30,10 @@ class MessageForm
     end
   end
 
-  # saveメソッドを追加
+  # picture情報抜きのsaveメソッドを定義
   def save
+    message = Message.new(user_id: user_id, room_id: room_id, body: body)
+    message.save!
   end
 
   private
