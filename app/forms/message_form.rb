@@ -16,14 +16,7 @@ class MessageForm
 
   mount_uploader :picture, PictureUploader
 
-  # メッセージを保存するためのsaveメソッドを定義
-  def save
-    if valid?
-      true
-    else
-      false
-    end
-  end
+  attr_accessor :pictures
 
   private
 
