@@ -23,7 +23,7 @@ class Users::MessagesController < ApplicationController
   private
 
     def message_form_params
-      params.require(:message).permit(:room_id, :body, pictures_attributes: [:picture]).merge(user_id: current_user.id)
+      params.require(:message_form).permit(:room_id, :body, pictures_attributes: [:picture]).merge(user_id: current_user.id)
     end
 
 end
