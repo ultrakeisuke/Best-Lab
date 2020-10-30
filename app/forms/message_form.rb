@@ -12,7 +12,6 @@ class MessageForm
   attribute :user_id, Integer
   attribute :room_id, Integer
   attribute :body, String
-  attribute :picture, String
 
   mount_uploader :picture, PictureUploader
 
