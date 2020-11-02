@@ -24,7 +24,6 @@ class MessageForm
     # attributesから値を取り出し、それをもとにpictureインスタンスを生成
     if attributes != nil
       attributes.map do |attribute|
-        # picture_paramsをさらに分解しないといけない
         picture = Picture.new(attribute)
         # pictureを@picturesに格納
         @pictures.push(picture)
