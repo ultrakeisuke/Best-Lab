@@ -17,7 +17,7 @@ class MessageForm
 
   attr_accessor :pictures
 
-  # newでformオブジェクトを生成する際に実行されるセッターを定義
+  # newメソッドでフォームオブジェクトを生成する際に実行されるセッターを定義
   def pictures_attributes=(attributes)
     # 投稿する画像を格納するために空の配列@picturesを作成
     @pictures ||= []
