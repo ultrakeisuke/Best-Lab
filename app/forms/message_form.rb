@@ -33,6 +33,7 @@ class MessageForm
 
   # picture情報抜きのsaveメソッドを定義
   def save
+    return false if invalid?
     message = Message.new(user_id: user_id, room_id: room_id, body: body)
     if pictures != nil
       message.pictures = pictures
