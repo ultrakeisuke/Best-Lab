@@ -12,19 +12,18 @@ class MessageForm
   attribute :user_id, Integer
   attribute :room_id, Integer
   attribute :body, String
-  attribute :picture, String
 
   mount_uploader :picture, PictureUploader
 
   attr_accessor :pictures
 
-  # newでformオブジェクトを生成する際に実行されるセッターを定義
+  # newメソッドでフォームオブジェクトを生成する際に実行されるセッターを定義
   def pictures_attributes=(attributes)
     # 投稿する画像を格納するために空の配列@picturesを作成
     @pictures ||= []
     # attributesから値を取り出し、それをもとにpictureインスタンスを生成
-    attributes.each do |i, picture_params|
-      picture = Picture.new(picture_params)
+    attributes&.map do |attribute|
+      picture = Picture.new(attribute)
       # pictureを@picturesに格納
       @pictures.push(picture)
     end
@@ -32,7 +31,9 @@ class MessageForm
 
   # picture情報抜きのsaveメソッドを定義
   def save
+    return false if invalid?
     message = Message.new(user_id: user_id, room_id: room_id, body: body)
+    message.pictures = pictures unless pictures.nil?
     message.save!
   end
 

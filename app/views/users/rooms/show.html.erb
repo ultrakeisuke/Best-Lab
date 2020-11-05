@@ -24,7 +24,7 @@
   <div class="insert-point"></div>
 </div>
 
-<%= form_with model: @message_form, url: users_messages_path, local: true do |f| %>
+<%= form_with model: @message, url: users_messages_path, local: true do |f| %>
   <%= f.hidden_field :room_id, value: @room.id %>
 
   <div class="post-field container">
@@ -32,8 +32,8 @@
       <label for="picture-file" >
         <i class="fas fa-camera"></i>
       </label>
-      <%= f.fields_for :pictures, @message.pictures.build do |picture| %>
-        <%= picture.file_field :picture, type: 'file', multiple: "multiple", name: "message[pictures_attributes][][picture]", value: "", style: "display:none", id: "picture-file" %>
+      <%= f.fields_for :pictures do |picture| %>
+        <%= picture.file_field :picture, type: 'file', multiple: "multiple", name: "message_form[pictures_attributes][][picture]", value: "", style: "display:none", id: "picture-file" %>
       <% end %>
     </div>
     <div class="post-field__textarea">
