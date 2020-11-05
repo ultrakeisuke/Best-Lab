@@ -22,12 +22,10 @@ class MessageForm
     # 投稿する画像を格納するために空の配列@picturesを作成
     @pictures ||= []
     # attributesから値を取り出し、それをもとにpictureインスタンスを生成
-    if attributes != nil
-      attributes.map do |attribute|
-        picture = Picture.new(attribute)
-        # pictureを@picturesに格納
-        @pictures.push(picture)
-      end
+    attributes&.map do |attribute|
+      picture = Picture.new(attribute)
+      # pictureを@picturesに格納
+      @pictures.push(picture)
     end
   end
 
@@ -35,9 +33,7 @@ class MessageForm
   def save
     return false if invalid?
     message = Message.new(user_id: user_id, room_id: room_id, body: body)
-    if pictures != nil
-      message.pictures = pictures
-    end
+    message.pictures = pictures unless pictures.nil?
     message.save!
   end
 
