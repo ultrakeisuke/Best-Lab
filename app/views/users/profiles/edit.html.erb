@@ -1,0 +1,42 @@
+<% provide(:title, "プロフィール設定") %>
+
+<h3>プロフィール設定</h3>
+
+<%= form_with model: @profile, url: users_profile_path(@profile.id), local: true do |f| %>
+  <%= render "users/shared/error_messages", resource: @profile %>
+
+  <div class="field">
+    <%= f.label :affiliation, "所属" %>
+    <%= f.select(:affiliation, { 大学生: 'undergraduate', 大学院生: 'graduate', 高専生: 'technical_college', 専門学生: 'college', 社会人: 'working', その他: 'the_others'} ) %>
+  </div>
+
+  <div class="field">
+    <%= f.label :school, "学校名" %><br />
+    <%= f.text_field :school, autofocus: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :faculty, "学部・研究科名" %><br />
+    <%= f.text_field :faculty %>
+  </div>
+
+  <div class="field">
+    <%= f.label :department, "学科・専攻・コース名" %><br />
+    <%= f.text_field :department %>
+  </div>
+
+  <div class="field">
+    <%= f.label :laboratory, "研究室名" %><br />
+    <%= f.text_field :laboratory %>
+  </div>
+
+  <div class="field">
+    <%= f.label :content, "プロフィール" %><br />
+    <%= f.text_area :content %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "保存" %>
+  </div>
+
+<% end%>
