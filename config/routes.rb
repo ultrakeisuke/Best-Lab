@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     resources :basics, only: [:index, :show]
     resources :messages, only: [:create, :destroy]
     resources :rooms, only: [:index, :show, :create]
+    resources :profiles, only: [:new, :create, :edit, :update]
   end
   namespace :admins do
     resources :users, only: [:index, :show, :destroy]
