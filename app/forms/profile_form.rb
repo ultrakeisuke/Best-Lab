@@ -7,7 +7,7 @@ class ProfileForm
   validates :department, length: { maximum: 50 }
   validates :laboratory, length: { maximum: 50 }
   validates :content,    length: { maximum: 200 }
-  validates :at_least_one_parameter, presence: true
+  validate :at_least_one_parameter
 
   attribute :affiliation, Integer
   attribute :school,      String
@@ -32,7 +32,9 @@ class ProfileForm
   private
 
     def at_least_one_parameter
-      affiliation.presence or school.presence or faculty.presence or department.presence or laboratory.presence or content.presence
+      if affiliation.blank? && school.blank? && faculty.blank? && department.blank? && laboratory.blank? && content.blank?
+        errors.add(:base, "最低でも1つの項目を入力してください。")
+      end
     end
 
 end
