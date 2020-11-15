@@ -15,15 +15,15 @@
   </div>
 
   <div class="profile__text">
-    <div class="profile__text--top">
-      <h3><%= @user.name %></h3>
-      <div id="user_affiliation"><%= @user.profile.affiliation_i18n %></div>
-    </div>
-    <div class="profile__text--bottom">
-      <% if @user.profile && @user.profile.content %>
-        <%= @user.profile.content %>
-      <% end %>
-    </div>
+    <% if @user.profile %>
+      <div class="profile__text--top">
+        <h3><%= @user.name %></h3>
+        <div id="user_affiliation"><%= @user.profile&.affiliation_i18n %></div>
+      </div>
+      <div class="profile__text--bottom">
+        <%= @user.profile&.content %>
+      </div>
+    <% end %>
 
     <div class="profile__edit">
       <% if user_signed_in? %>
