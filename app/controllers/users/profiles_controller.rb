@@ -13,6 +13,8 @@ class Users::ProfilesController < ApplicationController
     @profile = ProfileForm.new(profile_form_params)
     if @profile.save
       redirect_to users_basic_path(current_user.id)
+    else
+      render :new
     end
   end
 
@@ -24,8 +26,11 @@ class Users::ProfilesController < ApplicationController
   # プロフィール編集
   def update
     @profile = Profile.find(params[:id])
-    @profile.update(profile_params)
-    redirect_to users_basic_path(current_user.id)
+    if @profile.update(profile_params)
+      redirect_to users_basic_path(current_user.id)
+    else
+      render :edit
+    end
   end
 
   private
