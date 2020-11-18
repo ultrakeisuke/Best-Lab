@@ -2,6 +2,9 @@ class ProfileForm
   include ActiveModel::Model
   include Virtus.model
 
+  AFFILIATION_VALUES = [ 'undergraduate', 'graduate', 'technical_college', 'college', 'working', 'the_others' ]
+
+  validates :affiliation, inclusion: { in: AFFILIATION_VALUES }
   validates :school,     length: { maximum: 50 }
   validates :faculty,    length: { maximum: 50 }
   validates :department, length: { maximum: 50 }
@@ -9,7 +12,7 @@ class ProfileForm
   validates :content,    length: { maximum: 200 }
   validate :at_least_one_parameter
 
-  attribute :affiliation, Integer
+  attribute :affiliation, String
   attribute :school,      String
   attribute :faculty,     String
   attribute :department,  String
