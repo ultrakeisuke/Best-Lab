@@ -20,13 +20,15 @@ class Users::ProfilesController < ApplicationController
 
   # プロフィール編集画面
   def edit
-    @profile = Profile.find(params[:id])
+    @profile = ProfileForm.new
   end
 
   # プロフィール編集
   def update
-    @profile = Profile.find(params[:id])
-    if @profile.update(profile_params)
+    @profile = ProfileForm.new
+    # 複数のattributeをまとめて更新
+    @profile.assign_attributes(params, current_user)
+    if @profile.save
       redirect_to users_basic_path(current_user.id)
     else
       render :edit
@@ -38,11 +40,6 @@ class Users::ProfilesController < ApplicationController
     # createアクション用ストロングパラメータ
     def profile_form_params
       params.require(:profile_form).permit(:affiliation, :school, :faculty, :department, :laboratory, :content).merge(user_id: current_user.id)
-    end
-
-    # updateアクション用ストロングパラメータ
-    def profile_params
-      params.require(:profile).permit(:affiliation, :school, :faculty, :department, :laboratory, :content)
     end
 
 end
