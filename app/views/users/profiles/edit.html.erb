@@ -2,7 +2,7 @@
 
 <h3>プロフィール設定</h3>
 
-<%= form_with model: @profile, url: users_profile_path(@profile.id), local: true do |f| %>
+<%= form_with model: @profile, url: users_profile_path, method: :patch, local: true do |f| %>
   <%= render "users/shared/error_messages", resource: @profile %>
 
   <div class="field">
