@@ -20,6 +20,13 @@ class ProfileForm
   attribute :content,     String
   attribute :user_id,     Integer
 
+  attr_accessor :user, :profile
+
+  def assign_attributes(params = {}, user)
+    @params = params
+    user.profile.assign_attributes(profile_form_params)
+  end
+
   def save
     return false if invalid?
     profile = Profile.new(affiliation: affiliation,
@@ -33,6 +40,10 @@ class ProfileForm
   end
 
   private
+
+    def profile_form_params
+      @params.require(:profile_form).permit(:affiliation, :school, :faculty, :department, :laboratory, :content)
+    end
 
     def at_least_one_parameter
       if affiliation.blank? && school.blank? && faculty.blank? && department.blank? && laboratory.blank? && content.blank?
