@@ -22,7 +22,14 @@ class ProfileForm
 
   attr_accessor :user, :profile
 
-  def assign_attributes(params = {}, user)
+  def initialize(user)
+    @user = user
+    @user.build_profile unless @user.profile
+    self.attributes = @user.attributes
+    self.profile = @user.profile if @user.profile
+  end
+
+  def assign_attributes(params = {})
     @params = params
     user.profile.assign_attributes(profile_form_params)
   end
