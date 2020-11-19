@@ -20,14 +20,14 @@ class Users::ProfilesController < ApplicationController
 
   # プロフィール編集画面
   def edit
-    @profile = ProfileForm.new
+    @profile = ProfileForm.new(current_user)
   end
 
   # プロフィール編集
   def update
-    @profile = ProfileForm.new
+    @profile = ProfileForm.new(current_user)
     # 複数のattributeをまとめて更新
-    @profile.assign_attributes(params, current_user)
+    @profile.assign_attributes(params)
     if @profile.save
       redirect_to users_basic_path(current_user.id)
     else
