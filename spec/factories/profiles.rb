@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :profile do
-    affiliation { 0 }
+    affiliation { "大学生" }
     school { "MyString" }
     faculty { "MyString" }
     department { "MyString" }
@@ -10,7 +10,7 @@ FactoryBot.define do
 
   # フォームオブジェクト用テストデータ
   factory :profile_form do
-    affiliation { 0 }
+    affiliation { "大学生" }
     school { "" }
     faculty { "" }
     department { "" }
