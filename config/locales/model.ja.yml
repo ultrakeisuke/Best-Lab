@@ -30,22 +30,6 @@ ja:
       message:
         body: メッセージ
         picture: 画像
-      profile:
-        affiliation: 所属
-        school: 学校名
-        faculty: 学部・研究科名
-        department: 学科・専攻・コース名
-        laboratory: 研究室名
-        content: プロフィール
-  enums:
-    profile:
-      affiliation:
-        undergraduate: 大学生
-        graduate: 大学院生
-        technical_college: 高専生
-        college: 専門学生
-        working: 社会人
-        the_others: その他
   attributes:
     created_at: 作成日
     updated_at: 更新日
