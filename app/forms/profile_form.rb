@@ -20,30 +20,36 @@ class ProfileForm
   attribute :content,     String
   attribute :user_id,     Integer
 
-  attr_accessor :user, :profile
+  attr_accessor :profile
 
-  def initialize(user)
-    @user = user
-    @user.build_profile unless @user.profile
-    self.attributes = @user.attributes
-    self.profile = @user.profile if @user.profile
+  def initialize(profile = Profile.new)
+    @profile = profile
+    # プロフィールが保存済みならProfileFormのattributesに代入
+    self.attributes = @profile.attributes if profile.persisted?
   end
 
   def assign_attributes(params = {})
     @params = params
-    user.profile.assign_attributes(profile_form_params)
+    # ユーザーがすでにprofileを持っている場合、profileのattributesを更新
+    profile.assign_attributes(profile_form_params) if profile.persisted?
+    # 更新情報をバリデーションするため、ProfileFormのattributesも変更
+    super(profile_form_params)
   end
 
   def save
     return false if invalid?
-    profile = Profile.new(affiliation: affiliation,
-                          school: school,
-                          faculty: faculty,
-                          department: department,
-                          laboratory: laboratory,
-                          content: content,
-                          user_id: user_id)
-    profile.save!
+    if profile.persisted? # profileを持っている場合はそのまま保存
+      profile.save!
+    else # prifileを持っていない場合はProfileオブジェクトに変換して保存
+      profile = Profile.new(affiliation: affiliation,
+                            school: school,
+                            faculty: faculty,
+                            department: department,
+                            laboratory: laboratory,
+                            content: content,
+                            user_id: user_id)
+      profile.save!
+    end
   end
 
   private
