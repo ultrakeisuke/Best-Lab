@@ -10,7 +10,9 @@ class Users::ProfilesController < ApplicationController
 
   # プロフィール作成
   def create
-    @profile = ProfileForm.new(profile_form_params)
+    @profile = ProfileForm.new
+    @profile.assign_attributes(params)
+    @profile.user_id = current_user.id
     if @profile.save
       redirect_to users_basic_path(current_user.id)
     else
@@ -20,12 +22,13 @@ class Users::ProfilesController < ApplicationController
 
   # プロフィール編集画面
   def edit
-    @profile = ProfileForm.new(current_user)
+    # ログインユーザーのプロフィール情報を取得
+    @profile = ProfileForm.new(Profile.find(params[:id]))
   end
 
   # プロフィール編集
   def update
-    @profile = ProfileForm.new(current_user)
+    @profile = ProfileForm.new(Profile.find(params[:id]))
     # 複数のattributeをまとめて更新
     @profile.assign_attributes(params)
     if @profile.save
