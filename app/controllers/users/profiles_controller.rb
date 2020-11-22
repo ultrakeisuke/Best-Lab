@@ -14,7 +14,7 @@ class Users::ProfilesController < ApplicationController
     @profile.assign_attributes(params)
     @profile.user_id = current_user.id
     if @profile.save
-      redirect_to users_basic_path(current_user.id)
+      redirect_to users_basic_path(current_user.id), flash: { notice: "プロフィールを保存しました。" }
     else
       render :new
     end
@@ -32,7 +32,7 @@ class Users::ProfilesController < ApplicationController
     # 複数のattributeをまとめて更新
     @profile.assign_attributes(params)
     if @profile.save
-      redirect_to users_basic_path(current_user.id)
+      redirect_to users_basic_path(current_user.id), flash: { notice: "プロフィールを保存しました。" }
     else
       render :edit
     end
