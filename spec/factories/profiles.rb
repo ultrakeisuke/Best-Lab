@@ -1,5 +1,6 @@
 FactoryBot.define do
-  factory :profile do
+  # ユーザーがすでに持っているprofileのテストデータ
+  factory :profile, class: Profile do
     affiliation { "大学生" }
     school { "MyString" }
     faculty { "MyString" }
@@ -9,12 +10,12 @@ FactoryBot.define do
   end
 
   # フォームオブジェクト用テストデータ
-  factory :profile_form do
+  factory :profile_form, class: ProfileForm do
     affiliation { "大学生" }
-    school { "" }
-    faculty { "" }
-    department { "" }
-    laboratory { "" }
-    content { "" }
+    school { "MyString" }
+    faculty { "MyString" }
+    department { "MyString" }
+    laboratory { "MyString" }
+    content { "MyString" }
   end
 end
