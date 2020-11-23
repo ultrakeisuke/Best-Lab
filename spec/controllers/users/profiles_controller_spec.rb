@@ -27,15 +27,29 @@ RSpec.describe Users::ProfilesController, type: :controller do
         expect(response).to render_template :new
       end
     end
-    context "フォームに1つでも記入していた場合" do
-      it "プロフィール作成に成功し、ユーザー詳細画面にリダイレクトする" do
+    context "affiliationカラムに入力した値が指定した値以外だった場合" do
+      # affiliationカラムは大学生、大学院生、高専生、専門学生、社会人、その他のみ保存可能
+      it "プロフィール作成に失敗し、作成画面を再表示する" do
         login_user(user)
-        expect { post :create, params: { profile_form: { affiliation: profile_form.affiliation,
+        expect { post :create, params: { profile_form: { affiliation: "大学生！",
                                                          school: "",
                                                          faculty: "",
                                                          department: "",
                                                          laboratory: "",
-                                                         content: ""  } } }.to change(Profile, :count).by(1)
+                                                         content: "" } } }.not_to change(Profile, :count)
+        expect(response).to have_http_status "200"
+        expect(response).to render_template :new
+      end
+    end
+    context "フォームに有効な値を入力していた場合" do
+      it "プロフィール作成に成功し、ユーザー詳細画面にリダイレクトする" do
+        login_user(user)
+        expect { post :create, params: { profile_form: { affiliation: profile_form.affiliation,
+                                                         school: profile_form.affiliation,
+                                                         faculty: profile_form.affiliation,
+                                                         department: profile_form.affiliation,
+                                                         laboratory: profile_form.affiliation,
+                                                         content: profile_form.affiliation } } }.to change(Profile, :count).by(1)
         expect(response).to have_http_status "302"
         expect(response).to redirect_to users_basic_path(user.id)
       end
@@ -55,17 +69,30 @@ RSpec.describe Users::ProfilesController, type: :controller do
 
   describe "updateアクション" do
     let(:profile) { create(:profile, user_id: user.id) }
-    context "フォームに入力した値が無効であった場合" do
+    let(:profile_form) { build(:profile_form, user_id: user.id) }
+    context "フォームに何も入力しなかった場合" do
       it "プロフィール編集画面を表示する" do
         login_user(user)
-        # schoolカラムは最大50文字まで入力可能
-        patch :update, params: { id: profile.id, profile: { affiliation: profile.affiliation,
-                                                            school: "a"*51,
-                                                            faculty: profile.faculty,
-                                                            department: profile.department,
-                                                            laboratory: profile.laboratory,
-                                                            content: profile.content } }
+        patch :update, params: { id: profile.id, profile_form: { affiliation: "",
+                                                                 school: "",
+                                                                 faculty: "",
+                                                                 department: "",
+                                                                 laboratory: "",
+                                                                 content: "" } }
         profile.reload
+        expect(response).to have_http_status "200"
+        expect(response).to render_template :edit
+      end
+    end
+    context "affiliationカラムに入力した値が指定した値以外だった場合" do
+      it "プロフィール編集に失敗し、作成画面を再表示する" do
+        login_user(user)
+        patch :update, params: { id: profile.id, profile_form: { affiliation: "大学生!",
+                                                                 school: "",
+                                                                 faculty: "",
+                                                                 department: "",
+                                                                 laboratory: "",
+                                                                 content: "" } }
         expect(response).to have_http_status "200"
         expect(response).to render_template :edit
       end
@@ -73,12 +100,12 @@ RSpec.describe Users::ProfilesController, type: :controller do
     context "フォームに入力した値が有効であった場合" do
       it "ユーザー詳細画面を表示する" do
         login_user(user)
-        patch :update, params: { id: profile.id, profile: { affiliation: profile.affiliation,
-                                                            school: "MySchool",
-                                                            faculty: profile.faculty,
-                                                            department: profile.department,
-                                                            laboratory: profile.laboratory,
-                                                            content: profile.content } }
+        patch :update, params: { id: profile.id, profile_form: { affiliation: profile_form.affiliation,
+                                                                 school: "MySchool",
+                                                                 faculty: profile_form.affiliation,
+                                                                 department: profile_form.affiliation,
+                                                                 laboratory: profile_form.affiliation,
+                                                                 content: profile_form.affiliation } }
         expect(profile.reload.school).to eq "MySchool"
         expect(response).to have_http_status "302"
         expect(response).to redirect_to users_basic_path(user.id)
