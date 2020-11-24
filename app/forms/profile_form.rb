@@ -29,11 +29,10 @@ class ProfileForm
   end
 
   def assign_attributes(params = {})
-    @params = params
     # ユーザーがすでにprofileを持っている場合、profileのattributesを更新
-    profile.assign_attributes(profile_form_params) if profile.persisted?
+    profile.assign_attributes(params) if profile.persisted?
     # 更新情報をバリデーションするため、ProfileFormのattributesも変更
-    super(profile_form_params)
+    super(params)
   end
 
   def save
@@ -53,10 +52,6 @@ class ProfileForm
   end
 
   private
-
-    def profile_form_params
-      @params.require(:profile_form).permit(:affiliation, :school, :faculty, :department, :laboratory, :content)
-    end
 
     def at_least_one_parameter
       if affiliation.blank? && school.blank? && faculty.blank? && department.blank? && laboratory.blank? && content.blank?
