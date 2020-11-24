@@ -18,10 +18,10 @@
     <% if @user.profile %>
       <div class="profile__text--top">
         <h3><%= @user.name %></h3>
-        <div id="user_affiliation"><%= @user.profile&.affiliation %></div>
+        <div id="user_affiliation"><%= @user.profile.affiliation %></div>
       </div>
       <div class="profile__text--bottom">
-        <%= @user.profile&.content %>
+        <%= @user.profile.content %>
       </div>
     <% end %>
 
