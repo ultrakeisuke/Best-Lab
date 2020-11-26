@@ -15,18 +15,25 @@
   </div>
 
   <div class="profile__text">
-    <div class="profile__text--top">
-      <h3><%= @user.name %></h3>
-      <div id="user_affiliation"><%= @user.affiliation_i18n %></div>
-    </div>
-    <div class="profile__text--bottom">
-      <p><%= @user.profile %></p>
-    </div>
+    <% if @user.profile %>
+      <div class="profile__text--top">
+        <h3><%= @user.name %></h3>
+        <div id="user_affiliation"><%= @user.profile.affiliation %></div>
+      </div>
+      <div class="profile__text--bottom">
+        <%= @user.profile.content %>
+      </div>
+    <% end %>
 
     <div class="profile__edit">
       <% if user_signed_in? %>
         <% if current_user == @user %>
-          <%= link_to 'プロフィールを編集', edit_user_registration_path %>
+          <%= link_to 'ユーザー情報設定', edit_user_registration_path %>
+        <% end %>
+        <% if @user.profile %>
+          <%= link_to 'プロフィール設定', edit_users_profile_path(@user.profile.id) %>
+        <% else %>
+          <%= link_to 'プロフィール設定', new_users_profile_path %>
         <% end %>
       <% end %>
     </div>
