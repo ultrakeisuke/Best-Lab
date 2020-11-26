@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_07_110955) do
+ActiveRecord::Schema.define(version: 2020_11_12_115802) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,19 @@ ActiveRecord::Schema.define(version: 2020_09_07_110955) do
     t.index ["message_id"], name: "index_pictures_on_message_id"
   end
 
+  create_table "profiles", force: :cascade do |t|
+    t.string "affiliation", default: "大学生", null: false
+    t.string "school"
+    t.string "faculty"
+    t.string "department"
+    t.string "laboratory"
+    t.text "content"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_profiles_on_user_id"
+  end
+
   create_table "rooms", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -83,7 +96,6 @@ ActiveRecord::Schema.define(version: 2020_09_07_110955) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "picture"
-    t.integer "affiliation", default: 0, null: false
     t.boolean "admin", default: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
@@ -95,4 +107,5 @@ ActiveRecord::Schema.define(version: 2020_09_07_110955) do
   add_foreign_key "messages", "rooms"
   add_foreign_key "messages", "users"
   add_foreign_key "pictures", "messages"
+  add_foreign_key "profiles", "users"
 end

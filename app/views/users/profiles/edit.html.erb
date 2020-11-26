@@ -1,0 +1,3 @@
+<% provide(:title, "プロフィール設定") %>
+
+<%= render "users/shared/profile_form", profile: @profile, url: users_profile_path(current_user.profile), method: :patch %>
