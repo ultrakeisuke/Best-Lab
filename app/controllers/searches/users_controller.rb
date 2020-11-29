@@ -10,8 +10,10 @@ class Searches::UsersController < ApplicationController
     flash.now[:notice] = "お探しのユーザーは見つかりませんでした。" if @profiles.blank?
   end
 
-  def search_user_params
-    params.require(:q).permit(:affiliation_eq, :school_eq, :faculty_eq, :department_eq, :laboratory_eq, :content_cont)
-  end
+  private
+
+    def search_user_params
+      params.require(:q).permit(:affiliation_eq, :school_eq, :faculty_eq, :department_eq, :laboratory_eq, :content_cont)
+    end
 
 end
