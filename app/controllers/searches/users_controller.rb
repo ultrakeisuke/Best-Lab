@@ -5,9 +5,17 @@ class Searches::UsersController < ApplicationController
 
   # ユーザーの検索一覧を表示
   def index
-    @q = Profile.ransack(search_user_params)
-    @profiles = @q.result.page(params[:page])
-    flash.now[:notice] = "お探しのユーザーは見つかりませんでした。" if @profiles.blank?
+    params[:q].each do |key, value|
+      params[:q].delete(key) if value.blank?
+    end
+
+    if params[:q].present?
+      @q = Profile.ransack(search_user_params)
+      @profiles = @q.result.page(params[:page])
+      flash.now[:notice] = "お探しのユーザーは見つかりませんでした。" if @profiles.blank?
+    else
+      flash.now[:notice] = "最低でも1つの項目を入力してください。"
+    end
   end
 
   private
