@@ -22,6 +22,9 @@ Rails.application.routes.draw do
     resources :rooms, only: [:index, :show, :create]
     resources :profiles, only: [:new, :create, :edit, :update]
   end
+  namespace :searches do
+    resources :users, only: [:index]
+  end
   namespace :admins do
     resources :users, only: [:index, :show, :destroy]
   end
