@@ -15,7 +15,6 @@
         <nav>
           <%= link_to "Best-Lab", root_path %>
           <% if user_signed_in? %>
-            <%= link_to 'ホーム', users_basics_path %>
             <%= link_to 'プロフィール', users_basic_path(current_user) %>
             <%= link_to 'メッセージ', users_rooms_path %>
             <%= button_to 'ログアウト', destroy_user_session_path, method: :delete %>
@@ -35,6 +34,8 @@
       <div class="yield">
         <%= yield %>
       </div>
+
+      <%= render 'users/shared/search_form' %>
 
     </div>
   </body>
