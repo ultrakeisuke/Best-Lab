@@ -1,9 +1,0 @@
-<% provide(:title, "ホーム") %>
-
-<% @users.each do |user| %>
-  <ul>
-    <li>
-      <%= link_to user.name, users_basic_path(user.id) %>
-    </li>
-  </ul>
-<% end %>
