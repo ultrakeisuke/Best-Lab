@@ -3,27 +3,27 @@
 <%= search_form_for @q, url: searches_users_path do |f| %>
 
   <div class="field">
-    <%= f.label :affiliation, "所属" %>
+    <%= f.label :affiliation_eq, "所属" %>
     <%= f.select(:affiliation_eq, { 未選択: '', 大学生: '大学生', 大学院生: '大学院生', 高専生: '高専生', 専門学生: '専門学生', 社会人: '社会人', その他: 'その他'} ) %>
   </div>
 
   <div class="field">
-    <%= f.label :school, "学校名" %><br />
+    <%= f.label :school_eq, "学校名" %><br />
     <%= f.text_field :school_eq %>
   </div>
 
   <div class="field">
-    <%= f.label :faculty, "学部・研究科名" %><br />
+    <%= f.label :faculty_eq, "学部・研究科名" %><br />
     <%= f.text_field :faculty_eq %>
   </div>
 
   <div class="field">
-    <%= f.label :department, "学科・専攻・コース名" %><br />
+    <%= f.label :department_eq, "学科・専攻・コース名" %><br />
     <%= f.text_field :department_eq %>
   </div>
 
   <div class="field">
-    <%= f.label :laboratory, "研究室名" %><br />
+    <%= f.label :laboratory_eq, "研究室名" %><br />
     <%= f.text_field :laboratory_eq %>
   </div>
 
