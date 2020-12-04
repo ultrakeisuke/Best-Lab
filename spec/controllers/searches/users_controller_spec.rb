@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Searches::UsersController, type: :controller do
   let(:user) { create(:user) }
-  let(:profile) { create(:profile, user_id: user.id) }
+  let!(:profile) { create(:profile, user_id: user.id) }
 
   describe "contentカラムに複数のキーワードを入力したときの挙動について" do
     context "データベースに存在しないキーワードを入力した場合" do
@@ -25,8 +25,8 @@ RSpec.describe Searches::UsersController, type: :controller do
                                    faculty_eq: "",
                                    department_eq: "",
                                    laboratory_eq: "",
-                                   content_cont_any: "MyString" } }
-        expect(assigns(:profiles)).to eq []
+                                   content_cont_any: "NoData MyString" } }
+        expect(assigns(:profiles)).to include profile
       end
     end
   end
