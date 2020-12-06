@@ -29,11 +29,11 @@
       <% if user_signed_in? %>
         <% if current_user == @user %>
           <%= link_to 'ユーザー情報設定', edit_user_registration_path %>
-        <% end %>
-        <% if @user.profile %>
-          <%= link_to 'プロフィール設定', edit_users_profile_path(@user.profile.id) %>
-        <% else %>
-          <%= link_to 'プロフィール設定', new_users_profile_path %>
+          <% if @user.profile %>
+            <%= link_to 'プロフィール設定', edit_users_profile_path(@user.profile) %>
+          <% else %>
+            <%= link_to 'プロフィール設定', new_users_profile_path %>
+          <% end %>
         <% end %>
       <% end %>
     </div>
