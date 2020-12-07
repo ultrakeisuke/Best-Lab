@@ -21,6 +21,7 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'activerecord-import'
   gem 'virtus'
+  gem 'ransack'
 end
 
 group :development do

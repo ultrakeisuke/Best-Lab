@@ -22,7 +22,7 @@ class Users::SessionsController < Devise::SessionsController
   def new_guest
     user = User.guest
     sign_in user
-    redirect_to users_basics_path, notice: 'ゲストユーザーとしてログインしました。'
+    redirect_to users_basic_path(user), notice: 'ゲストユーザーとしてログインしました。'
   end
 
   protected
@@ -33,7 +33,7 @@ class Users::SessionsController < Devise::SessionsController
     end
 
     def after_sign_in_path_for(resource_name)
-      users_basics_path
+      users_basic_path(current_user)
     end
 
     def after_sign_out_path_for(resource_name)
