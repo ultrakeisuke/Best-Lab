@@ -1,0 +1,19 @@
+<% provide(:title, "検索結果") %>
+
+<h3>検索結果</h3>
+
+<% if @profiles.present? %>
+  <% @profiles.each do |profile| %>
+    <%= link_to users_basic_path(profile.user_id) do %>
+      <% if profile.user.picture? %>
+        <%= image_tag profile.user.picture.url %>
+      <% else %>
+        <%= image_tag "default.jpeg" %>
+      <% end %>
+      <%= profile.user.name %>
+      <%= profile.content %>
+    <% end %>
+  <% end %>
+<% else %>
+  <p>お探しのユーザーは見つかりませんでした。</p>
+<% end %>
