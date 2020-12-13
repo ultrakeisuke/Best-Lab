@@ -1,0 +1,10 @@
+<% provide(:title, "みんなの質問") %>
+
+<h4>最近投稿された質問</h4>
+
+<div>
+  <% @posts.each do |post| %>
+    <%= post.title %>
+    <%= post.created_at %>
+  <% end %>
+</div>

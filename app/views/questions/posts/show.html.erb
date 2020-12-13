@@ -1,0 +1,8 @@
+<% provide(:title, @post.title)%>
+
+<h4>質問内容</h4>
+<%= link_to "質問の編集", edit_questions_post_path(@post.id) %>
+
+<%= @post.category.name %>
+<%= @post.title %>
+<%= @post.content %>
