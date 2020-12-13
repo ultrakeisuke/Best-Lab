@@ -25,6 +25,14 @@ Rails.application.routes.draw do
   namespace :searches do
     resources :users, only: [:index]
   end
+  namespace :questions do
+    resources :posts, only: [:index, :show, :new, :create, :edit, :update] do
+      collection do
+        get 'get_children_categories'
+      end
+    end
+    resources :replies, only: [:new, :create, :edit, :update, :destroy]
+  end
   namespace :admins do
     resources :users, only: [:index, :show, :destroy]
   end
