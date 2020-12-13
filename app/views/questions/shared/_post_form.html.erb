@@ -1,0 +1,30 @@
+<h3>質問作成</h3>
+
+<%= form_with model: post, url: url, method: method, local: true do |f| %>
+
+  <div class="filed">
+    <%= f.label :category_id, "カテゴリー" %>
+    <select id="parent_category">
+      <% @parent_categories.each do |parent| %>
+        <option value="<%= parent.id %>"><%= parent.name %></option>
+      <% end %>
+    </select>
+    <%= f.select :category_id, options_for_select(@children_categories.map{|c| [c.name, c.id]}), {}, {id: "children_category"} %>
+  </div>
+
+  <div class="field">
+    <%= f.label :title, "質問タイトル" %><br />
+    <%= f.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= f.label :content, "質問内容" %><br />
+    <%= f.text_area :content %>
+  </div>
+
+
+  <div class="actions">
+    <%= f.submit "保存" %>
+  </div>
+
+<% end%>
