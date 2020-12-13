@@ -42,14 +42,14 @@ parents.each do |parent|
   Category.create(name: parent)
 end
 
-# 親カテゴリーのパスはnilなのでwhereで検索して@parentsに格納する
+# 親カテゴリー情報を@parentsに格納する
 @parents = Category.where(ancestry: nil)
 
-# 子カテゴリーを作成する
+# @parentsをもとに子カテゴリーを作成する
 c = 0
 @parents.each do |parent|
   children[c].each do |child|
-    Category.create(name: child)
+    Category.create(name: child, ancestry: parent.id)
   end
   c += 1
 end
