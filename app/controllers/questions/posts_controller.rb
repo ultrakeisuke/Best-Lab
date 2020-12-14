@@ -2,7 +2,8 @@
 
 class Questions::PostsController < ApplicationController
   before_action :authenticate_user!, only: [:create, :update]
-  before_action :set_categories, only: [:new, :edit]
+  before_action :set_categories_for_new, only: [:new]
+  before_action :set_categories_for_edit, only: [:edit]
   
   # すべての質問一覧
   def index
@@ -23,7 +24,7 @@ class Questions::PostsController < ApplicationController
     @post = PostForm.new
     @post.assign_attributes(post_params)
     if @post.save
-      redirect_to users_basic_path(current_user.id), flash: { notice: "質問を投稿しました。" }
+      redirect_to users_basic_path(current_user), flash: { notice: "質問を投稿しました。" }
     else
       render :new
     end
@@ -32,13 +33,15 @@ class Questions::PostsController < ApplicationController
   # 投稿の編集画面
   def edit
     @post = PostForm.new(post = Post.find(params[:id]))
+    # すでに作成した投稿のカテゴリーを取得しセレクトボックスに表示する
+    @selected_parent_category = Post.find(params[:id]).category.parent
   end
 
   def update
     @post = PostForm.new(post = Post.find(params[:id]))
     @post.assign_attributes(post_params)
     if @post.save
-      redirect_to questions_post_path(@post.id), flash[:notice] = "質問を編集しました。"
+      redirect_to users_basic_path(current_user), flash: { notice: "質問を編集しました。" }
     else
       render :edit
     end
@@ -55,10 +58,16 @@ class Questions::PostsController < ApplicationController
       params.require(:post_form).permit(:category_id, :title, :content, :status, pictures_attributes: [:picture]).merge(user_id: current_user.id)
     end
 
-    # 新規作成画面のカテゴリーの初期値を表示
-    def set_categories
+    # 新規作成画面のセレクトボックスの初期値を表示
+    def set_categories_for_new
       @parent_categories = Category.where(ancestry: nil)
       @children_categories = @parent_categories.first.children
+    end
+
+    # 編集画面のセレクトボックスの初期値を表示
+    def set_categories_for_edit
+      @parent_categories = Category.where(ancestry: nil)
+      @children_categories = Post.find(params[:id]).category.parent.children
     end
 
 end
