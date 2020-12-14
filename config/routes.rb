@@ -28,7 +28,9 @@ Rails.application.routes.draw do
   namespace :questions do
     resources :posts, only: [:index, :show, :new, :create, :edit, :update] do
       collection do
-        get 'get_children_categories'
+        # Ajax通信用ルーティング
+        get 'get_children_categories' # 新規作成画面用
+        get '/:id/get_children_categories', to:'posts#get_children_categories' # 編集画面用
       end
     end
     resources :replies, only: [:new, :create, :edit, :update, :destroy]
