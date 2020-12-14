@@ -4,11 +4,7 @@
 
   <div class="filed">
     <%= f.label :category_id, "カテゴリー" %>
-    <select id="parent_category">
-      <% @parent_categories.each do |parent| %>
-        <option value="<%= parent.id %>"><%= parent.name %></option>
-      <% end %>
-    </select>
+    <%= select_tag "parent_category", options_for_select(@parent_categories.map{|c| [c.name, c.id]}, selected: @selected_parent_category&.id) %>
     <%= f.select :category_id, options_for_select(@children_categories.map{|c| [c.name, c.id]}), {}, {id: "children_category"} %>
   </div>
 
