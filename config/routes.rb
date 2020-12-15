@@ -34,6 +34,7 @@ Rails.application.routes.draw do
       end
     end
     resources :replies, only: [:new, :create, :edit, :update, :destroy]
+    resources :categories, only: [:show]
   end
   namespace :admins do
     resources :users, only: [:index, :show, :destroy]
