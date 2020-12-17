@@ -2,8 +2,8 @@
 
 class Questions::PostsController < ApplicationController
   before_action :authenticate_user!, only: [:create, :update]
-  before_action :set_categories_for_new, only: [:new]
-  before_action :set_categories_for_edit, only: [:edit]
+  before_action :set_categories_for_new, only: [:new, :create]
+  before_action :set_categories_for_edit, only: [:edit, :update]
   
   # すべての質問一覧
   def index
