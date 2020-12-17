@@ -1,6 +1,7 @@
 class PostForm
   include ActiveModel::Model
   include Virtus.model
+  extend CarrierWave::Mount
 
   validates :title,   presence: true, length: { maximum: 50 }
   validates :content, presence: true, length: { maximum: 10000 }
@@ -11,6 +12,8 @@ class PostForm
   attribute :content,     String
   attribute :status,      Boolean
 
+  mount_uploader :picture, PictureUploader
+
   attr_accessor :pictures
 
   def initialize(post = Post.new)
@@ -20,6 +23,15 @@ class PostForm
 
   def assign_attributes(params = {})
     @params = params
+    # 画像情報からインスタンスを生成する
+    attributes = params.to_h[:pictures_attributes]
+    @pictures ||= []
+    attributes&.map do |attribute|
+      picture = Picture.new(attribute)
+      @pictures.push(picture)
+    end
+    # 画像以外の情報でpostを更新する
+    @params.delete(:pictures_attributes)
     @post.assign_attributes(params) if @post.persisted?
     super(params)
   end
@@ -27,12 +39,16 @@ class PostForm
   def save
     return false if invalid?
     if @post.persisted?
+      @post.pictures = pictrues unless pictures.nil?
       @post.save!
     else
       post = Post.new(user_id: user_id,
                       category_id: category_id,
                       title: title,
                       content: content)
+      post.pictures = pictures unless pictures.nil?
+      # ここでエラーが発生
+      # バリデーションに失敗しました:picturesは有効ではありません。
       post.save!
     end
   end
