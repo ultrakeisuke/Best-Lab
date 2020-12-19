@@ -1,6 +1,7 @@
 <h3>質問作成</h3>
 
 <%= form_with model: post, url: url, method: method, local: true do |f| %>
+  <%= render "users/shared/error_messages", resource: @post %>
 
   <div class="filed">
     <%= f.label :category_id, "カテゴリー" %>
