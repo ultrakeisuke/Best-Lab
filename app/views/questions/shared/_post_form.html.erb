@@ -20,7 +20,7 @@
 
   <div class="field">
     <%= f.fields_for :pictures do |picture| %>
-      <%= picture.file_field :picture, name: "post_form[pictures_attributes][][picture]" %>
+      <%= picture.file_field :picture, multiple: "multiple", name: "post_form[pictures_attributes][][picture]" %>
     <% end %>
   </div>
 
