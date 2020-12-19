@@ -33,3 +33,8 @@ ja:
   attributes:
     created_at: 作成日
     updated_at: 更新日
+  activemodel:
+    attributes:
+      post_form:
+        title: タイトル
+        content: 質問内容
