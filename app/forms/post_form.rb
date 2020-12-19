@@ -1,10 +1,13 @@
 class PostForm
+  MAX_PICTURES_COUNT = 4
+
   include ActiveModel::Model
   include Virtus.model
   extend CarrierWave::Mount
 
   validates :title,   presence: true, length: { maximum: 50 }
   validates :content, presence: true, length: { maximum: 10000 }
+  validate :max_num_of_pictures
 
   attribute :user_id,     Integer
   attribute :category_id, Integer
@@ -49,6 +52,12 @@ class PostForm
       post.pictures = pictures if pictures.present?
       post.save!
     end
+  end
+
+  private
+
+  def max_num_of_pictures
+    errors.add(:base, "投稿できる画像は#{MAX_PICTURES_COUNT}枚までです。") if self.pictures.length > MAX_PICTURES_COUNT
   end
   
 end
