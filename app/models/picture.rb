@@ -1,7 +1,8 @@
 class Picture < ApplicationRecord
   MAX_PICTURES_COUNT = 4
 
-  belongs_to :message
+  belongs_to :message, optional: true
+  belongs_to :post, optional: true
   mount_uploader :picture, PictureUploader
   validate :pictures_count_must_be_within_limit
 
