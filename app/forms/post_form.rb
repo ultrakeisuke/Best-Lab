@@ -32,14 +32,14 @@ class PostForm
     end
     # 画像以外の情報でpostを更新する
     @params.delete(:pictures_attributes)
-    post.assign_attributes(@params) if @post.persisted?
+    @post.assign_attributes(@params) if @post.persisted?
     super(@params)
   end
 
   def save
     return false if invalid?
     if @post.persisted?
-      @post.pictures = pictrues if pictures.present?
+      @post.pictures = pictures if pictures.present?
       @post.save!
     else
       post = Post.new(user_id: user_id,
