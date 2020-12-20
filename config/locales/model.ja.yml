@@ -38,3 +38,5 @@ ja:
       post_form:
         title: タイトル
         content: 質問内容
+        status: 現在の状況
+        category_id: カテゴリー
