@@ -3,6 +3,13 @@
 <%= form_with model: post, url: url, method: method, local: true do |f| %>
   <%= render "users/shared/error_messages", resource: @post %>
 
+  <% if @post.present? %>
+    <div class="field">
+      <%= f.label :status, "現在の状況" %>
+      <%= f.select :status, { 受付中: "受付中", 解決済: "解決済" } %>
+    </div>
+  <% end %>
+
   <div class="filed">
     <%= f.label :category_id, "カテゴリー" %>
     <%= select_tag "parent_category", options_for_select(@parent_categories.map{|c| [c.name, c.id]}, selected: @selected_parent_category&.id) %>
