@@ -71,7 +71,7 @@ ActiveRecord::Schema.define(version: 2020_12_19_063303) do
   create_table "posts", force: :cascade do |t|
     t.string "title", null: false
     t.text "content", null: false
-    t.boolean "status", default: true, null: false
+    t.string "status", default: "受付中", null: false
     t.bigint "user_id", null: false
     t.bigint "category_id", null: false
     t.datetime "created_at", precision: 6, null: false
