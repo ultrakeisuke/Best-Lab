@@ -52,7 +52,8 @@ class PostForm
       post = Post.new(user_id: user_id,
                       category_id: category_id,
                       title: title,
-                      content: content)
+                      content: content,
+                      status: status)
       post.pictures = pictures if pictures.present?
       post.save!
     end
