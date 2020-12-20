@@ -3,7 +3,7 @@
 <%= form_with model: post, url: url, method: method, local: true do |f| %>
   <%= render "users/shared/error_messages", resource: @post %>
 
-  <% if @post.present? %>
+  <% if params[:id].present? %>
     <div class="field">
       <%= f.label :status %>
       <%= f.select :status, { 受付中: "受付中", 解決済: "解決済" } %>
