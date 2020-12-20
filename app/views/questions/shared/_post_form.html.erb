@@ -5,24 +5,24 @@
 
   <% if @post.present? %>
     <div class="field">
-      <%= f.label :status, "現在の状況" %>
+      <%= f.label :status %>
       <%= f.select :status, { 受付中: "受付中", 解決済: "解決済" } %>
     </div>
   <% end %>
 
   <div class="filed">
-    <%= f.label :category_id, "カテゴリー" %>
+    <%= f.label :category_id %>
     <%= select_tag "parent_category", options_for_select(@parent_categories.map{|c| [c.name, c.id]}, selected: @selected_parent_category&.id) %>
     <%= f.select :category_id, options_for_select(@children_categories.map{|c| [c.name, c.id]}), {}, {id: "children_category"} %>
   </div>
 
   <div class="field">
-    <%= f.label :title, "質問タイトル" %><br />
+    <%= f.label :title %><br />
     <%= f.text_field :title %>
   </div>
 
   <div class="field">
-    <%= f.label :content, "質問内容" %><br />
+    <%= f.label :content %><br />
     <%= f.text_area :content %>
   </div>
 
