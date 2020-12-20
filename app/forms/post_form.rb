@@ -62,7 +62,7 @@ class PostForm
   private
 
   def max_num_of_pictures
-    errors.add(:base, "投稿できる画像は#{MAX_PICTURES_COUNT}枚までです。") if self.pictures.length > MAX_PICTURES_COUNT
+    errors.add(:base, "投稿できる画像は#{MAX_PICTURES_COUNT}枚までです。") if self.pictures && self.pictures.length > MAX_PICTURES_COUNT
   end
   
 end
