@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Questions::PostsController < ApplicationController
-  before_action :authenticate_user!, only: [:create, :update]
+  before_action :authenticate_user!, only: [:create, :edit, :update]
   before_action :set_categories_for_new, only: [:new, :create]
   before_action :set_categories_for_edit, only: [:edit, :update]
   
