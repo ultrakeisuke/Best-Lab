@@ -5,15 +5,19 @@ class PostForm
   include Virtus.model
   extend CarrierWave::Mount
 
+  STATUS_VALUES = [ '受付中', '解決済' ]
+
   validates :title,   presence: true, length: { maximum: 50 }
   validates :content, presence: true, length: { maximum: 10000 }
+  validates :status, inclusion: { in: STATUS_VALUES }
+  validates :category_id, presence: true
   validate :max_num_of_pictures
 
   attribute :user_id,     Integer
   attribute :category_id, Integer
   attribute :title,       String
   attribute :content,     String
-  attribute :status,      Boolean
+  attribute :status,      String
 
   mount_uploader :picture, PictureUploader
 
