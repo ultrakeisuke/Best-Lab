@@ -8,6 +8,8 @@
       <%= f.label :status %>
       <%= f.select :status, { 受付中: "受付中", 解決済: "解決済" } %>
     </div>
+  <% else %>
+    <%= f.hidden_field :status, value: "受付中" %>
   <% end %>
 
   <div class="filed">
