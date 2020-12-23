@@ -60,8 +60,8 @@ ActiveRecord::Schema.define(version: 2020_12_12_072310) do
 
   create_table "pictures", force: :cascade do |t|
     t.string "picture"
-    t.string "imageable_type"
-    t.bigint "imageable_id"
+    t.string "imageable_type", null: false
+    t.bigint "imageable_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["imageable_type", "imageable_id"], name: "index_pictures_on_imageable_type_and_imageable_id"
