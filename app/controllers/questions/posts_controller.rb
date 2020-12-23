@@ -32,9 +32,10 @@ class Questions::PostsController < ApplicationController
 
   # 投稿の編集画面
   def edit
-    @post = PostForm.new(post = Post.find(params[:id]))
+    post = Post.find(params[:id])
+    @post = PostForm.new(post)
     # すでに作成した投稿のカテゴリーを取得しセレクトボックスに表示する
-    @selected_parent_category = Post.find(params[:id]).category.parent
+    @selected_parent_category = post.category.parent
   end
 
   def update
