@@ -1,7 +1,4 @@
 FactoryBot.define do
-  factory :message, class: Message do
-    user { 1 }
-    room { 1 }
-    body { "MyText" }
+  factory :message_form, class: MessageForm do
   end
 end

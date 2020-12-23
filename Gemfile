@@ -22,6 +22,7 @@ group :development, :test do
   gem 'activerecord-import'
   gem 'virtus'
   gem 'ransack'
+  gem 'ancestry'
 end
 
 group :development do

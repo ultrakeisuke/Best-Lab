@@ -5,10 +5,11 @@ class User < ApplicationRecord
 
   mount_uploader :picture, PictureUploader
   validates :name, presence: true, length: { maximum: 50 }
-  enum  affiliation: { undergraduate: 0, graduate: 1 }
   has_one :profile, dependent: :destroy
   has_many :entries, dependent: :destroy
   has_many :messages, dependent: :destroy
+  has_many :posts
+  has_many :replies
 
   # 新規登録完了時の自動ログインの防止
   def active_for_authentication?

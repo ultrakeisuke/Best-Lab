@@ -1,9 +1,8 @@
 class CreatePictures < ActiveRecord::Migration[6.0]
   def change
     create_table :pictures do |t|
-      t.references :message, null: false, foreign_key: true
       t.string :picture
-
+      t.references :imageable, polymorphic: true, null: false
       t.timestamps
     end
   end

@@ -1,0 +1,14 @@
+<% provide(:title, "みんなの質問") %>
+
+<h4>最近投稿された質問</h4>
+
+<div>
+  <% @posts.each do |post| %>
+    <%= link_to(questions_post_path(post)) do %>
+      <%= post.title %>
+    <% end %>
+    <%= link_to(questions_category_path(post.category)) do %>
+      <%= post.category.name %>
+    <% end %>
+  <% end %>
+</div>

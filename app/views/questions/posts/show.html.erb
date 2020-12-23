@@ -1,0 +1,17 @@
+<% provide(:title, @post.title)%>
+
+<h4>質問内容</h4>
+<% if @post.user_id == current_user.id %>
+  <%= link_to "質問の編集", edit_questions_post_path(@post.id) %>
+<% end %>
+
+<%= @post.category.name %>
+<%= @post.title %>
+<%= @post.status %>
+<%= @post.content %>
+
+<% if @post.pictures.present? %>
+  <% @post.pictures.each do |picture| %>
+    <%= image_tag picture.picture.url %>
+  <% end %>
+<% end %>

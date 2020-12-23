@@ -1,0 +1,3 @@
+<% provide(:title, "質問編集") %>
+
+<%= render "questions/shared/post_form", post: @post, url: questions_post_path(Post.find(params[:id])), method: :patch %>
