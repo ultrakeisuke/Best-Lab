@@ -27,6 +27,9 @@ class Users::BasicsController < ApplicationController
         @entry = Entry.new
       end
     end
+
+    # ユーザーが投稿したすべての質問を表示する
+    @posts = Post.where(user_id: @user)
   end
   
 end

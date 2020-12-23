@@ -16,6 +16,7 @@
           <%= link_to "Best-Lab", root_path %>
           <% if user_signed_in? %>
             <%= link_to 'プロフィール', users_basic_path(current_user) %>
+            <%= link_to '質問を投稿する', new_questions_post_path %>
             <%= link_to 'メッセージ', users_rooms_path %>
             <%= button_to 'ログアウト', destroy_user_session_path, method: :delete %>
           <% elsif admin_signed_in? %>

@@ -1,0 +1,9 @@
+<% provide(:title, @category.name) %>
+
+<h4><%= @category.name %>に関する質問</h4>
+
+<% @posts.each do |post| %>
+  <%= link_to(questions_post_path(post)) do %>
+    <%= post.title %>
+  <% end %>
+<% end %>
