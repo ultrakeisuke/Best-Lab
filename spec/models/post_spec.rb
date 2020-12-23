@@ -7,12 +7,15 @@ RSpec.describe Post, type: :model do
 
   it "設定した値以外をstatusカラムに入力した場合は無効" do
     post = build(:post_form, title: "title", content: "content", status: "", category_id: children_category.id, user_id: user.id)
+    post.pictures = []
     expect(post).not_to be_valid
   end
 
   it "設定した値をstatusカラムに入力した場合は有効" do
     post1 = build(:post_form, title: "title", content: "content", status: "受付中", category_id: children_category.id, user_id: user.id)
     post2 = build(:post_form, title: "title", content: "content", status: "解決済", category_id: children_category.id, user_id: user.id)
+    post1.pictures = []
+    post2.pictures = []
     expect(post1).to be_valid
     expect(post2).to be_valid
   end
