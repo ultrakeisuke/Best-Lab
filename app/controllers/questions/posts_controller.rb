@@ -4,6 +4,7 @@ class Questions::PostsController < ApplicationController
   before_action :authenticate_user!, only: [:create, :edit, :update]
   before_action :set_categories_for_new, only: [:new, :create]
   before_action :set_categories_for_edit, only: [:edit, :update]
+  before_action :set_replies, only: [:show]
   
   # すべての質問一覧
   def index
@@ -69,6 +70,14 @@ class Questions::PostsController < ApplicationController
     def set_categories_for_edit
       @parent_categories = Category.where(ancestry: nil)
       @children_categories = Post.find(params[:id]).category.parent.children
+    end
+
+    # 質問に対するリプライを表示
+    def set_replies
+      @parent_replies = Reply.where(post_id: params[:id], ancestry: nil)
+      @parent_replies.each do |parent|
+        @children_replies = Reply.where(post_id: params[:id], ancestry: parent.id)
+      end
     end
 
 end
