@@ -54,7 +54,7 @@
   <% end %>
 
   <h4>あなたが投稿した質問</h4>
-  <% @user&.posts.order(id: "DESC").each do |post| %>
+  <% @user&.posts.order(id: :desc).each do |post| %>
     <%= link_to(questions_post_path(post)) do %>
       <%= post.title %>
     <% end %>
