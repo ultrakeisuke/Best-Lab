@@ -1,7 +1,6 @@
-class Post < ApplicationRecord
+class Answer < ApplicationRecord
   has_many :pictures, as: :imageable
-  has_many :answers
   has_many :replies
   belongs_to :user
-  belongs_to :category
+  belongs_to :post
 end
