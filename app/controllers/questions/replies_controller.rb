@@ -9,6 +9,8 @@ class Questions::RepliesController < ApplicationController
     @reply.assign_attributes(reply_params)
     respond_to do |format|
       if @reply.save
+        @answer = Answer.find(@reply.answer_id)
+        @post = Post.find(@reply.post_id)
         format.html { redirect_to questions_post_path(@reply.post_id) }
         format.js
       else
