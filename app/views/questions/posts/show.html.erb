@@ -57,7 +57,9 @@
 </div>
 
 <%# まだ回答していない場合は回答用のフォームを表示 %>
-<% if @your_answer.blank? %>
-  <h4>あなたの回答</h4>
-  <%= render "questions/shared/answer_form", reply: @reply, answer: @answer, url: questions_answers_path, method: :post %>
-<% end %>
+<div id="your-answer">
+  <% if @your_answer.blank? %>
+    <h4>あなたの回答</h4>
+    <%= render "questions/shared/answer_form", reply: @reply, answer: @answer, url: questions_answers_path, method: :post %>
+  <% end %>
+</div>
