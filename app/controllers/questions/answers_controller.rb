@@ -9,6 +9,9 @@ class Questions::AnswersController < ApplicationController
     @answer.assign_attributes(answer_params)
     respond_to do |format|
       if @answer.save
+        @reply = ReplyForm.new
+        @answers = Answer.where(post_id: @answer.post_id)
+        @post = Post.find(@answer.post_id)
         format.html { redirect_to questions_post_path(@answer.post_id) }
         format.js
       else
