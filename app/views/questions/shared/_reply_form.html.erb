@@ -1,7 +1,7 @@
 <%= form_with model: reply, url: url, method: method, id: "reply-form" do |f| %>
   <div id="js-questions-errors-<%= answer.id %>"></div>
 
-  <%= f.hidden_field :post_id, value: @post.id %>
+  <%= f.hidden_field :post_id, value: post.id %>
   <%= f.hidden_field :answer_id, value: answer.id %>
 
   <div class="field">
