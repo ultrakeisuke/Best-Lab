@@ -1,0 +1,6 @@
+$('#js-questions-errors-<%= @reply.answer_id %>').replaceWith(
+  "<%= j(
+    render 'questions/shared/error_messages',
+    resource: @reply
+  ) %>"
+);
