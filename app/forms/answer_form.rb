@@ -55,7 +55,7 @@ class AnswerForm
 
     # 回答にコメントか画像が含まれるよう制限する
     def body_or_pictures
-      errors.add(:base, "コメントか画像を送信してください。") if body.blank? || pictures.blank?
+      errors.add(:base, "コメントか画像を送信してください。") if body.blank? && pictures.blank?
     end
 
     def max_num_of_pictures
