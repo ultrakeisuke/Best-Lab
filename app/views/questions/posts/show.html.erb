@@ -17,36 +17,44 @@
 <% end %>
 
 <%# 質問に対する回答数 %>
-<% if @answers.present? %>
-  <h4>回答<%= @answers&.length %></h4>
-<% else %>
-  <h4>回答はまだついていません</h4>
-<% end %>
+<div class="num-of-answers">
+  <% if @answers.present? %>
+    <h4>回答<%= @answers&.length %></h4>
+  <% else %>
+    <h4>回答はまだついていません</h4>
+  <% end %>
+</div>
 
 <%# 回答と回答に紐づいたリプライを表示 %>
-<% @answers&.each do |answer| %>
-  <div class="display-answer">
-    <%= answer.body %>
-    <% answer.pictures.each do |picture| %>
-      <%= image_tag picture.picture.url %>
-    <% end %>
-  </div>
-  <ul id="display-reply-<%= answer.id %>">
-    <% answer.replies&.each do |reply| %>
-      <div class="reply-components">
-        <div class="reply-username"><%= reply.user.name %></div>
-        <div class="reply-createdat"><%= reply.created_at %></div>
-        <div class="reply-body"><%= reply.body %></div>
-        <div class="reply-pictures">
-          <% reply.pictures.each do |picture| %>
+<div class="comment-list">
+  <% @answers&.each do |answer| %>
+    <div id="display-<%= answer.id %>">
+      <div id="display-answer-<%= answer.id %>">
+        <div class="answer-username"><%= answer.user.name %></div>
+        <div class="answer-createdat"><%= l answer.created_at, format: :month %></div>
+        <div class="answer-body"><%= answer.body %></div>
+        <div class="answer-pictures">
+          <% answer.pictures.each do |picture| %>
             <%= image_tag picture.picture.url %>
           <% end %>
         </div>
       </div>
-    <% end %>
-  </ul>
-  <%= render "questions/shared/reply_form", reply: @reply, answer: answer, url: questions_replies_path, method: :post %>
-<% end %>
+      <ul id="display-reply-<%= answer.id %>">
+        <% answer.replies&.each do |reply| %>
+          <div class="reply-username"><%= reply.user.name %></div>
+          <div class="reply-createdat"><%= l reply.created_at, format: :month %></div>
+          <div class="reply-body"><%= reply.body %></div>
+          <div class="reply-pictures">
+            <% reply.pictures.each do |picture| %>
+              <%= image_tag picture.picture.url %>
+            <% end %>
+          </div>
+        <% end %>
+      </ul>
+      <%= render "questions/shared/reply_form", reply: @reply, answer: answer, post: @post, url: questions_replies_path, method: :post %>
+    </div>
+  <% end %>
+</div>
 
 <%# まだ回答していない場合は回答用のフォームを表示 %>
 <% if @your_answer.blank? %>
