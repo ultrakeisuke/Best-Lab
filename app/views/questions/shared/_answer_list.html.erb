@@ -1,0 +1,29 @@
+<div class="comment-list">
+  <% answers&.each do |answer| %>
+    <div id="display-<%= answer.id %>">
+      <div id="display-answer-<%= answer.id %>">
+        <div class="answer-username"><%= answer.user.name %></div>
+        <div class="answer-createdat"><%= l answer.created_at, format: :month %></div>
+        <div class="answer-body"><%= answer.body %></div>
+        <div class="answer-pictures">
+          <% answer.pictures.each do |picture| %>
+            <%= image_tag picture.picture.url %>
+          <% end %>
+        </div>
+      </div>
+      <ul id="display-reply-<%= answer.id %>">
+        <% answer.replies&.each do |reply| %>
+          <div class="reply-username"><%= reply.user.name %></div>
+          <div class="reply-createdat"><%= l reply.created_at, format: :month %></div>
+          <div class="reply-body"><%= reply.body %></div>
+          <div class="reply-pictures">
+            <% reply.pictures.each do |picture| %>
+              <%= image_tag picture.picture.url %>
+            <% end %>
+          </div>
+        <% end %>
+      </ul>
+      <%= render "questions/shared/reply_form", reply: @reply, answer: answer, post: @post, url: questions_replies_path, method: :post %>
+    </div>
+  <% end %>
+</div>

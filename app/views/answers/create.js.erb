@@ -1,0 +1,6 @@
+$('.num-of-answers').replaceWith("<%= j(render partial: 'questions/shared/num_of_answers', locals: { answers: @answers } ); %>")
+<%# 投稿した回答を表示する部分を更新 %>
+$('.comment-list').replaceWith("<%= j(render partial: 'questions/shared/answer_list', locals: { answers: @answers, post: @post } ) %>");
+<%# 回答作成部を非表示にする %>
+yourAnswer = document.getElementById('your-answer');
+yourAnswer.style.display = "none";
