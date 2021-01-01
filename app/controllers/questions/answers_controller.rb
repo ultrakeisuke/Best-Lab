@@ -21,10 +21,30 @@ class Questions::AnswersController < ApplicationController
     end
   end
 
+  # 回答の編集
+  def update
+    answer = Answer.find(answer_params[:id])
+    @answer = AnswerForm.new(answer)
+    params = answer_params
+    params.delete(:id)
+    @answer.assign_attributes(params)
+    respond_to do |format|
+      if @answer.save
+        @answers = Answer.where(post_id: answer.post_id)
+        @post = Post.find(answer.post_id)
+        format.html { redirect_to questions_post_path(answer.post_id) }
+        format.js
+      else
+        format.html { render "questions/posts/show" }
+        format.js { render :errors }
+      end
+    end
+  end
+
   private
   
     def answer_params
-      params.require(:answer_form).permit(:body, :post_id, pictures_attributes: [:picture]).merge(user_id: current_user.id)
+      params.require(:answer_form).permit(:id, :body, :post_id, pictures_attributes: [:picture]).merge(user_id: current_user.id)
     end
 
   
