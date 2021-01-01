@@ -44,7 +44,7 @@
           <% end %>
         </div>
         <div id="edit-answer-form-<%= answer.id %>" class="edit-answer-form">
-          <%= render "questions/shared/edit_answer_form", answer_form: @answer, answer: answer, post: @post, url: questions_answer_path(answer), method: :patch %>
+          <%= render "questions/shared/answers/edit_answer_form", answer_form: @answer, answer: answer, post: @post, url: questions_answer_path(answer), method: :patch %>
         </div>
       </div>
       <div id="display-reply-<%= answer.id %>">
@@ -63,11 +63,11 @@
             <% end %>
           </div>
           <div id="edit-reply-form-<%= reply.id %>" class="edit-reply-form">
-            <%= render "questions/shared/edit_reply_form", reply_form: @reply, reply: reply, answer: answer, post: @post, url: questions_reply_path(reply), method: :patch %>
+            <%= render "questions/shared/replies/edit_reply_form", reply_form: @reply, reply: reply, answer: answer, post: @post, url: questions_reply_path(reply), method: :patch %>
           </div>
         <% end %>
       </div>
-      <%= render "questions/shared/reply_form", reply: @reply, answer: answer, post: @post, url: questions_replies_path, method: :post %>
+      <%= render "questions/shared/replies/new_reply_form", reply: @reply, answer: answer, post: @post, url: questions_replies_path, method: :post %>
     </div>
   <% end %>
 </div>
@@ -76,6 +76,6 @@
 <div id="your-answer">
   <% if @your_answer.blank? && @post.user_id != current_user.id %>
     <h4>あなたの回答</h4>
-    <%= render "questions/shared/answer_form", reply: @reply, answer: @answer, url: questions_answers_path, method: :post %>
+    <%= render "questions/shared/answers/new_answer_form", reply: @reply, answer: @answer, url: questions_answers_path, method: :post %>
   <% end %>
 </div>
