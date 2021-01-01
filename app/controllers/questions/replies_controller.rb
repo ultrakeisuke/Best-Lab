@@ -16,7 +16,7 @@ class Questions::RepliesController < ApplicationController
         format.js
       else
         format.html { render "questions/posts/show" }
-        format.js { render :errors }
+        format.js { render :create_errors }
       end
     end
   end
