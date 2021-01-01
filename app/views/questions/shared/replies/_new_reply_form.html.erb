@@ -1,0 +1,21 @@
+<%= form_with model: reply, url: url, method: method, id: "reply-form" do |f| %>
+  <div id="js-reply-errors-<%= answer.id %>" class="js-reply-errors" data-answer-id="<%= answer.id %>"></div>
+
+  <%= f.hidden_field :post_id, value: post.id %>
+  <%= f.hidden_field :answer_id, value: answer.id %>
+
+  <div class="field">
+    <%= f.text_area :body, id: "reply-textarea-#{answer.id}", placeholder: "回答に対するコメントを入力してください。" %>
+  </div>
+
+  <div class="field">
+    <%= f.fields_for :pictures do |picture| %>
+      <%= picture.file_field :picture, multiple: "multiple", name: "reply_form[pictures_attributes][][picture]" %>
+    <% end %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "送信" %>
+  </div>
+
+<% end%>

@@ -1,0 +1,21 @@
+<%# 回答と回答に紐づいたリプライを表示 %>
+<div id="display-reply-<%= answer.id %>">
+  <% answer.replies&.order(created_at: :asc).each do |reply| %>
+    <div id="reply-contents-<%= reply.id %>">
+      <div class="reply-username"><%= reply.user.name %></div>
+      <div class="reply-createdat"><%= l reply.created_at, format: :year %></div>
+      <div class="reply-body"><%= reply.body %></div>
+      <div class="reply-pictures">
+        <% reply.pictures.each do |picture| %>
+          <%= image_tag picture.picture.url %>
+        <% end %>
+      </div>
+      <% if current_user.id == reply.user_id %>
+        <i class="fas fa-pen edit-reply-icon" data-reply-id="<%= reply.id %>"></i>
+      <% end %>
+    </div>
+    <div id="edit-reply-form-<%= reply.id %>" class="edit-reply-form">
+      <%= render "questions/shared/replies/edit_reply_form", reply_form: @reply, reply: reply, answer: answer, post: @post, url: questions_reply_path(reply), method: :patch %>
+    </div>
+  <% end %>
+</div>
