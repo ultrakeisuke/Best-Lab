@@ -1,6 +1,6 @@
-$('#js-questions-errors-<%= @reply.answer_id %>').replaceWith(
+$('#js-reply-errors-<%= @reply.answer_id %>').replaceWith(
   "<%= j(
-    render 'questions/shared/error_messages',
+    render 'questions/shared/reply_error_messages',
     resource: @reply
   ) %>"
 );
