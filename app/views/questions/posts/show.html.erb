@@ -30,35 +30,51 @@
   <% @answers&.each do |answer| %>
     <div id="display-<%= answer.id %>">
       <div id="display-answer-<%= answer.id %>">
-        <div class="answer-username"><%= answer.user.name %></div>
-        <div class="answer-createdat"><%= l answer.created_at, format: :month %></div>
-        <div class="answer-body"><%= answer.body %></div>
-        <div class="answer-pictures">
-          <% answer.pictures.each do |picture| %>
-            <%= image_tag picture.picture.url %>
-          <% end %>
-        </div>
-      </div>
-      <ul id="display-reply-<%= answer.id %>">
-        <% answer.replies&.each do |reply| %>
-          <div class="reply-username"><%= reply.user.name %></div>
-          <div class="reply-createdat"><%= l reply.created_at, format: :month %></div>
-          <div class="reply-body"><%= reply.body %></div>
-          <div class="reply-pictures">
-            <% reply.pictures.each do |picture| %>
+        <div id="answer-contents-<%= answer.id %>">
+          <div class="answer-username"><%= answer.user.name %></div>
+          <div class="answer-createdat"><%= l answer.created_at, format: :month %></div>
+          <div class="answer-body"><%= answer.body %></div>
+          <div class="answer-pictures">
+            <% answer.pictures.each do |picture| %>
               <%= image_tag picture.picture.url %>
             <% end %>
           </div>
+          <% if current_user.id == answer.user_id %>
+            <i class="fas fa-pen edit-answer-icon" data-answer-id="<%= answer.id %>"></i>
+          <% end %>
+        </div>
+        <div id="edit-answer-form-<%= answer.id %>" class="edit-answer-form">
+          <%= render "questions/shared/edit_answer_form", answer_form: @answer, answer: answer, post: @post, url: questions_answer_path(answer), method: :patch %>
+        </div>
+      </div>
+      <div id="display-reply-<%= answer.id %>">
+        <% answer.replies&.order(created_at: :asc).each do |reply| %>
+          <div id="reply-contents-<%= reply.id %>">
+            <div class="reply-username"><%= reply.user.name %></div>
+            <div class="reply-createdat"><%= l reply.created_at, format: :year %></div>
+            <div class="reply-body"><%= reply.body %></div>
+            <div class="reply-pictures">
+              <% reply.pictures.each do |picture| %>
+                <%= image_tag picture.picture.url %>
+              <% end %>
+            </div>
+            <% if current_user.id == reply.user_id %>
+              <i class="fas fa-pen edit-reply-icon" data-reply-id="<%= reply.id %>"></i>
+            <% end %>
+          </div>
+          <div id="edit-reply-form-<%= reply.id %>" class="edit-reply-form">
+            <%= render "questions/shared/edit_reply_form", reply_form: @reply, reply: reply, answer: answer, post: @post, url: questions_reply_path(reply), method: :patch %>
+          </div>
         <% end %>
-      </ul>
+      </div>
       <%= render "questions/shared/reply_form", reply: @reply, answer: answer, post: @post, url: questions_replies_path, method: :post %>
     </div>
   <% end %>
 </div>
 
-<%# まだ回答していない場合は回答用のフォームを表示 %>
+<%# 自分の質問以外の質問に対して、まだ回答していない場合は回答用のフォームを表示 %>
 <div id="your-answer">
-  <% if @your_answer.blank? %>
+  <% if @your_answer.blank? && @post.user_id != current_user.id %>
     <h4>あなたの回答</h4>
     <%= render "questions/shared/answer_form", reply: @reply, answer: @answer, url: questions_answers_path, method: :post %>
   <% end %>
