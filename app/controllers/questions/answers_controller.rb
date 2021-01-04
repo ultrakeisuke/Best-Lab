@@ -10,8 +10,8 @@ class Questions::AnswersController < ApplicationController
     respond_to do |format|
       if @answer.save
         @reply = ReplyForm.new
-        @answers = Answer.where(post_id: @answer.post_id)
         @post = Post.find(@answer.post_id)
+        @answers = @post.answers
         format.html { redirect_to questions_post_path(@answer.post_id) }
         format.js
       else
@@ -25,13 +25,11 @@ class Questions::AnswersController < ApplicationController
   def update
     answer = Answer.find(answer_params[:id])
     @answer = AnswerForm.new(answer)
-    params = answer_params
-    params.delete(:id)
-    @answer.assign_attributes(params)
+    @answer.assign_attributes(answer_params.except(:id))
     respond_to do |format|
       if @answer.save
-        @answers = Answer.where(post_id: answer.post_id)
         @post = Post.find(answer.post_id)
+        @answers = @post.answers
         format.html { redirect_to questions_post_path(answer.post_id) }
         format.js
       else

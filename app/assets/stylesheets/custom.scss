@@ -21,6 +21,10 @@ li {
   background-color: #fff;
 }
 
+.hide {
+  display: none;
+}
+
 //layoutsフォルダ
 //application
 header {
@@ -362,10 +366,3 @@ header {
   }
 }
 
-.edit-answer-form {
-  display: none;
-}
-
-.edit-reply-form {
-  display: none;
-}
