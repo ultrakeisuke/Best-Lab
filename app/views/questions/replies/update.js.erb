@@ -1,0 +1,5 @@
+<%# 投稿したリプライ表示部を更新 %>
+$('#display-reply-<%= @reply.answer_id %>').replaceWith("<%= j(render partial: 'questions/shared/replies/reply_list', locals: { answer: @answer, post: @post }) %>");
+<%# リプライの投稿前にエラーメッセージを出していた場合は消去する %>
+var errorMessage = document.getElementById('js-questions-errors-<%= @reply.answer_id %>');
+errorMessage.style.display = "none";

@@ -1,33 +1,6 @@
-<% provide(:title, @post.title)%>
-
-<h4>質問内容</h4>
-<% if @post.user_id == current_user.id %>
-  <%= link_to "質問の編集", edit_questions_post_path(@post.id) %>
-<% end %>
-
-<%= @post.category.name %>
-<%= @post.status %>
-<%= @post.title %>
-<%= @post.content %>
-
-<% if @post.pictures.present? %>
-  <% @post.pictures.each do |picture| %>
-    <%= image_tag picture.picture.url %>
-  <% end %>
-<% end %>
-
-<%# 質問に対する回答数 %>
-<div class="num-of-answers">
-  <% if @answers.present? %>
-    <h4>回答<%= @answers&.length %></h4>
-  <% else %>
-    <h4>回答はまだついていません</h4>
-  <% end %>
-</div>
-
 <%# 回答と回答に紐づいたリプライを表示 %>
 <div class="comment-list">
-  <% @answers&.each do |answer| %>
+  <% answers&.each do |answer| %>
     <div id="display-<%= answer.id %>">
       <div id="display-answer-<%= answer.id %>">
         <div id="answer-contents-<%= answer.id %>">
@@ -43,7 +16,7 @@
             <i class="fas fa-pen edit-answer-icon" data-answer-id="<%= answer.id %>"></i>
           <% end %>
         </div>
-        <div id="edit-answer-form-<%= answer.id %>" class="edit-answer-form hide">
+        <div id="edit-answer-form-<%= answer.id %>" class="edit-answer-form">
           <%= render "questions/shared/answers/edit_answer_form", answer_form: @answer, answer: answer, post: @post, url: questions_answer_path(answer), method: :patch %>
         </div>
       </div>
@@ -62,20 +35,12 @@
               <i class="fas fa-pen edit-reply-icon" data-reply-id="<%= reply.id %>"></i>
             <% end %>
           </div>
-          <div id="edit-reply-form-<%= reply.id %>" class="edit-reply-form hide">
+          <div id="edit-reply-form-<%= reply.id %>" class="edit-reply-form">
             <%= render "questions/shared/replies/edit_reply_form", reply_form: @reply, reply: reply, answer: answer, post: @post, url: questions_reply_path(reply), method: :patch %>
           </div>
         <% end %>
       </div>
       <%= render "questions/shared/replies/new_reply_form", reply: @reply, answer: answer, post: @post, url: questions_replies_path, method: :post %>
     </div>
-  <% end %>
-</div>
-
-<%# 自分の質問以外の質問に対して、まだ回答していない場合は回答用のフォームを表示 %>
-<div id="your-answer">
-  <% if @your_answer.blank? && @post.user_id != current_user.id %>
-    <h4>あなたの回答</h4>
-    <%= render "questions/shared/answers/new_answer_form", reply: @reply, answer: @answer, url: questions_answers_path, method: :post %>
   <% end %>
 </div>
