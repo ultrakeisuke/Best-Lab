@@ -1,0 +1,7 @@
+<%# 質問に対する現在の回答数を表示 %>
+$('.num-of-answers').replaceWith("<%= j(render partial: 'questions/shared/answers/num_of_answers', locals: { answers: @answers } ); %>")
+<%# 投稿した回答を表示する部分を更新 %>
+$('.comment-list').replaceWith("<%= j(render partial: 'questions/shared/answers/answer_list', locals: { answers: @answers } ) %>");
+<%# 回答の作成後にフォームを非表示にする %>
+var yourAnswer = document.getElementById('your-answer');
+yourAnswer.style.display = "none";

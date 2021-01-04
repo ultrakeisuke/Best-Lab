@@ -1,0 +1,20 @@
+<%= form_with model: answer, url: url, method: method, id: 'answer_form' do |f| %>
+  <div class="js-answer-errors"></div>
+
+  <%= f.hidden_field :post_id, value: @post.id %>
+
+  <div id="answer_body" class="field">
+    <%= f.text_area :body, placeholder: "回答を入力してください。" %>
+  </div>
+
+  <div class="field">
+    <%= f.fields_for :pictures do |picture| %>
+      <%= picture.file_field :picture, multiple: "multiple", name: "answer_form[pictures_attributes][][picture]" %>
+    <% end %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "送信" %>
+  </div>
+
+<% end%>

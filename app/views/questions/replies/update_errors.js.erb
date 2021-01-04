@@ -1,0 +1,6 @@
+$('#js-edit-reply-errors-<%= @target_reply.id %>').replaceWith(
+  "<%= j(
+    render 'questions/shared/replies/edit_reply_error_messages',
+    resource: @reply
+  ) %>"
+);

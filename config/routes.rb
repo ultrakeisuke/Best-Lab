@@ -33,7 +33,8 @@ Rails.application.routes.draw do
         get '/:id/get_children_categories', to:'posts#get_children_categories' # 編集画面用
       end
     end
-    resources :replies, only: [:new, :create, :edit, :update, :destroy]
+    resources :answers, only: [:create, :update]
+    resources :replies, only: [:create, :update]
     resources :categories, only: [:show]
   end
   namespace :admins do
