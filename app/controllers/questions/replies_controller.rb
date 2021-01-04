@@ -10,8 +10,8 @@ class Questions::RepliesController < ApplicationController
     respond_to do |format|
       if @reply.save
         @answer = Answer.find(@reply.answer_id)
-        @answers = Answer.where(post_id: @reply.post_id)
-        @post = Post.find(@reply.post_id)
+        @post = @answer.post
+        @answers = @post.answers
         format.html { redirect_to questions_post_path(@reply.post_id) }
         format.js
       else
@@ -27,13 +27,11 @@ class Questions::RepliesController < ApplicationController
     @target_reply = Reply.find(reply_params[:id])
     @reply = ReplyForm.new(@target_reply)
     # パラメータからidを削除してリプライを更新する
-    params = reply_params
-    params.delete(:id)
-    @reply.assign_attributes(params)
+    @reply.assign_attributes(reply_params.except(:id))
     respond_to do |format|
       if @reply.save
         @answer = Answer.find(@reply.answer_id)
-        @post = Post.find(@reply.post_id)
+        @post = @answer.post
         format.html { redirect_to questions_post_path(@reply.post_id) }
         format.js
       else

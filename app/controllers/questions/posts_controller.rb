@@ -7,7 +7,7 @@ class Questions::PostsController < ApplicationController
   
   # すべての質問一覧
   def index
-    @posts = Post.all.order(id: "DESC")
+    @posts = Post.all.order(id: :desc)
   end
 
   # 各質問の表示画面
@@ -17,7 +17,7 @@ class Questions::PostsController < ApplicationController
     @answer = AnswerForm.new
     @reply = ReplyForm.new
     # ある質問に対するログインユーザーの回答を定義
-    @your_answer = Answer.where(post_id: params[:id], user_id: current_user.id)
+    @your_answer = Answer.where(post_id: params[:id], user_id: current_user)
     # ある質問に対する回答を定義
     @answers = Answer.where(post_id: params[:id])
   end
