@@ -1,0 +1,15 @@
+<% provide(:title, "検索結果") %>
+
+<h3>検索結果</h3>
+
+<% if @posts.present? %>
+  <% @posts.each do |post| %>
+    <%= link_to questions_post_path(post) do %>
+      <%= post.user.name %>
+      <%= post.title %>
+      <%= post.content %>
+    <% end %>
+  <% end %>
+<% else %>
+  <p>お探しの質問は見つかりませんでした。</p>
+<% end %>
