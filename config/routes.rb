@@ -24,6 +24,11 @@ Rails.application.routes.draw do
   end
   namespace :searches do
     resources :users, only: [:index]
+    resources :questions, only: [:index] do
+      collection do
+        get 'get_children_categories_for_search' # 質問検索フォーム用
+      end
+    end
   end
   namespace :questions do
     resources :posts, only: [:index, :show, :new, :create, :edit, :update] do
