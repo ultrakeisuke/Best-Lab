@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 
   # ユーザーの検索フォームをサイドバーに常に表示する処理
   def profile_search
-    @q = Profile.ransack(params[:q])
+    @profile_search = Profile.ransack(params[:q])
   end
 
   # 質問の検索フォームをサイドバーに常に表示する処理
