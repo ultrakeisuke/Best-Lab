@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe Searches::UsersController, type: :controller do
   let(:user) { create(:user) }
   let!(:profile) { create(:profile, user_id: user.id) }
+  let!(:parent_category) { create(:parent_category) }
+  let!(:children_category) { create(:children_category, ancestry: parent_category.id) }
 
   describe "contentカラムに複数のキーワードを入力したときの挙動について" do
     context "データベースに存在しないキーワードを入力した場合" do
