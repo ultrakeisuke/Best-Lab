@@ -24,13 +24,18 @@ Rails.application.routes.draw do
   end
   namespace :searches do
     resources :users, only: [:index]
+    resources :questions, only: [:index] do
+      collection do
+        # カテゴリーを選択した際のセレクトボックスの動的処理
+        get 'get_children_categories_for_search' # 質問検索フォーム用
+      end
+    end
   end
   namespace :questions do
     resources :posts, only: [:index, :show, :new, :create, :edit, :update] do
       collection do
-        # Ajax通信用ルーティング
-        get 'get_children_categories' # 新規作成画面用
-        get '/:id/get_children_categories', to:'posts#get_children_categories' # 編集画面用
+        # カテゴリーを選択した際のセレクトボックスの動的処理
+        get 'get_children_categories' # 質問の投稿・編集画面用
       end
     end
     resources :answers, only: [:create, :update]
