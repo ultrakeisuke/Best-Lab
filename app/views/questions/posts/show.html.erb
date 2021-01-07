@@ -31,6 +31,11 @@
     <div id="display-<%= answer.id %>">
       <div id="display-answer-<%= answer.id %>">
         <div id="answer-contents-<%= answer.id %>">
+          <% if @post.best_answer_id == answer.id %>
+            <div class="answer-best">
+              <span>ベストアンサー</span>
+            </div>
+          <% end %>
           <div class="answer-username"><%= answer.user.name %></div>
           <div class="answer-createdat"><%= l answer.created_at, format: :month %></div>
           <div class="answer-body"><%= answer.body %></div>
@@ -39,6 +44,11 @@
               <%= image_tag picture.picture.url %>
             <% end %>
           </div>
+          <% if (current_user.id == @post.user_id) && @post.best_answer_id.blank? %>
+            <div id="best-answer-<%= answer.id %>">
+              <%= render "questions/shared/best_answer_form", post: PostForm.new, answer: answer, url: select_best_answer_questions_post_path(@post), method: :patch %>
+            </div>
+          <% end %>
           <% if current_user.id == answer.user_id %>
             <i class="fas fa-pen edit-answer-icon" data-answer-id="<%= answer.id %>"></i>
           <% end %>
