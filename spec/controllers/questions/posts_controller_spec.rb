@@ -93,4 +93,17 @@ RSpec.describe Questions::PostsController, type: :controller do
     end
   end
 
+  describe 'select_best_answerアクション' do
+    let(:another_user) { create(:another_user) }
+    let(:post) { create(:post, category_id: children_category.id, user_id: user.id) }
+    let(:answer) { create(:answer, user_id: another_user.id, post_id: post.id)}
+    it "ベストアンサーを選出しshow画面にリダイレクトする" do
+      login_user(user)
+      patch :select_best_answer, params: { id: post.id, post_form: { best_answer_id: answer.id } }
+      expect(response).to have_http_status "302"
+      expect(response).to redirect_to questions_post_path(post)
+      expect(post.reload.best_answer_id).to eq answer.id
+    end
+  end
+
 end
