@@ -52,7 +52,7 @@ RSpec.describe Questions::PostsController, type: :controller do
                                                      content: post_form.content,
                                                      status: "受付中" } } }.to change(Post, :count).by(1)
         expect(response).to have_http_status "302"
-        expect(response).to redirect_to users_basic_path(user.id)
+        expect(response).to redirect_to users_basic_path(user)
       end
     end
   end
@@ -88,7 +88,7 @@ RSpec.describe Questions::PostsController, type: :controller do
                                                            content: "content",
                                                            status: "解決済"} }
         expect(response).to have_http_status "302"
-        expect(response).to redirect_to users_basic_path(user.id)
+        expect(response).to redirect_to users_basic_path(user)
       end
     end
   end
