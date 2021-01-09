@@ -31,6 +31,21 @@ RSpec.describe Questions::AnswersController, type: :controller do
         expect(response).to render_template "questions/answers/create"
       end
     end
+    context "フォーム入力が有効、かつ自己解決した場合" do
+      let(:answer_form) { build(:answer_form) }
+      it "回答の作成に成功し、質問を「解決済」に変更する" do
+        login_user(user)
+        expect do
+        post :create, xhr: true, params: { answer_form: { post_id: my_post, body: answer_form.body } }
+        end.to change(Answer, :count).by(1)
+        # 質問の状態を「解決済」にし、best_answer_idに回答のidを追加しているか検証
+        expect(my_post.reload.status).to eq "解決済"
+        best_answer = Answer.find_by(post_id: my_post, user_id: user)
+        expect(my_post.reload.best_answer_id).to eq best_answer.id
+        expect(response).to have_http_status "200"
+        expect(response).to render_template "questions/answers/create"
+      end
+    end
   end
 
   describe '同期通信によるcreateアクション' do
@@ -53,6 +68,21 @@ RSpec.describe Questions::AnswersController, type: :controller do
         end.to change(Answer, :count).by(1)
         expect(response).to have_http_status "302"
         expect(response).to redirect_to questions_post_path(another_post)
+      end
+    end
+    context "フォーム入力が有効、かつ自己解決した場合" do
+      let(:answer_form) { build(:answer_form) }
+      it "回答の作成に成功し、質問を「解決済」に変更する" do
+        login_user(user)
+        expect do
+        post :create, params: { answer_form: { post_id: my_post, body: answer_form.body } }
+        end.to change(Answer, :count).by(1)
+        # 質問の状態を「解決済」にし、best_answer_idに回答のidを追加しているか検証
+        expect(my_post.reload.status).to eq "解決済"
+        best_answer = Answer.find_by(post_id: my_post, user_id: user)
+        expect(my_post.reload.best_answer_id).to eq best_answer.id
+        expect(response).to have_http_status "302"
+        expect(response).to redirect_to questions_post_path(my_post)
       end
     end
   end
