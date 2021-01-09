@@ -5,16 +5,22 @@
   <%= link_to "質問の編集", edit_questions_post_path(@post.id) %>
 <% end %>
 
-<%= @post.category.name %>
-<%= @post.status %>
-<%= @post.title %>
-<%= @post.content %>
+<div class="display-post">
+  <div class="post-contents">
+    <div class="post-contents-category"><%= @post.category.name %></div>
+    <div class="post-contents-status"><%= @post.status %></div>
+    <div class="post-contents-title"><%= @post.title %></div>
+    <div class="post-contents-content"><%= @post.content %></div>
+    <div class="post-contents-pictures">
+      <% if @post.pictures.present? %>
+        <% @post.pictures.each do |picture| %>
+          <%= image_tag picture.picture.url %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
 
-<% if @post.pictures.present? %>
-  <% @post.pictures.each do |picture| %>
-    <%= image_tag picture.picture.url %>
-  <% end %>
-<% end %>
 
 <%# 質問に対する回答数 %>
 <div class="num-of-answers">
