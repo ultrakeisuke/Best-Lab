@@ -4,24 +4,22 @@ $(function () {
   $(document).on('click', '.edit-answer-icon', function () {
     // 回答を非表示にする処理
     var answerID = $(this).data('answer-id');
-    hideAnswerContents = document.getElementById('answer-contents-' + answerID);
-    hideAnswerContents.style.display = "none";
+    $(`#answer-contents-${answerID}`).addClass("hide");
 
     // 回答の編集フォームを表示する処理
-    showAnswerForm = document.getElementById('edit-answer-form-' + answerID);
-    showAnswerForm.style.display = "block";
+    $(`#edit-answer-form-${answerID}`).removeClass("hide");
+    $(`#edit-answer-form-${answerID}`).addClass("show");
   });
 
   // 回答の編集をキャンセルするときの処理
   $(document).on('click', '.edit-answer-cancel', function () {
     // 編集フォームを非表示にする処理
     var answerID = $(this).data('answer-cancel');
-    hideAnswerForm = document.getElementById('edit-answer-form-' + answerID);
-    hideAnswerForm.style.display = "none";
+    $(`#edit-answer-form-${answerID}`).removeClass("show");
+    $(`#edit-answer-form-${answerID}`).addClass("hide");
 
     // 回答を表示する処理
-    showAnswerContents = document.getElementById('answer-contents-' + answerID);
-    showAnswerContents.style.display = "block";
+    $(`#answer-contents-${answerID}`).removeClass("hide");
   });
 });
 
@@ -31,23 +29,21 @@ $(function () {
   $(document).on('click', '.edit-reply-icon', function () {
     // リプライを非表示にする処理
     var replyID = $(this).data('reply-id');
-    hideReplyContents = document.getElementById('reply-contents-' + replyID);
-    hideReplyContents.style.display = "none";
+    $(`#reply-contents-${replyID}`).addClass("hide");
 
     // リプライの編集フォームを表示する処理
-    showReplyForm = document.getElementById('edit-reply-form-' + replyID);
-    showReplyForm.style.display = "block";
+    $(`#edit-reply-form-${replyID}`).removeClass("hide");
+    $(`#edit-reply-form-${replyID}`).addClass("show");
   });
 
   // リプライ編集をキャンセルするときの処理
   $(document).on('click', '.edit-reply-cancel', function () {
     // 編集フォームを非表示にする処理
     var replyID = $(this).data('reply-cancel');
-    hideReplyForm = document.getElementById('edit-reply-form-' + replyID);
-    hideReplyForm.style.display = "none";
+    $(`#edit-reply-form-${replyID}`).removeClass("show");
+    $(`#edit-reply-form-${replyID}`).addClass("hide");
 
     // リプライを表示する処理
-    showReplyContents = document.getElementById('reply-contents-' + replyID);
-    showReplyContents.style.display = "block";
+    $(`#reply-contents-${replyID}`).removeClass("hide");
   });
 });
