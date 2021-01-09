@@ -5,3 +5,5 @@ $('.comment-list').replaceWith("<%= j(render partial: 'questions/shared/answers/
 <%# 回答の作成後にフォームを非表示にする %>
 var yourAnswer = document.getElementById('your-answer');
 yourAnswer.style.display = "none";
+<%# 自己解決した場合は質問の状態を「解決済」に変更する %>
+$('.post-contents-status').replaceWith("<%= j(render partial: 'questions/shared/post_status', locals: { post: @post } ) %>");
