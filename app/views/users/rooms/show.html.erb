@@ -2,6 +2,8 @@
 
 <h3><%= link_to @another_entry.user.name, users_basic_path(@another_entry.user) %></h3>
 
+<%= render "users/shared/error_messages", resource: @message %>
+
 <div class="message-field container">
   <div id="message-field__scroll">
     <% @room.messages.each do |message| %>
