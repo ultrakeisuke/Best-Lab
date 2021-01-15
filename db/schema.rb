@@ -81,6 +81,7 @@ ActiveRecord::Schema.define(version: 2020_12_25_093924) do
     t.string "title", null: false
     t.text "content", null: false
     t.string "status", default: "受付中", null: false
+    t.integer "best_answer_id"
     t.bigint "user_id", null: false
     t.bigint "category_id", null: false
     t.datetime "created_at", precision: 6, null: false

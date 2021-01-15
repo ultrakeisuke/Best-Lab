@@ -5,16 +5,22 @@
   <%= link_to "質問の編集", edit_questions_post_path(@post.id) %>
 <% end %>
 
-<%= @post.category.name %>
-<%= @post.status %>
-<%= @post.title %>
-<%= @post.content %>
+<div class="display-post">
+  <div class="post-contents">
+    <div class="post-contents-category"><%= @post.category.name %></div>
+    <div class="post-contents-status"><%= @post.status %></div>
+    <div class="post-contents-title"><%= @post.title %></div>
+    <div class="post-contents-content"><%= @post.content %></div>
+    <div class="post-contents-pictures">
+      <% if @post.pictures.present? %>
+        <% @post.pictures.each do |picture| %>
+          <%= image_tag picture.picture.url %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
 
-<% if @post.pictures.present? %>
-  <% @post.pictures.each do |picture| %>
-    <%= image_tag picture.picture.url %>
-  <% end %>
-<% end %>
 
 <%# 質問に対する回答数 %>
 <div class="num-of-answers">
@@ -31,6 +37,11 @@
     <div id="display-<%= answer.id %>">
       <div id="display-answer-<%= answer.id %>">
         <div id="answer-contents-<%= answer.id %>">
+          <% if @post.best_answer_id == answer.id %>
+            <div class="answer-best">
+              <span>ベストアンサー</span>
+            </div>
+          <% end %>
           <div class="answer-username"><%= answer.user.name %></div>
           <div class="answer-createdat"><%= l answer.created_at, format: :month %></div>
           <div class="answer-body"><%= answer.body %></div>
@@ -39,6 +50,11 @@
               <%= image_tag picture.picture.url %>
             <% end %>
           </div>
+          <% if (current_user.id == @post.user_id) && @post.best_answer_id.blank? %>
+            <div id="best-answer-<%= answer.id %>">
+              <%= render "questions/shared/best_answer_form", post: PostForm.new, answer: answer, url: select_best_answer_questions_post_path(@post), method: :patch %>
+            </div>
+          <% end %>
           <% if current_user.id == answer.user_id %>
             <i class="fas fa-pen edit-answer-icon" data-answer-id="<%= answer.id %>"></i>
           <% end %>
@@ -72,10 +88,16 @@
   <% end %>
 </div>
 
-<%# 自分の質問以外の質問に対して、まだ回答していない場合は回答用のフォームを表示 %>
 <div id="your-answer">
+  <%# 自分の質問以外の質問に対して、まだ回答していない場合は回答用のフォームを表示 %>
   <% if @your_answer.blank? && @post.user_id != current_user.id %>
     <h4>あなたの回答</h4>
+    <%= render "questions/shared/answers/new_answer_form", reply: @reply, answer: @answer, url: questions_answers_path, method: :post %>
+  <% end %>
+
+  <%# 自分の質問を自己解決できた場合に解決方法を記入するフォームを表示 %>
+  <% if @your_answer.blank? && @post.user_id == current_user.id %>
+    <h4>解決方法（自己解決の場合のみ記入してください）</h4>
     <%= render "questions/shared/answers/new_answer_form", reply: @reply, answer: @answer, url: questions_answers_path, method: :post %>
   <% end %>
 </div>

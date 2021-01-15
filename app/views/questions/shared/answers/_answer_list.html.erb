@@ -16,7 +16,7 @@
             <i class="fas fa-pen edit-answer-icon" data-answer-id="<%= answer.id %>"></i>
           <% end %>
         </div>
-        <div id="edit-answer-form-<%= answer.id %>" class="edit-answer-form">
+        <div id="edit-answer-form-<%= answer.id %>" class="edit-answer-form hide">
           <%= render "questions/shared/answers/edit_answer_form", answer_form: @answer, answer: answer, post: @post, url: questions_answer_path(answer), method: :patch %>
         </div>
       </div>
@@ -35,7 +35,7 @@
               <i class="fas fa-pen edit-reply-icon" data-reply-id="<%= reply.id %>"></i>
             <% end %>
           </div>
-          <div id="edit-reply-form-<%= reply.id %>" class="edit-reply-form">
+          <div id="edit-reply-form-<%= reply.id %>" class="edit-reply-form hide">
             <%= render "questions/shared/replies/edit_reply_form", reply_form: @reply, reply: reply, answer: answer, post: @post, url: questions_reply_path(reply), method: :patch %>
           </div>
         <% end %>

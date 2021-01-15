@@ -14,7 +14,7 @@
         <i class="fas fa-pen edit-reply-icon" data-reply-id="<%= reply.id %>"></i>
       <% end %>
     </div>
-    <div id="edit-reply-form-<%= reply.id %>" class="edit-reply-form">
+    <div id="edit-reply-form-<%= reply.id %>" class="edit-reply-form hide">
       <%= render "questions/shared/replies/edit_reply_form", reply_form: @reply, reply: reply, answer: answer, post: @post, url: questions_reply_path(reply), method: :patch %>
     </div>
   <% end %>

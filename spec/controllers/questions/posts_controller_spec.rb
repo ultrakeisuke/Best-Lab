@@ -52,7 +52,7 @@ RSpec.describe Questions::PostsController, type: :controller do
                                                      content: post_form.content,
                                                      status: "受付中" } } }.to change(Post, :count).by(1)
         expect(response).to have_http_status "302"
-        expect(response).to redirect_to users_basic_path(user.id)
+        expect(response).to redirect_to users_basic_path(user)
       end
     end
   end
@@ -88,8 +88,21 @@ RSpec.describe Questions::PostsController, type: :controller do
                                                            content: "content",
                                                            status: "解決済"} }
         expect(response).to have_http_status "302"
-        expect(response).to redirect_to users_basic_path(user.id)
+        expect(response).to redirect_to users_basic_path(user)
       end
+    end
+  end
+
+  describe 'select_best_answerアクション' do
+    let(:another_user) { create(:another_user) }
+    let(:post) { create(:post, category_id: children_category.id, user_id: user.id) }
+    let(:answer) { create(:answer, user_id: another_user.id, post_id: post.id)}
+    it "ベストアンサーを選出しshow画面にリダイレクトする" do
+      login_user(user)
+      patch :select_best_answer, params: { id: post.id, post_form: { best_answer_id: answer.id } }
+      expect(response).to have_http_status "302"
+      expect(response).to redirect_to questions_post_path(post)
+      expect(post.reload.best_answer_id).to eq answer.id
     end
   end
 

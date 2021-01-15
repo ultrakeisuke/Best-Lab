@@ -55,15 +55,26 @@ class Questions::PostsController < ApplicationController
     end
   end
 
-  # 親カテゴリーを選択した際に子カテゴリーを動的に変化するメソッド
+  # 親カテゴリーを選択した際に子カテゴリーを動的に変化させる処理
   def get_children_categories
     @children_categories = Category.find_by(id: "#{params[:parent_category_id]}", ancestry: nil).children
+  end
+
+  # ベストアンサーを選出する処理
+  def select_best_answer
+    @post = PostForm.new(post = Post.find(params[:id]))
+    @post.assign_attributes(post_params)
+    if @post.save
+      redirect_to questions_post_path(post), flash: { notice: "ベストアンサーが決定しました！" }
+    else
+      render "questions/posts/show"
+    end
   end
 
   private
 
     def post_params
-      params.require(:post_form).permit(:category_id, :title, :content, :status, pictures_attributes: [:picture]).merge(user_id: current_user.id)
+      params.require(:post_form).permit(:category_id, :title, :content, :status, :best_answer_id, pictures_attributes: [:picture]).merge(user_id: current_user.id)
     end
 
     # 新規作成画面のセレクトボックスの初期値を表示
