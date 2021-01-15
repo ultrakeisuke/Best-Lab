@@ -13,11 +13,12 @@ class PostForm
   validates :category_id, presence: true
   validate :max_num_of_pictures
 
-  attribute :user_id,     Integer
-  attribute :category_id, Integer
-  attribute :title,       String
-  attribute :content,     String
-  attribute :status,      String
+  attribute :user_id,        Integer
+  attribute :category_id,    Integer
+  attribute :title,          String
+  attribute :content,        String
+  attribute :status,         String
+  attribute :best_answer_id, Integer
 
   mount_uploader :picture, PictureUploader
 

@@ -33,6 +33,10 @@ Rails.application.routes.draw do
   end
   namespace :questions do
     resources :posts, only: [:index, :show, :new, :create, :edit, :update] do
+      member do
+        # ベストアンサーを選出する処理
+        patch 'select_best_answer'
+      end
       collection do
         # カテゴリーを選択した際のセレクトボックスの動的処理
         get 'get_children_categories' # 質問の投稿・編集画面用

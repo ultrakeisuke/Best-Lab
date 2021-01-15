@@ -1,4 +1,10 @@
-<h3>質問作成</h3>
+<div class="post-title">
+  <% if params[:id].present? %>
+    <h3>質問編集</h3>
+  <% else %>
+    <h3>質問作成</h3>
+  <% end %>
+</div>
 
 <%= form_with model: post, url: url, method: method, local: true do |f| %>
   <%= render "users/shared/error_messages", resource: @post %>
