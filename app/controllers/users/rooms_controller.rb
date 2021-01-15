@@ -30,7 +30,7 @@ class Users::RoomsController < ApplicationController
     # メッセージ相手のroom情報をパスから取得し、@roomに代入
     @room = Room.find(params[:id])
     # formのmodelに入れるオブジェクトを作成
-    @message = MessageForm.new(pictures: [Picture.new])
+    @message = MessageForm.new
     # ひとつのroomが所属するentryは2つ(user_idがログインユーザー、相手)なので、
     # ログインユーザーでないほうのuser_idから取得できるentryはメッセージ相手のものとなる
     @another_entry = @room.entries.find_by('user_id != ?', current_user.id)
