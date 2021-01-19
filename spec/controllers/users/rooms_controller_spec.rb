@@ -3,6 +3,9 @@ require 'rails_helper'
 RSpec.describe Users::RoomsController, type: :controller do
   let(:user) { create(:user) }
   let(:another_user) { create(:another_user) }
+  let(:room) { create(:room) }
+  let!(:parent_category) { create(:parent_category) }
+  let!(:children_category) { create(:children_category, ancestry: parent_category.id) }
 
   describe "createアクション" do
     context "プロフィール画面でメッセージボタンをクリックした場合" do
@@ -37,10 +40,26 @@ RSpec.describe Users::RoomsController, type: :controller do
       # another_userがuserと共有するentryを定義
       another_entries = Entry.where(room_id: my_room_ids).where.not(user_id: user.id)
 
+      # 最後にやりとりしたメッセージが新しい順にユーザーを表示する処理
+      last_messages = []
+      another_entries.each do |another_entry|
+      # メッセージが１つでも存在する部屋を抽出しメッセージを取得
+        if another_entry.room.messages.present?
+          last_messages << another_entry.room.messages.last
+        end
+      end
+      # メッセージの作成時刻をもとにソート
+      sorted_last_messages = last_messages.sort_by! { |a| a[:created_at] }.reverse
+      sorted_entries = []
+      sorted_last_messages.each do |sorted_last_message|
+        sorted_entries << sorted_last_message.room.entries.find_by('user_id != ?', current_user.id)
+      end
+
       login_user(user)
       get :index
       expect(assigns(:current_entries)).to eq current_entries
       expect(assigns(:another_entries)).to eq another_entries
+      expect(assigns(:sorted_entries)).to eq sorted_entries
       expect(response).to have_http_status "200"
       expect(response).to render_template :index
     end
