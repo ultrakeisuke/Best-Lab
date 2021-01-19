@@ -28,7 +28,10 @@ class Users::RoomsController < ApplicationController
     # 最後にやりとりしたメッセージが新しい順にユーザーを表示する処理
     last_messages = []
     @another_entries.each do |another_entry|
-      last_messages << another_entry.room.messages.last
+    # メッセージが１つでも存在する部屋のメッセージを取得
+      if another_entry.room.messages.present?
+        last_messages << another_entry.room.messages.last
+      end
     end
     # メッセージの作成時刻をもとにソート
     sorted_last_messages = last_messages.sort_by! { |a| a[:created_at] }.reverse
