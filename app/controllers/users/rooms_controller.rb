@@ -37,7 +37,7 @@ class Users::RoomsController < ApplicationController
     sorted_last_messages = last_messages.sort_by! { |a| a[:created_at] }.reverse
     @sorted_entries = []
     sorted_last_messages.each do |sorted_last_message|
-      @sorted_entries << sorted_last_message.room.entries.find_by('user_id != ?', current_user.id)
+      @sorted_entries << sorted_last_message.room.entries.partner_of(current_user)
     end
   end
 
@@ -46,9 +46,8 @@ class Users::RoomsController < ApplicationController
     @room = Room.find(params[:id])
     # formのmodelに入れるオブジェクトを作成
     @message = MessageForm.new
-    # ひとつのroomが所属するentryは2つ(user_idがログインユーザー、相手)なので、
-    # ログインユーザーでないほうのuser_idから取得できるentryはメッセージ相手のものとなる
-    @another_entry = @room.entries.find_by('user_id != ?', current_user.id)
+    # メッセージ相手と部屋の情報を取得
+    @another_entry = @room.entries.partner_of(current_user)
   end
 
   private
