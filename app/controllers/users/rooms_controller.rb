@@ -24,21 +24,10 @@ class Users::RoomsController < ApplicationController
     end
     # ログインユーザーが参加しているすべてのroomから、user_idがログインユーザーでないレコードを取得
     @another_entries = Entry.where(room_id: my_room_ids).where.not(user_id: current_user.id)
-
-    # 最後にやりとりしたメッセージが新しい順にユーザーを表示する処理
-    last_messages = []
-    @another_entries.each do |another_entry|
-    # メッセージが１つでも存在する部屋のメッセージを取得
-      if another_entry.room.messages.present?
-        last_messages << another_entry.room.messages.last
-      end
-    end
-    # メッセージの作成時刻をもとにソート
-    sorted_last_messages = last_messages.sort_by! { |a| a[:created_at] }.reverse
-    @sorted_entries = []
-    sorted_last_messages.each do |sorted_last_message|
-      @sorted_entries << sorted_last_message.room.entries.partner_of(current_user)
-    end
+    # 最後にやりとりしたメッセージが新しい順にソートする処理
+    last_messages = @another_entries.map { |another_entry| another_entry.include_message }
+    sorted_messages = last_messages.sort_by! { |a| a[:created_at] }.reverse
+    @sorted_entries = sorted_messages.map { |sorted_message| sorted_message.room.entries.partner_of(current_user) }
   end
 
   def show
