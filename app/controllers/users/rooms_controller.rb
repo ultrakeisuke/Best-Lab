@@ -15,19 +15,10 @@ class Users::RoomsController < ApplicationController
   end
 
   def index
-    # ログインユーザーのすべてのentryを取得
-    @current_entries = current_user.entries
-    my_room_ids = []
-    # ログインユーザーのentryをもとに、room_idをひとつずつmy_room_idsに格納
-    @current_entries.each do |entry|
-      my_room_ids << entry.room.id
-    end
-    # ログインユーザーが参加しているすべてのroomから、user_idがログインユーザーでないレコードを取得
-    @another_entries = Entry.where(room_id: my_room_ids).where.not(user_id: current_user.id)
-    # 最後にやりとりしたメッセージが新しい順にソートする処理
-    last_messages = @another_entries.map { |another_entry| another_entry.include_message }
-    sorted_messages = last_messages.sort_by! { |a| a[:created_at] }.reverse
-    @sorted_entries = sorted_messages.map { |sorted_message| sorted_message.room.entries.partner_of(current_user) }
+    # メッセージ相手と部屋の情報を取得
+    @another_entries = Entry.another_entries(current_user)
+    # 最後にやりとりしたメッセージが新しい順にソート
+    @sorted_entries = @another_entries.sorted_entries(current_user)
   end
 
   def show

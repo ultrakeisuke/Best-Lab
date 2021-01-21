@@ -2,11 +2,11 @@
 
 <h3>メッセージ</h3>
 
-<% if @current_entries.blank? %>
+<% if @another_entries.blank? %>
   <p>話したい相手を探してみましょう！</p>
 <% end %>
 
-<% @sorted_entries.each do |entry| %>
+<% @sorted_entries&.each do |entry| %>
   <div class="room-list">
     <ul>
       <li>
