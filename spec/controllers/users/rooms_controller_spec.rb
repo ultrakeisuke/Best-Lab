@@ -24,42 +24,27 @@ RSpec.describe Users::RoomsController, type: :controller do
   end
 
   describe "indexアクション" do
+    let!(:users) { create_list(:test_users, 3) }
+    let!(:rooms) { create_list(:rooms, 3) }
+    let!(:entry1) { create(:entry, room_id: rooms[0].id, user_id: user.id) }
+    let!(:entry2) { create(:entry, room_id: rooms[0].id, user_id: users[0].id) }
+    let!(:entry3) { create(:entry, room_id: rooms[1].id, user_id: user.id) }
+    let!(:entry4) { create(:entry, room_id: rooms[1].id, user_id: users[1].id) }
+    let!(:entry5) { create(:entry, room_id: rooms[2].id, user_id: user.id) }
+    let!(:entry6) { create(:entry, room_id: rooms[2].id, user_id: users[2].id) }
+    let!(:message1) { create(:message, room_id: rooms[0].id, user_id: user.id) }
+    let!(:message2) { create(:message, room_id: rooms[1].id, user_id: user.id) }
     it "インスタンスが期待した値を返し、正常なレスポンスを返す" do
-      create_list(:rooms, 5)
-      create_list(:current_entries, 5, user_id: user.id)
-      create_list(:another_entries, 5, user_id: another_user.id)
-      # userが持つすべてのentryを定義
-      current_entries = user.entries
-      
-      # userが持つすべてのroom_idを定義
-      my_room_ids = []
-      current_entries.each do |entry|
-        my_room_ids << entry.room_id
-      end
-
-      # another_userがuserと共有するentryを定義
-      another_entries = Entry.where(room_id: my_room_ids).where.not(user_id: user.id)
-
-      # 最後にやりとりしたメッセージが新しい順にユーザーを表示する処理
-      last_messages = []
-      another_entries.each do |another_entry|
-      # メッセージが１つでも存在する部屋を抽出しメッセージを取得
-        if another_entry.room.messages.present?
-          last_messages << another_entry.room.messages.last
-        end
-      end
-      # メッセージの作成時刻をもとにソート
-      sorted_last_messages = last_messages.sort_by! { |a| a[:created_at] }.reverse
-      sorted_entries = []
-      sorted_last_messages.each do |sorted_last_message|
-        sorted_entries << sorted_last_message.room.entries.find_by('user_id != ?', current_user.id)
-      end
-
       login_user(user)
       get :index
-      expect(assigns(:current_entries)).to eq current_entries
+      # メッセージ相手とその部屋の情報を取得
+      my_room_ids = []
+      my_room_ids << user.entries.map { |entry| entry.room_id }
+      another_entries = Entry.where(user_id: my_room_ids).where.not(user_id: user)
+
+      # ここでanother_entriesが空を返します
+      
       expect(assigns(:another_entries)).to eq another_entries
-      expect(assigns(:sorted_entries)).to eq sorted_entries
       expect(response).to have_http_status "200"
       expect(response).to render_template :index
     end
