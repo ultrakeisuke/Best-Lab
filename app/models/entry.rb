@@ -6,7 +6,7 @@ class Entry < ApplicationRecord
   def self.another_entries(user)
     my_room_ids = []
     my_room_ids << user.entries.map { |entry| entry.room_id }
-    where(user_id: my_room_ids).where.not(user_id: user)
+    where(room_id: my_room_ids).where.not(user_id: user)
   end
 
   # 配列からメッセージ相手と部屋の情報を抽出
