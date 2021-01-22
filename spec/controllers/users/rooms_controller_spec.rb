@@ -24,27 +24,28 @@ RSpec.describe Users::RoomsController, type: :controller do
   end
 
   describe "indexアクション" do
-    let!(:users) { create_list(:test_users, 3) }
-    let!(:rooms) { create_list(:rooms, 3) }
-    let!(:entry1) { create(:entry, room_id: rooms[0].id, user_id: user.id) }
-    let!(:entry2) { create(:entry, room_id: rooms[0].id, user_id: users[0].id) }
-    let!(:entry3) { create(:entry, room_id: rooms[1].id, user_id: user.id) }
-    let!(:entry4) { create(:entry, room_id: rooms[1].id, user_id: users[1].id) }
-    let!(:entry5) { create(:entry, room_id: rooms[2].id, user_id: user.id) }
-    let!(:entry6) { create(:entry, room_id: rooms[2].id, user_id: users[2].id) }
-    let!(:message1) { create(:message, room_id: rooms[0].id, user_id: user.id) }
-    let!(:message2) { create(:message, room_id: rooms[1].id, user_id: user.id) }
+    before do
+      @users = create_list(:test_users, 3)
+      @rooms = create_list(:rooms, 3)
+      @entry1 = create(:entry, room_id: @rooms[0].id, user_id: user.id)
+      @entry2 = create(:entry, room_id: @rooms[0].id, user_id: @users[0].id)
+      @entry3 = create(:entry, room_id: @rooms[1].id, user_id: user.id)
+      @entry4 = create(:entry, room_id: @rooms[1].id, user_id: @users[1].id)
+      @entry5 = create(:entry, room_id: @rooms[2].id, user_id: user.id)
+      @entry6 = create(:entry, room_id: @rooms[2].id, user_id: @users[2].id)
+      @message1 = create(:message, room_id: @rooms[0].id, user_id: user.id, created_at: Time.current)
+      @message2 = create(:message, room_id: @rooms[1].id, user_id: user.id, created_at: Time.current + 1.second)
+    end
     it "インスタンスが期待した値を返し、正常なレスポンスを返す" do
       login_user(user)
       get :index
-      # メッセージ相手とその部屋の情報を取得
-      my_room_ids = []
-      my_room_ids << user.entries.map { |entry| entry.room_id }
-      another_entries = Entry.where(user_id: my_room_ids).where.not(user_id: user)
-
-      # ここでanother_entriesが空を返します
-      
+      # user_id != user.idとなるentryをanother_entriesとする
+      another_entries = [@entry2, @entry4, @entry6]
       expect(assigns(:another_entries)).to eq another_entries
+      # メッセージを持つ@entry2, @entry4をanother_entriesから抽出
+      # メッセージの投稿が新しい方から表示されるので@entry4, @entry2の順に表示
+      sorted_entries = [@entry4, @entry2]
+      expect(assigns(:sorted_entries)).to eq sorted_entries
       expect(response).to have_http_status "200"
       expect(response).to render_template :index
     end
