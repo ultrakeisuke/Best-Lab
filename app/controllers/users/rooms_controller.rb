@@ -2,6 +2,7 @@
 
 class Users::RoomsController < ApplicationController
   before_action :authenticate_user!, only: [:index, :show, :create]
+  before_action :restricted_room_viewing, only: [:show]
 
   def create
     # メッセージルームを作成
@@ -34,6 +35,12 @@ class Users::RoomsController < ApplicationController
 
     def entry_params
       params.require(:entry).permit(:user_id)
+    end
+
+    # 他人のメッセージルームを閲覧できないよう制限
+    def restricted_room_viewing
+      current_room_ids = current_user.entries.map { |current_entry| current_entry.room_id}
+      redirect_to users_basic_path(current_user) if current_room_ids.exclude?(params[:id])
     end
 
 end
