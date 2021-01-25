@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Users::PasswordsController < Devise::PasswordsController
-  before_action :user_params, only: [:create, :update]
+  before_action :check_guest, only: [:create, :update]
   
   # GET /resource/password/new
   # def new
@@ -34,8 +34,11 @@ class Users::PasswordsController < Devise::PasswordsController
       super(resource_name)
     end
 
-    def user_params
-      params.require(:user).permit(:email, :password, :password_confirmation)
+    # ゲストユーザーはパスワード変更のメールを送れず、変更もできない
+    def check_guest
+      if resource.email == 'guest@example.com'
+        redirect_to users_basic_path(current_user), alert: 'ゲストユーザーのパスワードは変更できません。'
+      end
     end
 
 end
