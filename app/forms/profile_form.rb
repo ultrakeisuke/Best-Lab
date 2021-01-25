@@ -24,14 +24,12 @@ class ProfileForm
 
   def initialize(profile = Profile.new)
     @profile = profile
-    # プロフィールが保存済みならProfileFormのattributesに代入
-    self.attributes = @profile.attributes if profile.persisted?
   end
 
   def assign_attributes(params = {})
-    # ユーザーがすでにprofileを持っている場合、profileのattributesを更新
+    # ユーザーがすでにprofileを持っている場合はそのattributesを更新
     profile.assign_attributes(params) if profile.persisted?
-    # 更新情報をバリデーションするため、ProfileFormのattributesも変更
+    # バリデーションにかけるためフォームオブジェクトの値も更新
     super(params)
   end
 
