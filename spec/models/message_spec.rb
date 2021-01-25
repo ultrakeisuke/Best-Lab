@@ -32,4 +32,18 @@ RSpec.describe Message, type: :model do
     end
   end
 
+  describe "assign_attributesメソッド" do
+    it "フォームオブジェクトにパラメータの値が反映される" do
+      message.assign_attributes(body: "message", pictures_attributes: )
+      # expect(message.body).to eq "message"
+    end
+  end
+
+  describe "saveメソッド" do
+    it "フォームオブジェクトの値を反映したMessageオブジェクトが1つ作成される" do
+      message.assign_attributes(body: "message", picture_attributes: )
+      # expect(message.save).to be_truthy
+    end
+  end
+
 end
