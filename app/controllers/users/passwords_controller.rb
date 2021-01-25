@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Users::PasswordsController < Devise::PasswordsController
-  before_action :check_guest, only: [:create, :update]
+  before_action :check_guest, only: [:create]
   
   # GET /resource/password/new
   # def new
@@ -36,8 +36,8 @@ class Users::PasswordsController < Devise::PasswordsController
 
     # ゲストユーザーはパスワード変更のメールを送れず、変更もできない
     def check_guest
-      if resource.email == 'guest@example.com'
-        redirect_to users_basic_path(current_user), alert: 'ゲストユーザーのパスワードは変更できません。'
+      if params[:user][:email] == "guest@example.com"
+        redirect_to new_user_password_path, alert: 'ゲストユーザーのパスワードは変更できません。'
       end
     end
 
