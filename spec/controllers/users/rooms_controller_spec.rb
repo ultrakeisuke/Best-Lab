@@ -25,18 +25,20 @@ RSpec.describe Users::RoomsController, type: :controller do
   end
 
   describe "indexアクション" do
+    let(:users) { create_list(:test_users, 3) }
+    let(:rooms) { create_list(:rooms, 3) }
+    let!(:entry1) { create(:entry, room_id: rooms[0].id, user_id: users[0].id) }
+    let!(:entry2) { create(:entry, room_id: rooms[1].id, user_id: users[0].id) }
+    let!(:entry3) { create(:entry, room_id: rooms[2].id, user_id: users[0].id) }
+
     before do
-      @users = create_list(:test_users, 3)
-      @rooms = create_list(:rooms, 3)
-      create(:entry, room_id: @rooms[0].id, user_id: user.id)
-      create(:entry, room_id: @rooms[1].id, user_id: user.id)
-      create(:entry, room_id: @rooms[2].id, user_id: user.id)
-      create(:message, room_id: @rooms[0].id, user_id: user.id, created_at: Time.current)
-      create(:message, room_id: @rooms[1].id, user_id: user.id, created_at: Time.current + 1.second)
+      create(:entry, room_id: rooms[0].id, user_id: user.id)
+      create(:entry, room_id: rooms[1].id, user_id: user.id)
+      create(:entry, room_id: rooms[2].id, user_id: user.id)
+      create(:message, room_id: rooms[0].id, user_id: user.id, created_at: Time.current)
+      create(:message, room_id: rooms[1].id, user_id: user.id, created_at: Time.current + 1.second)
     end
-    let!(:entry1) { create(:entry, room_id: @rooms[0].id, user_id: @users[0].id) }
-    let!(:entry2) { create(:entry, room_id: @rooms[1].id, user_id: @users[0].id) }
-    let!(:entry3) { create(:entry, room_id: @rooms[2].id, user_id: @users[0].id) }
+
     it "インスタンスが期待した値を返し、正常なレスポンスを返す" do
       login_user(user)
       get :index
