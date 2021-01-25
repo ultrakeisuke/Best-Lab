@@ -10,7 +10,7 @@ class Users::MessagesController < ApplicationController
       redirect_to users_room_path(@message.room_id)
     else
       @room = Room.find(@message.room_id)
-      @another_entry = @room.entries.find_by('user_id != ?', current_user.id)
+      @another_entry = @room.entries.partner_of(current_user)
       render "users/rooms/show"
     end
   end
