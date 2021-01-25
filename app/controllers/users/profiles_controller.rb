@@ -12,9 +12,8 @@ class Users::ProfilesController < ApplicationController
   def create
     @profile = ProfileForm.new
     @profile.assign_attributes(profile_form_params)
-    @profile.user_id = current_user.id
     if @profile.save
-      redirect_to users_basic_path(current_user.id), flash: { notice: "プロフィールを保存しました。" }
+      redirect_to users_basic_path(current_user), flash: { notice: "プロフィールを保存しました。" }
     else
       render :new
     end
@@ -32,7 +31,7 @@ class Users::ProfilesController < ApplicationController
     # 複数のattributeをまとめて更新
     @profile.assign_attributes(profile_form_params)
     if @profile.save
-      redirect_to users_basic_path(current_user.id), flash: { notice: "プロフィールを保存しました。" }
+      redirect_to users_basic_path(current_user), flash: { notice: "プロフィールを保存しました。" }
     else
       render :edit
     end
