@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Users::ProfilesController, type: :controller do
   let(:user) { create(:user) }
+  let!(:parent_category) { create(:parent_category) }
+  let!(:children_category) { create(:children_category, ancestry: parent_category.id) }
 
   describe "newアクション" do
     it "プロフィール作成画面を表示する" do
@@ -45,13 +47,13 @@ RSpec.describe Users::ProfilesController, type: :controller do
       it "プロフィール作成に成功し、ユーザー詳細画面にリダイレクトする" do
         login_user(user)
         expect { post :create, params: { profile_form: { affiliation: profile_form.affiliation,
-                                                         school: profile_form.affiliation,
-                                                         faculty: profile_form.affiliation,
-                                                         department: profile_form.affiliation,
-                                                         laboratory: profile_form.affiliation,
-                                                         content: profile_form.affiliation } } }.to change(Profile, :count).by(1)
+                                                         school: profile_form.school,
+                                                         faculty: profile_form.faculty,
+                                                         department: profile_form.department,
+                                                         laboratory: profile_form.laboratory,
+                                                         content: profile_form.content } } }.to change(Profile, :count).by(1)
         expect(response).to have_http_status "302"
-        expect(response).to redirect_to users_basic_path(user.id)
+        expect(response).to redirect_to users_basic_path(user)
       end
     end
   end
@@ -102,13 +104,13 @@ RSpec.describe Users::ProfilesController, type: :controller do
         login_user(user)
         patch :update, params: { id: profile.id, profile_form: { affiliation: profile_form.affiliation,
                                                                  school: "MySchool",
-                                                                 faculty: profile_form.affiliation,
-                                                                 department: profile_form.affiliation,
-                                                                 laboratory: profile_form.affiliation,
-                                                                 content: profile_form.affiliation } }
+                                                                 faculty: profile_form.faculty,
+                                                                 department: profile_form.department,
+                                                                 laboratory: profile_form.laboratory,
+                                                                 content: profile_form.content } }
         expect(profile.reload.school).to eq "MySchool"
         expect(response).to have_http_status "302"
-        expect(response).to redirect_to users_basic_path(user.id)
+        expect(response).to redirect_to users_basic_path(user)
       end
     end
   end
