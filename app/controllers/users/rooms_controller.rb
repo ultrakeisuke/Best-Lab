@@ -2,7 +2,6 @@
 
 class Users::RoomsController < ApplicationController
   before_action :authenticate_user!, only: [:index, :show, :create]
-  before_action :restricted_room_viewing, only: [:show]
 
   def create
     # メッセージルームを作成
@@ -16,31 +15,31 @@ class Users::RoomsController < ApplicationController
   end
 
   def index
-    # メッセージ相手と部屋の情報を取得
-    @another_entries = Entry.another_entries(current_user)
-    # 最後にやりとりしたメッセージが新しい順にソート
-    @sorted_entries = @another_entries.sorted_entries(current_user)
+    # ログインユーザーのすべてのentryを取得
+    @current_entries = current_user.entries
+    my_room_ids = []
+    # ログインユーザーのentryをもとに、room_idをひとつずつmy_room_idsに格納
+    @current_entries.each do |entry|
+      my_room_ids << entry.room.id
+    end
+    # ログインユーザーが参加しているすべてのroomから、user_idがログインユーザーでないレコードを取得
+    @another_entries = Entry.where(room_id: my_room_ids).where.not(user_id: current_user.id)
   end
 
   def show
     # メッセージ相手のroom情報をパスから取得し、@roomに代入
     @room = Room.find(params[:id])
     # formのmodelに入れるオブジェクトを作成
-    @message = MessageForm.new
-    # メッセージ相手と部屋の情報を取得
-    @another_entry = @room.entries.partner_of(current_user)
+    @message = MessageForm.new(pictures: [Picture.new])
+    # ひとつのroomが所属するentryは2つ(user_idがログインユーザー、相手)なので、
+    # ログインユーザーでないほうのuser_idから取得できるentryはメッセージ相手のものとなる
+    @another_entry = @room.entries.find_by('user_id != ?', current_user.id)
   end
 
   private
 
     def entry_params
       params.require(:entry).permit(:user_id)
-    end
-
-    # 他人のメッセージルームを閲覧できないよう制限
-    def restricted_room_viewing
-      current_room_ids = current_user.entries.map { |current_entry| current_entry.room_id}
-      redirect_to users_basic_path(current_user) if current_room_ids.exclude?(params[:id].to_i)
     end
 
 end

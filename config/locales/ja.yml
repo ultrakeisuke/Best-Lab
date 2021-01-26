@@ -2,5 +2,5 @@ ja:
   time:
     formats:
       default: "%H:%M"
-      month: "%-m月%-d日"
-      year: "%-Y年%-m月%-d日"
+      month: "%-m月%-d日 (%a)"
+      year: "%-Y年%-m月%-d日 (%a)"
