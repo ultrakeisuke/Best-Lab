@@ -2,11 +2,11 @@
 
 <h3>メッセージ</h3>
 
-<% if @current_entries.blank? %>
+<% if @another_entries.blank? %>
   <p>話したい相手を探してみましょう！</p>
 <% end %>
 
-<% @another_entries.each do |entry| %>
+<% @sorted_entries&.each do |entry| %>
   <div class="room-list">
     <ul>
       <li>
@@ -22,7 +22,10 @@
         <%= link_to(users_room_path(entry.room)) do %>
           <div class="room-list__text">
             <p><%= entry.user.name %></p>
-            <p><%= Message.find_by(id: entry.room.message_ids.last)&.body %></p>
+            <%# 最後にメッセージした時間を表示 %>
+            <% if entry.room.messages.present? %>
+              <span><%= l entry.room.messages.last.created_at, format: :default %></span>
+            <% end %>
           </div>
         <% end %>
       </li>
