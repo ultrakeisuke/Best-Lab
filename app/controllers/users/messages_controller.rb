@@ -4,10 +4,14 @@ class Users::MessagesController < ApplicationController
   before_action :authenticate_user!, only: [:create, :destroy]
 
   def create
-    # FormObjectを使用するためMessageFormクラスでメッセージを作成
-    @message_form = MessageForm.new(message_form_params)
-    if @message_form.save
-      redirect_to users_room_path(@message_form.room_id)
+    @message = MessageForm.new
+    @message.assign_attributes(message_form_params)
+    if @message.save
+      redirect_to users_room_path(@message.room_id)
+    else
+      @room = Room.find(@message.room_id)
+      @another_entry = @room.entries.partner_of(current_user)
+      render "users/rooms/show"
     end
   end
 
@@ -16,6 +20,8 @@ class Users::MessagesController < ApplicationController
     # 自分のメッセージ以外は削除できないようにする
     if message.user_id == current_user.id
       message.destroy
+      redirect_to users_room_path(message.room_id)
+    else
       redirect_to users_room_path(message.room_id)
     end
   end
