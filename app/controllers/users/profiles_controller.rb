@@ -2,6 +2,7 @@
 
 class Users::ProfilesController < ApplicationController
   before_action :authenticate_user!
+  before_action :restricted_profile_editing, only: [:edit, :update]
 
   # プロフィール新規作成画面
   def new
@@ -39,9 +40,13 @@ class Users::ProfilesController < ApplicationController
 
   private
 
-    # createアクション用ストロングパラメータ
     def profile_form_params
       params.require(:profile_form).permit(:affiliation, :school, :faculty, :department, :laboratory, :content).merge(user_id: current_user.id)
+    end
+
+    # 他人のプロフィールを編集できないようにする
+    def restricted_profile_editing
+      redirect_to users_basic_path(current_user) if current_user&.profile != Profile.find(params[:id])
     end
 
 end

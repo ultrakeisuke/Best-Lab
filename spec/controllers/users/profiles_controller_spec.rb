@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Users::ProfilesController, type: :controller do
   let(:user) { create(:user) }
+  let(:another_user) { create(:another_user) }
   let!(:parent_category) { create(:parent_category) }
   let!(:children_category) { create(:children_category, ancestry: parent_category.id) }
 
@@ -61,16 +62,28 @@ RSpec.describe Users::ProfilesController, type: :controller do
   
   describe "editアクション" do
     let(:profile) { create(:profile, user_id: user.id) }
-    it "プロフィール編集画面を表示する" do
-      login_user(user)
-      get :edit, params: { id: profile.id }
-      expect(response).to have_http_status "200"
-      expect(response).to render_template :edit
+    let(:another_profile) { create(:profile, user_id: another_user.id) }
+    context "他人のプロフィール編集画面に入ろうとした場合" do
+      it "ログインユーザーの詳細画面にリダイレクトする" do
+        login_user(user)
+        get :edit, params: { id: another_profile.id }
+        expect(response).to have_http_status "302"
+        expect(response).to redirect_to users_basic_path(user)
+      end
+    end
+    context "自分のプロフィール編集画面に入ろうとした場合" do
+      it "プロフィール編集画面を表示する" do
+        login_user(user)
+        get :edit, params: { id: profile.id }
+        expect(response).to have_http_status "200"
+        expect(response).to render_template :edit
+      end
     end
   end
 
   describe "updateアクション" do
     let(:profile) { create(:profile, user_id: user.id) }
+    let(:another_profile) { create(:profile, user_id: another_user.id) }
     let(:profile_form) { build(:profile_form, user_id: user.id) }
     context "フォームに何も入力しなかった場合" do
       it "プロフィール編集画面を表示する" do
@@ -97,6 +110,19 @@ RSpec.describe Users::ProfilesController, type: :controller do
                                                                  content: "" } }
         expect(response).to have_http_status "200"
         expect(response).to render_template :edit
+      end
+    end
+    context "他人のプロフィールを編集しようとした場合" do
+      it "プロフィール編集に失敗し、ログインユーザーの詳細画面にリダイレクトする" do
+        login_user(user)
+        patch :update, params: { id: another_profile.id, profile_form: { affiliation: profile_form.affiliation,
+                                                                 school: profile_form.school,
+                                                                 faculty: profile_form.faculty,
+                                                                 department: profile_form.department,
+                                                                 laboratory: profile_form.laboratory,
+                                                                 content: profile_form.content } }
+        expect(response).to have_http_status "302"
+        expect(response).to redirect_to users_basic_path(user)
       end
     end
     context "フォームに入力した値が有効であった場合" do
