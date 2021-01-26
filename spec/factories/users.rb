@@ -18,10 +18,4 @@ FactoryBot.define do
     password { '1234567' }
   end
 
-  factory :test_users, class: User do
-    sequence(:name) {|n| "name-#{n+1}"}
-    sequence(:email) {|n| "email-#{n+1}@example.com"}
-    sequence(:password) {|n| "password-#{n+1}"}
-  end
-
 end

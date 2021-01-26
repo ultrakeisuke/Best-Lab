@@ -13,7 +13,7 @@
   <div id="message-id-<%= message.id %>" class="message-field__message" >
     <%= simple_format(message.body) %>
     <% message.pictures.each do |message_picture| %>
-      <%= image_tag message_picture.picture.url , class:"popup-img"%>
+      <%= image_tag message_picture.picture.url , class:"popupimg"%>
     <% end %>
   </div>
   <div class="message-field__created_at">
