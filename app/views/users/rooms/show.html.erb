@@ -2,6 +2,8 @@
 
 <h3><%= link_to @another_entry.user.name, users_basic_path(@another_entry.user) %></h3>
 
+<%= render "users/shared/error_messages", resource: @message %>
+
 <div class="message-field container">
   <div id="message-field__scroll">
     <% @room.messages.each do |message| %>
@@ -30,7 +32,7 @@
   <div class="post-field container">
     <div class="post-field__picture">
       <label for="picture-file" >
-        <i class="fas fa-camera"></i>
+        <i id="picture-file-icon" class="fas fa-camera"></i>
       </label>
       <%= f.fields_for :pictures do |picture| %>
         <%= picture.file_field :picture, type: 'file', multiple: "multiple", name: "message_form[pictures_attributes][][picture]", value: "", style: "display:none", id: "picture-file" %>

@@ -9,7 +9,7 @@ class MessageForm
   extend CarrierWave::Mount
 
   validates :body, length: { maximum: 10000 }
-  validates :body_or_pictures, presence: true
+  validate :body_or_pictures
   validate :max_num_of_pictures
 
   attribute :user_id, Integer
@@ -20,16 +20,16 @@ class MessageForm
 
   attr_accessor :pictures
 
-  # newメソッドでフォームオブジェクトを生成する際に実行されるセッターを定義
-  def pictures_attributes=(attributes)
-    # 投稿する画像を格納するために空の配列@picturesを作成
+  def assign_attributes(params = {})
+    @params = params
+    # 画像情報からインスタンスを生成する
+    pictures_attributes = params[:pictures_attributes]
     @pictures ||= []
-    # attributesから値を取り出し、それをもとにpictureインスタンスを生成
-    attributes&.map do |attribute|
-      picture = Picture.new(attribute)
-      # pictureを@picturesに格納
+    pictures_attributes&.map do |pictures_attribute|
+      picture = Picture.new(pictures_attribute)
       @pictures.push(picture)
     end
+    super(@params.except(:pictures_attributes))
   end
 
   # picture情報抜きのsaveメソッドを定義
@@ -42,13 +42,12 @@ class MessageForm
 
   private
 
-    # メッセージに文章か画像が含まれるよう制限する
     def body_or_pictures
-      self.body.presence or self.pictures.presence
+      errors.add(:base, "メッセージには文字か画像が含まれるようにしてください。") if body.blank? && pictures.blank?
     end
 
     def max_num_of_pictures
-      errors.add(:base, "投稿できる画像は#{MAX_PICTURES_COUNT}枚までです。") if self.pictures && self.pictures.length > MAX_PICTURES_COUNT
+      errors.add(:base, "投稿できる画像は#{MAX_PICTURES_COUNT}枚までです。") if pictures.length > MAX_PICTURES_COUNT
     end
 
 end
