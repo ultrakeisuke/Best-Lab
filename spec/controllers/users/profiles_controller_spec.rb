@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Users::ProfilesController, type: :controller do
   let(:user) { create(:user) }
   let(:another_user) { create(:another_user) }
+  let(:guest_user) { create(:guest_user) }
   let!(:parent_category) { create(:parent_category) }
   let!(:children_category) { create(:children_category, ancestry: parent_category.id) }
 
@@ -84,6 +85,7 @@ RSpec.describe Users::ProfilesController, type: :controller do
   describe "updateアクション" do
     let(:profile) { create(:profile, user_id: user.id) }
     let(:another_profile) { create(:profile, user_id: another_user.id) }
+    let(:guest_profile) { create(:profile, user_id: guest_user.id) }
     let(:profile_form) { build(:profile_form, user_id: user.id) }
     context "フォームに何も入力しなかった場合" do
       it "プロフィール編集画面を表示する" do
@@ -123,6 +125,19 @@ RSpec.describe Users::ProfilesController, type: :controller do
                                                                  content: profile_form.content } }
         expect(response).to have_http_status "302"
         expect(response).to redirect_to users_basic_path(user)
+      end
+    end
+    context "ゲストユーザーのプロフィールを編集しようとした場合" do
+      it "プロフィール編集に失敗し、ユーザーの詳細画面にリダイレクトする" do
+        login_user(guest_user)
+        patch :update, params: { id: guest_profile.id, profile_form: { affiliation: profile_form.affiliation,
+                                                                       school: profile_form.school,
+                                                                       faculty: profile_form.faculty,
+                                                                       department: profile_form.department,
+                                                                       laboratory: profile_form.laboratory,
+                                                                       content: profile_form.content } }
+        expect(response).to have_http_status "302"
+        expect(response).to redirect_to users_basic_path(guest_user)
       end
     end
     context "フォームに入力した値が有効であった場合" do
