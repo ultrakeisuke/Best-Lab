@@ -2,8 +2,8 @@
 
 <h3>プロフィール設定</h3>
 
-<%= form_with model: profile, url: url, method: method,  local: true do |f| %>
-  <%= render "users/shared/error_messages", resource: @profile %>
+<%= form_with model: profile_form, url: url, method: method,  local: true do |f| %>
+  <%= render "users/shared/error_messages", resource: profile_form %>
 
   <div class="field">
     <%= f.label :affiliation, "所属" %>
@@ -12,7 +12,7 @@
 
   <div class="field">
     <%= f.label :school, "学校名" %><br />
-    <%= f.text_field :school, autofocus: true %>
+    <%= f.text_field :school %>
   </div>
 
   <div class="field">
