@@ -22,6 +22,21 @@ profiles = []
 end
 Profile.import profiles
 
+# ゲストユーザーとプロフィールを作成
+guest_user = User.create(name: "guest",
+                         email: "guest@example.com",
+                         password: "1234567",
+                         password_confirmation: "1234567",
+                         confirmed_at: Time.now)
+
+guest_profile = Profile.create(affiliation: "大学院生",
+                               school: "ゲスト大学",
+                               faculty: "ゲスト学部",
+                               department: "ゲスト学科",
+                               laboratory: "ゲスト研究室",
+                               content: "ゲストユーザーです。",
+                               user_id: guest_user.id)  
+
 admin_user = Admin.create!(email: "admin@example.com",
                            password: "1234567")
                            
