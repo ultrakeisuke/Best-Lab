@@ -3,6 +3,7 @@
 class Users::ProfilesController < ApplicationController
   before_action :authenticate_user!
   before_action :restricted_profile_editing, only: [:edit, :update]
+  before_action :restricted_guest_profile_editing, only: [:update]
 
   # プロフィール新規作成画面
   def new
@@ -47,6 +48,13 @@ class Users::ProfilesController < ApplicationController
     # 他人のプロフィールを編集できないようにする
     def restricted_profile_editing
       redirect_to users_basic_path(current_user) if current_user&.profile != Profile.find(params[:id])
+    end
+
+    # ゲストユーザーのプロフィールは編集できないようにする
+    def restricted_guest_profile_editing
+      if current_user.email == "guest@example.com"
+        redirect_to users_basic_path(current_user), alert: "ゲストユーザーのプロフィールは編集できません。"
+      end
     end
 
 end
