@@ -2,6 +2,9 @@ require 'rails_helper'
 
 RSpec.describe Users::PasswordsController, type: :controller do
   let(:user) { create(:user) }
+  let!(:parent_category) { create(:parent_category) }
+  let!(:children_category) { create(:children_category, ancestry: parent_category.id) }
+
   before do
     user.confirm 
     @request.env["devise.mapping"] = Devise.mappings[:user]
@@ -13,6 +16,13 @@ RSpec.describe Users::PasswordsController, type: :controller do
         post :create, params: { user: { email: "" } }
         expect(response).to have_http_status "200"
         expect(response).to render_template :new
+      end
+    end
+    context "ゲストユーザーのパスワード変更メールを送信しようとした場合" do
+      it "メール送信画面にレンダリングする" do
+        post :create, params: { user: { email: "guest@example.com" } }
+        expect(response).to have_http_status "302"
+        expect(response).to redirect_to new_user_password_path
       end
     end
     context "パスワード変更のメール送信に成功する場合" do
