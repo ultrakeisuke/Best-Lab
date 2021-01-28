@@ -113,14 +113,25 @@ header {
         padding: 5px;
         display: inline-block;
         border-radius: 5px;
+        color: #fff;
       }
       .undergraduate {
-        color: #fff;
         background-color: tomato;
       }
       .graduate {
-        color: #fff;
-        background-color: silver;
+        background-color: darkgrey;
+      }
+      .technical-students {
+        background-color: darkcyan;
+      }
+      .professional-students {
+        background-color: steelblue;
+      }
+      .working {
+        background-color: deeppink;
+      }
+      .other {
+        background-color: darkorange;
       }
     }
     .profile__text--bottom {
