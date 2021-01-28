@@ -29,18 +29,11 @@ RSpec.describe User, type: :model do
     expect(user).to be_valid
   end
 
-  it "プロフィールが201文字以上なら無効" do
-    user.profile = "a"*201
-    user.valid?
-    expect(user).not_to be_valid
+  describe "self.guestメソッド" do
+    it "ゲストユーザーの情報を持つログインユーザーを生成" do
+      user = User.guest
+      expect(user.email).to eq "guest@example.com"
+    end
   end
-
-  it "プロフィールが200文字以内なら有効" do
-    user.profile = "a"*200
-    user.valid?
-    expect(user).to be_valid
-  end
-
-
 
 end
