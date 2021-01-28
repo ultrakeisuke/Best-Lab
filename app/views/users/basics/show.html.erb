@@ -17,7 +17,13 @@
   <div class="profile__text">
     <div class="profile__text--top">
       <h3><%= @user.name %></h3>
-        <div id="user_affiliation"><%= @user.profile&.affiliation %></div>
+        <div id="user-affiliation"><%= @user.profile&.affiliation %></div>
+    </div>
+    <div class="profile__text--middle">
+        <div id="user-school">学校名：<%= @user.profile&.school %></div>
+        <div id="user-faculty">学部・研究科名：<%= @user.profile&.faculty %></div>
+        <div id="user-department">学科・専攻・コース名：<%= @user.profile&.department %></div>
+        <div id="user-laboratory">研究室名：<%= @user.profile&.laboratory %></div>
     </div>
     <div class="profile__text--bottom">
       <%= @user.profile&.content %>
