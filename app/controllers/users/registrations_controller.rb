@@ -42,15 +42,17 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   protected
 
-    # If you have extra params to permit, append them to the sanitizer.
+    # 新規登録時のストロングパラメータを定義
     def configure_sign_up_params
-      devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :email, :affiliation])
+      devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
     end
 
+    # アカウント更新時のストロングパラメータを定義
     def configure_account_update_params
-      devise_parameter_sanitizer.permit(:account_update, keys: [:name, :email, :affiliation, :profile, :picture])
+      devise_parameter_sanitizer.permit(:account_update, keys: [:name, :picture])
     end
 
+    # アカウント更新後はユーザー詳細画面にリダイレクトする
     def after_update_path_for(resource)
       users_basic_path(current_user)
     end
@@ -60,11 +62,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
     #   users_path
     # end
 
-    # The path used after sign up for inactive accounts.
+    # 新規登録時はアカウント認証が完了していないので、rootにリダイレクトする
     def after_inactive_sign_up_path_for(resource)
-      new_user_session_path
+      root_path
     end
 
+    # パスワード入力なしでアカウント情報を更新する
     def update_resource(resource, params)
       resource.update_without_current_password(params)
     end
