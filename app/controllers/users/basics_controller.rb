@@ -28,8 +28,8 @@ class Users::BasicsController < ApplicationController
       end
     end
 
-    # ユーザーが投稿したすべての質問を表示する
-    @posts = Post.where(user_id: @user)
+    # ユーザーが投稿した質問を降順で表示
+    @posts = Post.where(user_id: @user).order(created_at: :desc)
   end
   
 end
