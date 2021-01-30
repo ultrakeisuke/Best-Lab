@@ -1,19 +1,20 @@
 // 所属ごとにテキストの背景色が変わる処理
 window.addEventListener('load', function () {
   var affiliation = document.getElementById('user-affiliation');
+  var lists = [
+    { ja: "大学生", en: "undergraduate" },
+    { ja: "大学院生", en: "graduate" },
+    { ja: "高専生", en: "technical-students" },
+    { ja: "専門学生", en: "professional-students" },
+    { ja: "社会人", en: "working" },
+    { ja: "その他", en: "other" }
+  ]
+  // ユーザーの所属がlistsの日本語表記と一致していれば、その英語表記のクラスを追加
   if (affiliation) {
-    if (affiliation.textContent == "大学生") {
-      document.getElementById('user-affiliation').classList.add('undergraduate');
-    } else if (affiliation.textContent == "大学院生") {
-      document.getElementById('user-affiliation').classList.add('graduate');
-    } else if (affiliation.textContent == "高専生") {
-      document.getElementById('user-affiliation').classList.add('technical-students');
-    } else if (affiliation.textContent == "専門学生") {
-      document.getElementById('user-affiliation').classList.add('professional-students');
-    } else if (affiliation.textContent == "社会人") {
-      document.getElementById('user-affiliation').classList.add('working');
-    } else if (affiliation.textContent == "その他") {
-      document.getElementById('user-affiliation').classList.add('other');
-    }
+    lists.forEach(function (i) {
+      if (affiliation.textContent == i.ja) {
+        affiliation.classList.add(i.en);
+      }
+    });
   }
 });
