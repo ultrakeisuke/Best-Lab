@@ -6,6 +6,8 @@ RSpec.describe Users::RegistrationsController, type: :controller do
 
   before do
     @request.env["devise.mapping"] = Devise.mappings[:user]
+    parent_category = create(:parent_category)
+    create(:children_category, ancestry: parent_category.id)
   end
 
   describe "createアクション" do
@@ -20,7 +22,7 @@ RSpec.describe Users::RegistrationsController, type: :controller do
       it "ログイン画面にリダイレクトする" do
         post :create, params: { user: { name: "user", email: "user@example.com", password: "1234567", password_confirmation: "1234567" } }
         expect(response).to have_http_status "302"
-        expect(response).to redirect_to new_user_session_path
+        expect(response).to redirect_to root_path
       end
     end
   end
@@ -28,7 +30,7 @@ RSpec.describe Users::RegistrationsController, type: :controller do
     context "プロフィール編集に失敗した場合" do
       it "プロフィール編集画面にレンダリングする" do
         login_user(user)
-        put :update, params: { user: { profile: "1"*201 } }
+        put :update, params: { user: { name: "1"*51 } }
         expect(response).to have_http_status "200"
         expect(response).to render_template :edit
       end
@@ -36,10 +38,9 @@ RSpec.describe Users::RegistrationsController, type: :controller do
     context "プロフィール編集に成功した場合" do
       it "プロフィール画面にリダイレクトする" do
         login_user(user)
-        put :update, params: { user: { profile: "1"*200 } }
-        expect(user.reload.profile).to eq "1"*200
+        put :update, params: { user: { name: "1"*50 } }
+        expect(user.reload.name).to eq "1"*50
         expect(response).to have_http_status "302"
-        expect(assigns(:user)).to eq user
         expect(response).to redirect_to users_basic_path(user)
       end
     end
