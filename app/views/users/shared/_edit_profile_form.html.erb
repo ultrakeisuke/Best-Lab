@@ -7,7 +7,7 @@
 
   <div class="field">
     <%= f.label :affiliation %>
-    <%= f.select(:affiliation, { 大学生: '大学生', 大学院生: '大学院生', 高専生: '高専生', 専門学生: '専門学生', 社会人: '社会人', その他: 'その他'}, selected: profile.affiliation ) %>
+    <%= f.select(:affiliation, ProfileForm::AFFILIATIONS, selected: profile.affiliation) %>
   </div>
 
   <div class="field">

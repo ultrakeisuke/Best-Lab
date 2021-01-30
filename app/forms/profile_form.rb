@@ -4,6 +4,13 @@ class ProfileForm
 
   AFFILIATION_VALUES = [ '大学生', '大学院生', '高専生', '専門学生', '社会人', 'その他' ]
 
+  AFFILIATIONS = { undergraduate: '大学生',
+                   graduate: '大学院生',
+                   technical_students: '高専生',
+                   professional_students: '専門学生',
+                   working: '社会人',
+                   other: 'その他' }
+  
   validates :affiliation, inclusion: { in: AFFILIATION_VALUES }
   validates :school,     length: { maximum: 50 }
   validates :faculty,    length: { maximum: 50 }
