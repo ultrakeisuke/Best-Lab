@@ -133,9 +133,10 @@ RSpec.describe Questions::PostsController, type: :controller do
     let(:answer) { create(:answer, user_id: another_user.id, post_id: post.id)}
     it "ベストアンサーを選出しshow画面にリダイレクトする" do
       login_user(user)
-      patch :select_best_answer, params: { id: post.id, post_form: { best_answer_id: answer.id } }
+      patch :select_best_answer, params: { id: post.id, post_form: { status: "解決済", best_answer_id: answer.id } }
       expect(response).to have_http_status "302"
       expect(response).to redirect_to questions_post_path(post)
+      expect(post.reload.status).to eq "解決済"
       expect(post.reload.best_answer_id).to eq answer.id
     end
   end
