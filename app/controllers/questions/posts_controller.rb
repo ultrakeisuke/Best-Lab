@@ -25,13 +25,13 @@ class Questions::PostsController < ApplicationController
 
   # 投稿の新規作成画面
   def new
-    @post = PostForm.new
+    @post_form = PostForm.new
   end
 
   def create
-    @post = PostForm.new
-    @post.assign_attributes(post_params)
-    if @post.save
+    @post_form = PostForm.new
+    @post_form.assign_attributes(post_params)
+    if @post_form.save
       redirect_to users_basic_path(current_user), flash: { notice: "質問を投稿しました。" }
     else
       render :new
@@ -40,16 +40,17 @@ class Questions::PostsController < ApplicationController
 
   # 投稿の編集画面
   def edit
-    post = Post.find(params[:id])
-    @post = PostForm.new(post)
+    @post = Post.find(params[:id])
+    @post_form = PostForm.new(@post)
     # すでに作成した投稿のカテゴリーを取得しセレクトボックスに表示する
-    @selected_parent_category = post.category.parent
+    @selected_parent_category = @post.category.parent
   end
 
   def update
-    @post = PostForm.new(post = Post.find(params[:id]))
-    @post.assign_attributes(post_params)
-    if @post.save
+    @post = Post.find(params[:id])
+    @post_form = PostForm.new(@post)
+    @post_form.assign_attributes(post_params)
+    if @post_form.save
       redirect_to users_basic_path(current_user), flash: { notice: "質問を編集しました。" }
     else
       render :edit
@@ -63,9 +64,10 @@ class Questions::PostsController < ApplicationController
 
   # ベストアンサーを選出する処理
   def select_best_answer
-    @post = PostForm.new(post = Post.find(params[:id]))
-    @post.assign_attributes(post_params)
-    if @post.save
+    post = Post.find(params[:id])
+    @post_form = PostForm.new(post)
+    @post_form.assign_attributes(post_params)
+    if @post_form.save
       redirect_to questions_post_path(post), flash: { notice: "ベストアンサーが決定しました！" }
     else
       render "questions/posts/show"
