@@ -11,17 +11,17 @@ class User < ApplicationRecord
   has_many :posts
   has_many :replies
 
-  # 新規登録完了時の自動ログインの防止
+  # アカウント認証が済むまでログインできない処理
   def active_for_authentication?
     super && confirmed?
   end
 
-  # エラー時のフラッシュメッセージのキーを返す
+  # 上記のメソッドがfalseを返した場合にエラーメッセージを表示する処理
   def inactive_message
     confirmed? ? super : :unconfirmed
   end
 
-  # 現在のパスワードを入力することなくプロフィールを更新する
+  # 現在のパスワード入力なしでアカウント情報を更新
   def update_without_current_password(params, *options)
     params.delete(:current_password)
     if params[:password].blank? && params[:password_confirmation].blank?
