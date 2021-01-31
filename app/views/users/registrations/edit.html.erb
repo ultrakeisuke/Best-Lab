@@ -1,6 +1,6 @@
-<% provide(:title, "ユーザーの情報の編集") %>
+<% provide(:title, "アカウント設定") %>
 
-<h3>ユーザー情報の編集</h3>
+<h3>アカウント設定</h3>
 
 <%= form_with model: resource, url: user_registration_path, local: true do |f| %>
   <%= render "users/shared/error_messages", resource: resource %>
@@ -20,17 +20,9 @@
     <%= f.file_field :picture %>
   </div>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
-
   <div class="field">
     <%= f.label :password %> <i>(変更しない場合はスキップ)</i><br />
     <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em>パスワードは<%= @minimum_password_length %>文字以上です</em>
-    <% end %>
   </div>
 
   <div class="field">
