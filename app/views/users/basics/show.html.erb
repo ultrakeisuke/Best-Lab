@@ -32,7 +32,7 @@
     <div class="profile__edit">
       <% if user_signed_in? %>
         <% if current_user == @user %>
-          <%= link_to 'アカウント設定', edit_user_registration_path %>
+          <%= link_to 'ユーザー情報設定', edit_user_registration_path %>
           <% if @user.profile %>
             <%= link_to 'プロフィール設定', edit_users_profile_path(@user.profile) %>
           <% else %>
