@@ -51,7 +51,7 @@ class Questions::PostsController < ApplicationController
     @post_form = PostForm.new(@post)
     @post_form.assign_attributes(post_params)
     if @post_form.save
-      redirect_to users_basic_path(current_user), flash: { notice: "質問を編集しました。" }
+      redirect_to questions_post_path(@post), flash: { notice: "質問を編集しました。" }
     else
       render :edit
     end

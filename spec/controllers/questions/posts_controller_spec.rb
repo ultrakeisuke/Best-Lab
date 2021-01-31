@@ -104,14 +104,14 @@ RSpec.describe Questions::PostsController, type: :controller do
       end
     end
     context "フォーム入力が有効であった場合" do
-      it "編集に成功しユーザー詳細画面にリダイレクトする" do
+      it "編集に成功し質問詳細画面にリダイレクトする" do
         login_user(user)
         patch :update, params: { id: post.id, post_form: { category_id: children_category.id,
                                                            title: "title",
                                                            content: "content",
                                                            status: "解決済"} }
         expect(response).to have_http_status "302"
-        expect(response).to redirect_to users_basic_path(user)
+        expect(response).to redirect_to questions_post_path(post)
       end
     end
   end
