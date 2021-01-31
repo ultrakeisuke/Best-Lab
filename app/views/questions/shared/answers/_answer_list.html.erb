@@ -9,8 +9,14 @@
               <span>ベストアンサー</span>
             </div>
           <% end %>
-          <div class="answer-username"><%= answer.user.name %></div>
-          <div class="answer-createdat"><%= l answer.created_at, format: :month %></div>
+          <div class="answer-username">
+            <% if answer.user.discarded? %>
+              <p>退会済みのユーザー</p>
+            <% else %>
+              <p><%= answer.user.name %></p>
+            <% end %>
+          </div>
+          <div class="answer-createdat"><%= l answer.created_at, format: :year %></div>
           <div class="answer-body"><%= answer.body %></div>
           <div class="answer-pictures">
             <% answer.pictures.each do |picture| %>
@@ -33,7 +39,13 @@
       <div id="display-reply-<%= answer.id %>">
         <% answer.replies&.order(created_at: :asc).each do |reply| %>
           <div id="reply-contents-<%= reply.id %>">
-            <div class="reply-username"><%= reply.user.name %></div>
+            <div class="reply-username">
+              <% if reply.user.present? %>
+                <p><%= reply.user.name %></p>
+              <% else %>
+                <p>退会済みのユーザー</p>
+              <% end %>
+            </div>
             <div class="reply-createdat"><%= l reply.created_at, format: :year %></div>
             <div class="reply-body"><%= reply.body %></div>
             <div class="reply-pictures">
