@@ -3,6 +3,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable
 
+  # 論理削除用のgem discardを導入
+  include Discard::Model
+
   mount_uploader :picture, PictureUploader
   validates :name, presence: true, length: { maximum: 50 }
   has_one :profile, dependent: :destroy
