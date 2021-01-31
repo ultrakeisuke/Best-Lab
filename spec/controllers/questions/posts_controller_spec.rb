@@ -5,7 +5,6 @@ RSpec.describe Questions::PostsController, type: :controller do
   let(:another_user) { create(:another_user) }
   let!(:parent_category) { create(:parent_category) }
   let!(:children_category) { create(:children_category, ancestry: parent_category.id) }
-  let!(:children_categories) { 3.times.collect { |i| create(:children_category, name: "category#{i}", ancestry: parent_category.id) } }
 
   describe 'indexアクション' do
     it "すべての質問を表示する" do
@@ -114,6 +113,17 @@ RSpec.describe Questions::PostsController, type: :controller do
         expect(response).to have_http_status "302"
         expect(response).to redirect_to users_basic_path(user)
       end
+    end
+  end
+
+  describe "get_children_categoriesアクション" do
+  let!(:test_parent_category) { create(:parent_category) }
+  let!(:children_categories) { create_list(:children_category, 3, ancestry: test_parent_category.id) }
+    it "親カテゴリーを選択した際に子カテゴリーが動的に変化する" do
+      login_user(user)
+      get :get_children_categories, xhr: true, params: { parent_category_id: test_parent_category.id }
+      expect(assigns(:children_categories)).to eq children_categories
+      expect(response).to have_http_status "200"
     end
   end
 
