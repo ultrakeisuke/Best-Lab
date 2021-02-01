@@ -2,7 +2,7 @@ class ProfileForm
   include ActiveModel::Model
   include Virtus.model
 
-  AFFILIATION_VALUES = [ '大学生', '大学院生', '高専生', '専門学生', '社会人', 'その他' ]
+  AFFILIATION_VALUES = [ 'undergraduate', 'graduate', 'technical_students', 'professional_students', 'working', 'other' ]
 
   AFFILIATIONS = { undergraduate: '大学生',
                    graduate: '大学院生',
