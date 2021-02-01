@@ -13,12 +13,7 @@ class Questions::AnswersController < ApplicationController
         @post = Post.find(@answer.post_id)
         @answers = @post.answers
         # 自己解決した場合
-        if @post.user_id == @answer.user_id
-          best_answer = Answer.find_by(post_id: @post, user_id: current_user)
-          @post.status = "解決済"
-          @post.best_answer_id = best_answer.id
-          @post.save
-        end
+        @post.solved_by_questioner if @post.user_id == @answer.user_id
         format.html { redirect_to questions_post_path(@answer.post_id) }
         format.js
       else
