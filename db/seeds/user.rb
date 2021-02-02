@@ -4,15 +4,15 @@ users = []
   email = "user-#{n+1}@example.com"
   users << User.new(name: name,
                     email: email,
-                    password: "1234567",
-                    password_confirmation: "1234567",
+                    password: "password",
+                    password_confirmation: "password",
                     confirmed_at: Time.now)
 end
 User.import users
 
 profiles = []
 10.times do |n|
-  profiles << Profile.new(affiliation: "大学生",
+  profiles << Profile.new(affiliation: "graduate",
                           school: "school-#{n+1}",
                           faculty: "faculty-#{n+1}",
                           department: "department-#{n+1}",
@@ -29,7 +29,7 @@ guest_user = User.create(name: "guest",
                          password_confirmation: "1234567",
                          confirmed_at: Time.now)
 
-guest_profile = Profile.create(affiliation: "大学院生",
+guest_profile = Profile.create(affiliation: "undergraduate",
                                school: "ゲスト大学",
                                faculty: "ゲスト学部",
                                department: "ゲスト学科",
