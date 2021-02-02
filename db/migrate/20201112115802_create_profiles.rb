@@ -1,7 +1,7 @@
 class CreateProfiles < ActiveRecord::Migration[6.0]
   def change
     create_table :profiles do |t|
-      t.string :affiliation, null: false, default: "大学生"
+      t.string :affiliation, null: false, default: "undergraduate"
       t.string :school
       t.string :faculty
       t.string :department

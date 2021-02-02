@@ -2,8 +2,15 @@ class ProfileForm
   include ActiveModel::Model
   include Virtus.model
 
-  AFFILIATION_VALUES = [ '大学生', '大学院生', '高専生', '専門学生', '社会人', 'その他' ]
+  AFFILIATION_VALUES = [ 'undergraduate', 'graduate', 'technical_students', 'professional_students', 'working', 'other' ]
 
+  AFFILIATIONS = { undergraduate: '大学生',
+                   graduate: '大学院生',
+                   technical_students: '高専生',
+                   professional_students: '専門学生',
+                   working: '社会人',
+                   other: 'その他' }
+  
   validates :affiliation, inclusion: { in: AFFILIATION_VALUES }
   validates :school,     length: { maximum: 50 }
   validates :faculty,    length: { maximum: 50 }
@@ -24,14 +31,12 @@ class ProfileForm
 
   def initialize(profile = Profile.new)
     @profile = profile
-    # プロフィールが保存済みならProfileFormのattributesに代入
-    self.attributes = @profile.attributes if profile.persisted?
   end
 
   def assign_attributes(params = {})
-    # ユーザーがすでにprofileを持っている場合、profileのattributesを更新
+    # ユーザーがすでにprofileを持っている場合はそのattributesを更新
     profile.assign_attributes(params) if profile.persisted?
-    # 更新情報をバリデーションするため、ProfileFormのattributesも変更
+    # バリデーションにかけるためフォームオブジェクトの値も更新
     super(params)
   end
 
