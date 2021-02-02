@@ -91,7 +91,7 @@ ActiveRecord::Schema.define(version: 2020_12_25_093924) do
   end
 
   create_table "profiles", force: :cascade do |t|
-    t.string "affiliation", default: "大学生", null: false
+    t.string "affiliation", default: "undergraduate", null: false
     t.string "school"
     t.string "faculty"
     t.string "department"
