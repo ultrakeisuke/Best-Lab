@@ -7,7 +7,7 @@
 
   <div class="field">
     <%= f.label :affiliation %>
-    <%= f.select(:affiliation, ProfileForm::AFFILIATIONS) %>
+    <%= f.select(:affiliation, ProfileForm::AFFILIATIONS.invert) %>
   </div>
 
   <div class="field">
