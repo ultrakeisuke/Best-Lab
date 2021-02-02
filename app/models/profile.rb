@@ -10,9 +10,7 @@ class Profile < ApplicationRecord
 
   # 英語名で保存された所属(affiliation)を日本語で表示
   def translated_affiliation
-    AFFILIATIONS.each do |key, value|
-      return value if self.affiliation == key.to_s
-    end
+    AFFILIATIONS[self.affiliation.to_sym]
   end
   
 end
