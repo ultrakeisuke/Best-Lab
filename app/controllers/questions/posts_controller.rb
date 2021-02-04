@@ -4,6 +4,7 @@ class Questions::PostsController < ApplicationController
   before_action :authenticate_user!, only: [:create, :edit, :update]
   before_action :set_categories_for_new, only: [:new, :create]
   before_action :set_categories_for_edit, only: [:edit, :update]
+  before_action :restricted_editing_post, only: [:edit, :update]
   
   # すべての質問一覧
   def index
@@ -24,13 +25,13 @@ class Questions::PostsController < ApplicationController
 
   # 投稿の新規作成画面
   def new
-    @post = PostForm.new
+    @post_form = PostForm.new
   end
 
   def create
-    @post = PostForm.new
-    @post.assign_attributes(post_params)
-    if @post.save
+    @post_form = PostForm.new
+    @post_form.assign_attributes(post_params)
+    if @post_form.save
       redirect_to users_basic_path(current_user), flash: { notice: "質問を投稿しました。" }
     else
       render :new
@@ -39,17 +40,18 @@ class Questions::PostsController < ApplicationController
 
   # 投稿の編集画面
   def edit
-    post = Post.find(params[:id])
-    @post = PostForm.new(post)
+    @post = Post.find(params[:id])
+    @post_form = PostForm.new(@post)
     # すでに作成した投稿のカテゴリーを取得しセレクトボックスに表示する
-    @selected_parent_category = post.category.parent
+    @selected_parent_category = @post.category.parent
   end
 
   def update
-    @post = PostForm.new(post = Post.find(params[:id]))
-    @post.assign_attributes(post_params)
-    if @post.save
-      redirect_to users_basic_path(current_user), flash: { notice: "質問を編集しました。" }
+    @post = Post.find(params[:id])
+    @post_form = PostForm.new(@post)
+    @post_form.assign_attributes(post_params)
+    if @post_form.save
+      redirect_to questions_post_path(@post), flash: { notice: "質問を編集しました。" }
     else
       render :edit
     end
@@ -62,9 +64,10 @@ class Questions::PostsController < ApplicationController
 
   # ベストアンサーを選出する処理
   def select_best_answer
-    @post = PostForm.new(post = Post.find(params[:id]))
-    @post.assign_attributes(post_params)
-    if @post.save
+    post = Post.find(params[:id])
+    @post_form = PostForm.new(post)
+    @post_form.assign_attributes(post_params)
+    if @post_form.save
       redirect_to questions_post_path(post), flash: { notice: "ベストアンサーが決定しました！" }
     else
       render "questions/posts/show"
@@ -87,6 +90,11 @@ class Questions::PostsController < ApplicationController
     def set_categories_for_edit
       @parent_categories = Category.where(ancestry: nil)
       @children_categories = Post.find(params[:id]).category.parent.children
+    end
+
+    # 他人の質問編集画面を閲覧できない、かつ編集できない制限
+    def restricted_editing_post
+      redirect_to users_basic_path(current_user) if current_user.posts.exclude?(Post.find(params[:id]))
     end
 
 end

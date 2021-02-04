@@ -1,6 +1,7 @@
 <%= form_with model: post, url: url, method: method, local: true do |f| %>
 
   <%= f.hidden_field :best_answer_id, value: answer.id %>
+  <%= f.hidden_field :status, value: "解決済" %>
 
   <div class="action">
     <%= button_tag type: "submit", data: { confirm: "この回答をベストアンサーにします。修正はできませんがよろしいですか？" } do %>
