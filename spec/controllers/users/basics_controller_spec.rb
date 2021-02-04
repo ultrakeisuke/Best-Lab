@@ -17,8 +17,8 @@ RSpec.describe Users::BasicsController, type: :controller do
       end
       it "インスタンスが期待した値を返し、正常なレスポンスを返す" do
         login_user(user)
-        get :show, params: { id: another_user.id }
-        expect(assigns(:posts)).to eq posts
+        get :show, params: { id: another_user }
+        expect(assigns(:posts)).to eq posts.reverse
         # 共通のメッセージルームがないので@is_roomがnilを返す
         expect(assigns(:is_room)).to eq nil
         expect(response).to have_http_status "200"
@@ -33,12 +33,21 @@ RSpec.describe Users::BasicsController, type: :controller do
       end
       it "インスタンスが期待した値を返し、正常なレスポンスを返す" do
         login_user(user)
-        get :show, params: { id: another_user.id }
-        expect(assigns(:posts)).to eq posts
+        get :show, params: { id: another_user }
+        expect(assigns(:posts)).to eq posts.reverse
         # 共通のメッセージルームがあるので@is_roomがtrueを返す
         expect(assigns(:is_room)).to eq true
         expect(response).to have_http_status "200"
         expect(response).to render_template :show
+      end
+    end
+    context "退会済みのユーザー詳細画面に入ろうとした場合" do
+      let(:discarded_user) { create(:another_user, discarded_at: Time.now) }
+      it "rootにリダイレクトする" do
+        login_user(user)
+        get :show, params: { id: discarded_user }
+        expect(response).to have_http_status "302"
+        expect(response).to redirect_to root_path
       end
     end
   end
