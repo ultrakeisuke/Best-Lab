@@ -45,4 +45,10 @@ class User < ApplicationRecord
     end
   end
 
+  # ユーザーの退会処理
+  def inactivate_account
+    self.update(name: "退会済みのユーザー", picture: "discard.png")
+    self.discard
+  end
+
 end
