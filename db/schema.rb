@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_25_093924) do
+ActiveRecord::Schema.define(version: 2021_01_31_140900) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,7 +91,7 @@ ActiveRecord::Schema.define(version: 2020_12_25_093924) do
   end
 
   create_table "profiles", force: :cascade do |t|
-    t.string "affiliation", default: "大学生", null: false
+    t.string "affiliation", default: "undergraduate", null: false
     t.string "school"
     t.string "faculty"
     t.string "department"
@@ -140,7 +140,9 @@ ActiveRecord::Schema.define(version: 2020_12_25_093924) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "picture"
     t.boolean "admin", default: false
+    t.datetime "discarded_at"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+    t.index ["discarded_at"], name: "index_users_on_discarded_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

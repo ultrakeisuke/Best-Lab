@@ -4,14 +4,30 @@
     <div id="display-<%= answer.id %>">
       <div id="display-answer-<%= answer.id %>">
         <div id="answer-contents-<%= answer.id %>">
-          <div class="answer-username"><%= answer.user.name %></div>
-          <div class="answer-createdat"><%= l answer.created_at, format: :month %></div>
+          <% if @post.best_answer_id == answer.id %>
+            <div class="answer-best">
+              <span>ベストアンサー</span>
+            </div>
+          <% end %>
+          <div class="answer-username">
+            <% if answer.user.discarded? %>
+              <p>退会済みのユーザー</p>
+            <% else %>
+              <p><%= answer.user.name %></p>
+            <% end %>
+          </div>
+          <div class="answer-createdat"><%= l answer.created_at, format: :year %></div>
           <div class="answer-body"><%= answer.body %></div>
           <div class="answer-pictures">
             <% answer.pictures.each do |picture| %>
               <%= image_tag picture.picture.url %>
             <% end %>
           </div>
+          <% if current_user.id == @post.user_id && @post.best_answer_id.blank? %>
+            <div id="best-answer-<%= answer.id %>">
+              <%= render "questions/shared/best_answer_form", post: PostForm.new, answer: answer, url: select_best_answer_questions_post_path(@post), method: :patch %>
+            </div>
+          <% end %>
           <% if current_user.id == answer.user_id %>
             <i class="fas fa-pen edit-answer-icon" data-answer-id="<%= answer.id %>"></i>
           <% end %>
@@ -23,7 +39,13 @@
       <div id="display-reply-<%= answer.id %>">
         <% answer.replies&.order(created_at: :asc).each do |reply| %>
           <div id="reply-contents-<%= reply.id %>">
-            <div class="reply-username"><%= reply.user.name %></div>
+            <div class="reply-username">
+              <% if reply.user.present? %>
+                <p><%= reply.user.name %></p>
+              <% else %>
+                <p>退会済みのユーザー</p>
+              <% end %>
+            </div>
             <div class="reply-createdat"><%= l reply.created_at, format: :year %></div>
             <div class="reply-body"><%= reply.body %></div>
             <div class="reply-pictures">

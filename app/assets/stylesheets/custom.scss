@@ -108,19 +108,30 @@ header {
     padding-left: 15px;
     .profile__text--top {
       display: flex;
-      #user_affiliation {
+      #user-affiliation {
         margin-left: 12px;
         padding: 5px;
         display: inline-block;
         border-radius: 5px;
+        color: #fff;
       }
       .undergraduate {
-        color: #fff;
         background-color: tomato;
       }
       .graduate {
-        color: #fff;
-        background-color: silver;
+        background-color: darkgrey;
+      }
+      .technical-students {
+        background-color: darkcyan;
+      }
+      .professional-students {
+        background-color: steelblue;
+      }
+      .working {
+        background-color: deeppink;
+      }
+      .other {
+        background-color: darkorange;
       }
     }
     .profile__text--bottom {

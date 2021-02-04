@@ -7,7 +7,7 @@
 </div>
 
 <%= form_with model: post, url: url, method: method, local: true do |f| %>
-  <%= render "users/shared/error_messages", resource: @post %>
+  <%= render "users/shared/error_messages", resource: post %>
 
   <% if params[:id].present? %>
     <div class="field">
