@@ -3,11 +3,7 @@
   <% answer.replies&.order(created_at: :asc).each do |reply| %>
     <div id="reply-contents-<%= reply.id %>">
       <div class="reply-username">
-        <% if reply.user.discarded? %>
-          <p>退会済みのユーザー</p>
-        <% else %>
-          <p><%= reply.user.name %></p>
-        <% end %>
+        <p><%= reply.user.name %></p>
       </div>
       <div class="reply-createdat"><%= l reply.created_at, format: :year %></div>
       <div class="reply-body"><%= reply.body %></div>
