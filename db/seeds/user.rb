@@ -40,7 +40,6 @@ guest_profile = Profile.create(affiliation: "undergraduate",
 # 退会済みのユーザーを作成
 discarded_user = User.create(name: "discard",
                              email: "discard@example.com",
-                             picture: File.open(File.join(Rails.root, 'app/assets/images/discard.png')),
                              password: "discard",
                              password_confirmation: "discard",
                              confirmed_at: Time.current,
