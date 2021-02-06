@@ -7,7 +7,8 @@
 
 <div class="display-post">
   <div class="post-contents">
-    <div class="post-username">
+    <div class="post-user-information">
+      <%= image_tag @post.user.picture.url %>
       <p><%= @post.user.name %></p>
     </div>
     <div class="post-contents-category"><%= @post.category.name %></div>
@@ -45,7 +46,8 @@
               <span>ベストアンサー</span>
             </div>
           <% end %>
-          <div class="answer-username">
+          <div class="answer-user-information">
+            <%= image_tag answer.user.picture.url %>
             <p><%= answer.user.name %></p>
           </div>
           <div class="answer-createdat"><%= l answer.created_at, format: :year %></div>
@@ -71,7 +73,8 @@
       <div id="display-reply-<%= answer.id %>">
         <% answer.replies&.order(created_at: :asc).each do |reply| %>
           <div id="reply-contents-<%= reply.id %>">
-            <div class="reply-username">
+            <div class="reply-user-information">
+              <%= image_tag reply.user.picture.url %>
               <p><%= reply.user.name %></p>
             </div>
             <div class="reply-createdat"><%= l reply.created_at, format: :year %></div>
