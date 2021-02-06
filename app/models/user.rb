@@ -47,7 +47,7 @@ class User < ApplicationRecord
 
   # ユーザーの退会処理
   def inactivate_account
-    self.update(name: "退会済みのユーザー", picture: "discard.png")
+    self.update(name: "退会済みユーザー", picture: File.open(File.join(Rails.root, 'app/assets/images/discard.png')))
     self.discard
   end
 
