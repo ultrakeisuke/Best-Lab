@@ -51,4 +51,9 @@ class User < ApplicationRecord
     self.discard
   end
 
+  # プロフィール画像の有無で表示する画像を変化する処理
+  def profile_picture
+    self.picture.present? ? self.picture.url : "default.jpeg"
+  end
+
 end
