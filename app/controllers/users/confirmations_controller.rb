@@ -12,10 +12,10 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
   #   super
   # end
 
-  # GET /resource/confirmation?confirmation_token=abcdef
-  # def show
-  #   super
-  # end
+  # メールによる承認完了後はログイン状態にする
+  def show
+    super { |resource| sign_in(resource) }
+  end
 
   protected
 
