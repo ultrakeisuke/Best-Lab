@@ -49,7 +49,7 @@ RSpec.describe Users::RegistrationsController, type: :controller do
     context "ユーザーを削除しようとした場合" do
       it "ユーザーが削除され、トップ画面にリダイレクトする" do
         login_user(user)
-        expect{ delete :destroy }.to change(User, :count).by(-1)
+        expect{ delete :destroy }.not_to change(User, :count)
         expect(response).to have_http_status "302"
         expect(response).to redirect_to root_path
       end

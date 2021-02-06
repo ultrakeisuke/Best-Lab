@@ -40,7 +40,7 @@ RSpec.describe User, type: :model do
     it "ユーザーを論理削除する" do
       user.inactivate_account
       expect(user.reload.name).to eq "退会済みユーザー"
-      expect(user.reload.picture.file.basename).to eq "discard"
+      expect(user.reload.discarded?).to eq true
     end
   end
 
