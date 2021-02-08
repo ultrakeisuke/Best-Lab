@@ -39,7 +39,7 @@ RSpec.describe Questions::AnswersController, type: :controller do
         post :create, xhr: true, params: { answer_form: { post_id: my_post, body: answer_form.body } }
         end.to change(Answer, :count).by(1)
         # 質問の状態を「解決済」にし、best_answer_idに回答のidを追加しているか検証
-        expect(my_post.reload.status).to eq "解決済"
+        expect(my_post.reload.status).to eq "closed"
         best_answer = Answer.find_by(post_id: my_post, user_id: user)
         expect(my_post.reload.best_answer_id).to eq best_answer.id
         expect(response).to have_http_status "200"
@@ -78,7 +78,7 @@ RSpec.describe Questions::AnswersController, type: :controller do
         post :create, params: { answer_form: { post_id: my_post, body: answer_form.body } }
         end.to change(Answer, :count).by(1)
         # 質問の状態を「解決済」にし、best_answer_idに回答のidを追加しているか検証
-        expect(my_post.reload.status).to eq "解決済"
+        expect(my_post.reload.status).to eq "closed"
         best_answer = Answer.find_by(post_id: my_post, user_id: user)
         expect(my_post.reload.best_answer_id).to eq best_answer.id
         expect(response).to have_http_status "302"

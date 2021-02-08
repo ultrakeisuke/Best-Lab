@@ -80,7 +80,7 @@ ActiveRecord::Schema.define(version: 2021_01_31_140900) do
   create_table "posts", force: :cascade do |t|
     t.string "title", null: false
     t.text "content", null: false
-    t.string "status", default: "受付中", null: false
+    t.string "status", default: "open", null: false
     t.integer "best_answer_id"
     t.bigint "user_id", null: false
     t.bigint "category_id", null: false

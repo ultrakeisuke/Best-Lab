@@ -5,7 +5,7 @@ class PostForm
   include Virtus.model
   extend CarrierWave::Mount
 
-  STATUS_VALUES = [ '受付中', '解決済' ]
+  STATUS_VALUES = [ 'open', 'closed' ]
 
   validates :title,   presence: true, length: { maximum: 50 }
   validates :content, presence: true, length: { maximum: 10000 }
