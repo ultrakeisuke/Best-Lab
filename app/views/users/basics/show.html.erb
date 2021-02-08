@@ -7,17 +7,13 @@
 <div class="profile">
 
   <div class="profile__picture">
-    <% if @user.picture? %>
-      <%= image_tag @user.picture.url %>
-    <% else %>
-      <%= image_tag "default.jpeg" %>
-    <% end %>
+    <%= image_tag @user.profile_picture %>
   </div>
 
   <div class="profile__text">
     <div class="profile__text--top">
       <h3><%= @user.name %></h3>
-        <div id="user-affiliation"><%= @user.profile&.translated_affiliation %></div>
+      <div id="user-affiliation"><%= @user.profile&.translated_affiliation %></div>
     </div>
     <div class="profile__text--middle">
         <div id="user-school">学校名：<%= @user.profile&.school %></div>
@@ -32,7 +28,7 @@
     <div class="profile__edit">
       <% if user_signed_in? %>
         <% if current_user == @user %>
-          <%= link_to 'ユーザー情報設定', edit_user_registration_path %>
+          <%= link_to 'アカウント設定', edit_user_registration_path %>
           <% if @user.profile %>
             <%= link_to 'プロフィール設定', edit_users_profile_path(@user.profile) %>
           <% else %>
@@ -57,8 +53,8 @@
     <% end %>
   <% end %>
 
-  <h4>あなたが投稿した質問</h4>
-  <% @user&.posts.order(id: :desc).each do |post| %>
+  <h4>投稿した質問</h4>
+  <% @posts.each do |post| %>
     <%= link_to(questions_post_path(post)) do %>
       <%= post.title %>
     <% end %>

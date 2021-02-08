@@ -2,6 +2,7 @@
 
 class Users::BasicsController < ApplicationController
   before_action :authenticate_user!, only: :show
+  before_action :restricted_viewing_deleted_user, only: :show
   
   def show
     @user = User.find(params[:id])
@@ -28,8 +29,15 @@ class Users::BasicsController < ApplicationController
       end
     end
 
-    # ユーザーが投稿したすべての質問を表示する
-    @posts = Post.where(user_id: @user)
+    # ユーザーが投稿した質問を降順で表示
+    @posts = Post.where(user_id: @user).order(created_at: :desc)
   end
   
 end
+
+  private
+
+    # 退会済みのユーザーの画面は表示できないように制限
+    def restricted_viewing_deleted_user
+      redirect_to root_path if User.find(params[:id]).discarded?
+    end

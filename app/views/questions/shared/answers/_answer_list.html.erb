@@ -10,11 +10,8 @@
             </div>
           <% end %>
           <div class="answer-username">
-            <% if answer.user.discarded? %>
-              <p>退会済みのユーザー</p>
-            <% else %>
-              <p><%= answer.user.name %></p>
-            <% end %>
+            <%= image_tag answer.user.profile_picture %>
+            <p><%= answer.user.name %></p>
           </div>
           <div class="answer-createdat"><%= l answer.created_at, format: :year %></div>
           <div class="answer-body"><%= answer.body %></div>
@@ -40,11 +37,8 @@
         <% answer.replies&.order(created_at: :asc).each do |reply| %>
           <div id="reply-contents-<%= reply.id %>">
             <div class="reply-username">
-              <% if reply.user.present? %>
-                <p><%= reply.user.name %></p>
-              <% else %>
-                <p>退会済みのユーザー</p>
-              <% end %>
+              <%= reply.user.profile_picture %>
+              <p><%= reply.user.name %></p>
             </div>
             <div class="reply-createdat"><%= l reply.created_at, format: :year %></div>
             <div class="reply-body"><%= reply.body %></div>

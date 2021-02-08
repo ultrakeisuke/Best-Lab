@@ -25,13 +25,14 @@ class Users::PasswordsController < Devise::PasswordsController
 
   protected
 
+    # パスワード再設定後はユーザー詳細ページにリダイレクトする
     def after_resetting_password_path_for(resource)
-      users_basics_path
+      users_basic_path(current_user)
     end
   
-    # The path used after sending reset password instructions
+    # パスワード再設定メール送信後はrootにリダイレクトする
     def after_sending_reset_password_instructions_path_for(resource_name)
-      super(resource_name)
+      root_path
     end
 
     # ゲストユーザーはパスワード変更のメールを送れず、変更もできない

@@ -2,12 +2,13 @@ require 'rails_helper'
 
 RSpec.describe Users::PasswordsController, type: :controller do
   let(:user) { create(:user) }
-  let!(:parent_category) { create(:parent_category) }
-  let!(:children_category) { create(:children_category, ancestry: parent_category.id) }
 
   before do
-    user.confirm 
     @request.env["devise.mapping"] = Devise.mappings[:user]
+    # ユーザーはアカウント認証済みとする
+    user.confirm 
+    parent_category = create(:parent_category)
+    create(:children_category, ancestry: parent_category.id)
   end
 
   describe "createアクション" do
@@ -30,7 +31,7 @@ RSpec.describe Users::PasswordsController, type: :controller do
         post :create, params: { user: { email: "user@example.com" } }
         expect(response).to have_http_status "302"
         expect(assigns(:user)).to eq user
-        expect(response).to redirect_to new_user_session_path
+        expect(response).to redirect_to root_path
       end
     end
   end
@@ -49,7 +50,7 @@ RSpec.describe Users::PasswordsController, type: :controller do
         user.reload
         expect(user.valid_password?("12345678")).to eq(true)
         expect(response).to have_http_status "302"
-        expect(response).to redirect_to users_basics_path
+        expect(response).to redirect_to users_basic_path(user)
       end
     end
   end

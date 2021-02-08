@@ -15,17 +15,17 @@ class User < ApplicationRecord
   has_many :answers
   has_many :replies
 
-  # 新規登録完了時の自動ログインの防止
+  # アカウント認証が済むまでログインできない処理
   def active_for_authentication?
     super && confirmed?
   end
 
-  # エラー時のフラッシュメッセージのキーを返す
+  # 上記のメソッドがfalseを返した場合にエラーメッセージを表示する処理
   def inactive_message
     confirmed? ? super : :unconfirmed
   end
 
-  # 現在のパスワードを入力することなくプロフィールを更新する
+  # 現在のパスワード入力なしでアカウント情報を更新
   def update_without_current_password(params, *options)
     params.delete(:current_password)
     if params[:password].blank? && params[:password_confirmation].blank?
@@ -43,6 +43,17 @@ class User < ApplicationRecord
       user.password = SecureRandom.urlsafe_base64
       user.confirmed_at = Time.now
     end
+  end
+
+  # ユーザーの退会処理
+  def inactivate_account
+    self.update(name: "退会済みユーザー")
+    self.discard
+  end
+
+  # プロフィール画像の有無で表示する画像を変化する処理
+  def profile_picture
+    self.picture.present? ? self.picture.url : "default.jpeg"
   end
 
 end
