@@ -5,11 +5,7 @@
 <% if @profiles.present? %>
   <% @profiles.each do |profile| %>
     <%= link_to users_basic_path(profile.user_id) do %>
-      <% if profile.user.picture? %>
-        <%= image_tag profile.user.picture.url %>
-      <% else %>
-        <%= image_tag "default.jpeg" %>
-      <% end %>
+      <%= image_tag profile.user.profile_picture %>
       <%= profile.user.name %>
       <%= profile.content %>
     <% end %>

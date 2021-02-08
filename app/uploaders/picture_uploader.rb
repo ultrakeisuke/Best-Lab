@@ -36,9 +36,9 @@ class PictureUploader < CarrierWave::Uploader::Base
 
   process :quality => 100
 
-  version :medium do
-    process :quality => 100
-  end
+  # version :medium do
+  #   process :quality => 100
+  # end
 
   # jpg, jpeg, gif, pngのみ保存
   def extension_whitelist

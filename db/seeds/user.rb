@@ -35,7 +35,15 @@ guest_profile = Profile.create(affiliation: "undergraduate",
                                department: "ゲスト学科",
                                laboratory: "ゲスト研究室",
                                content: "ゲストユーザーです。",
-                               user_id: guest_user.id)  
+                               user_id: guest_user.id)
+
+# 退会済みのユーザーを作成
+discarded_user = User.create(name: "discard",
+                             email: "discard@example.com",
+                             password: "discard",
+                             password_confirmation: "discard",
+                             confirmed_at: Time.current,
+                             discarded_at: Time.current + 1.second)
 
 admin_user = Admin.create!(email: "admin@example.com",
                            password: "1234567")

@@ -36,4 +36,26 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe "inactivate_accountメソッド" do
+    it "ユーザーを論理削除する" do
+      user.inactivate_account
+      expect(user.reload.name).to eq "退会済みユーザー"
+      expect(user.reload.discarded?).to eq true
+    end
+  end
+
+  describe "profile_pictureメソッド" do
+    context "画像が未設定だった場合" do
+      it "default.jpegを返す" do
+        expect(user.profile_picture).to eq "default.jpeg"
+      end
+    end
+    context "画像が設定済みだった場合" do
+      it "設定画像のurlを返す" do
+        user.update(picture: File.open(File.join(Rails.root, "spec/factories/images/rails.png")))
+        expect(File.basename(user.profile_picture)).to eq "rails.png"
+      end
+    end
+  end
+
 end
