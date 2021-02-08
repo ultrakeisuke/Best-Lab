@@ -56,4 +56,28 @@ class User < ApplicationRecord
     self.picture.present? ? self.picture.url : "default.jpeg"
   end
 
+  # ダイレクトメッセージ用の部屋を相手と共有しているか確認する処理
+  def find_or_create_room_for(user)
+    current_entries = Entry.where(user_id: self)
+    another_entries = Entry.where(user_id: user.id)
+    current_entries.each do |current_entry|
+      another_entries.each do |another_entry|
+        # 共通の部屋を持つ場合
+        if current_entry.room_id == another_entry.room_id
+          # 共通の部屋があることを示す@is_roomをtrueにする
+          @is_room = true
+          @room_id = current_entry.room_id
+          return @is_room, @room_id
+        end
+      end
+    end
+    # 共通の部屋を持たない場合
+    unless @is_room
+      @is_room = nil
+      @room_id = nil
+      @entry = Entry.new
+      return @is_room, @room_id, @entry
+    end
+  end
+
 end
