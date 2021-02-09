@@ -12,8 +12,9 @@ class Questions::AnswersController < ApplicationController
         @reply = ReplyForm.new
         @post = Post.find(@answer.post_id)
         @answers = @post.answers
-        # 自己解決した場合
-        @post.solved_by_questioner if @post.user_id == @answer.user_id
+        @post.solved_by_questioner if @post.user_id == @answer.user_id # 自己解決した場合の処理
+        answer = Answer.where(user_id: @answer.user_id).last
+        answer.send_notice_to_questioner_or_answerers # 質問に回答した際の通知処理
         format.html { redirect_to questions_post_path(@answer.post_id) }
         format.js
       else
