@@ -26,4 +26,12 @@ class Post < ApplicationRecord
     QuestionEntry.create(user_id: self.user_id, post_id: self.id)
   end
 
+  # ベストアンサー決定時に回答者全員に通知を送信する
+  def send_notice_to_answerers
+    answerers = QuestionEntry.where(post_id: self).where.not(user_id: self.user_id)
+    answerers.each do |answerer|
+      answerer.update(notice: true) if answerer.notice == false
+    end
+  end
+
 end

@@ -70,6 +70,7 @@ class Questions::PostsController < ApplicationController
     @post_form = PostForm.new(post)
     @post_form.assign_attributes(post_params)
     if @post_form.save
+      post.send_notice_to_answerers # 回答者全員に通知を送信する
       redirect_to questions_post_path(post), flash: { notice: "ベストアンサーが決定しました！" }
     else
       render "questions/posts/show"

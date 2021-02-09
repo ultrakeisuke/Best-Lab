@@ -32,4 +32,19 @@ RSpec.describe Post, type: :model do
     end
   end
 
+  # ベストアンサー決定時に回答者全員に通知を送信する
+  describe "send_notice_to_answerers" do
+    let(:user1) { create(:another_user) }
+    let(:user2) { create(:guest_user) }
+    let!(:questioner) { create(:question_entry, user_id: user.id, post_id: post.id) } 
+    let!(:answerer1) { create(:question_entry, user_id: user1.id, post_id: post.id) }
+    let!(:answerer2) { create(:question_entry, user_id: user2.id, post_id: post.id) }
+    it "回答者の通知カラムがtrueを返す" do
+      post.send_notice_to_answerers
+      expect(questioner.reload.notice).to eq false # 質問者には通知が送信されない
+      expect(answerer1.reload.notice).to eq true
+      expect(answerer2.reload.notice).to eq true
+    end
+  end
+
 end
