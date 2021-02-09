@@ -32,6 +32,8 @@ class Questions::PostsController < ApplicationController
     @post_form = PostForm.new
     @post_form.assign_attributes(post_params)
     if @post_form.save
+      post = Post.where(user_id: current_user).last
+      post.create_entry # 質問投稿者用の通知レコードを作成
       redirect_to users_basic_path(current_user), flash: { notice: "質問を投稿しました。" }
     else
       render :new

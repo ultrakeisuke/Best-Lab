@@ -21,4 +21,9 @@ class Post < ApplicationRecord
     STATUS[self.status.to_sym]
   end
 
+  # 質問投稿者用の通知レコードを作成
+  def create_entry
+    QuestionEntry.create(user_id: self.user_id, post_id: self.id)
+  end
+
 end
