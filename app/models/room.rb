@@ -8,4 +8,10 @@ class Room < ApplicationRecord
     entry.update(notice: false) if entry.notice == true
   end
 
+  # 通知の有無を返す処理
+  def check_notice(user)
+    checked_entry = Entry.find_by(user_id: user, room_id: self)
+    checked_entry.notice
+  end
+
 end

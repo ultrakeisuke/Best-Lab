@@ -29,6 +29,15 @@ li {
   display: block;
 }
 
+.notice-icon {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.has-notice {
+  background-color: red;
+}
+
 //layoutsフォルダ
 //application
 header {

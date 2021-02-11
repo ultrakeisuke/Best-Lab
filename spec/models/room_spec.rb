@@ -12,4 +12,11 @@ RSpec.describe Room, type: :model do
     end
   end
 
+  describe "check_noticeメソッド" do
+    it "通知があるのでnoticeカラムがtrueを返す" do
+      room.check_notice(user)
+      expect(current_entry.reload.notice).to eq true
+    end
+  end
+
 end
