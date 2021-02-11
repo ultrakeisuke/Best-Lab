@@ -12,6 +12,8 @@ class Questions::RepliesController < ApplicationController
         @answer = Answer.find(@reply.answer_id)
         @post = @answer.post
         @answers = @post.answers
+        reply = Reply.where(user_id: @reply.user_id).last
+        reply.send_notice_to_commenter
         format.html { redirect_to questions_post_path(@reply.post_id) }
         format.js
       else
