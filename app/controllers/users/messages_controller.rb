@@ -7,6 +7,8 @@ class Users::MessagesController < ApplicationController
     @message = MessageForm.new
     @message.assign_attributes(message_form_params)
     if @message.save
+      message = Messasge.where(user_id: current_user).last
+      message.send_notice_to_partner # メッセージ相手に通知を送信する処理
       redirect_to users_room_path(@message.room_id)
     else
       @room = Room.find(@message.room_id)

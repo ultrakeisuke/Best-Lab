@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 2021_02_08_130131) do
   create_table "entries", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "room_id", null: false
+    t.boolean "notice", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["room_id"], name: "index_entries_on_room_id"
