@@ -6,6 +6,7 @@ RSpec.describe Users::MessagesController, type: :controller do
   let(:room) { create(:room) }
   let!(:parent_category) { create(:parent_category) }
   let!(:children_category) { create(:children_category, ancestry: parent_category.id) }
+  let!(:another_entry) { create(:entry, user_id: another_user.id, room_id: room.id) }
     
   describe "createアクション" do
     context "メッセージ文も画像も空だった場合" do
