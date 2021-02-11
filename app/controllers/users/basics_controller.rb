@@ -7,7 +7,7 @@ class Users::BasicsController < ApplicationController
   def show
     @user = User.find(params[:id])
     # ダイレクトメッセージ用の部屋を相手と共有しているか確認する処理
-    @is_room, @room_id, @entry = current_user.find_or_create_room_for(@user) if current_user != @user
+    @is_room, @room_id, @entry = Entry.find_or_create_partner(current_user, @user) if current_user != @user
     # ユーザーが投稿した質問を降順で表示
     @posts = Post.where(user_id: @user).order(created_at: :desc)
   end

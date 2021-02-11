@@ -77,4 +77,27 @@ RSpec.describe Entry, type: :model do
     end
   end
 
+  describe "self.find_or_create_partnerメソッド" do
+    let(:room) { create(:room) }
+    context "共通の部屋を持つ場合" do
+      it "@is_roomはture, @room_idは部屋番号を返す" do
+        current_entry = create(:entry, user_id: user.id, room_id: room.id)
+        another_entry = create(:entry, user_id: another_user.id, room_id: room.id)
+        # arrayは@is_room, @room_id, @entryの配列
+        array = Entry.find_or_create_partner(user, another_user)
+        expect(array[0]).to eq true
+        expect(array[1]).to eq current_entry.room_id
+        expect(array[2]).not_to be_present
+      end
+    end
+    context "共通の部屋を持たない場合" do
+      it "@entryを生成して返す" do
+        array = Entry.find_or_create_partner(user, another_user)
+        expect(array[0]).to eq nil
+        expect(array[1]).to eq nil
+        expect(array[2]).to be_present
+      end
+    end
+  end
+
 end
