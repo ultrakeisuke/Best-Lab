@@ -14,6 +14,7 @@ class Questions::PostsController < ApplicationController
   # 各質問の表示画面
   def show
     @post = Post.find(params[:id])
+    @post.remove_notice(current_user) # 投稿詳細画面に入ると通知が外れる処理
     # 回答とそのリプライフォーム用のオブジェクトを定義
     @answer = AnswerForm.new
     @reply = ReplyForm.new

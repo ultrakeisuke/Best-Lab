@@ -47,4 +47,13 @@ RSpec.describe Post, type: :model do
     end
   end
 
+  # 投稿詳細画面に入ると通知が外れる処理
+  describe "remove_noticeメソッド" do
+    let!(:entry) { create(:question_entry, user_id: user.id, post_id: post.id, notice: true) }
+    it "通知カラムがfalseを返す" do
+      post.remove_notice(user)
+      expect(entry.reload.notice).to eq false
+    end
+  end
+
 end

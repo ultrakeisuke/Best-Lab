@@ -34,4 +34,13 @@ class Post < ApplicationRecord
     end
   end
 
+  # 投稿詳細画面に入ると通知が外れる処理
+  def remove_notice(user)
+    # 通知用レコードがない場合はこの処理をスキップ
+    if QuestionEntry.find_by(user_id: user, post_id: self).present?
+      entry = QuestionEntry.find_by(user_id: user, post_id: self)
+      entry.update(notice: false) if entry.notice == true
+    end
+  end
+
 end
