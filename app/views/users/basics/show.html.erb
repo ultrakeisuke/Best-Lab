@@ -56,7 +56,12 @@
   <h4>投稿した質問</h4>
   <% @posts.each do |post| %>
     <%= link_to(questions_post_path(post)) do %>
-      <%= post.title %>
+      <% if post.check_notice(current_user) == true %>
+        <p class="notice-icon has-notice"></p>
+      <% else %>
+        <p class="notice-icon"></p>
+      <% end %>      
+      <p><%= post.title %></p>
     <% end %>
   <% end %>
 

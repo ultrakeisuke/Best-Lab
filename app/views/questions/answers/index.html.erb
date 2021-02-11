@@ -6,6 +6,11 @@
   <% @comment_lists.each do |comment_list| %>
     <%= link_to(questions_post_path(comment_list.post)) do %>
       <div>
+        <% if comment_list.post.check_notice(current_user) == true %>
+          <p class="notice-icon has-notice"></p>
+        <% else %>
+          <p class="notice-icon"></p>
+        <% end %>
         <div><%= image_tag comment_list.user.profile_picture %></div>
         <div><%= comment_list.user.name %></div>
         <div><%= comment_list.post.title %></div>

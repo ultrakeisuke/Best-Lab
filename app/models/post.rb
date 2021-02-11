@@ -43,4 +43,10 @@ class Post < ApplicationRecord
     end
   end
 
+  # 投稿への通知の有無を返す処理
+  def check_notice(user)
+    checked_entry = QuestionEntry.find_by(user_id: user, post_id: self)
+    checked_entry.notice
+  end
+
 end

@@ -56,4 +56,13 @@ RSpec.describe Post, type: :model do
     end
   end
 
+  # 自分が投稿した質問、もしくは回答した質問に通知が来ているか確認する処理
+  describe "check_noticeメソッド" do
+    let!(:entry) { create(:question_entry, user_id: user.id, post_id: post.id, notice: true) }
+    it "通知があるのでnoticeカラムがtrueを返す" do
+      post.check_notice(user)
+      expect(entry.reload.notice).to eq true
+    end
+  end
+
 end
