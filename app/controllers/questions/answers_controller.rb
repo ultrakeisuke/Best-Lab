@@ -3,6 +3,11 @@
 class Questions::AnswersController < ApplicationController
   before_action :authenticate_user!
 
+  # 回答、リプライした質問を一覧表示
+  def index
+    @comment_lists = QuestionEntry.sorted_comment_entries(current_user)
+  end
+
   # 回答の新規作成
   def create
     @answer = AnswerForm.new

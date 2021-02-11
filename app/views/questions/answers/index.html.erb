@@ -1,0 +1,18 @@
+<% provide(:title, "あなたの回答") %>
+
+<% if @comment_lists.blank? %>
+  <p>まだ質問に回答していません</p>
+<% else %>
+  <% @comment_lists.each do |comment_list| %>
+    <%= link_to(questions_post_path(comment_list.post)) do %>
+      <div>
+        <div><%= image_tag comment_list.user.profile_picture %></div>
+        <div><%= comment_list.user.name %></div>
+        <div><%= comment_list.post.title %></div>
+        <% if comment_list.notice == true %>
+          <p>新着のメッセージがあります</p>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>

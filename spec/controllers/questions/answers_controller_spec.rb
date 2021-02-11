@@ -8,6 +8,16 @@ RSpec.describe Questions::AnswersController, type: :controller do
   let!(:my_post) { create(:post, user_id: user.id, category_id: children_category.id) }
   let!(:another_post) { create(:post, user_id: another_user.id, category_id: children_category.id) }
 
+  # indexアクションに関するテスト
+  describe "indexアクション" do
+    it "正常なレスポンスとテンプレートを返す" do
+      login_user(user)
+      get :index
+      expect(response).to have_http_status "200"
+      expect(response).to render_template :index
+    end
+  end
+
   # createアクションに関するテスト
   describe '非同期通信によるcreateアクション' do
     context "フォーム入力が無効であった場合" do
