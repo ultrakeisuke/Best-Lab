@@ -23,12 +23,10 @@ class Users::RoomsController < ApplicationController
   end
 
   def show
-    # メッセージ相手のroom情報をパスから取得し、@roomに代入
     @room = Room.find(params[:id])
-    # formのmodelに入れるオブジェクトを作成
-    @message = MessageForm.new
-    # メッセージ相手と部屋の情報を取得
-    @another_entry = @room.entries.partner_of(current_user)
+    @room.remove_notice(current_user) # メッセージルームに入ると通知が外れる処理
+    @message = MessageForm.new # formのmodelに入れるオブジェクトを作成
+    @another_entry = @room.entries.partner_of(current_user) # メッセージ相手と部屋の情報を取得
   end
 
   private
