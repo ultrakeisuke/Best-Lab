@@ -80,6 +80,19 @@ RSpec.describe Questions::RepliesController, type: :controller do
         expect(response).to render_template "questions/replies/update_errors"
       end
     end
+    context "他人のリプライを編集しようとした場合" do
+      let(:another_user) { create(:another_user) }
+      let!(:another_reply) { create(:reply, user_id: another_user.id, answer_id: answer.id, post_id: test_post.id) }
+      it "リプライの編集に失敗し、ユーザー詳細画面にリダイレクトする" do
+        login_user(user)
+        patch :update, xhr: true, params: { id: another_reply.id, reply_form: { id: another_reply.id,
+                                                                                answer_id: answer.id,
+                                                                                post_id: test_post.id,
+                                                                                body: "editied_reply" } }
+        expect(response).to have_http_status "200"
+        expect(response).to redirect_to users_basic_path(user)
+      end
+    end
     context "フォーム入力が有効であった場合" do
       it "リプライの編集に成功する" do
         login_user(user)
@@ -107,6 +120,19 @@ RSpec.describe Questions::RepliesController, type: :controller do
         expect(reply.reload.body).to eq "reply"
         expect(response).to have_http_status "200"
         expect(response).to render_template "questions/posts/show"
+      end
+    end
+    context "他人のリプライを編集しようとした場合" do
+      let(:another_user) { create(:another_user) }
+      let!(:another_reply) { create(:reply, user_id: another_user.id, answer_id: answer.id, post_id: test_post.id) }
+      it "リプライの編集に失敗し、ユーザー詳細画面にリダイレクトする" do
+        login_user(user)
+        patch :update, params: { id: another_reply.id, reply_form: { id: another_reply.id,
+                                                                     answer_id: answer.id,
+                                                                     post_id: test_post.id,
+                                                                     body: "editied_reply" } }
+        expect(response).to have_http_status "302"
+        expect(response).to redirect_to users_basic_path(user)
       end
     end
     context "フォーム入力が有効であった場合" do

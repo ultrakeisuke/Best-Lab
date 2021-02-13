@@ -2,6 +2,7 @@
 
 class Questions::RepliesController < ApplicationController
   before_action :authenticate_user!
+  before_action :restricted_editing_reply, only: :update
 
   # リプライの新規作成
   def create
@@ -47,6 +48,11 @@ class Questions::RepliesController < ApplicationController
 
     def reply_params
       params.require(:reply_form).permit(:id, :body, :post_id, :answer_id, pictures_attributes: [:picture]).merge(user_id: current_user.id)
+    end
+
+    # 他人のリプライは編集できないよう制限する
+    def restricted_editing_reply
+      redirect_to users_basic_path(current_user) if current_user.replies.ids.exclude?(params[:id].to_i)
     end
 
 end

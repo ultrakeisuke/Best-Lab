@@ -114,6 +114,17 @@ RSpec.describe Questions::AnswersController, type: :controller do
         expect(response).to render_template "questions/answers/errors"
       end
     end
+    context "他人の回答を編集しようとした場合" do
+      let!(:another_answer) { create(:answer, user_id: another_user.id, post_id: another_post.id) }
+      it "回答の編集に失敗し、ユーザー詳細画面にリダイレクトする" do
+        login_user(user)
+        patch :update, xhr: true, params: { id: another_answer.id, answer_form: { id: another_answer.id,
+                                                                                  post_id: another_post.id,
+                                                                                  body: "edited_answer" } }
+        expect(response).to have_http_status "200"
+        expect(response).to redirect_to users_basic_path(user)
+      end
+    end
     context "フォーム入力が有効であった場合" do
       it "回答の編集に成功する" do
         login_user(user)
@@ -139,6 +150,17 @@ RSpec.describe Questions::AnswersController, type: :controller do
         expect(answer.reload.body).to eq "answer"
         expect(response).to have_http_status "200"
         expect(response).to render_template "questions/posts/show"
+      end
+    end
+    context "他人の回答を編集しようとした場合" do
+      let!(:another_answer) { create(:answer, user_id: another_user.id, post_id: another_post.id) }
+      it "回答の編集に失敗し、ユーザー詳細画面にリダイレクトする" do
+        login_user(user)
+        patch :update, params: { id: another_answer.id, answer_form: { id: another_answer.id,
+                                                                       post_id: another_post.id,
+                                                                       body: "edited_answer" } }
+        expect(response).to have_http_status "302"
+        expect(response).to redirect_to users_basic_path(user)
       end
     end
     context "フォーム入力が有効であった場合" do

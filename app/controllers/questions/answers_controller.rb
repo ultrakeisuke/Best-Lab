@@ -2,6 +2,7 @@
 
 class Questions::AnswersController < ApplicationController
   before_action :authenticate_user!
+  before_action :restricted_editing_answer, only: :update
 
   # 回答、リプライした質問を一覧表示
   def index
@@ -17,7 +18,7 @@ class Questions::AnswersController < ApplicationController
         @reply = ReplyForm.new
         @post = Post.find(@answer.post_id)
         @answers = @post.answers
-        @post.solved_by_questioner if @post.user_id == @answer.user_id # 自己解決した場合の処理
+        @post.solved_by_questioner if @post&.user_id == @answer.user_id # 自己解決した場合の処理
         answer = Answer.where(user_id: @answer.user_id).last
         answer.send_notice_to_questioner_or_answerers # 質問に回答した際の通知処理
         format.html { redirect_to questions_post_path(@answer.post_id) }
@@ -53,5 +54,9 @@ class Questions::AnswersController < ApplicationController
       params.require(:answer_form).permit(:id, :body, :post_id, pictures_attributes: [:picture]).merge(user_id: current_user.id)
     end
 
+    # 他人の回答は編集できないよう制限する
+    def restricted_editing_answer
+      redirect_to users_basic_path(current_user) if current_user.answers.ids.exclude?(params[:id].to_i)
+    end
   
 end

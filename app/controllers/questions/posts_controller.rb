@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class Questions::PostsController < ApplicationController
-  before_action :authenticate_user!, only: [:create, :edit, :update]
+  before_action :authenticate_user!, only: [:create, :edit, :update, :select_best_answer]
+  before_action :restricted_editing_post, only: [:edit, :update, :select_best_answer]
   before_action :set_categories_for_new, only: [:new, :create]
   before_action :set_categories_for_edit, only: [:edit, :update]
-  before_action :restricted_editing_post, only: [:edit, :update]
   
   # すべての質問一覧
   def index
@@ -98,7 +98,7 @@ class Questions::PostsController < ApplicationController
 
     # 他人の質問編集画面を閲覧できない、かつ編集できない制限
     def restricted_editing_post
-      redirect_to users_basic_path(current_user) if current_user.posts.exclude?(Post.find(params[:id]))
+      redirect_to users_basic_path(current_user) if current_user.posts.ids.exclude?(params[:id].to_i)
     end
 
 end

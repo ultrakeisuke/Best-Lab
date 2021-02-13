@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 class Users::BasicsController < ApplicationController
-  before_action :authenticate_user!, only: :show
-  before_action :restricted_viewing_deleted_user, only: :show
+  before_action :authenticate_user!
+  before_action :check_user_id
+  before_action :restricted_viewing_deleted_user
   
   def show
     @user = User.find(params[:id])
@@ -17,6 +18,11 @@ class Users::BasicsController < ApplicationController
 end
 
   private
+
+    # DBに存在しないユーザーidを入力した場合はrootにリダイレクトする
+    def check_user_id
+      redirect_to root_path unless User.exists?(id: params[:id])
+    end
 
     # 退会済みのユーザーの画面は表示できないように制限
     def restricted_viewing_deleted_user

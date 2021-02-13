@@ -2,6 +2,7 @@
 
 class Users::MessagesController < ApplicationController
   before_action :authenticate_user!, only: [:create, :destroy]
+  before_action :restricted_destroying_message, only: :destroy
 
   def create
     @message = MessageForm.new
@@ -19,19 +20,19 @@ class Users::MessagesController < ApplicationController
 
   def destroy
     message = Message.find(params[:id])
-    # 自分のメッセージ以外は削除できないようにする
-    if message.user_id == current_user.id
-      message.destroy
-      redirect_to users_room_path(message.room_id)
-    else
-      redirect_to users_room_path(message.room_id)
-    end
+    message.destroy
+    redirect_to users_room_path(message.room_id)
   end
 
   private
 
     def message_form_params
       params.require(:message_form).permit(:room_id, :body, pictures_attributes: [:picture]).merge(user_id: current_user.id)
+    end
+
+    # 他人のメッセージは削除できない制限
+    def restricted_destroying_message
+      redirect_to users_basic_path(current_user) if current_user.messages.ids.exclude?(params[:id].to_i)
     end
 
 end
