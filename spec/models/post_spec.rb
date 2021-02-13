@@ -24,9 +24,9 @@ RSpec.describe Post, type: :model do
   end
 
   # 質問投稿者用に通知レコードを作成
-  describe "create_entryメソッド" do
+  describe "create_noticeメソッド" do
     it "質問とユーザーを紐づけたリストを作成し、通知カラムがfalseになっている" do
-      post.create_entry
+      post.create_notice
       question_entry = QuestionEntry.find_by(user_id: post.user_id, post_id: post)
       expect(question_entry.notice).to eq false
     end

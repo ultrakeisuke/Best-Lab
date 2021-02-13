@@ -22,7 +22,7 @@ class Post < ApplicationRecord
   end
 
   # 質問投稿者用の通知レコードを作成
-  def create_entry
+  def create_notice
     QuestionEntry.create(user_id: self.user_id, post_id: self.id)
   end
 
@@ -30,23 +30,21 @@ class Post < ApplicationRecord
   def send_notice_to_answerers
     answerers = QuestionEntry.where(post_id: self).where.not(user_id: self.user_id)
     answerers.each do |answerer|
-      answerer.update(notice: true) if answerer.notice == false
+      answerer.update(notice: true) unless answerer.notice
     end
   end
 
   # 投稿詳細画面に入ると通知が外れる処理
   def remove_notice(user)
     # 通知用レコードがない場合はこの処理をスキップ
-    if QuestionEntry.find_by(user_id: user, post_id: self).present?
-      entry = QuestionEntry.find_by(user_id: user, post_id: self)
-      entry.update(notice: false) if entry.notice == true
-    end
+    entry = QuestionEntry.find_by(user_id: user, post_id: self)
+    entry.update(notice: false) if entry&.notice
   end
 
   # 投稿への通知の有無を返す処理
   def check_notice(user)
     checked_entry = QuestionEntry.find_by(user_id: user, post_id: self)
-    checked_entry.notice
+    checked_entry&.notice
   end
 
 end

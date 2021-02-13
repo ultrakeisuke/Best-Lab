@@ -8,12 +8,8 @@ class Answer < ApplicationRecord
   def send_notice_to_questioner_or_answerers
     # 自己解決でない場合は質問者に通知を送信
     if self.user_id != self.post.user_id
-      # 初めてコメントする場合は通知レコードを作成
-      if QuestionEntry.find_by(user_id: self.user_id, post_id: self.post_id).blank?
-        QuestionEntry.create(user_id: self.user_id, post_id: self.post_id)
-      end
-      questioner = QuestionEntry.find_by(user_id: self.post.user_id, post_id: self.post_id)
-      questioner.update(notice: true) if questioner.notice == false
+      questioner = QuestionEntry.find_or_create_by(user_id: self.post.user_id, post_id: self.post_id)
+      questioner.update(notice: true) unless questioner.notice
     else # 自己解決した場合は回答者に通知を送信
       self.post.send_notice_to_answerers
     end

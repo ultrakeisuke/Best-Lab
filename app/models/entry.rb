@@ -4,8 +4,7 @@ class Entry < ApplicationRecord
 
   # メッセージ相手と部屋の情報を取得
   def self.another_entries(user)
-    my_room_ids = []
-    my_room_ids << user.entries.map { |entry| entry.room_id }
+    my_room_ids = user.entries.map(&:room_id)
     where(room_id: my_room_ids).where.not(user_id: user)
   end
 
@@ -28,25 +27,17 @@ class Entry < ApplicationRecord
   end
 
   # ダイレクトメッセージ用の部屋を相手と共有しているか確認する処理
-  def self.find_or_create_partner(current_user, another_user)
-    current_entries = Entry.where(user_id: current_user)
-    another_entries = Entry.where(user_id: another_user)
-    current_entries.each do |current_entry|
-      another_entries.each do |another_entry|
+  def self.find_room_id(user1, user2)
+    entries1 = Entry.where(user_id: user1)
+    entries2 = Entry.where(user_id: user2)
+    entries1.each do |entry1|
+      entries2.each do |entry2|
         # 共通の部屋を持つ場合
-        if current_entry.room_id == another_entry.room_id
-          # 共通の部屋があることを示す@is_roomをtrueにする
-          @is_room = true
-          @room_id = current_entry.room_id
-          return @is_room, @room_id
-        end
+        return @room_id = entry1.room_id if entry1.room_id == entry2.room_id
       end
     end
     # 共通の部屋を持たない、もしくはentryを持っていない場合
-    @is_room = nil
     @room_id = nil
-    @entry = Entry.new
-    return @is_room, @room_id, @entry
   end
 
 end

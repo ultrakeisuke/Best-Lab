@@ -41,7 +41,7 @@
   </div>
 
   <% unless current_user == @user %>
-    <% if @is_room == true %>
+    <% if @room_id.present? %>
       <%= link_to "メッセージ", users_room_path(@room_id) %>
     <% else %>
       <%= form_with model: @entry.room, url: users_rooms_path, method: :post, local: true do |f| %>
