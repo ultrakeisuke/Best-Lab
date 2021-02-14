@@ -1,0 +1,19 @@
+<h4>ユーザー検索</h4>
+
+<%= search_form_for @user_search, url: admins_users_path do |f| %>
+
+  <div class="field">
+    <%= f.label :name_eq, "名前" %><br />
+    <%= f.text_field :name_eq %>
+  </div>
+
+  <div class="field">
+    <%= f.label :email_eq, "メールアドレス" %><br />
+    <%= f.text_field :email_eq %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "検索" %>
+  </div>
+
+<% end%>

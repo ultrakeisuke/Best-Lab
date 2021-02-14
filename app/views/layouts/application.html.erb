@@ -36,8 +36,12 @@
         <%= yield %>
       </div>
 
-      <%= render 'users/shared/search_form' %>
-      <%= render 'questions/shared/search_form' %>
+      <% if admin_signed_in? %>
+        <%= render 'admins/shared/user_search_form' %>
+      <% else %>
+        <%= render 'users/shared/search_form' %>
+        <%= render 'questions/shared/search_form' %>
+      <% end %>
 
     </div>
   </body>
