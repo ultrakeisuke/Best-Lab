@@ -10,6 +10,11 @@ class ApplicationController < ActionController::Base
     @profile_search = Profile.ransack(params[:q])
   end
 
+  # 管理者用にユーザーの検索フォームをサイドバーに表示する処理
+  def user_search
+    @user_search = User.ransack(params[:id])
+  end
+
   # 質問の検索フォームをサイドバーに常に表示する処理
   def post_search
     @post_search = Post.ransack(params[:q])
