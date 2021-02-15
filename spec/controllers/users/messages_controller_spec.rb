@@ -6,6 +6,7 @@ RSpec.describe Users::MessagesController, type: :controller do
   let(:room) { create(:room) }
   let!(:parent_category) { create(:parent_category) }
   let!(:children_category) { create(:children_category, ancestry: parent_category.id) }
+  let!(:another_entry) { create(:entry, user_id: another_user.id, room_id: room.id) }
     
   describe "createアクション" do
     context "メッセージ文も画像も空だった場合" do
@@ -46,6 +47,7 @@ RSpec.describe Users::MessagesController, type: :controller do
         message = Message.create(user_id: another_user.id, room_id: room.id, body: "MyText")
         expect { delete :destroy, params: { id: message.id } }.not_to change(Message, :count)
         expect(response).to have_http_status "302"
+        expect(response).to redirect_to users_basic_path(user)
       end
     end
   end

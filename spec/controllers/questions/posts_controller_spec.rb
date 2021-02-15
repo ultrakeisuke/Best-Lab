@@ -50,7 +50,7 @@ RSpec.describe Questions::PostsController, type: :controller do
         expect{ post :create, params: { post_form: { category_id: children_category.id,
                                                      title: post_form.title,
                                                      content: post_form.content,
-                                                     status: "受付中" } } }.to change(Post, :count).by(1)
+                                                     status: "open" } } }.to change(Post, :count).by(1)
         expect(response).to have_http_status "302"
         expect(response).to redirect_to users_basic_path(user)
       end
@@ -98,7 +98,7 @@ RSpec.describe Questions::PostsController, type: :controller do
         patch :update, params: { id: another_post.id, post_form: { category_id: children_category.id,
                                                                    title: "title",
                                                                    content: "content",
-                                                                   status: "解決済"} }
+                                                                   status: "closed"} }
         expect(response).to have_http_status "302"
         expect(response).to redirect_to users_basic_path(user)
       end
@@ -109,7 +109,7 @@ RSpec.describe Questions::PostsController, type: :controller do
         patch :update, params: { id: post.id, post_form: { category_id: children_category.id,
                                                            title: "title",
                                                            content: "content",
-                                                           status: "解決済"} }
+                                                           status: "closed"} }
         expect(response).to have_http_status "302"
         expect(response).to redirect_to questions_post_path(post)
       end
@@ -133,10 +133,10 @@ RSpec.describe Questions::PostsController, type: :controller do
     let(:answer) { create(:answer, user_id: another_user.id, post_id: post.id)}
     it "ベストアンサーを選出しshow画面にリダイレクトする" do
       login_user(user)
-      patch :select_best_answer, params: { id: post.id, post_form: { status: "解決済", best_answer_id: answer.id } }
+      patch :select_best_answer, params: { id: post.id, post_form: { status: "closed", best_answer_id: answer.id } }
       expect(response).to have_http_status "302"
       expect(response).to redirect_to questions_post_path(post)
-      expect(post.reload.status).to eq "解決済"
+      expect(post.reload.status).to eq "closed"
       expect(post.reload.best_answer_id).to eq answer.id
     end
   end

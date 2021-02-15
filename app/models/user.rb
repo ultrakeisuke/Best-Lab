@@ -14,6 +14,7 @@ class User < ApplicationRecord
   has_many :posts
   has_many :answers
   has_many :replies
+  has_many :question_entries
 
   # アカウント認証が済むまでログインできない処理
   def active_for_authentication?

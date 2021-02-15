@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_31_140900) do
+ActiveRecord::Schema.define(version: 2021_02_08_130131) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 2021_01_31_140900) do
   create_table "entries", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "room_id", null: false
+    t.boolean "notice", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["room_id"], name: "index_entries_on_room_id"
@@ -80,7 +81,7 @@ ActiveRecord::Schema.define(version: 2021_01_31_140900) do
   create_table "posts", force: :cascade do |t|
     t.string "title", null: false
     t.text "content", null: false
-    t.string "status", default: "受付中", null: false
+    t.string "status", default: "open", null: false
     t.integer "best_answer_id"
     t.bigint "user_id", null: false
     t.bigint "category_id", null: false
@@ -101,6 +102,16 @@ ActiveRecord::Schema.define(version: 2021_01_31_140900) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_profiles_on_user_id"
+  end
+
+  create_table "question_entries", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "post_id", null: false
+    t.boolean "notice", default: false, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["post_id"], name: "index_question_entries_on_post_id"
+    t.index ["user_id"], name: "index_question_entries_on_user_id"
   end
 
   create_table "replies", force: :cascade do |t|
@@ -156,6 +167,8 @@ ActiveRecord::Schema.define(version: 2021_01_31_140900) do
   add_foreign_key "posts", "categories"
   add_foreign_key "posts", "users"
   add_foreign_key "profiles", "users"
+  add_foreign_key "question_entries", "posts"
+  add_foreign_key "question_entries", "users"
   add_foreign_key "replies", "answers"
   add_foreign_key "replies", "posts"
   add_foreign_key "replies", "users"

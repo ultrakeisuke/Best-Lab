@@ -12,7 +12,7 @@ class Users::RoomsController < ApplicationController
     # Entryモデルに相手のレコードを作成
     @another_entry = Entry.create(user_id: entry_params[:user_id], room_id: room.id)
     # 作成した部屋を表示
-    redirect_to users_room_path(room.id)
+    redirect_to users_room_path(room)
   end
 
   def index
@@ -23,12 +23,11 @@ class Users::RoomsController < ApplicationController
   end
 
   def show
-    # メッセージ相手のroom情報をパスから取得し、@roomに代入
     @room = Room.find(params[:id])
-    # formのmodelに入れるオブジェクトを作成
-    @message = MessageForm.new
-    # メッセージ相手と部屋の情報を取得
-    @another_entry = @room.entries.partner_of(current_user)
+    @room&.remove_notice(current_user) # メッセージルームに入ると通知が外れる処理
+    @message = MessageForm.new # formのmodelに入れるオブジェクトを作成
+    @another_entry = @room.entries.partner_of(current_user) # メッセージ相手と部屋の情報を取得
+    redirect_to root_path if @another_entry.nil? # 相手の情報がなかった場合の処理
   end
 
   private
@@ -39,7 +38,7 @@ class Users::RoomsController < ApplicationController
 
     # 他人のメッセージルームを閲覧できないよう制限
     def restricted_room_viewing
-      current_room_ids = current_user.entries.map { |current_entry| current_entry.room_id}
+      current_room_ids = current_user.entries.map(&:room_id)
       redirect_to users_basic_path(current_user) if current_room_ids.exclude?(params[:id].to_i)
     end
 

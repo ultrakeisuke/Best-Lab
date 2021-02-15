@@ -12,10 +12,10 @@
   <% if params[:id].present? %>
     <div class="field">
       <%= f.label :status %>
-      <%= f.select :status, { 受付中: "受付中", 解決済: "解決済" } %>
+      <%= f.select :status, { open: "受付中", closed: "解決済" }.invert %>
     </div>
   <% else %>
-    <%= f.hidden_field :status, value: "受付中" %>
+    <%= f.hidden_field :status, value: "open" %>
   <% end %>
 
   <div class="filed">

@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :post, class: Post do
     title { "MyString" }
     content { "MyString" }
-    status { "受付中" }
+    status { "open" }
   end
 
   factory :post_form, class: PostForm do
