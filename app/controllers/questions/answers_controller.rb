@@ -17,10 +17,11 @@ class Questions::AnswersController < ApplicationController
       if @answer.save
         @reply = ReplyForm.new
         @post = Post.find(@answer.post_id)
+        redirect_to root_path if @post.nil? # @postが見つからない場合の処理
         @answers = @post.answers
-        @post.solved_by_questioner if @post&.user_id == @answer.user_id # 自己解決した場合の処理
+        @post.solved_by_questioner if @post.user_id == @answer.user_id # 自己解決した場合の処理
         answer = Answer.where(user_id: @answer.user_id).last
-        answer.send_notice_to_questioner_or_answerers # 質問に回答した際の通知処理
+        answer&.send_notice_to_questioner_or_answerers # 質問に回答した際の通知処理
         format.html { redirect_to questions_post_path(@answer.post_id) }
         format.js
       else
@@ -38,6 +39,7 @@ class Questions::AnswersController < ApplicationController
     respond_to do |format|
       if @answer.save
         @post = Post.find(answer.post_id)
+        redirect_to root_path if @post.nil? # @postが見つからない場合の処理
         @answers = @post.answers
         format.html { redirect_to questions_post_path(answer.post_id) }
         format.js

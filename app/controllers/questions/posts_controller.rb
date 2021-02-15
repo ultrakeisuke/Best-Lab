@@ -34,7 +34,7 @@ class Questions::PostsController < ApplicationController
     @post_form.assign_attributes(post_params)
     if @post_form.save
       post = Post.where(user_id: current_user).last
-      post.create_notice # 質問投稿者用の通知レコードを作成
+      post&.create_notice # 質問投稿者用の通知レコードを作成
       redirect_to users_basic_path(current_user), flash: { notice: "質問を投稿しました。" }
     else
       render :new
@@ -87,7 +87,7 @@ class Questions::PostsController < ApplicationController
     # 新規作成画面のセレクトボックスの初期値を表示
     def set_categories_for_new
       @parent_categories = Category.where(ancestry: nil)
-      @children_categories = @parent_categories.first.children
+      @children_categories = @parent_categories.first&.children
     end
 
     # 編集画面のセレクトボックスの初期値を表示

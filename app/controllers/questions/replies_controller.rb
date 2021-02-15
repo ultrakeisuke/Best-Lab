@@ -11,10 +11,11 @@ class Questions::RepliesController < ApplicationController
     respond_to do |format|
       if @reply.save
         @answer = Answer.find(@reply.answer_id)
+        redirect_to root_path if @answer.nil? # @answerが見つからない場合の処理
         @post = @answer.post
         @answers = @post.answers
         reply = Reply.where(user_id: @reply.user_id).last
-        reply.send_notice_to_commenter # 回答にリプライした際の通知処理
+        reply&.send_notice_to_commenter # 回答にリプライした際の通知処理
         format.html { redirect_to questions_post_path(@reply.post_id) }
         format.js
       else
@@ -34,6 +35,7 @@ class Questions::RepliesController < ApplicationController
     respond_to do |format|
       if @reply.save
         @answer = Answer.find(@reply.answer_id)
+        redirect_to root_path if @answer.nil? # @answerが見つからない場合の処理
         @post = @answer.post
         format.html { redirect_to questions_post_path(@reply.post_id) }
         format.js
