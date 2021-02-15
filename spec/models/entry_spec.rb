@@ -77,4 +77,22 @@ RSpec.describe Entry, type: :model do
     end
   end
 
+  describe "self.find_room_idメソッド" do
+    let(:room) { create(:room) }
+    context "共通の部屋を持つ場合" do
+      it "room_idを返す" do
+        current_entry = create(:entry, user_id: user.id, room_id: room.id)
+        another_entry = create(:entry, user_id: another_user.id, room_id: room.id)
+        room_id = Entry.find_room_id(user, another_user)
+        expect(room_id).to eq current_entry.room_id
+      end
+    end
+    context "共通の部屋を持たない場合" do
+      it "nilを返す" do
+        room_id = Entry.find_room_id(user, another_user)
+        expect(room_id).to eq nil
+      end
+    end
+  end
+
 end

@@ -19,15 +19,15 @@ RSpec.describe Users::BasicsController, type: :controller do
         login_user(user)
         get :show, params: { id: another_user }
         expect(assigns(:posts)).to eq posts.reverse
-        # 共通のメッセージルームがないので@is_roomがnilを返す
-        expect(assigns(:is_room)).to eq nil
+        # 共通のメッセージルームがないので@room_idがnilを返す
+        expect(assigns(:room_id)).to eq nil
         expect(response).to have_http_status "200"
         expect(response).to render_template :show
       end
     end
     context "相手が共通のメッセージルームを持つユーザーの場合" do
+      let(:room) { create(:room) }
       before do
-        room = create(:room)
         create(:entry, user_id: user.id, room_id: room.id)
         create(:entry, user_id: another_user.id, room_id: room.id)
       end
@@ -35,10 +35,18 @@ RSpec.describe Users::BasicsController, type: :controller do
         login_user(user)
         get :show, params: { id: another_user }
         expect(assigns(:posts)).to eq posts.reverse
-        # 共通のメッセージルームがあるので@is_roomがtrueを返す
-        expect(assigns(:is_room)).to eq true
+        # 共通のメッセージルームがあるので@room_idが部屋番号を返す
+        expect(assigns(:room_id)).to eq room.id
         expect(response).to have_http_status "200"
         expect(response).to render_template :show
+      end
+    end
+    context "DBに存在しないユーザーの詳細画面に入ろうとした場合" do
+      it "rootにリダイレクトする" do
+        login_user(user)
+        get :show, params: { id: 1000000 }
+        expect(response).to have_http_status "302"
+        expect(response).to redirect_to root_path
       end
     end
     context "退会済みのユーザー詳細画面に入ろうとした場合" do

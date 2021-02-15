@@ -12,15 +12,16 @@
       <li>
         <%= link_to(users_basic_path(entry.user)) do %>
           <div class="room-list__image">
-            <% if entry.user.picture? %>
-              <%= image_tag entry.user.picture.url %>
-            <% else %>
-              <%= image_tag 'default.jpeg' %>
-            <% end %>
+            <%= image_tag entry.user.profile_picture %>
           </div>
         <% end %>
         <%= link_to(users_room_path(entry.room)) do %>
           <div class="room-list__text">
+            <% if entry.room.check_notice(current_user) == true %>
+              <p class="notice-icon has-notice"></p>
+            <% else %>
+              <p class="notice-icon"></p>
+            <% end %>
             <p><%= entry.user.name %></p>
             <%# 最後にメッセージした時間を表示 %>
             <% if entry.room.messages.present? %>

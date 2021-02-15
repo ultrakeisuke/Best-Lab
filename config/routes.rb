@@ -42,7 +42,7 @@ Rails.application.routes.draw do
         get 'get_children_categories' # 質問の投稿・編集画面用
       end
     end
-    resources :answers, only: [:create, :update]
+    resources :answers, only: [:index, :create, :update]
     resources :replies, only: [:create, :update]
     resources :categories, only: [:show]
   end

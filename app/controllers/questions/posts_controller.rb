@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class Questions::PostsController < ApplicationController
-  before_action :authenticate_user!, only: [:create, :edit, :update]
+  before_action :authenticate_user!, only: [:create, :edit, :update, :select_best_answer]
+  before_action :restricted_editing_post, only: [:edit, :update, :select_best_answer]
   before_action :set_categories_for_new, only: [:new, :create]
   before_action :set_categories_for_edit, only: [:edit, :update]
-  before_action :restricted_editing_post, only: [:edit, :update]
   
   # すべての質問一覧
   def index
@@ -14,6 +14,7 @@ class Questions::PostsController < ApplicationController
   # 各質問の表示画面
   def show
     @post = Post.find(params[:id])
+    @post.remove_notice(current_user) # 投稿詳細画面に入ると通知が外れる処理
     # 回答とそのリプライフォーム用のオブジェクトを定義
     @answer = AnswerForm.new
     @reply = ReplyForm.new
@@ -32,6 +33,8 @@ class Questions::PostsController < ApplicationController
     @post_form = PostForm.new
     @post_form.assign_attributes(post_params)
     if @post_form.save
+      post = Post.where(user_id: current_user).last
+      post&.create_notice # 質問投稿者用の通知レコードを作成
       redirect_to users_basic_path(current_user), flash: { notice: "質問を投稿しました。" }
     else
       render :new
@@ -68,6 +71,7 @@ class Questions::PostsController < ApplicationController
     @post_form = PostForm.new(post)
     @post_form.assign_attributes(post_params)
     if @post_form.save
+      post.send_notice_to_answerers # 回答者全員に通知を送信する
       redirect_to questions_post_path(post), flash: { notice: "ベストアンサーが決定しました！" }
     else
       render "questions/posts/show"
@@ -83,7 +87,7 @@ class Questions::PostsController < ApplicationController
     # 新規作成画面のセレクトボックスの初期値を表示
     def set_categories_for_new
       @parent_categories = Category.where(ancestry: nil)
-      @children_categories = @parent_categories.first.children
+      @children_categories = @parent_categories.first&.children
     end
 
     # 編集画面のセレクトボックスの初期値を表示
@@ -94,7 +98,7 @@ class Questions::PostsController < ApplicationController
 
     # 他人の質問編集画面を閲覧できない、かつ編集できない制限
     def restricted_editing_post
-      redirect_to users_basic_path(current_user) if current_user.posts.exclude?(Post.find(params[:id]))
+      redirect_to users_basic_path(current_user) if current_user.posts.ids.exclude?(params[:id].to_i)
     end
 
 end

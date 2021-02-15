@@ -2,6 +2,12 @@
 
 class Questions::AnswersController < ApplicationController
   before_action :authenticate_user!
+  before_action :restricted_editing_answer, only: :update
+
+  # 回答、リプライした質問を一覧表示
+  def index
+    @comment_lists = QuestionEntry.sorted_comment_entries(current_user)
+  end
 
   # 回答の新規作成
   def create
@@ -11,9 +17,11 @@ class Questions::AnswersController < ApplicationController
       if @answer.save
         @reply = ReplyForm.new
         @post = Post.find(@answer.post_id)
+        redirect_to root_path if @post.nil? # @postが見つからない場合の処理
         @answers = @post.answers
-        # 自己解決した場合
-        @post.solved_by_questioner if @post.user_id == @answer.user_id
+        @post.solved_by_questioner if @post.user_id == @answer.user_id # 自己解決した場合の処理
+        answer = Answer.where(user_id: @answer.user_id).last
+        answer&.send_notice_to_questioner_or_answerers # 質問に回答した際の通知処理
         format.html { redirect_to questions_post_path(@answer.post_id) }
         format.js
       else
@@ -31,6 +39,7 @@ class Questions::AnswersController < ApplicationController
     respond_to do |format|
       if @answer.save
         @post = Post.find(answer.post_id)
+        redirect_to root_path if @post.nil? # @postが見つからない場合の処理
         @answers = @post.answers
         format.html { redirect_to questions_post_path(answer.post_id) }
         format.js
@@ -47,5 +56,9 @@ class Questions::AnswersController < ApplicationController
       params.require(:answer_form).permit(:id, :body, :post_id, pictures_attributes: [:picture]).merge(user_id: current_user.id)
     end
 
+    # 他人の回答は編集できないよう制限する
+    def restricted_editing_answer
+      redirect_to users_basic_path(current_user) if current_user.answers.ids.exclude?(params[:id].to_i)
+    end
   
 end
