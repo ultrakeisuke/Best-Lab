@@ -44,6 +44,24 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe "inactivate_comments_and_noticesメソッド" do
+    before do
+      parent_category = create(:parent_category)
+      children_category = create(:children_category, ancestry: parent_category.id)
+      post = create(:post, user_id: user.id, category_id: children_category.id)
+      answer = create(:answer, user_id: user.id, post_id: post.id)
+      reply = create(:reply, user_id: user.id, answer_id: answer.id, post_id: post.id)
+      notice = create(:question_entry, user_id: user.id, post_id: post.id)
+    end
+    it "ユーザーのコメントと通知を削除する" do
+      user.inactivate_comments_and_notices
+      expect(Post.where(user_id: user)).to eq []
+      expect(Answer.where(user_id: user)).to eq []
+      expect(Reply.where(user_id: user)).to eq []
+      expect(QuestionEntry.where(user_id: user)).to eq []
+    end
+  end
+
   describe "profile_pictureメソッド" do
     context "画像が未設定だった場合" do
       it "default.jpegを返す" do

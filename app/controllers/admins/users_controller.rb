@@ -7,17 +7,19 @@ class Admins::UsersController < ApplicationController
   PER = 10
 
   def index
+    params[:q][:name_cont_any] = params[:q][:name_cont_any].split(/[[:blank:]]+/) if params[:q][:name_cont_any].present?
     @users = User.ransack(params[:q]).result.page(params[:page]).per(PER)
   end
 
   def show
     @user = User.find(params[:id])
-    @posts = Post.where(user_id: @user).page(params[:page]).per(PER)
   end
 
+  # 特定のユーザーの情報を削除する
   def destroy
     user = User.find(params[:id])
     user.inactivate_account
+    user.inactivate_comments_and_notices
     redirect_to admins_user_path(user)
   end
 

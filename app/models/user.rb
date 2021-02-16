@@ -52,6 +52,20 @@ class User < ApplicationRecord
     self.discard
   end
 
+  # 退会したユーザーに紐づく投稿と追知を削除
+  def inactivate_comments_and_notices
+    posts = Post.where(user_id: self)
+    answers = Answer.where(user_id: self)
+    replies = Reply.where(user_id: self)
+    notices = QuestionEntry.where(user_id: self)
+    secondary_array = [ posts, answers, replies, notices ]
+    secondary_array.each do |array|
+      array.each do |element|
+        element.destroy
+      end
+    end
+  end
+
   # プロフィール画像の有無で表示する画像を変化する処理
   def profile_picture
     self.picture.present? ? self.picture.url : "default.jpeg"
