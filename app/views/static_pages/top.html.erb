@@ -7,7 +7,9 @@
       大学院生の場合：自分の研究室にマッチしそうな大学生とお話できます。</h5>
 
   <% unless user_signed_in? %>
-    <%= button_to "ゲストログイン(閲覧用)", users_guest_sign_in_path, method: :post %>
+    <% unless admin_signed_in? %>
+      <%= button_to "ゲストログイン(閲覧用)", users_guest_sign_in_path, method: :post %>
+    <% end %>
   <% end %>
 
   <p>大学生として体験！</p>

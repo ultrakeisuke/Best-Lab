@@ -4,6 +4,8 @@
 
 <% @users.each do |user| %>
   <%= link_to(admins_user_path(user)) do %>
+    <%= image_tag user.profile_picture %>
     <%= user.name %>
   <% end %>
 <% end %>
+<%= paginate @users %>
