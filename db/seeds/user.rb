@@ -45,6 +45,6 @@ discarded_user = User.create(name: "discard",
                              confirmed_at: Time.current,
                              discarded_at: Time.current + 1.second)
 
-admin_user = Admin.create!(email: "admin@example.com",
-                           password: "1234567")
+admin_user = Admin.create(email: ENV['ADMIN_EMAIL'],
+                          password: ENV['ADMIN_PASSWORD'])
                            
