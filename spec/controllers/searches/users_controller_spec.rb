@@ -15,7 +15,7 @@ RSpec.describe Searches::UsersController, type: :controller do
                                    faculty_eq: "",
                                    department_eq: "",
                                    laboratory_eq: "",
-                                   content_cont_any: "NoData NotFound" } }
+                                   description_cont_any: "NoData NotFound" } }
         expect(assigns(:profiles)).to eq []
       end
     end

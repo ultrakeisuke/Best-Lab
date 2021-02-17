@@ -26,7 +26,7 @@ RSpec.describe Users::ProfilesController, type: :controller do
                                                          faculty: "",
                                                          department: "",
                                                          laboratory: "",
-                                                         content: "" } } }.not_to change(Profile, :count)
+                                                         description: "" } } }.not_to change(Profile, :count)
         expect(response).to have_http_status "200"
         expect(response).to render_template :new
       end
@@ -40,7 +40,7 @@ RSpec.describe Users::ProfilesController, type: :controller do
                                                          faculty: "",
                                                          department: "",
                                                          laboratory: "",
-                                                         content: "" } } }.not_to change(Profile, :count)
+                                                         description: "" } } }.not_to change(Profile, :count)
         expect(response).to have_http_status "200"
         expect(response).to render_template :new
       end
@@ -53,7 +53,7 @@ RSpec.describe Users::ProfilesController, type: :controller do
                                                          faculty: profile_form.faculty,
                                                          department: profile_form.department,
                                                          laboratory: profile_form.laboratory,
-                                                         content: profile_form.content } } }.to change(Profile, :count).by(1)
+                                                         description: profile_form.description } } }.to change(Profile, :count).by(1)
         expect(response).to have_http_status "302"
         expect(response).to redirect_to users_basic_path(user)
       end
@@ -95,7 +95,7 @@ RSpec.describe Users::ProfilesController, type: :controller do
                                                                  faculty: "",
                                                                  department: "",
                                                                  laboratory: "",
-                                                                 content: "" } }
+                                                                 description: "" } }
         profile.reload
         expect(response).to have_http_status "200"
         expect(response).to render_template :edit
@@ -109,7 +109,7 @@ RSpec.describe Users::ProfilesController, type: :controller do
                                                                  faculty: "",
                                                                  department: "",
                                                                  laboratory: "",
-                                                                 content: "" } }
+                                                                 description: "" } }
         expect(response).to have_http_status "200"
         expect(response).to render_template :edit
       end
@@ -122,7 +122,7 @@ RSpec.describe Users::ProfilesController, type: :controller do
                                                                  faculty: profile_form.faculty,
                                                                  department: profile_form.department,
                                                                  laboratory: profile_form.laboratory,
-                                                                 content: profile_form.content } }
+                                                                 description: profile_form.description } }
         expect(response).to have_http_status "302"
         expect(response).to redirect_to users_basic_path(user)
       end
@@ -135,7 +135,7 @@ RSpec.describe Users::ProfilesController, type: :controller do
                                                                        faculty: profile_form.faculty,
                                                                        department: profile_form.department,
                                                                        laboratory: profile_form.laboratory,
-                                                                       content: profile_form.content } }
+                                                                       description: profile_form.description } }
         expect(response).to have_http_status "302"
         expect(response).to redirect_to users_basic_path(guest_user)
       end
@@ -148,7 +148,7 @@ RSpec.describe Users::ProfilesController, type: :controller do
                                                                  faculty: profile_form.faculty,
                                                                  department: profile_form.department,
                                                                  laboratory: profile_form.laboratory,
-                                                                 content: profile_form.content } }
+                                                                 description: profile_form.description } }
         expect(profile.reload.school).to eq "MySchool"
         expect(response).to have_http_status "302"
         expect(response).to redirect_to users_basic_path(user)

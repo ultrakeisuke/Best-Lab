@@ -3,10 +3,12 @@
 class Searches::UsersController < ApplicationController
   before_action :authenticate_user!
 
+  PER = 10
+
   # ユーザーの検索一覧を表示
   def index
-    params[:q][:content_cont_any] = params[:q][:content_cont_any].split(/[[:blank:]]+/)
-    @profiles = Profile.ransack(params[:q]).result
+    params[:q][:description_cont_any] = params[:q][:description_cont_any].split(/[[:blank:]]+/) if params[:q][:description_cont_any].present?
+    @profiles = Profile.ransack(params[:q]).result.page(params[:page]).per(PER)
   end
 
 end

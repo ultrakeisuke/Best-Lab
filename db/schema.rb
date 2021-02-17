@@ -90,7 +90,7 @@ ActiveRecord::Schema.define(version: 2021_02_08_130131) do
     t.string "faculty"
     t.string "department"
     t.string "laboratory"
-    t.text "content"
+    t.text "description"
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

@@ -12,11 +12,11 @@ class ProfileForm
                    other: 'その他' }
   
   validates :affiliation, inclusion: { in: AFFILIATION_VALUES }
-  validates :school,     length: { maximum: 50 }
-  validates :faculty,    length: { maximum: 50 }
-  validates :department, length: { maximum: 50 }
-  validates :laboratory, length: { maximum: 50 }
-  validates :content,    length: { maximum: 200 }
+  validates :school,      length: { maximum: 50 }
+  validates :faculty,     length: { maximum: 50 }
+  validates :department,  length: { maximum: 50 }
+  validates :laboratory,  length: { maximum: 50 }
+  validates :description, length: { maximum: 200 }
   validate :at_least_one_parameter
 
   attribute :affiliation, String
@@ -24,7 +24,7 @@ class ProfileForm
   attribute :faculty,     String
   attribute :department,  String
   attribute :laboratory,  String
-  attribute :content,     String
+  attribute :description, String
   attribute :user_id,     Integer
 
   attr_accessor :profile
@@ -50,7 +50,7 @@ class ProfileForm
                             faculty: faculty,
                             department: department,
                             laboratory: laboratory,
-                            content: content,
+                            description: description,
                             user_id: user_id)
       profile.save!
     end
@@ -59,7 +59,7 @@ class ProfileForm
   private
 
     def at_least_one_parameter
-      if affiliation.blank? && school.blank? && faculty.blank? && department.blank? && laboratory.blank? && content.blank?
+      if affiliation.blank? && school.blank? && faculty.blank? && department.blank? && laboratory.blank? && description.blank?
         errors.add(:base, "最低でも1つの項目を入力してください。")
       end
     end

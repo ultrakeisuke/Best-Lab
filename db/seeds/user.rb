@@ -17,7 +17,7 @@ profiles = []
                           faculty: "faculty-#{n+1}",
                           department: "department-#{n+1}",
                           laboratory: "laboratory-#{n+1}",
-                          content: "",
+                          description: "",
                           user_id: n+1)
 end
 Profile.import profiles
@@ -34,7 +34,7 @@ guest_profile = Profile.create(affiliation: "undergraduate",
                                faculty: "ゲスト学部",
                                department: "ゲスト学科",
                                laboratory: "ゲスト研究室",
-                               content: "ゲストユーザーです。",
+                               description: "ゲストユーザーです。",
                                user_id: guest_user.id)
 
 # 退会済みのユーザーを作成
