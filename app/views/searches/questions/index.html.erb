@@ -10,6 +10,7 @@
       <%= post.content %>
     <% end %>
   <% end %>
+  <%= paginate @posts %>
 <% else %>
   <p>お探しの質問は見つかりませんでした。</p>
 <% end %>
