@@ -4,11 +4,9 @@ class Admins::UsersController < ApplicationController
   before_action :authenticate_admin!
   before_action :check_user, only: [:show, :destroy]
 
-  PER = 10
-
   def index
     params[:q][:name_cont_any] = params[:q][:name_cont_any].split(/[[:blank:]]+/) if params[:q][:name_cont_any].present?
-    @users = User.ransack(params[:q]).result.page(params[:page]).per(PER)
+    @users = User.ransack(params[:q]).result.page(params[:page])
   end
 
   def show
