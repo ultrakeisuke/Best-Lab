@@ -4,7 +4,8 @@ class ProfileForm
 
   AFFILIATION_VALUES = [ 'undergraduate', 'graduate', 'technical_students', 'professional_students', 'working', 'other' ]
 
-  AFFILIATIONS = { undergraduate: '大学生',
+  AFFILIATIONS = { unselected: '未選択',
+                   undergraduate: '大学生',
                    graduate: '大学院生',
                    technical_students: '高専生',
                    professional_students: '専門学生',
