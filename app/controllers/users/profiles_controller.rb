@@ -44,7 +44,7 @@ class Users::ProfilesController < ApplicationController
   private
 
     def profile_form_params
-      params.require(:profile_form).permit(:affiliation, :school, :faculty, :department, :laboratory, :content).merge(user_id: current_user.id)
+      params.require(:profile_form).permit(:affiliation, :school, :faculty, :department, :laboratory, :description).merge(user_id: current_user.id)
     end
 
     # 他人のプロフィールを編集できないようにする

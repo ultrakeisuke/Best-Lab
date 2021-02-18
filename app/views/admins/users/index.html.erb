@@ -1,11 +1,11 @@
-<% provide(:title, "すべてのユーザー") %>
+<% provide(:title, "ユーザー") %>
 
-<h3>すべてのユーザー</h3>
+<h3>ユーザー</h3>
 
-<ul>
-  <% @users.each do |user| %>
-    <li><%= link_to user.name, admins_user_path(user) %></li>
+<% @users.each do |user| %>
+  <%= link_to(admins_user_path(user)) do %>
+    <%= image_tag user.profile_picture %>
+    <%= user.name %>
   <% end %>
-</ul>
-
+<% end %>
 <%= paginate @users %>

@@ -17,7 +17,7 @@ profiles = []
                           faculty: "faculty-#{n+1}",
                           department: "department-#{n+1}",
                           laboratory: "laboratory-#{n+1}",
-                          content: "",
+                          description: "",
                           user_id: n+1)
 end
 Profile.import profiles
@@ -34,7 +34,7 @@ guest_profile = Profile.create(affiliation: "undergraduate",
                                faculty: "ゲスト学部",
                                department: "ゲスト学科",
                                laboratory: "ゲスト研究室",
-                               content: "ゲストユーザーです。",
+                               description: "ゲストユーザーです。",
                                user_id: guest_user.id)
 
 # 退会済みのユーザーを作成
@@ -45,6 +45,6 @@ discarded_user = User.create(name: "discard",
                              confirmed_at: Time.current,
                              discarded_at: Time.current + 1.second)
 
-admin_user = Admin.create!(email: "admin@example.com",
-                           password: "1234567")
+admin_user = Admin.create(email: ENV['ADMIN_EMAIL'],
+                          password: ENV['ADMIN_PASSWORD'])
                            

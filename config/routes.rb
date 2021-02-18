@@ -47,6 +47,6 @@ Rails.application.routes.draw do
     resources :categories, only: [:show]
   end
   namespace :admins do
-    resources :users, only: [:index, :show, :destroy]
+    resources :users, only: [:index, :show, :destroy] # indexは検索結果画面
   end
 end

@@ -7,9 +7,10 @@
     <%= link_to users_basic_path(profile.user_id) do %>
       <%= image_tag profile.user.profile_picture %>
       <%= profile.user.name %>
-      <%= profile.content %>
+      <%= profile.description %>
     <% end %>
   <% end %>
+  <%= paginate @profiles %>
 <% else %>
   <p>お探しのユーザーは見つかりませんでした。</p>
 <% end %>

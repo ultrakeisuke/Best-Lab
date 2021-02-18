@@ -4,7 +4,7 @@
 
   <div class="field">
     <%= f.label :affiliation_eq, "所属" %>
-    <%= f.select(:affiliation_eq, { 未選択: '', 大学生: '大学生', 大学院生: '大学院生', 高専生: '高専生', 専門学生: '専門学生', 社会人: '社会人', その他: 'その他'} ) %>
+    <%= f.select(:affiliation_eq, ProfileForm::AFFILIATIONS.invert) %>
   </div>
 
   <div class="field">
@@ -28,8 +28,8 @@
   </div>
 
   <div class="field">
-    <%= f.label :content_cont_any, "プロフィール・研究分野など" %><br />
-    <%= f.text_field :content_cont_any %>
+    <%= f.label :description_cont_any, "プロフィール・研究分野など" %><br />
+    <%= f.text_field :description_cont_any %>
     <p>スペース区切りで複数検索できます</p><br />
   </div>
 

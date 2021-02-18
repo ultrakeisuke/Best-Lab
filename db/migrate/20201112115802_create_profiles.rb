@@ -6,7 +6,7 @@ class CreateProfiles < ActiveRecord::Migration[6.0]
       t.string :faculty
       t.string :department
       t.string :laboratory
-      t.text :content
+      t.text :description
 
       t.references :user, null: false, foreign_key: true
 
