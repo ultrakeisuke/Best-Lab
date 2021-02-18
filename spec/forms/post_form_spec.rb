@@ -12,8 +12,8 @@ RSpec.describe Post, type: :model do
   end
 
   it "設定した値をstatusカラムに入力した場合は有効" do
-    post1 = build(:post_form, title: "title", content: "content", status: "受付中", category_id: children_category.id, user_id: user.id)
-    post2 = build(:post_form, title: "title", content: "content", status: "解決済", category_id: children_category.id, user_id: user.id)
+    post1 = build(:post_form, title: "title", content: "content", status: "open", category_id: children_category.id, user_id: user.id)
+    post2 = build(:post_form, title: "title", content: "content", status: "closed", category_id: children_category.id, user_id: user.id)
     post1.pictures = []
     post2.pictures = []
     expect(post1).to be_valid
@@ -21,7 +21,7 @@ RSpec.describe Post, type: :model do
   end
 
   it "画像を5枚以上添付した場合は無効" do
-    post = build(:post_form, title: "title", content: "content", status: "受付中", category_id: children_category.id, user_id: user.id)
+    post = build(:post_form, title: "title", content: "content", status: "open", category_id: children_category.id, user_id: user.id)
     pictures = build_list(:picture, 5)
     post.pictures = pictures
     expect(post).not_to be_valid
@@ -29,7 +29,7 @@ RSpec.describe Post, type: :model do
   end
 
   it "画像を4枚添付した場合は有効" do
-    post = build(:post_form, title: "title", content: "content", status: "受付中", category_id: children_category.id, user_id: user.id)
+    post = build(:post_form, title: "title", content: "content", status: "open", category_id: children_category.id, user_id: user.id)
     pictures = build_list(:picture, 4)
     post.pictures = pictures
     expect(post).to be_valid
