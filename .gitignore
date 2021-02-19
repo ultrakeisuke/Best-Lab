@@ -45,3 +45,6 @@ yarn-debug.log*
 
 # Ignore .env
 /.env
+
+# Ignore .vecode
+/.vscode
