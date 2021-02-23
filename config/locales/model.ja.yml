@@ -32,7 +32,7 @@ ja:
         faculty: 学部・研究科名
         department: 学科・専攻・コース名
         laboratory: 研究室名
-        content: プロフィール
+        description: プロフィール
       post_form:
         title: タイトル
         content: 質問内容
