@@ -85,7 +85,7 @@
               <% end %>
             </div>
             <% if current_user.id == reply.user_id %>
-              <i class="fas fa-pen edit-reply-icon" data-reply-id="<%= reply.id %>"></i>
+              <i id="edit-reply-icon-<%= reply.id %>" class="fas fa-pen edit-reply-icon" data-reply-id="<%= reply.id %>"></i>
             <% end %>
           </div>
           <div id="edit-reply-form-<%= reply.id %>" class="edit-reply-form hide">
