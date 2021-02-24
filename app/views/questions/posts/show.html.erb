@@ -1,7 +1,7 @@
 <% provide(:title, @post.title)%>
 
 <h4>質問内容</h4>
-<% if @post.user_id == current_user.id %>
+<% if @post.user_id == current_user&.id %>
   <%= link_to "質問の編集", edit_questions_post_path(@post.id) %>
 <% end %>
 
@@ -57,12 +57,12 @@
               <%= image_tag picture.picture.url %>
             <% end %>
           </div>
-          <% if (current_user.id == @post.user_id) && @post.best_answer_id.blank? %>
+          <% if current_user&.id == @post.user_id && @post.best_answer_id.blank? %>
             <div id="best-answer-<%= answer.id %>">
               <%= render "questions/shared/best_answer_form", post: PostForm.new, answer: answer, url: select_best_answer_questions_post_path(@post), method: :patch %>
             </div>
           <% end %>
-          <% if current_user.id == answer.user_id %>
+          <% if current_user&.id == answer.user_id %>
             <i class="fas fa-pen edit-answer-icon" data-answer-id="<%= answer.id %>"></i>
           <% end %>
         </div>
@@ -84,7 +84,7 @@
                 <%= image_tag picture.picture.url %>
               <% end %>
             </div>
-            <% if current_user.id == reply.user_id %>
+            <% if current_user&.id == reply.user_id %>
               <i id="edit-reply-icon-<%= reply.id %>" class="fas fa-pen edit-reply-icon" data-reply-id="<%= reply.id %>"></i>
             <% end %>
           </div>
@@ -100,13 +100,13 @@
 
 <div id="your-answer">
   <%# 自分の質問以外の質問に対して、まだ回答していない場合は回答用のフォームを表示 %>
-  <% if @your_answer.blank? && @post.user_id != current_user.id %>
+  <% if @your_answer.blank? && @post.user_id != current_user&.id %>
     <h4>あなたの回答</h4>
     <%= render "questions/shared/answers/new_answer_form", reply: @reply, answer: @answer, url: questions_answers_path, method: :post %>
   <% end %>
 
   <%# 自分の質問を自己解決できた場合に解決方法を記入するフォームを表示 %>
-  <% if @your_answer.blank? && @post.user_id == current_user.id %>
+  <% if @your_answer.blank? && @post.user_id == current_user&.id %>
     <h4>解決方法（自己解決の場合のみ記入してください）</h4>
     <%= render "questions/shared/answers/new_answer_form", reply: @reply, answer: @answer, url: questions_answers_path, method: :post %>
   <% end %>
