@@ -1,0 +1,31 @@
+# 今後対応する規約の読み込み
+inherit_from: .rubocop_todo.yml
+
+# 追加した規約ファイルの読み込み
+require:
+  - rubocop-rails
+
+AllCops:
+  # Rubyのバージョン指定
+  TargetRubyVersion: 2.7
+  # 下記のフォルダ、ファイルを対象外にする
+  Exclude:
+  - 'bin/**'
+  - 'config/**/*'
+  - 'lib/**'
+  - 'db/**/*'
+  - 'node_modules/**/*'
+  - 'tmp/**/*'
+  - 'vendor/**/*'
+  # バージョンアップと同時にルールを有効化
+  NewCops: enable
+
+# ファイルパスの表記を精査しない
+Rails/FilePath:
+  Exclude:
+    - 'spec/rails_helper.rb'
+
+# クラス名を明示していないアクションをパスさせる
+# before_actionに定義するDeviseのアクション用
+Rails/LexicallyScopedActionFilter:
+  Enabled: false
