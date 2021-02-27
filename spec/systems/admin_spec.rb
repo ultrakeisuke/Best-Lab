@@ -1,15 +1,15 @@
 require 'rails_helper'
 
-RSpec.feature 'ログインとログアウト', type: :system do
+RSpec.describe 'ログインとログアウト', type: :system do
 
-  background do
+  before do
     parent_category = create(:parent_category)
     children_category = create(:children_category, ancestry: parent_category.id)
   end
 
   let!(:admin) { create(:admin) }
 
-  scenario 'ログインに失敗する' do
+  it 'ログインに失敗する' do
     visit new_admin_session_path
     fill_in 'メールアドレス', with: ''
     fill_in 'パスワード', with: ''
@@ -17,7 +17,7 @@ RSpec.feature 'ログインとログアウト', type: :system do
     expect(page).to have_current_path new_admin_session_path
   end
 
-  scenario 'ログインに成功したのちログアウトする' do
+  it 'ログインに成功したのちログアウトする' do
     visit new_admin_session_path
     fill_in 'メールアドレス', with: admin.email
     fill_in 'パスワード', with: admin.password
@@ -31,9 +31,9 @@ RSpec.feature 'ログインとログアウト', type: :system do
 end
 
 
-RSpec.feature 'ユーザー情報の閲覧とアカウント削除', type: :system do
+RSpec.describe 'ユーザー情報の閲覧とアカウント削除', type: :system do
   
-  background do
+  before do
     parent_category = create(:parent_category)
     children_category = create(:children_category, ancestry: parent_category.id)
   end
@@ -41,7 +41,7 @@ RSpec.feature 'ユーザー情報の閲覧とアカウント削除', type: :syst
   let!(:user) { create(:user) }
   let!(:admin) { create(:admin) }
 
-  scenario '名前とメールアドレスでユーザーを検索できる' do
+  it '名前とメールアドレスでユーザーを検索できる' do
     login_as_admin(admin)
     # 名前でユーザー検索
     fill_in '名前', with: user.name
@@ -55,7 +55,7 @@ RSpec.feature 'ユーザー情報の閲覧とアカウント削除', type: :syst
     expect(page).to have_content user.name
   end
 
-  scenario 'ユーザー検索とアカウント削除が正常に作動する' do
+  it 'ユーザー検索とアカウント削除が正常に作動する' do
     login_as_admin(admin)
     # ユーザー検索
     fill_in 'メールアドレス', with: user.email

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature 'ダイレクトメッセージの通知', type: :system do
+RSpec.describe 'ダイレクトメッセージの通知', type: :system do
   
   let!(:user) { create(:user, confirmed_at: Time.now) }
   let!(:partner) { create(:another_user, confirmed_at: Time.now) }
@@ -8,12 +8,12 @@ RSpec.feature 'ダイレクトメッセージの通知', type: :system do
   let!(:user_entry) { create(:entry, user_id: user.id, room_id: room.id) }
   let!(:partner_entry) { create(:entry, user_id: partner.id, room_id: room.id) }
 
-  background do
+  before do
     parent_category = create(:parent_category)
     children_category = create(:children_category, ancestry: parent_category.id)
   end
 
-  scenario 'メッセージの送信を相手に通知する' do
+  it 'メッセージの送信を相手に通知する' do
     # メッセージ送信者としてログイン
     login_as_user(user)
     visit users_room_path(room)
@@ -32,7 +32,7 @@ RSpec.feature 'ダイレクトメッセージの通知', type: :system do
 end
 
 
-RSpec.feature '質問掲示板における、質問者からの通知', type: :system do
+RSpec.describe '質問掲示板における、質問者からの通知', type: :system do
   
   let!(:questioner) { create(:user, confirmed_at: Time.now) }
   let!(:answerer1) { create(:another_user, confirmed_at: Time.now) }
@@ -43,14 +43,14 @@ RSpec.feature '質問掲示板における、質問者からの通知', type: :s
   let!(:answer1) { create(:answer, user_id: answerer1.id, post_id: post.id) }
   let!(:answer2) { create(:answer, user_id: answerer2.id, post_id: post.id) }
 
-  background do
+  before do
     # 質問者と回答者用の通知レコードを作成
     create(:question_entry, user_id: questioner.id, post_id: post.id)
     create(:question_entry, user_id: answerer1.id, post_id: post.id)
     create(:question_entry, user_id: answerer2.id, post_id: post.id)
   end
 
-  scenario 'ベストアンサーを決定した場合は、回答者全員に通知を送信', js:true do
+  it 'ベストアンサーを決定した場合は、回答者全員に通知を送信', js:true do
     # 質問者としてログインし、ベストアンサーを決定
     login_as_user(questioner)
     visit questions_post_path(post)
@@ -74,7 +74,7 @@ RSpec.feature '質問掲示板における、質問者からの通知', type: :s
     expect(page).to have_css(".has-notice")
   end
 
-  scenario '自己解決した場合は、回答者全員に通知を送信', js:true do
+  it '自己解決した場合は、回答者全員に通知を送信', js:true do
     # 質問者としてログインし、回答を送信
     login_as_user(questioner)
     visit questions_post_path(post)
@@ -97,7 +97,7 @@ RSpec.feature '質問掲示板における、質問者からの通知', type: :s
 end
 
 
-RSpec.feature '質問掲示板における、回答者からの通知', type: :system do
+RSpec.describe '質問掲示板における、回答者からの通知', type: :system do
   
   let!(:questioner) { create(:user, confirmed_at: Time.now) }
   let!(:answerer) { create(:another_user, confirmed_at: Time.now) }
@@ -105,12 +105,12 @@ RSpec.feature '質問掲示板における、回答者からの通知', type: :s
   let!(:children_category) { create(:children_category, ancestry: parent_category.id) }
   let!(:post) { create(:post, user_id: questioner.id, category_id: children_category.id) }
 
-  background do
+  before do
     # 質問者の通知用レコードを作成
     create(:question_entry, user_id: questioner.id, post_id: post.id)
   end
 
-  scenario '質問者に通知を送信' do
+  it '質問者に通知を送信' do
     # 回答者としてログインし、回答を送信
     login_as_user(answerer)
     visit questions_post_path(post)
@@ -127,7 +127,7 @@ RSpec.feature '質問掲示板における、回答者からの通知', type: :s
 end
 
 
-RSpec.feature '質問掲示板における、返信者(リプライヤー)からの通知', type: :system do
+RSpec.describe '質問掲示板における、返信者(リプライヤー)からの通知', type: :system do
   
   let!(:questioner) { create(:another_user, confirmed_at: Time.now) }
   let!(:answerer) { create(:guest_user, confirmed_at: Time.now) }
@@ -138,7 +138,7 @@ RSpec.feature '質問掲示板における、返信者(リプライヤー)から
   let!(:post) { create(:post, user_id: questioner.id, category_id: children_category.id) }
   let!(:answer) { create(:answer, user_id: answerer.id, post_id: post.id) }
 
-  background do
+  before do
     # 通知用レコードを作成
     create(:question_entry, user_id: questioner.id, post_id: post.id)
     create(:question_entry, user_id: answerer.id, post_id: post.id)
@@ -146,7 +146,7 @@ RSpec.feature '質問掲示板における、返信者(リプライヤー)から
     create(:question_entry, user_id: repliers[1].id, post_id: post.id)
   end
 
-  scenario '質問者と回答者、回答に紐づくリプライヤーに通知を送信' do
+  it '質問者と回答者、回答に紐づくリプライヤーに通知を送信' do
     # 返信者(replier)としてログインし、回答を送信
     login_as_user(replier)
     visit questions_post_path(post)

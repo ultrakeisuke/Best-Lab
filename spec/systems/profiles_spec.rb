@@ -1,15 +1,15 @@
 require 'rails_helper'
 
-RSpec.feature 'プロフィール作成', type: :system do
+RSpec.describe 'プロフィール作成', type: :system do
   
   let(:user) { create(:user, confirmed_at: Time.now) }
 
-  background do
+  before do
     parent_category = create(:parent_category)
     children_category = create(:children_category, ancestry: parent_category.id)
   end
 
-  scenario 'プロフィール作成に失敗する' do
+  it 'プロフィール作成に失敗する' do
     login_as_user(user)
     visit new_users_profile_path
     find("#profile_form_affiliation").find("option[value='unselected']").select_option
@@ -22,7 +22,7 @@ RSpec.feature 'プロフィール作成', type: :system do
     expect(page).to have_current_path users_profiles_path
   end
 
-  scenario 'プロフィール作成に成功する' do
+  it 'プロフィール作成に成功する' do
     login_as_user(user)
     visit new_users_profile_path
     find("#profile_form_affiliation").find("option[value='undergraduate']").select_option
@@ -39,17 +39,17 @@ RSpec.feature 'プロフィール作成', type: :system do
 end
 
 
-RSpec.feature 'プロフィール編集', type: :system do
+RSpec.describe 'プロフィール編集', type: :system do
   
   let(:user) { create(:user, confirmed_at: Time.now) }
   let(:profile) { create(:profile, user_id: user.id) }
 
-  background do
+  before do
     parent_category = create(:parent_category)
     children_category = create(:children_category, ancestry: parent_category.id)
   end
 
-  scenario 'プロフィール編集に失敗する' do
+  it 'プロフィール編集に失敗する' do
     login_as_user(user)
     visit edit_users_profile_path(profile)
     find("#profile_form_affiliation").find("option[value='unselected']").select_option
@@ -62,7 +62,7 @@ RSpec.feature 'プロフィール編集', type: :system do
     expect(page).to have_current_path users_profile_path(profile)
   end
 
-  scenario 'プロフィール編集に成功する' do
+  it 'プロフィール編集に成功する' do
     login_as_user(user)
     visit edit_users_profile_path(profile)
     find("#profile_form_affiliation").find("option[value='graduate']").select_option

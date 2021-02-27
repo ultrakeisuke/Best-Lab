@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature 'リプライの作成と編集', type: :system do
+RSpec.describe 'リプライの作成と編集', type: :system do
   
   let!(:questioner) { create(:user, confirmed_at: Time.now) }
   let!(:answerer) { create(:another_user, confirmed_at: Time.now) }
@@ -10,12 +10,12 @@ RSpec.feature 'リプライの作成と編集', type: :system do
   let!(:post) { create(:post, user_id: questioner.id, category_id: children_category.id) }
   let!(:answer) { create(:answer, user_id: answerer.id, post_id: post.id) }
 
-  background do
+  before do
     create(:question_entry, user_id: questioner.id, post_id: post.id)
     create(:question_entry, user_id: answerer.id, post_id: post.id)
   end
 
-  scenario 'リプライの新規作成', js:true do
+  it 'リプライの新規作成', js:true do
     # リプライヤーとしてログイン
     login_as_user(replier)
     visit questions_post_path(post)
@@ -30,7 +30,7 @@ RSpec.feature 'リプライの作成と編集', type: :system do
     expect(page).to have_content "new_reply"
   end
 
-  scenario 'リプライの編集', js: true do
+  it 'リプライの編集', js: true do
     reply = create(:reply, user_id: replier.id, post_id: post.id, answer_id: answer.id, body: "reply")
     another_reply = create(:reply, user_id: replier.id, post_id: post.id, answer_id: answer.id, body: "another_reply")
     # 返信者としてログインし、質問詳細画面に移動

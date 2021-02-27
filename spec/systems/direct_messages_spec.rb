@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature 'ダイレクトメッセージの送信', type: :system do
+RSpec.describe 'ダイレクトメッセージの送信', type: :system do
   
   let!(:user) { create(:user, confirmed_at: Time.now) }
   let!(:partner) { create(:another_user, confirmed_at: Time.now) }
@@ -9,12 +9,12 @@ RSpec.feature 'ダイレクトメッセージの送信', type: :system do
   let!(:user_entry) { create(:entry, user_id: user.id, room_id: room.id) }
   let!(:partner_entry) { create(:entry, user_id: partner.id, room_id: room.id) }
 
-  background do
+  before do
     parent_category = create(:parent_category)
     children_category = create(:children_category, ancestry: parent_category.id)
   end
   
-  scenario 'ダイレクトメッセージを送信する' do
+  it 'ダイレクトメッセージを送信する' do
     login_as_user(user)
     # partnerのユーザー詳細画面からメッセージルームに入る
     visit users_basic_path(partner)
@@ -41,7 +41,7 @@ RSpec.feature 'ダイレクトメッセージの送信', type: :system do
     expect(page).to have_selector("img[src$='rails.png']")
   end
 
-  scenario 'メッセージ履歴の有無による画面表示の変化' do
+  it 'メッセージ履歴の有無による画面表示の変化' do
     login_as_user(user)
     # メッセージルームがまだない相手の場合
     visit users_basic_path(guest)
@@ -54,7 +54,7 @@ RSpec.feature 'ダイレクトメッセージの送信', type: :system do
 
 end
 
-RSpec.feature 'ダイレクトメッセージの削除', type: :system do
+RSpec.describe 'ダイレクトメッセージの削除', type: :system do
   
   let!(:user) { create(:user, confirmed_at: Time.now) }
   let!(:partner) { create(:another_user, confirmed_at: Time.now) }
@@ -63,12 +63,12 @@ RSpec.feature 'ダイレクトメッセージの削除', type: :system do
   let!(:partner_entry) { create(:entry, user_id: partner.id, room_id: room.id) }
   let!(:user_message) { create(:message, user_id: user.id, room_id: room.id, body: "user_message") }
 
-  background do
+  before do
     parent_category = create(:parent_category)
     children_category = create(:children_category, ancestry: parent_category.id)
   end
 
-  scenario 'ダイレクトメッセージを削除する', js: true do
+  it 'ダイレクトメッセージを削除する', js: true do
     login_as_user(user)
     visit users_room_path(room)
     expect(page).to have_content "user_message"

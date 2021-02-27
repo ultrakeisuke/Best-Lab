@@ -1,16 +1,16 @@
 require 'rails_helper'
 
-RSpec.feature 'プロフィール検索', type: :system do
+RSpec.describe 'プロフィール検索', type: :system do
   
   let(:user) { create(:user, confirmed_at: Time.now) }
   let!(:profile) { create(:profile, user_id: user.id) }
 
-  background do
+  before do
     parent_category = create(:parent_category)
     childre_category = create(:children_category, ancestry: parent_category.id)
   end
 
-  scenario 'プロフィールをもとにユーザーを検索する' do
+  it 'プロフィールをもとにユーザーを検索する' do
     login_as_user(user)
     visit root_path
     # 存在しないユーザーを検索する
@@ -28,7 +28,7 @@ RSpec.feature 'プロフィール検索', type: :system do
 end
 
 
-RSpec.feature '質問検索', type: :system do
+RSpec.describe '質問検索', type: :system do
   
   let(:user) { create(:user, confirmed_at: Time.now) }
   let!(:parent_category) { create(:parent_category) }
@@ -36,7 +36,7 @@ RSpec.feature '質問検索', type: :system do
   let!(:post) { create(:post, user_id: user.id, category_id: children_category.id) }
   let!(:children_categories) { create_list(:children_categories, 3, ancestry: parent_category.id) }
 
-  scenario 'カテゴリーとキーワードをもとに質問を検索する' do
+  it 'カテゴリーとキーワードをもとに質問を検索する' do
     login_as_user(user)
     visit root_path
     # 存在しない質問を検索

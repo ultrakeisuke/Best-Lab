@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature '同一カテゴリーに属する質問一覧を表示', type: :system do
+RSpec.describe '同一カテゴリーに属する質問一覧を表示', type: :system do
   
   let(:user) { create(:user) }
   let(:parent_category) { create(:parent_category) }
@@ -8,7 +8,7 @@ RSpec.feature '同一カテゴリーに属する質問一覧を表示', type: :s
   let!(:post1) { create(:post, user_id: user.id, category_id: children_category.id, title: "post1") }
   let!(:post2) { create(:post, user_id: user.id, category_id: children_category.id, title: "post2") }
 
-  scenario '質問一覧の表示を確認' do
+  it '質問一覧の表示を確認' do
     visit questions_category_path(children_category)
     expect(page).to have_content "#{parent_category.name}"
     expect(page).to have_content "#{children_category.name}"

@@ -1,15 +1,15 @@
 require 'rails_helper'
 
-RSpec.feature 'ユーザーの新規登録', type: :system do
+RSpec.describe 'アカウントに関するテスト', type: :system do
 
-  background do
+  before do
     ActionMailer::Base.deliveries.clear # テストの実行前に送信メールを空にする
     users = create_list(:test_users, 3)
     parent_category = create(:parent_category)
     children_category = create(:children_category, ancestry: parent_category.id)
   end
 
-  scenario 'ユーザーの新規登録処理' do
+  it 'ユーザーの新規登録処理' do
     visit new_user_registration_path
     # 新規登録する
     fill_in '名前', with: 'user'
@@ -29,19 +29,8 @@ RSpec.feature 'ユーザーの新規登録', type: :system do
     expect(page).to have_content 'プロフィール設定'
   end
 
-end
-
-RSpec.feature 'アカウント有効化用のメールを再送信する', type: :system do
-
-  let!(:user) { create(:user) }
-
-  background do
-    ActionMailer::Base.deliveries.clear
-    parent_category = create(:parent_category)
-    children_category = create(:children_category, ancestry: parent_category.id)
-  end
-
-  scenario 'アカウント有効化用のメール送信処理' do
+  it 'アカウント有効化用のメール送信処理' do
+    user = create(:another_user)
     visit new_user_registration_path
     click_on '本人確認のためのメールが届かない、またはメールを紛失した方はこちら'
     # メールを送信する
@@ -51,20 +40,20 @@ RSpec.feature 'アカウント有効化用のメールを再送信する', type:
     expect(page).to have_current_path root_path
     expect(page).to have_content 'アカウントの有効化について数分以内にメールでご連絡いたします。'
   end
-  
+
 end
 
 
-RSpec.feature 'ログインとログアウト', type: :system do
+RSpec.describe 'ログインとログアウト', type: :system do
   
   let(:user) { create(:user, confirmed_at: Time.now) }
   
-  background do
+  before do
     parent_category = create(:parent_category)
     children_category = create(:children_category, ancestry: parent_category.id)
   end
   
-  scenario 'ログインとログアウト処理' do
+  it 'ログインとログアウト処理' do
     visit new_user_session_path
     # ログインする
     fill_in 'メールアドレス', with: user.email
@@ -79,17 +68,17 @@ RSpec.feature 'ログインとログアウト', type: :system do
 end
 
 
-RSpec.feature 'パスワード再設定のメールを送信する', type: :system do
+RSpec.describe 'パスワード再設定のメールを送信する', type: :system do
 
   let(:user) { create(:user, confirmed_at: Time.now) }
 
-  background do
+  before do
     ActionMailer::Base.deliveries.clear
     parent_category = create(:parent_category)
     children_category = create(:children_category, ancestry: parent_category.id)
   end
 
-  scenario 'パスワード再設定メールの送信とパスワードの変更確認' do
+  it 'パスワード再設定メールの送信とパスワードの変更確認' do
     visit new_user_session_path
     click_on 'パスワードを忘れた方はこちら'
     # メールを送信
@@ -117,16 +106,16 @@ RSpec.feature 'パスワード再設定のメールを送信する', type: :syst
 end
 
 
-RSpec.feature 'アカウント情報の編集と削除', type: :system do
+RSpec.describe 'アカウント情報の編集と削除', type: :system do
 
   let(:user) { create(:user, confirmed_at: Time.now) }
 
-  background do
+  before do
     parent_category = create(:parent_category)
     children_category = create(:children_category, ancestry: parent_category.id)
   end
 
-  scenario 'アカウント情報の編集と削除処理' do
+  it 'アカウント情報の編集と削除処理' do
     login_as_user(user)
     click_link 'アカウント設定'
     # アカウントを編集
@@ -148,14 +137,14 @@ RSpec.feature 'アカウント情報の編集と削除', type: :system do
 end
 
 
-RSpec.feature 'ゲストログインとアカウント削除', type: :system do
+RSpec.describe 'ゲストログインとアカウント削除', type: :system do
 
-  background do
+  before do
     parent_category = create(:parent_category)
     children_category = create(:children_category, ancestry: parent_category.id)
   end
 
-  scenario 'ゲストユーザーのアカウントを編集・削除できない' do
+  it 'ゲストユーザーのアカウントを編集・削除できない' do
     visit root_path
     click_on 'ゲストログイン(閲覧用)'
     # ゲストログイン後の画面表示確認
