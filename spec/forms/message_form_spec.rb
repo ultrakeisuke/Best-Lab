@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Message, type: :model do
   let(:user) { create(:user) }
   let(:room) { create(:room) }
-  let(:message) { build(:message_form, user_id: user.id, room_id: room.id, body: '')}
+  let(:message) { build(:message_form, user_id: user.id, room_id: room.id, body: '') }
 
   it 'メッセージの文字と画像が空なら無効' do
     pictures = []

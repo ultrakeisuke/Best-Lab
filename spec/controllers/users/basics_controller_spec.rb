@@ -26,7 +26,7 @@ RSpec.describe Users::BasicsController, type: :request do
       end
     end
     context '退会済みのユーザー詳細画面に入ろうとした場合' do
-      let(:discarded_user) { create(:another_user, discarded_at: Time.now) }
+      let(:discarded_user) { create(:another_user, discarded_at: Time.current) }
       it 'rootにリダイレクトする' do
         login_user(user)
         get users_basic_path(discarded_user)

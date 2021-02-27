@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'ダイレクトメッセージの送信', type: :system do
-  let!(:user) { create(:user, confirmed_at: Time.now) }
-  let!(:partner) { create(:another_user, confirmed_at: Time.now) }
-  let!(:guest) { create(:guest_user, confirmed_at: Time.now) }
+  let!(:user) { create(:user, confirmed_at: Time.current) }
+  let!(:partner) { create(:another_user, confirmed_at: Time.current) }
+  let!(:guest) { create(:guest_user, confirmed_at: Time.current) }
   let!(:room) { create(:room) }
   let!(:user_entry) { create(:entry, user_id: user.id, room_id: room.id) }
   let!(:partner_entry) { create(:entry, user_id: partner.id, room_id: room.id) }
@@ -23,17 +23,17 @@ RSpec.describe 'ダイレクトメッセージの送信', type: :system do
     find('.post-field').click_button
     expect(page).to have_content 'メッセージには文字か画像が含まれるようにしてください。'
     # 画像枚数の超過による送信失敗
-    attach_file '', ["#{Rails.root}/spec/factories/images/rails.png",
-                     "#{Rails.root}/spec/factories/images/default.jpeg",
-                     "#{Rails.root}/spec/factories/images/rails_welcome.png",
-                     "#{Rails.root}/spec/factories/images/discard.png",
-                     "#{Rails.root}/spec/factories/images/ruby-on-rails.jpg"], make_visible: true
+    attach_file '', [Rails.root.join('spec/factories/images/rails.png'),
+                     Rails.root.join('spec/factories/images/default.jpeg'),
+                     Rails.root.join('spec/factories/images/rails_welcome.png'),
+                     Rails.root.join('spec/factories/images/discard.png'),
+                     Rails.root.join('spec/factories/images/ruby-on-rails.jpg')], make_visible: true
     expect(page).to have_css('.too-many-files') # 画像枚数超過を知らせる警告を表示
     find('.post-field').click_button
     expect(page).to have_content '投稿できる画像は4枚までです。'
     # メッセージの送信に成功
     find('#message_form_body').set('message')
-    attach_file '', "#{Rails.root}/spec/factories/images/rails.png", make_visible: true
+    attach_file '', Rails.root.join('spec/factories/images/rails.png'), make_visible: true
     find('.post-field').click_button
     # メッセージと画像が表示されていることを確認
     expect(page).to have_content 'message'
@@ -53,8 +53,8 @@ RSpec.describe 'ダイレクトメッセージの送信', type: :system do
 end
 
 RSpec.describe 'ダイレクトメッセージの削除', type: :system do
-  let!(:user) { create(:user, confirmed_at: Time.now) }
-  let!(:partner) { create(:another_user, confirmed_at: Time.now) }
+  let!(:user) { create(:user, confirmed_at: Time.current) }
+  let!(:partner) { create(:another_user, confirmed_at: Time.current) }
   let!(:room) { create(:room) }
   let!(:user_entry) { create(:entry, user_id: user.id, room_id: room.id) }
   let!(:partner_entry) { create(:entry, user_id: partner.id, room_id: room.id) }

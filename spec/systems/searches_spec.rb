@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'プロフィール検索', type: :system do
-  let(:user) { create(:user, confirmed_at: Time.now) }
+  let(:user) { create(:user, confirmed_at: Time.current) }
   let!(:profile) { create(:profile, user_id: user.id) }
 
   before do
@@ -26,7 +26,7 @@ RSpec.describe 'プロフィール検索', type: :system do
 end
 
 RSpec.describe '質問検索', type: :system do
-  let(:user) { create(:user, confirmed_at: Time.now) }
+  let(:user) { create(:user, confirmed_at: Time.current) }
   let!(:parent_category) { create(:parent_category) }
   let!(:children_category) { create(:children_category, ancestry: parent_category.id) }
   let!(:post) { create(:post, user_id: user.id, category_id: children_category.id) }

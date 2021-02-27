@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe '回答の作成と編集', type: :system do
-  let!(:questioner) { create(:user, confirmed_at: Time.now) }
-  let!(:answerer) { create(:another_user, confirmed_at: Time.now) }
+  let!(:questioner) { create(:user, confirmed_at: Time.current) }
+  let!(:answerer) { create(:another_user, confirmed_at: Time.current) }
   let!(:parent_category) { create(:parent_category) }
   let!(:children_category) { create(:children_category, ancestry: parent_category.id) }
   let!(:post) { create(:post, user_id: questioner.id, category_id: children_category.id) }

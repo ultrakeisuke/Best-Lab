@@ -22,8 +22,7 @@ class Entry < ApplicationRecord
     end
     # メッセージの作成時刻をもとにソート
     sorted_messages = last_messages.sort_by! { |a| a[:created_at] }.reverse
-    sorted_entries = sorted_messages.map { |sorted_message| sorted_message.room.entries.partner_of(user) }
-    sorted_entries
+    sorted_messages.map { |sorted_message| sorted_message.room.entries.partner_of(user) }
   end
 
   # ダイレクトメッセージ用の部屋を相手と共有しているか確認する処理

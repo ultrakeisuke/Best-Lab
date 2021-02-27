@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Users::PasswordsController, type: :request do
-  let(:user) { create(:user, confirmed_at: Time.now) }
+  let(:user) { create(:user, confirmed_at: Time.current) }
 
   before do
     parent_category = create(:parent_category)
@@ -16,7 +16,7 @@ RSpec.describe Users::PasswordsController, type: :request do
       end
     end
     context 'ゲストユーザーのパスワード変更メールを送信しようとした場合' do
-      let!(:guest) { create(:guest_user, confirmed_at: Time.now) }
+      let!(:guest) { create(:guest_user, confirmed_at: Time.current) }
       it 'メール送信画面にレンダリングする' do
         post user_password_path, params: { user: { email: guest.email } }
         expect(response).to have_http_status '302'

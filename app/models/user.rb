@@ -11,10 +11,10 @@ class User < ApplicationRecord
   has_one :profile, dependent: :destroy
   has_many :entries, dependent: :destroy
   has_many :messages, dependent: :destroy
-  has_many :posts
-  has_many :answers
-  has_many :replies
-  has_many :question_entries
+  has_many :posts, dependent: :destroy
+  has_many :answers, dependent: :destroy
+  has_many :replies, dependent: :destroy
+  has_many :question_entries, dependent: :destroy
 
   # アカウント認証が済むまでログインできない処理
   def active_for_authentication?
@@ -42,7 +42,7 @@ class User < ApplicationRecord
   def self.guest
     find_or_create_by!(name: 'guest', email: 'guest@example.com') do |user|
       user.password = SecureRandom.urlsafe_base64
-      user.confirmed_at = Time.now
+      user.confirmed_at = Time.current
     end
   end
 

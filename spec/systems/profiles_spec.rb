@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'プロフィール作成', type: :system do
-  let(:user) { create(:user, confirmed_at: Time.now) }
+  let(:user) { create(:user, confirmed_at: Time.current) }
 
   before do
     parent_category = create(:parent_category)
@@ -37,7 +37,7 @@ RSpec.describe 'プロフィール作成', type: :system do
 end
 
 RSpec.describe 'プロフィール編集', type: :system do
-  let(:user) { create(:user, confirmed_at: Time.now) }
+  let(:user) { create(:user, confirmed_at: Time.current) }
   let(:profile) { create(:profile, user_id: user.id) }
 
   before do

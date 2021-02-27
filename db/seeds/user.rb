@@ -6,7 +6,7 @@ users = []
                     email: email,
                     password: 'password',
                     password_confirmation: 'password',
-                    confirmed_at: Time.now)
+                    confirmed_at: Time.current)
 end
 User.import users
 
@@ -27,7 +27,7 @@ User.create(name: 'guest',
             email: 'guest@example.com',
             password: '1234567',
             password_confirmation: '1234567',
-            confirmed_at: Time.now)
+            confirmed_at: Time.current)
 
 Profile.create(affiliation: 'undergraduate',
                school: 'ゲスト大学',

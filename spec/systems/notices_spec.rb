@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'ダイレクトメッセージの通知', type: :system do
-  let!(:user) { create(:user, confirmed_at: Time.now) }
-  let!(:partner) { create(:another_user, confirmed_at: Time.now) }
+  let!(:user) { create(:user, confirmed_at: Time.current) }
+  let!(:partner) { create(:another_user, confirmed_at: Time.current) }
   let!(:room) { create(:room) }
   let!(:user_entry) { create(:entry, user_id: user.id, room_id: room.id) }
   let!(:partner_entry) { create(:entry, user_id: partner.id, room_id: room.id) }
@@ -30,9 +30,9 @@ RSpec.describe 'ダイレクトメッセージの通知', type: :system do
 end
 
 RSpec.describe '質問掲示板における、質問者からの通知', type: :system do
-  let!(:questioner) { create(:user, confirmed_at: Time.now) }
-  let!(:answerer1) { create(:another_user, confirmed_at: Time.now) }
-  let!(:answerer2) { create(:guest_user, confirmed_at: Time.now) }
+  let!(:questioner) { create(:user, confirmed_at: Time.current) }
+  let!(:answerer1) { create(:another_user, confirmed_at: Time.current) }
+  let!(:answerer2) { create(:guest_user, confirmed_at: Time.current) }
   let!(:parent_category) { create(:parent_category) }
   let!(:children_category) { create(:children_category, ancestry: parent_category.id) }
   let!(:post) { create(:post, user_id: questioner.id, category_id: children_category.id) }
@@ -91,8 +91,8 @@ RSpec.describe '質問掲示板における、質問者からの通知', type: :
 end
 
 RSpec.describe '質問掲示板における、回答者からの通知', type: :system do
-  let!(:questioner) { create(:user, confirmed_at: Time.now) }
-  let!(:answerer) { create(:another_user, confirmed_at: Time.now) }
+  let!(:questioner) { create(:user, confirmed_at: Time.current) }
+  let!(:answerer) { create(:another_user, confirmed_at: Time.current) }
   let!(:parent_category) { create(:parent_category) }
   let!(:children_category) { create(:children_category, ancestry: parent_category.id) }
   let!(:post) { create(:post, user_id: questioner.id, category_id: children_category.id) }
@@ -118,10 +118,10 @@ RSpec.describe '質問掲示板における、回答者からの通知', type: :
 end
 
 RSpec.describe '質問掲示板における、返信者(リプライヤー)からの通知', type: :system do
-  let!(:questioner) { create(:another_user, confirmed_at: Time.now) }
-  let!(:answerer) { create(:guest_user, confirmed_at: Time.now) }
-  let!(:replier) { create(:user, confirmed_at: Time.now) }
-  let!(:repliers) { create_list(:test_users, 2, confirmed_at: Time.now) }
+  let!(:questioner) { create(:another_user, confirmed_at: Time.current) }
+  let!(:answerer) { create(:guest_user, confirmed_at: Time.current) }
+  let!(:replier) { create(:user, confirmed_at: Time.current) }
+  let!(:repliers) { create_list(:test_users, 2, confirmed_at: Time.current) }
   let!(:parent_category) { create(:parent_category) }
   let!(:children_category) { create(:children_category, ancestry: parent_category.id) }
   let!(:post) { create(:post, user_id: questioner.id, category_id: children_category.id) }

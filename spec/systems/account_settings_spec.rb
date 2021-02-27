@@ -15,7 +15,7 @@ RSpec.describe 'アカウントに関するテスト', type: :system do
     fill_in 'メールアドレス', with: 'user@example.com'
     fill_in 'パスワード', with: 'password'
     fill_in '確認用パスワード', with: 'password'
-    expect { click_on '送信'}.to change { ActionMailer::Base.deliveries.size }.by(1).and change(User, :count).by(1)
+    expect { click_on '送信' }.to change { ActionMailer::Base.deliveries.size }.by(1).and change(User, :count).by(1)
     # 登録後の画面表示を確認
     expect(page).to have_current_path root_path
     expect(page).to have_content '本人確認用のメールを送信しました。メール内のリンクから登録を完了させてください。'
@@ -42,7 +42,7 @@ RSpec.describe 'アカウントに関するテスト', type: :system do
 end
 
 RSpec.describe 'ログインとログアウト', type: :system do
-  let(:user) { create(:user, confirmed_at: Time.now) }
+  let(:user) { create(:user, confirmed_at: Time.current) }
 
   before do
     parent_category = create(:parent_category)
@@ -63,7 +63,7 @@ RSpec.describe 'ログインとログアウト', type: :system do
 end
 
 RSpec.describe 'パスワード再設定のメールを送信する', type: :system do
-  let(:user) { create(:user, confirmed_at: Time.now) }
+  let(:user) { create(:user, confirmed_at: Time.current) }
 
   before do
     ActionMailer::Base.deliveries.clear
@@ -98,7 +98,7 @@ RSpec.describe 'パスワード再設定のメールを送信する', type: :sys
 end
 
 RSpec.describe 'アカウント情報の編集と削除', type: :system do
-  let(:user) { create(:user, confirmed_at: Time.now) }
+  let(:user) { create(:user, confirmed_at: Time.current) }
 
   before do
     parent_category = create(:parent_category)
@@ -110,7 +110,8 @@ RSpec.describe 'アカウント情報の編集と削除', type: :system do
     click_link 'アカウント設定'
     # アカウントを編集
     fill_in '名前', with: 'user!'
-    attach_file 'プロフィール画像', "#{Rails.root}/spec/factories/images/rails.png"
+    # attach_file 'プロフィール画像', "#{Rails.root}/spec/factories/images/rails.png"
+    attach_file 'プロフィール画像', Rails.root.join('spec/factories/images/rails.png')
     click_on '保存'
     # 編集後の画面表示を確認
     expect(page).to have_current_path users_basic_path(user)

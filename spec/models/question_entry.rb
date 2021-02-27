@@ -12,7 +12,7 @@ RSpec.describe QuestionEntry, type: :model do
     # post1にはuser3が作成した回答が1つ含まれる
     post1 = create(:post, user_id: @user1.id, category_id: children_category.id)
     create(:answer, user_id: @user3.id, post_id: post1.id)
-    @entry1 = create(:question_entry, user_id: @user3.id, post_id: post1.id, updated_at: Time.now + 1.second)
+    @entry1 = create(:question_entry, user_id: @user3.id, post_id: post1.id, updated_at: Time.current + 1.second)
 
     # post2にはuser3が作成したリプライが1つ含まれる
     post2 = create(:post, user_id: @user2.id, category_id: children_category.id)

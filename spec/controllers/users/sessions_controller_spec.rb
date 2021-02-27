@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Users::SessionsController, type: :request do
-  let(:user) { create(:user, confirmed_at: Time.now) }
-  let(:guest_user) { create(:guest_user, confirmed_at: Time.now) }
+  let(:user) { create(:user, confirmed_at: Time.current) }
+  let(:guest_user) { create(:guest_user, confirmed_at: Time.current) }
 
   before do
     parent_category = create(:parent_category)
@@ -39,7 +39,7 @@ RSpec.describe Users::SessionsController, type: :request do
       end
     end
     context '退会済みのユーザーがログインしようとした場合' do
-      let!(:discarded_user) { create(:another_user, discarded_at: Time.now) }
+      let!(:discarded_user) { create(:another_user, discarded_at: Time.current) }
       it '新規登録画面にリダイレクトする' do
         post user_session_path, params: { user: { email: discarded_user.email, password: discarded_user.password } }
         expect(response).to have_http_status '302'

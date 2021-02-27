@@ -37,7 +37,7 @@ RSpec.describe Questions::PostsController, type: :request do
                                                             title: '',
                                                             content: '',
                                                             status: '' } }
-        end .not_to change(Post, :count)
+        end.not_to change(Post, :count)
         expect(response).to have_http_status '200'
       end
     end
@@ -50,7 +50,7 @@ RSpec.describe Questions::PostsController, type: :request do
                                                             title: post_form.title,
                                                             content: post_form.content,
                                                             status: 'open' } }
-        end .to change(Post, :count).by(1)
+        end.to change(Post, :count).by(1)
         expect(response).to have_http_status '302'
         expect(response).to redirect_to users_basic_path(user)
       end

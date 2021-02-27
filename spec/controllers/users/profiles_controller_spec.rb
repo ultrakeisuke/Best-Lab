@@ -30,7 +30,7 @@ RSpec.describe Users::ProfilesController, type: :request do
                                                               department: '',
                                                               laboratory: '',
                                                               description: '' } }
-        end .not_to change(Profile, :count)
+        end.not_to change(Profile, :count)
         expect(response).to have_http_status '200'
       end
     end
@@ -45,7 +45,7 @@ RSpec.describe Users::ProfilesController, type: :request do
                                                               department: '',
                                                               laboratory: '',
                                                               description: '' } }
-        end .not_to change(Profile, :count)
+        end.not_to change(Profile, :count)
         expect(response).to have_http_status '200'
       end
     end
@@ -59,7 +59,7 @@ RSpec.describe Users::ProfilesController, type: :request do
                                                               department: profile_form.department,
                                                               laboratory: profile_form.laboratory,
                                                               description: profile_form.description } }
-        end .to change(Profile, :count).by(1)
+        end.to change(Profile, :count).by(1)
         expect(response).to have_http_status '302'
         expect(response).to redirect_to users_basic_path(user)
       end

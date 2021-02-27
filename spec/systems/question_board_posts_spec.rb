@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe '質問の作成と編集', type: :system do
-  let!(:user) { create(:user, confirmed_at: Time.now) }
+  let!(:user) { create(:user, confirmed_at: Time.current) }
   let!(:parent_category1) { create(:parent_category, name: 'parent1') }
   let!(:parent_category2) { create(:parent_category, name: 'parent2') }
   let!(:parent1_children_categories) { create_list(:children_categories, 2, ancestry: parent_category1.id) }

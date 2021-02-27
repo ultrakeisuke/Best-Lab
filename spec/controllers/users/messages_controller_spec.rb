@@ -20,7 +20,7 @@ RSpec.describe Users::MessagesController, type: :request do
           post users_messages_path, params: { message_form: { user_id: user.id,
                                                               room_id: room.id,
                                                               body: '' } }
-        end .not_to change(Message, :count)
+        end.not_to change(Message, :count)
         expect(response).to have_http_status '200'
       end
     end
@@ -32,7 +32,7 @@ RSpec.describe Users::MessagesController, type: :request do
           post users_messages_path, params: { message_form: { user_id: user.id,
                                                               room_id: another_room.id,
                                                               body: 'another_room' } }
-        end .not_to change(Message, :count)
+        end.not_to change(Message, :count)
         expect(response).to have_http_status '302'
         expect(response).to redirect_to root_path
       end
