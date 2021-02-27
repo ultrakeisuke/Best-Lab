@@ -1,12 +1,14 @@
 module ControllerMacros
+
+  # 管理者としてログイン
   def login_admin(admin)
-    @request.env["devise.mapping"] = Devise.mappings[:admin]
     sign_in admin
   end
 
+  # 一般ユーザーとしてログイン
   def login_user(user)
-    @request.env["devise.mapping"] = Devise.mappings[:user]
     user.confirm
     sign_in user
   end
+
 end

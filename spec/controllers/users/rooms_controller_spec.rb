@@ -1,79 +1,64 @@
 require 'rails_helper'
 
-RSpec.describe Users::RoomsController, type: :controller do
+RSpec.describe Users::RoomsController, type: :request do
+  
   let(:user) { create(:user) }
   let(:another_user) { create(:another_user) }
-  let(:guest_user) { create(:guest_user) }
   let(:room) { create(:room) }
-  let!(:parent_category) { create(:parent_category) }
-  let!(:children_category) { create(:children_category, ancestry: parent_category.id) }
+
+  before do 
+    parent_category = create(:parent_category)
+    children_category = create(:children_category, ancestry: parent_category.id)
+  end
 
   describe "createアクション" do
-    context "プロフィール画面でメッセージボタンをクリックした場合" do
-      it "新しいメッセージルームとエントリーを作成" do
-        login_user(user)
-        # 1つのroomにつき、自分と相手2人分のentryが作成される
-        expect { post :create, params: { entry: { user_id: another_user.id } } }.to change(Entry, :count).by(2)
-        # 自分の相手のエントリーが作成される
-        expect(assigns(:current_entry)).to eq user.entries.last
-        expect(assigns(:another_entry)).to eq another_user.entries.last
-        expect(response).to have_http_status "302"
-        room = Room.last
-        expect(response).to redirect_to users_room_path(room.id)
-      end
+    it "新しいメッセージルームとエントリーを作成" do
+      login_user(user)
+      # 1つのroomにつき、自分と相手2人分のentryが作成される
+      expect { post users_rooms_path, params: { entry: { user_id: another_user.id } } }.to change(Entry, :count).by(2)
+      expect(response).to have_http_status "302"
+      room = Room.last
+      expect(response).to redirect_to users_room_path(room.id)
     end
   end
 
   describe "indexアクション" do
-    let(:users) { create_list(:test_users, 3) }
-    let(:rooms) { create_list(:rooms, 3) }
-    let!(:entry1) { create(:entry, room_id: rooms[0].id, user_id: users[0].id) }
-    let!(:entry2) { create(:entry, room_id: rooms[1].id, user_id: users[0].id) }
-    let!(:entry3) { create(:entry, room_id: rooms[2].id, user_id: users[0].id) }
-
     before do
-      create(:entry, room_id: rooms[0].id, user_id: user.id)
-      create(:entry, room_id: rooms[1].id, user_id: user.id)
-      create(:entry, room_id: rooms[2].id, user_id: user.id)
-      create(:message, room_id: rooms[0].id, user_id: user.id, created_at: Time.current)
-      create(:message, room_id: rooms[1].id, user_id: user.id, created_at: Time.current + 1.second)
+      create(:entry, room_id: room.id, user_id: user.id)
+      create(:entry, room_id: room.id, user_id: another_user.id)
+      create(:message, room_id: room.id, user_id: another_user.id)
     end
-
-    it "インスタンスが期待した値を返し、正常なレスポンスを返す" do
+    it "リクエストに成功し正常なレスポンスを返す" do
       login_user(user)
-      get :index
-      # user_id != user.idとなるentryをanother_entriesとする
-      another_entries = [entry1, entry2, entry3]
-      expect(assigns(:another_entries)).to eq another_entries
-      # メッセージを持つentry1, entry2をanother_entriesから抽出
-      # メッセージの投稿が新しい方から表示されるのでentry2, entry1の順に表示
-      sorted_entries = [entry2, entry1]
-      expect(assigns(:sorted_entries)).to eq sorted_entries
+      get users_rooms_path
       expect(response).to have_http_status "200"
-      expect(response).to render_template :index
+      # メッセージ相手の情報が表示される
+      expect(response.body).to include "#{another_user.name}"
     end
   end
 
   describe "showアクション" do
     before do
-      create(:entry, user_id: user.id, room_id: room.id)
+      create(:entry, room_id: room.id, user_id: user.id)
+      create(:entry, room_id: room.id, user_id: another_user.id)
     end
-    let!(:another_entry) { create(:entry, user_id: another_user.id, room_id: room.id) }
     context "他人のメッセージルームに入ろうとした場合" do
+      let(:guest_user) { create(:guest_user) }
       it "プロフィール画面にリダイレクトする" do
         login_user(guest_user)
-        get :show, params: { id: room.id }
+        get users_room_path(room)
         expect(response).to have_http_status "302"
         expect(response).to redirect_to users_basic_path(guest_user)
       end
     end
     context "自分のメッセージルームに入ろうとした場合" do
-      it "インスタンスが期待した値を返し、正常なレスポンスを返す" do
+      let!(:message) { create(:message, room_id: room.id, user_id: user.id) }
+      it "リクエストに成功し、正常なレスポンスを返す" do
         login_user(user)
-        get :show, params: { id: room.id }
+        get users_room_path(room)
         expect(response).to have_http_status "200"
-        expect(assigns(:another_entry)).to eq another_entry
-        expect(response).to render_template :show
+        # メッセージの表示を確認
+        expect(response.body).to include "#{message.body}"
       end
     end
   end
