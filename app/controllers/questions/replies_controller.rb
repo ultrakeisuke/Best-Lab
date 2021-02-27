@@ -8,11 +8,11 @@ class Questions::RepliesController < ApplicationController
   def create
     @reply = ReplyForm.new
     @reply.assign_attributes(reply_params)
+    @answer = Answer.find(reply_params[:answer_id])
+    redirect_to root_path if @answer.nil? # @answerが見つからない場合の処理
+    @post = @answer.post
     respond_to do |format|
       if @reply.save
-        @answer = Answer.find(@reply.answer_id)
-        redirect_to root_path if @answer.nil? # @answerが見つからない場合の処理
-        @post = @answer.post
         @answers = @post.answers
         reply = Reply.where(user_id: @reply.user_id).last
         reply&.send_notice_to_commenter # 回答にリプライした際の通知処理
@@ -32,11 +32,11 @@ class Questions::RepliesController < ApplicationController
     @reply = ReplyForm.new(@target_reply)
     # パラメータからidを削除してリプライを更新する
     @reply.assign_attributes(reply_params.except(:id))
+    @answer = Answer.find(@target_reply.answer_id)
+    redirect_to root_path if @answer.nil? # @answerが見つからない場合の処理
+    @post = @answer.post
     respond_to do |format|
       if @reply.save
-        @answer = Answer.find(@reply.answer_id)
-        redirect_to root_path if @answer.nil? # @answerが見つからない場合の処理
-        @post = @answer.post
         format.html { redirect_to questions_post_path(@reply.post_id) }
         format.js
       else

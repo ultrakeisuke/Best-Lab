@@ -2,6 +2,7 @@
 
 class Users::MessagesController < ApplicationController
   before_action :authenticate_user!, only: [:create, :destroy]
+  before_action :restricted_sending_message, only: :create
   before_action :restricted_destroying_message, only: :destroy
 
   def create
@@ -29,6 +30,12 @@ class Users::MessagesController < ApplicationController
 
     def message_form_params
       params.require(:message_form).permit(:room_id, :body, pictures_attributes: [:picture]).merge(user_id: current_user.id)
+    end
+
+    # 他人のメッセージルームにメッセージを送信できない制限
+    def restricted_sending_message
+      room_ids = current_user.entries.map(&:room_id)
+      redirect_to root_path if room_ids.exclude?(message_form_params[:room_id].to_i)
     end
 
     # 他人のメッセージは削除できない制限

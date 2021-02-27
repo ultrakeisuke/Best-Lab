@@ -34,11 +34,11 @@ RSpec.configure do |config|
   # テスト失敗時のノイズを減らす
   # config.filter_gems_from_backtrace("gem name")
 
-  # deviseのhelperをcontroller内で使用
-  config.include Devise::Test::ControllerHelpers, type: :controller
+  # 統合テストにおける認証を容易にするヘルパー
+  config.include Devise::Test::IntegrationHelpers, type: :request
 
   # macrosファイルを読み込む
-  config.include ControllerMacros, type: :controller
+  config.include ControllerMacros, type: :request
   config.include LoginMacros
   config.include VisitUrlMacros
 

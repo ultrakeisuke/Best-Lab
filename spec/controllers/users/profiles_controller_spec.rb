@@ -1,18 +1,21 @@
 require 'rails_helper'
 
-RSpec.describe Users::ProfilesController, type: :controller do
+RSpec.describe Users::ProfilesController, type: :request do
+
   let(:user) { create(:user) }
   let(:another_user) { create(:another_user) }
   let(:guest_user) { create(:guest_user) }
-  let!(:parent_category) { create(:parent_category) }
-  let!(:children_category) { create(:children_category, ancestry: parent_category.id) }
+
+  before do 
+    parent_category = create(:parent_category)
+    children_category = create(:children_category, ancestry: parent_category.id)
+  end
 
   describe "newアクション" do
     it "プロフィール作成画面を表示する" do
       login_user(user)
-      get :new
+      get new_users_profile_path
       expect(response).to have_http_status "200"
-      expect(response).to render_template :new
     end
   end
 
@@ -21,34 +24,32 @@ RSpec.describe Users::ProfilesController, type: :controller do
     context "フォームに何も入力しなかった場合" do
       it "プロフィール作成に失敗し、作成画面を再表示する" do
         login_user(user)
-        expect { post :create, params: { profile_form: { affiliation: "",
-                                                         school: "",
-                                                         faculty: "",
-                                                         department: "",
-                                                         laboratory: "",
-                                                         description: "" } } }.not_to change(Profile, :count)
+        expect { post users_profiles_path, params: { profile_form: { affiliation: "",
+                                                                     school: "",
+                                                                     faculty: "",
+                                                                     department: "",
+                                                                     laboratory: "",
+                                                                     description: "" } } }.not_to change(Profile, :count)
         expect(response).to have_http_status "200"
-        expect(response).to render_template :new
       end
     end
     context "affiliationカラムに入力した値が指定した値以外だった場合" do
       # affiliationカラムは大学生、大学院生、高専生、専門学生、社会人、その他のみ保存可能
       it "プロフィール作成に失敗し、作成画面を再表示する" do
         login_user(user)
-        expect { post :create, params: { profile_form: { affiliation: "大学生！",
-                                                         school: "",
-                                                         faculty: "",
-                                                         department: "",
-                                                         laboratory: "",
-                                                         description: "" } } }.not_to change(Profile, :count)
+        expect { post users_profiles_path, params: { profile_form: { affiliation: "undergraduate!",
+                                                                     school: "",
+                                                                     faculty: "",
+                                                                     department: "",
+                                                                     laboratory: "",
+                                                                     description: "" } } }.not_to change(Profile, :count)
         expect(response).to have_http_status "200"
-        expect(response).to render_template :new
       end
     end
     context "フォームに有効な値を入力していた場合" do
       it "プロフィール作成に成功し、ユーザー詳細画面にリダイレクトする" do
         login_user(user)
-        expect { post :create, params: { profile_form: { affiliation: profile_form.affiliation,
+        expect { post users_profiles_path, params: { profile_form: { affiliation: profile_form.affiliation,
                                                          school: profile_form.school,
                                                          faculty: profile_form.faculty,
                                                          department: profile_form.department,
@@ -67,7 +68,7 @@ RSpec.describe Users::ProfilesController, type: :controller do
     context "他人のプロフィール編集画面に入ろうとした場合" do
       it "ログインユーザーの詳細画面にリダイレクトする" do
         login_user(user)
-        get :edit, params: { id: another_profile.id }
+        get edit_users_profile_path(another_profile)
         expect(response).to have_http_status "302"
         expect(response).to redirect_to users_basic_path(user)
       end
@@ -75,9 +76,8 @@ RSpec.describe Users::ProfilesController, type: :controller do
     context "自分のプロフィール編集画面に入ろうとした場合" do
       it "プロフィール編集画面を表示する" do
         login_user(user)
-        get :edit, params: { id: profile.id }
+        get edit_users_profile_path(profile)
         expect(response).to have_http_status "200"
-        expect(response).to render_template :edit
       end
     end
   end
@@ -90,39 +90,37 @@ RSpec.describe Users::ProfilesController, type: :controller do
     context "フォームに何も入力しなかった場合" do
       it "プロフィール編集画面を表示する" do
         login_user(user)
-        patch :update, params: { id: profile.id, profile_form: { affiliation: "",
-                                                                 school: "",
-                                                                 faculty: "",
-                                                                 department: "",
-                                                                 laboratory: "",
-                                                                 description: "" } }
+        patch users_profile_path(profile), params: { profile_form: { affiliation: "",
+                                                                     school: "",
+                                                                     faculty: "",
+                                                                     department: "",
+                                                                     laboratory: "",
+                                                                     description: "" } }
         profile.reload
         expect(response).to have_http_status "200"
-        expect(response).to render_template :edit
       end
     end
     context "affiliationカラムに入力した値が指定した値以外だった場合" do
       it "プロフィール編集に失敗し、作成画面を再表示する" do
         login_user(user)
-        patch :update, params: { id: profile.id, profile_form: { affiliation: "大学生!",
-                                                                 school: "",
-                                                                 faculty: "",
-                                                                 department: "",
-                                                                 laboratory: "",
-                                                                 description: "" } }
+        patch users_profile_path(profile), params: { profile_form: { affiliation: "undergraduate!",
+                                                                     school: "",
+                                                                     faculty: "",
+                                                                     department: "",
+                                                                     laboratory: "",
+                                                                     description: "" } }
         expect(response).to have_http_status "200"
-        expect(response).to render_template :edit
       end
     end
     context "他人のプロフィールを編集しようとした場合" do
       it "プロフィール編集に失敗し、ログインユーザーの詳細画面にリダイレクトする" do
         login_user(user)
-        patch :update, params: { id: another_profile.id, profile_form: { affiliation: profile_form.affiliation,
-                                                                 school: profile_form.school,
-                                                                 faculty: profile_form.faculty,
-                                                                 department: profile_form.department,
-                                                                 laboratory: profile_form.laboratory,
-                                                                 description: profile_form.description } }
+        patch users_profile_path(guest_profile), params: { profile_form: { affiliation: profile_form.affiliation,
+                                                                           school: profile_form.school,
+                                                                           faculty: profile_form.faculty,
+                                                                           department: profile_form.department,
+                                                                           laboratory: profile_form.laboratory,
+                                                                           description: profile_form.description } }
         expect(response).to have_http_status "302"
         expect(response).to redirect_to users_basic_path(user)
       end
@@ -130,12 +128,12 @@ RSpec.describe Users::ProfilesController, type: :controller do
     context "ゲストユーザーのプロフィールを編集しようとした場合" do
       it "プロフィール編集に失敗し、ユーザーの詳細画面にリダイレクトする" do
         login_user(guest_user)
-        patch :update, params: { id: guest_profile.id, profile_form: { affiliation: profile_form.affiliation,
-                                                                       school: profile_form.school,
-                                                                       faculty: profile_form.faculty,
-                                                                       department: profile_form.department,
-                                                                       laboratory: profile_form.laboratory,
-                                                                       description: profile_form.description } }
+        patch users_profile_path(guest_profile), params: { profile_form: { affiliation: profile_form.affiliation,
+                                                                           school: profile_form.school,
+                                                                           faculty: profile_form.faculty,
+                                                                           department: profile_form.department,
+                                                                           laboratory: profile_form.laboratory,
+                                                                           description: profile_form.description } }
         expect(response).to have_http_status "302"
         expect(response).to redirect_to users_basic_path(guest_user)
       end
@@ -143,12 +141,12 @@ RSpec.describe Users::ProfilesController, type: :controller do
     context "フォームに入力した値が有効であった場合" do
       it "ユーザー詳細画面を表示する" do
         login_user(user)
-        patch :update, params: { id: profile.id, profile_form: { affiliation: profile_form.affiliation,
-                                                                 school: "MySchool",
-                                                                 faculty: profile_form.faculty,
-                                                                 department: profile_form.department,
-                                                                 laboratory: profile_form.laboratory,
-                                                                 description: profile_form.description } }
+        patch users_profile_path(profile), params: { profile_form: { affiliation: profile_form.affiliation,
+                                                                     school: "MySchool",
+                                                                     faculty: profile_form.faculty,
+                                                                     department: profile_form.department,
+                                                                     laboratory: profile_form.laboratory,
+                                                                     description: profile_form.description } }
         expect(profile.reload.school).to eq "MySchool"
         expect(response).to have_http_status "302"
         expect(response).to redirect_to users_basic_path(user)

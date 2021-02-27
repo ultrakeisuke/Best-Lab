@@ -41,16 +41,18 @@
   </div>
 
   <% unless current_user == @user %>
-    <% if @room_id.present? %>
-      <%= link_to "メッセージ", users_room_path(@room_id) %>
-    <% else %>
-      <%= form_with model: @entry.room, url: users_rooms_path, method: :post, local: true do |f| %>
-        <%= f.fields_for @entry do |e| %>
-          <%= e.hidden_field :user_id, value: @user.id %>
+    <div class="user-information__room-link">
+      <% if @room_id.present? %>
+        <%= button_to "メッセージルーム", users_room_path(@room_id), method: :get %>
+      <% else %>
+        <%= form_with model: @entry.room, url: users_rooms_path, method: :post, local: true do |f| %>
+          <%= f.fields_for @entry do |e| %>
+            <%= e.hidden_field :user_id, value: @user.id %>
+          <% end %>
+          <%= f.submit 'メッセージを始める' %>
         <% end %>
-        <%= f.submit 'メッセージ' %>
       <% end %>
-    <% end %>
+    </div>
   <% end %>
 
   <h4>投稿した質問</h4>

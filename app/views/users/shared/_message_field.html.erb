@@ -2,11 +2,7 @@
   <div class="message-field__profile">
     <% if message.user_id != current_user.id %>
       <%= link_to(users_basic_path(message.user)) do %>
-        <% if message.user.picture? %>
-          <%= image_tag message.user.picture.url %>
-        <% else %>
-          <%= image_tag 'default.jpeg' %>
-        <% end %>
+        <%= image_tag message.user.profile_picture %>
       <% end %>
     <% end %>
   </div>

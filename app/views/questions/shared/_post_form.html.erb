@@ -6,7 +6,7 @@
   <% end %>
 </div>
 
-<%= form_with model: post, url: url, method: method, local: true do |f| %>
+<%= form_with model: post, url: url, method: method, id: "post_form", local: true do |f| %>
   <%= render "users/shared/error_messages", resource: post %>
 
   <% if params[:id].present? %>
@@ -39,7 +39,6 @@
       <%= picture.file_field :picture, multiple: "multiple", name: "post_form[pictures_attributes][][picture]" %>
     <% end %>
   </div>
-
 
   <div class="actions">
     <%= f.submit "送信" %>
