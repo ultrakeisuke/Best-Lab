@@ -6,11 +6,10 @@ class Profile < ApplicationRecord
                    technical_students: '高専生',
                    professional_students: '専門学生',
                    working: '社会人',
-                   other: 'その他' }
+                   other: 'その他' }.freeze
 
   # 英語名で保存された所属(affiliation)を日本語で表示
   def translated_affiliation
-    AFFILIATIONS[self.affiliation.to_sym]
+    AFFILIATIONS[affiliation.to_sym]
   end
-  
 end

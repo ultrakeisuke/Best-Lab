@@ -1,10 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'ログインとログアウト', type: :system do
-
   before do
     parent_category = create(:parent_category)
-    children_category = create(:children_category, ancestry: parent_category.id)
+    create(:children_category, ancestry: parent_category.id)
   end
 
   let!(:admin) { create(:admin) }
@@ -27,17 +26,14 @@ RSpec.describe 'ログインとログアウト', type: :system do
     click_button 'ログアウト'
     expect(page).to have_current_path new_admin_session_path
   end
-
 end
 
-
 RSpec.describe 'ユーザー情報の閲覧とアカウント削除', type: :system do
-  
   before do
     parent_category = create(:parent_category)
-    children_category = create(:children_category, ancestry: parent_category.id)
+    create(:children_category, ancestry: parent_category.id)
   end
-  
+
   let!(:user) { create(:user) }
   let!(:admin) { create(:admin) }
 
@@ -66,9 +62,7 @@ RSpec.describe 'ユーザー情報の閲覧とアカウント削除', type: :sys
     click_button 'アカウントの削除'
     page.accept_confirm # 確認ダイアログで「はい」を選択
     expect(page).to have_current_path admins_user_path(user)
-    expect(page).to have_content "退会済みユーザー"
+    expect(page).to have_content '退会済みユーザー'
     expect(page).to have_content user.email
   end
-
 end
-

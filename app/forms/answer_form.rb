@@ -5,7 +5,7 @@ class AnswerForm
   include Virtus.model
   extend CarrierWave::Mount
 
-  validates :body, length: { maximum: 10000 }
+  validates :body, length: { maximum: 10_000 }
   validate :body_or_pictures
   validate :max_num_of_pictures
 
@@ -39,6 +39,7 @@ class AnswerForm
 
   def save
     return false if invalid?
+
     if @answer.persisted?
       @answer.pictures = pictures if pictures.present?
       @answer.save!
@@ -53,13 +54,12 @@ class AnswerForm
 
   private
 
-    # 回答にコメントか画像が含まれるよう制限する
-    def body_or_pictures
-      errors.add(:base, "コメントか画像を送信してください。") if body.blank? && pictures.blank?
-    end
+  # 回答にコメントか画像が含まれるよう制限する
+  def body_or_pictures
+    errors.add(:base, 'コメントか画像を送信してください。') if body.blank? && pictures.blank?
+  end
 
-    def max_num_of_pictures
-      errors.add(:base, "投稿できる画像は#{MAX_PICTURES_COUNT}枚までです。") if pictures.length > MAX_PICTURES_COUNT
-    end
-
+  def max_num_of_pictures
+    errors.add(:base, "投稿できる画像は#{MAX_PICTURES_COUNT}枚までです。") if pictures.length > MAX_PICTURES_COUNT
+  end
 end

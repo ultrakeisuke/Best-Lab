@@ -13,5 +13,4 @@ class Room < ApplicationRecord
     checked_entry = Entry.find_by(user_id: user, room_id: self)
     checked_entry&.notice
   end
-
 end

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Users::ConfirmationsController < Devise::ConfirmationsController
-  
   # GET /resource/confirmation/new
   # def new
   #   super
@@ -19,14 +18,13 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
 
   protected
 
-    # アカウント有効化申請メール送信後はrootにリダイレクトする
-    def after_resending_confirmation_instructions_path_for(resource_name)
-      root_path
-    end
+  # アカウント有効化申請メール送信後はrootにリダイレクトする
+  def after_resending_confirmation_instructions_path_for(_resource_name)
+    root_path
+  end
 
-    # アカウント認証後はユーザー詳細画面にリダイレクトする
-    def after_confirmation_path_for(resource_name, resource)
-      users_basic_path(current_user)
-    end
-
+  # アカウント認証後はユーザー詳細画面にリダイレクトする
+  def after_confirmation_path_for(_resource_name, _resource)
+    users_basic_path(current_user)
+  end
 end

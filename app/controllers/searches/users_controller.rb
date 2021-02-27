@@ -5,8 +5,9 @@ class Searches::UsersController < ApplicationController
 
   # ユーザーの検索一覧を表示
   def index
-    params[:q][:description_cont_any] = params[:q][:description_cont_any].split(/[[:blank:]]+/) if params[:q][:description_cont_any].present?
+    if params[:q][:description_cont_any].present?
+      params[:q][:description_cont_any] = params[:q][:description_cont_any].split(/[[:blank:]]+/)
+    end
     @profiles = Profile.ransack(params[:q]).result.page(params[:page])
   end
-
 end

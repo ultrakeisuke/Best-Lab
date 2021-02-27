@@ -8,5 +8,4 @@ class QuestionEntry < ApplicationRecord
     # 自身の質問に関する情報は除き、新着通知が入った順にソート
     where(user_id: user).where.not(post_id: post_ids).order(updated_at: :desc)
   end
-
 end

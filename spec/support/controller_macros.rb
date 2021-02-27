@@ -1,5 +1,4 @@
 module ControllerMacros
-
   # 管理者としてログイン
   def login_admin(admin)
     sign_in admin
@@ -10,5 +9,4 @@ module ControllerMacros
     user.confirm
     sign_in user
   end
-
 end

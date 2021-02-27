@@ -2,7 +2,7 @@
 
 class Admins::UsersController < ApplicationController
   before_action :authenticate_admin!
-  before_action :check_user, only: [:show, :destroy]
+  before_action :check_user, only: %i[show destroy]
 
   def index
     params[:q][:name_cont_any] = params[:q][:name_cont_any].split(/[[:blank:]]+/) if params[:q][:name_cont_any].present?
@@ -23,9 +23,8 @@ class Admins::UsersController < ApplicationController
 
   private
 
-    # DBに存在しないユーザーidを入力するとrootにリダイレクト
-    def check_user
-      redirect_to root_path unless User.exists?(id: params[:id])
-    end
-  
+  # DBに存在しないユーザーidを入力するとrootにリダイレクト
+  def check_user
+    redirect_to root_path unless User.exists?(id: params[:id])
+  end
 end

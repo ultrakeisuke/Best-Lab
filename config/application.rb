@@ -32,14 +32,12 @@ module BestLab
                        routing_specs: false,
                        controller_specs: true,
                        request_specs: false
-      g.fixture_replacement :factory_bot, dir: "spec/factories"
+      g.fixture_replacement :factory_bot, dir: 'spec/factories'
     end
 
     # フォーム入力のバリデーションエラー発生時にデザインが崩れるのを防ぐ
-    config.action_view.field_error_proc = Proc.new do |html_tag, instance|
+    config.action_view.field_error_proc = proc do |html_tag, _instance|
       html_tag
     end
-
   end
-
 end

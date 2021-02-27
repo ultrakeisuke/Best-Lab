@@ -1,9 +1,8 @@
 require 'test_helper'
 
 class StaticPagesControllerTest < ActionDispatch::IntegrationTest
-
   def setup
-    @base_title = "Best-Lab"
+    @base_title = 'Best-Lab'
   end
 
   # test "should get root" do
@@ -34,5 +33,4 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
   #   assert_response :success
   #   assert_select "title", "Contact | Best-Lab"
   # end
-
 end

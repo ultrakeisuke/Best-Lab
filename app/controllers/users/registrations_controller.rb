@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
-  before_action :authenticate_user!, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!, only: %i[edit update destroy]
   before_action :configure_sign_up_params, only: [:create]
-  before_action :configure_account_update_params, only:[:update]
-  before_action :check_guest, only: [:update, :destroy]
+  before_action :configure_account_update_params, only: [:update]
+  before_action :check_guest, only: %i[update destroy]
 
   # GET /resource/sign_up
   # def new
@@ -31,7 +31,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     current_user.inactivate_account
     Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name)
     set_flash_message! :notice, :destroyed
-    respond_with_navigational(resource){ redirect_to after_sign_out_path_for(resource_name) }
+    respond_with_navigational(resource) { redirect_to after_sign_out_path_for(resource_name) }
   end
 
   # GET /resource/cancel
@@ -45,41 +45,38 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   protected
 
-    # 新規登録時のストロングパラメータを定義
-    def configure_sign_up_params
-      devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
-    end
+  # 新規登録時のストロングパラメータを定義
+  def configure_sign_up_params
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
+  end
 
-    # アカウント更新時のストロングパラメータを定義
-    def configure_account_update_params
-      devise_parameter_sanitizer.permit(:account_update, keys: [:name, :picture])
-    end
+  # アカウント更新時のストロングパラメータを定義
+  def configure_account_update_params
+    devise_parameter_sanitizer.permit(:account_update, keys: %i[name picture])
+  end
 
-    # アカウント更新後はユーザー詳細画面にリダイレクトする
-    def after_update_path_for(resource)
-      users_basic_path(current_user)
-    end
+  # アカウント更新後はユーザー詳細画面にリダイレクトする
+  def after_update_path_for(_resource)
+    users_basic_path(current_user)
+  end
 
-    # The path used after sign up.
-    # def after_sign_up_path_for(resource)
-    #   users_path
-    # end
+  # The path used after sign up.
+  # def after_sign_up_path_for(resource)
+  #   users_path
+  # end
 
-    # 新規登録時はアカウント認証が完了していないので、rootにリダイレクトする
-    def after_inactive_sign_up_path_for(resource)
-      root_path
-    end
+  # 新規登録時はアカウント認証が完了していないので、rootにリダイレクトする
+  def after_inactive_sign_up_path_for(_resource)
+    root_path
+  end
 
-    # パスワード入力なしでアカウント情報を更新する
-    def update_resource(resource, params)
-      resource.update_without_current_password(params)
-    end
+  # パスワード入力なしでアカウント情報を更新する
+  def update_resource(resource, params)
+    resource.update_without_current_password(params)
+  end
 
-    # ゲストユーザーの場合は削除できないようにする
-    def check_guest
-      if resource.email == 'guest@example.com'
-        redirect_to users_basic_path(current_user), alert: 'ゲストユーザーの編集・削除はできません。'
-      end
-    end
-
+  # ゲストユーザーの場合は削除できないようにする
+  def check_guest
+    redirect_to users_basic_path(current_user), alert: 'ゲストユーザーの編集・削除はできません。' if resource.email == 'guest@example.com'
+  end
 end

@@ -25,7 +25,7 @@ class Questions::AnswersController < ApplicationController
         format.html { redirect_to questions_post_path(@answer.post_id) }
         format.js
       else
-        format.html { render "questions/posts/show" }
+        format.html { render 'questions/posts/show' }
         format.js { render :errors }
       end
     end
@@ -44,21 +44,20 @@ class Questions::AnswersController < ApplicationController
         format.html { redirect_to questions_post_path(answer.post_id) }
         format.js
       else
-        format.html { render "questions/posts/show" }
+        format.html { render 'questions/posts/show' }
         format.js { render :errors }
       end
     end
   end
 
   private
-  
-    def answer_params
-      params.require(:answer_form).permit(:id, :body, :post_id, pictures_attributes: [:picture]).merge(user_id: current_user.id)
-    end
 
-    # 他人の回答は編集できないよう制限する
-    def restricted_editing_answer
-      redirect_to users_basic_path(current_user) if current_user.answers.ids.exclude?(params[:id].to_i)
-    end
-  
+  def answer_params
+    params.require(:answer_form).permit(:id, :body, :post_id, pictures_attributes: [:picture]).merge(user_id: current_user.id)
+  end
+
+  # 他人の回答は編集できないよう制限する
+  def restricted_editing_answer
+    redirect_to users_basic_path(current_user) if current_user.answers.ids.exclude?(params[:id].to_i)
+  end
 end

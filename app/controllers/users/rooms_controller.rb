@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Users::RoomsController < ApplicationController
-  before_action :authenticate_user!, only: [:index, :show, :create]
+  before_action :authenticate_user!, only: %i[index show create]
   before_action :restricted_room_viewing, only: [:show]
 
   def create
@@ -32,14 +32,13 @@ class Users::RoomsController < ApplicationController
 
   private
 
-    def entry_params
-      params.require(:entry).permit(:user_id)
-    end
+  def entry_params
+    params.require(:entry).permit(:user_id)
+  end
 
-    # 他人のメッセージルームを閲覧できないよう制限
-    def restricted_room_viewing
-      current_room_ids = current_user.entries.map(&:room_id)
-      redirect_to users_basic_path(current_user) if current_room_ids.exclude?(params[:id].to_i)
-    end
-
+  # 他人のメッセージルームを閲覧できないよう制限
+  def restricted_room_viewing
+    current_room_ids = current_user.entries.map(&:room_id)
+    redirect_to users_basic_path(current_user) if current_room_ids.exclude?(params[:id].to_i)
+  end
 end

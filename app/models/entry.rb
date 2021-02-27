@@ -17,7 +17,7 @@ class Entry < ApplicationRecord
   def self.sorted_entries(user)
     last_messages = []
     find_each do |another_entry|
-    # メッセージが１つでも存在する部屋のメッセージを取得
+      # メッセージが１つでも存在する部屋のメッセージを取得
       last_messages << another_entry.room.messages.last if another_entry.room.messages.present?
     end
     # メッセージの作成時刻をもとにソート
@@ -39,5 +39,4 @@ class Entry < ApplicationRecord
     # 共通の部屋を持たない、もしくはentryを持っていない場合
     @room_id = nil
   end
-
 end
