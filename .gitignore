@@ -49,5 +49,6 @@ yarn-debug.log*
 # Ignore .vscode
 /.vscode
 
-# Ignore eslint config
+# Ignore eslint and prettier config
 /.eslintrc.json
+/.prettierrc.js
