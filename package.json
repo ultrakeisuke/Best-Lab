@@ -3,14 +3,6 @@
   "version": "1.0.0",
   "description": "This README would normally document whatever steps are necessary to get the application up and running.",
   "main": "babel.config.js",
-  "directories": {
-    "lib": "lib",
-    "test": "test"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint app/assets/javascripts --fix"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ultrakeisuke/Best-Lab.git"
@@ -22,7 +14,27 @@
     "url": "https://github.com/ultrakeisuke/Best-Lab/issues"
   },
   "homepage": "https://github.com/ultrakeisuke/Best-Lab#readme",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint app/assets/javascripts --fix"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": "eslint --fix"
+  },
   "devDependencies": {
-    "eslint": "^7.21.0"
+    "eslint": "^7.21.0",
+    "eslint-config-prettier": "^8.1.0",
+    "husky": "^5.1.1",
+    "lint-staged": "^10.5.4",
+    "prettier": "^2.2.1"
   }
 }
