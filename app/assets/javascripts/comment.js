@@ -3,7 +3,7 @@ window.addEventListener('load', function () {
   function clickAnswerContents() {
     // 回答編集用のアイコンをクリックしたときの処理
     $(document).on('click', '.edit-answer-icon', function () {
-      var answerID = this.getAttribute('data-answer-id');
+      answerID = this.getAttribute('data-answer-id');
       // 回答を非表示にする処理
       $('#answer-contents-' + answerID).addClass('hide');
       // 回答の編集フォームを表示する処理
@@ -46,5 +46,4 @@ window.addEventListener('load', function () {
   }
 
   clickReplyContents();
-
 });
