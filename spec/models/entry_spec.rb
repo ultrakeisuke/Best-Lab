@@ -4,14 +4,14 @@ RSpec.describe Entry, type: :model do
   let(:user) { create(:user) }
   let(:another_user) { create(:another_user) }
 
-  describe "self.another_entriesメソッド" do
-    context "ログインユーザーがエントリーを持っていない場合" do
-      it "空の配列を返す" do
+  describe 'self.another_entriesメソッド' do
+    context 'ログインユーザーがエントリーを持っていない場合' do
+      it '空の配列を返す' do
         another_entries = Entry.another_entries(user)
         expect(another_entries).to eq []
       end
     end
-    context "ログインユーザーがエントリーを持っている場合" do
+    context 'ログインユーザーがエントリーを持っている場合' do
       before do
         @users = create_list(:test_users, 2)
         @rooms = create_list(:rooms, 3)
@@ -24,26 +24,26 @@ RSpec.describe Entry, type: :model do
         @entry5 = create(:entry, room_id: @rooms[2].id, user_id: @users[0].id)
         @entry6 = create(:entry, room_id: @rooms[2].id, user_id: @users[1].id)
       end
-      it "ログインユーザーと部屋を共有している他人のエントリーを返す" do
+      it 'ログインユーザーと部屋を共有している他人のエントリーを返す' do
         another_entries = Entry.another_entries(user)
         expect(another_entries).to eq [@entry2, @entry4]
       end
     end
   end
 
-  describe "self.partner_of(user)メソッド" do
+  describe 'self.partner_of(user)メソッド' do
     before do
       @room = create(:room)
       @user_entry = create(:entry, room_id: @room.id, user_id: user.id)
       @another_entry = create(:entry, room_id: @room.id, user_id: another_user.id)
     end
-    it "相手のエントリーを返す" do
+    it '相手のエントリーを返す' do
       another_entry = @room.entries.partner_of(user)
       expect(another_entry).to eq @another_entry
     end
   end
 
-  describe "self.sorted_entries(user)メソッド" do
+  describe 'self.sorted_entries(user)メソッド' do
     before do
       @users = create_list(:test_users, 3)
       @rooms = create_list(:rooms, 3)
@@ -54,20 +54,20 @@ RSpec.describe Entry, type: :model do
       @entry5 = create(:entry, room_id: @rooms[2].id, user_id: user.id)
       @entry6 = create(:entry, room_id: @rooms[2].id, user_id: @users[2].id)
     end
-    context "すべてのエントリーにメッセージがない場合" do
-      it "空の配列を返す" do
+    context 'すべてのエントリーにメッセージがない場合' do
+      it '空の配列を返す' do
         another_entries = Entry.another_entries(user)
         sorted_entries = another_entries.sorted_entries(user)
         expect(sorted_entries).to eq []
       end
     end
-    context "メッセージを持つエントリーがある場合" do
+    context 'メッセージを持つエントリーがある場合' do
       before do
         # @rooms[2]はメッセージを持たない部屋とする
-        message1 = create(:message, room_id: @rooms[0].id, user_id: user.id, created_at: Time.current)
-        message2 = create(:message, room_id: @rooms[1].id, user_id: user.id, created_at: Time.current + 1.second)
+        create(:message, room_id: @rooms[0].id, user_id: user.id, created_at: Time.current)
+        create(:message, room_id: @rooms[1].id, user_id: user.id, created_at: Time.current + 1.second)
       end
-      it "メッセージがないエントリーを取り除きソートして返す" do
+      it 'メッセージがないエントリーを取り除きソートして返す' do
         another_entries = Entry.another_entries(user)
         expect(another_entries).to eq [@entry2, @entry4, @entry6]
         # メッセージがない@entry6を取り除き、投稿時刻をもとにソート
@@ -77,22 +77,21 @@ RSpec.describe Entry, type: :model do
     end
   end
 
-  describe "self.find_room_idメソッド" do
+  describe 'self.find_room_idメソッド' do
     let(:room) { create(:room) }
-    context "共通の部屋を持つ場合" do
-      it "room_idを返す" do
+    context '共通の部屋を持つ場合' do
+      it 'room_idを返す' do
         current_entry = create(:entry, user_id: user.id, room_id: room.id)
-        another_entry = create(:entry, user_id: another_user.id, room_id: room.id)
+        create(:entry, user_id: another_user.id, room_id: room.id)
         room_id = Entry.find_room_id(user, another_user)
         expect(room_id).to eq current_entry.room_id
       end
     end
-    context "共通の部屋を持たない場合" do
-      it "nilを返す" do
+    context '共通の部屋を持たない場合' do
+      it 'nilを返す' do
         room_id = Entry.find_room_id(user, another_user)
         expect(room_id).to eq nil
       end
     end
   end
-
 end

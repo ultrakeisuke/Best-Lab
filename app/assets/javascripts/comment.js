@@ -20,7 +20,7 @@ window.addEventListener('load', function () {
       $('#edit-answer-form-' + answerID).addClass('hide');
       $('#answer-contents-' + answerID).removeClass('hide');
     });
-  };
+  }
 
   clickAnswerContents();
 
@@ -43,8 +43,7 @@ window.addEventListener('load', function () {
       // リプライを表示する処理
       $('#reply-contents-' + replyID).removeClass('hide');
     });
-  };
+  }
 
   clickReplyContents();
-
 });

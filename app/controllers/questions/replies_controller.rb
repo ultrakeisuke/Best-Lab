@@ -19,7 +19,7 @@ class Questions::RepliesController < ApplicationController
         format.html { redirect_to questions_post_path(@reply.post_id) }
         format.js
       else
-        format.html { render "questions/posts/show" }
+        format.html { render 'questions/posts/show' }
         format.js { render :create_errors }
       end
     end
@@ -40,7 +40,7 @@ class Questions::RepliesController < ApplicationController
         format.html { redirect_to questions_post_path(@reply.post_id) }
         format.js
       else
-        format.html { render "questions/posts/show" }
+        format.html { render 'questions/posts/show' }
         format.js { render :update_errors }
       end
     end
@@ -48,13 +48,12 @@ class Questions::RepliesController < ApplicationController
 
   private
 
-    def reply_params
-      params.require(:reply_form).permit(:id, :body, :post_id, :answer_id, pictures_attributes: [:picture]).merge(user_id: current_user.id)
-    end
+  def reply_params
+    params.require(:reply_form).permit(:id, :body, :post_id, :answer_id, pictures_attributes: [:picture]).merge(user_id: current_user.id)
+  end
 
-    # 他人のリプライは編集できないよう制限する
-    def restricted_editing_reply
-      redirect_to users_basic_path(current_user) if current_user.replies.ids.exclude?(params[:id].to_i)
-    end
-
+  # 他人のリプライは編集できないよう制限する
+  def restricted_editing_reply
+    redirect_to users_basic_path(current_user) if current_user.replies.ids.exclude?(params[:id].to_i)
+  end
 end

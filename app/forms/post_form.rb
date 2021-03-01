@@ -5,10 +5,10 @@ class PostForm
   include Virtus.model
   extend CarrierWave::Mount
 
-  STATUS_VALUES = [ 'open', 'closed' ]
+  STATUS_VALUES = %w[open closed].freeze
 
   validates :title,   presence: true, length: { maximum: 50 }
-  validates :content, presence: true, length: { maximum: 10000 }
+  validates :content, presence: true, length: { maximum: 10_000 }
   validates :status, inclusion: { in: STATUS_VALUES }
   validates :category_id, presence: true
   validate :max_num_of_pictures
@@ -46,6 +46,7 @@ class PostForm
 
   def save
     return false if invalid?
+
     if @post.persisted?
       @post.pictures = pictures if pictures.present?
       @post.save!
@@ -65,5 +66,4 @@ class PostForm
   def max_num_of_pictures
     errors.add(:base, "投稿できる画像は#{MAX_PICTURES_COUNT}枚までです。") if pictures.length > MAX_PICTURES_COUNT
   end
-  
 end

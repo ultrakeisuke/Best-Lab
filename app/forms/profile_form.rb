@@ -2,7 +2,7 @@ class ProfileForm
   include ActiveModel::Model
   include Virtus.model
 
-  AFFILIATION_VALUES = [ 'undergraduate', 'graduate', 'technical_students', 'professional_students', 'working', 'other' ]
+  AFFILIATION_VALUES = %w[undergraduate graduate technical_students professional_students working other].freeze
 
   AFFILIATIONS = { unselected: '未選択',
                    undergraduate: '大学生',
@@ -10,8 +10,8 @@ class ProfileForm
                    technical_students: '高専生',
                    professional_students: '専門学生',
                    working: '社会人',
-                   other: 'その他' }
-  
+                   other: 'その他' }.freeze
+
   validates :affiliation, inclusion: { in: AFFILIATION_VALUES }
   validates :school,      length: { maximum: 50 }
   validates :faculty,     length: { maximum: 50 }
@@ -43,6 +43,7 @@ class ProfileForm
 
   def save
     return false if invalid?
+
     if profile.persisted? # profileを持っている場合はそのまま保存
       profile.save!
     else # prifileを持っていない場合はProfileオブジェクトに変換して保存
@@ -59,10 +60,9 @@ class ProfileForm
 
   private
 
-    def at_least_one_parameter
-      if affiliation.blank? && school.blank? && faculty.blank? && department.blank? && laboratory.blank? && description.blank?
-        errors.add(:base, "最低でも1つの項目を入力してください。")
-      end
+  def at_least_one_parameter
+    if affiliation.blank? && school.blank? && faculty.blank? && department.blank? && laboratory.blank? && description.blank?
+      errors.add(:base, '最低でも1つの項目を入力してください。')
     end
-
+  end
 end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Users::MessagesController < ApplicationController
-  before_action :authenticate_user!, only: [:create, :destroy]
+  before_action :authenticate_user!, only: %i[create destroy]
   before_action :restricted_sending_message, only: :create
   before_action :restricted_destroying_message, only: :destroy
 
@@ -16,7 +16,7 @@ class Users::MessagesController < ApplicationController
       @room = Room.find(@message.room_id)
       @another_entry = @room.entries.partner_of(current_user)
       redirect_to root_path if @room.nil? || @another_entry.nil? # roomとentryが見つからなかった場合の処理
-      render "users/rooms/show"
+      render 'users/rooms/show'
     end
   end
 
@@ -28,19 +28,18 @@ class Users::MessagesController < ApplicationController
 
   private
 
-    def message_form_params
-      params.require(:message_form).permit(:room_id, :body, pictures_attributes: [:picture]).merge(user_id: current_user.id)
-    end
+  def message_form_params
+    params.require(:message_form).permit(:room_id, :body, pictures_attributes: [:picture]).merge(user_id: current_user.id)
+  end
 
-    # 他人のメッセージルームにメッセージを送信できない制限
-    def restricted_sending_message
-      room_ids = current_user.entries.map(&:room_id)
-      redirect_to root_path if room_ids.exclude?(message_form_params[:room_id].to_i)
-    end
+  # 他人のメッセージルームにメッセージを送信できない制限
+  def restricted_sending_message
+    room_ids = current_user.entries.map(&:room_id)
+    redirect_to root_path if room_ids.exclude?(message_form_params[:room_id].to_i)
+  end
 
-    # 他人のメッセージは削除できない制限
-    def restricted_destroying_message
-      redirect_to users_basic_path(current_user) if current_user.messages.ids.exclude?(params[:id].to_i)
-    end
-
+  # 他人のメッセージは削除できない制限
+  def restricted_destroying_message
+    redirect_to users_basic_path(current_user) if current_user.messages.ids.exclude?(params[:id].to_i)
+  end
 end

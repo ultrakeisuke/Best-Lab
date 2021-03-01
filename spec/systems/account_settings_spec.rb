@@ -1,12 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe 'アカウントに関するテスト', type: :system do
-
   before do
     ActionMailer::Base.deliveries.clear # テストの実行前に送信メールを空にする
-    users = create_list(:test_users, 3)
+    create_list(:test_users, 3)
     parent_category = create(:parent_category)
-    children_category = create(:children_category, ancestry: parent_category.id)
+    create(:children_category, ancestry: parent_category.id)
   end
 
   it 'ユーザーの新規登録処理' do
@@ -16,7 +15,7 @@ RSpec.describe 'アカウントに関するテスト', type: :system do
     fill_in 'メールアドレス', with: 'user@example.com'
     fill_in 'パスワード', with: 'password'
     fill_in '確認用パスワード', with: 'password'
-    expect { click_on '送信'}.to change { ActionMailer::Base.deliveries.size }.by(1).and change(User, :count).by(1)
+    expect { click_on '送信' }.to change { ActionMailer::Base.deliveries.size }.by(1).and change(User, :count).by(1)
     # 登録後の画面表示を確認
     expect(page).to have_current_path root_path
     expect(page).to have_content '本人確認用のメールを送信しました。メール内のリンクから登録を完了させてください。'
@@ -40,19 +39,16 @@ RSpec.describe 'アカウントに関するテスト', type: :system do
     expect(page).to have_current_path root_path
     expect(page).to have_content 'アカウントの有効化について数分以内にメールでご連絡いたします。'
   end
-
 end
 
-
 RSpec.describe 'ログインとログアウト', type: :system do
-  
-  let(:user) { create(:user, confirmed_at: Time.now) }
-  
+  let(:user) { create(:user, confirmed_at: Time.current) }
+
   before do
     parent_category = create(:parent_category)
-    children_category = create(:children_category, ancestry: parent_category.id)
+    create(:children_category, ancestry: parent_category.id)
   end
-  
+
   it 'ログインとログアウト処理' do
     visit new_user_session_path
     # ログインする
@@ -64,18 +60,15 @@ RSpec.describe 'ログインとログアウト', type: :system do
     click_on 'ログアウト'
     expect(page).to have_current_path root_path
   end
-
 end
 
-
 RSpec.describe 'パスワード再設定のメールを送信する', type: :system do
-
-  let(:user) { create(:user, confirmed_at: Time.now) }
+  let(:user) { create(:user, confirmed_at: Time.current) }
 
   before do
     ActionMailer::Base.deliveries.clear
     parent_category = create(:parent_category)
-    children_category = create(:children_category, ancestry: parent_category.id)
+    create(:children_category, ancestry: parent_category.id)
   end
 
   it 'パスワード再設定メールの送信とパスワードの変更確認' do
@@ -95,24 +88,21 @@ RSpec.describe 'パスワード再設定のメールを送信する', type: :sys
     click_on '保存'
     expect(page).to have_content 'パスワードが正しく変更されました。'
     # 新しいパスワードでログインできることを確認
-    click_on "ログアウト"
+    click_on 'ログアウト'
     visit new_user_session_path
     fill_in 'メールアドレス', with: user.email
     fill_in 'パスワード', with: '123456'
-    click_button "ログイン"
-    expect(page).to have_content "ログインしました。"
+    click_button 'ログイン'
+    expect(page).to have_content 'ログインしました。'
   end
-
 end
 
-
 RSpec.describe 'アカウント情報の編集と削除', type: :system do
-
-  let(:user) { create(:user, confirmed_at: Time.now) }
+  let(:user) { create(:user, confirmed_at: Time.current) }
 
   before do
     parent_category = create(:parent_category)
-    children_category = create(:children_category, ancestry: parent_category.id)
+    create(:children_category, ancestry: parent_category.id)
   end
 
   it 'アカウント情報の編集と削除処理' do
@@ -120,7 +110,8 @@ RSpec.describe 'アカウント情報の編集と削除', type: :system do
     click_link 'アカウント設定'
     # アカウントを編集
     fill_in '名前', with: 'user!'
-    attach_file 'プロフィール画像', "#{Rails.root}/spec/factories/images/rails.png"
+    # attach_file 'プロフィール画像', "#{Rails.root}/spec/factories/images/rails.png"
+    attach_file 'プロフィール画像', Rails.root.join('spec/factories/images/rails.png')
     click_on '保存'
     # 編集後の画面表示を確認
     expect(page).to have_current_path users_basic_path(user)
@@ -131,17 +122,14 @@ RSpec.describe 'アカウント情報の編集と削除', type: :system do
     click_on 'アカウントの削除'
     page.accept_confirm # 確認ダイアログで「はい」を選択
     expect(page).to have_current_path root_path
-    expect(page).to have_content "アカウントを削除しました。またのご利用をお待ちしております。"
+    expect(page).to have_content 'アカウントを削除しました。またのご利用をお待ちしております。'
   end
-
 end
 
-
 RSpec.describe 'ゲストログインとアカウント削除', type: :system do
-
   before do
     parent_category = create(:parent_category)
-    children_category = create(:children_category, ancestry: parent_category.id)
+    create(:children_category, ancestry: parent_category.id)
   end
 
   it 'ゲストユーザーのアカウントを編集・削除できない' do
@@ -154,13 +142,12 @@ RSpec.describe 'ゲストログインとアカウント削除', type: :system do
     fill_in '名前', with: 'another_user'
     click_on '保存'
     # アカウントを編集できないことを確認
-    expect(page).to have_content "ゲストユーザーの編集・削除はできません。"
+    expect(page).to have_content 'ゲストユーザーの編集・削除はできません。'
     # アカウントを削除
     click_link 'アカウント設定'
     click_on 'アカウントの削除'
     page.accept_confirm # 確認ダイアログで「はい」を選択
     # アカウントを削除できないことを確認
-    expect(page).to have_content "ゲストユーザーの編集・削除はできません。"
+    expect(page).to have_content 'ゲストユーザーの編集・削除はできません。'
   end
-
 end

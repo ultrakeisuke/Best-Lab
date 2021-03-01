@@ -11,10 +11,10 @@ class User < ApplicationRecord
   has_one :profile, dependent: :destroy
   has_many :entries, dependent: :destroy
   has_many :messages, dependent: :destroy
-  has_many :posts
-  has_many :answers
-  has_many :replies
-  has_many :question_entries
+  has_many :posts, dependent: :destroy
+  has_many :answers, dependent: :destroy
+  has_many :replies, dependent: :destroy
+  has_many :question_entries, dependent: :destroy
 
   # アカウント認証が済むまでログインできない処理
   def active_for_authentication?
@@ -42,19 +42,19 @@ class User < ApplicationRecord
   def self.guest
     find_or_create_by!(name: 'guest', email: 'guest@example.com') do |user|
       user.password = SecureRandom.urlsafe_base64
-      user.confirmed_at = Time.now
+      user.confirmed_at = Time.current
     end
   end
 
   # ユーザーの退会処理
   def inactivate_account
-    self.update(name: "退会済みユーザー")
-    self.discard
+    update(name: '退会済みユーザー')
+    discard
   end
 
   # 退会したユーザーに紐づく投稿と追知を削除
   def inactivate_comments_and_notices
-    secondary_array = [ posts, answers, replies, question_entries ]
+    secondary_array = [posts, answers, replies, question_entries]
     secondary_array.each do |array|
       array.each do |element|
         element.destroy
@@ -64,7 +64,6 @@ class User < ApplicationRecord
 
   # プロフィール画像の有無で表示する画像を変化する処理
   def profile_picture
-    self.picture.present? ? self.picture.url : "default.jpeg"
+    picture.present? ? picture.url : 'default.jpeg'
   end
-
 end

@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 class Questions::PostsController < ApplicationController
-  before_action :authenticate_user!, only: [:create, :edit, :update, :select_best_answer]
-  before_action :restricted_editing_post, only: [:edit, :update, :select_best_answer]
-  before_action :set_categories_for_new, only: [:new, :create]
-  before_action :set_categories_for_edit, only: [:edit, :update]
-  
+  before_action :authenticate_user!, only: %i[create edit update select_best_answer]
+  before_action :restricted_editing_post, only: %i[edit update select_best_answer]
+  before_action :set_categories_for_new, only: %i[new create]
+  before_action :set_categories_for_edit, only: %i[edit update]
+
   # すべての質問一覧
   def index
     @posts = Post.all.order(id: :desc)
@@ -35,7 +35,7 @@ class Questions::PostsController < ApplicationController
     if @post_form.save
       post = Post.where(user_id: current_user).last
       post&.create_notice # 質問投稿者用の通知レコードを作成
-      redirect_to users_basic_path(current_user), flash: { notice: "質問を投稿しました。" }
+      redirect_to users_basic_path(current_user), flash: { notice: '質問を投稿しました。' }
     else
       render :new
     end
@@ -54,7 +54,7 @@ class Questions::PostsController < ApplicationController
     @post_form = PostForm.new(@post)
     @post_form.assign_attributes(post_params)
     if @post_form.save
-      redirect_to questions_post_path(@post), flash: { notice: "質問を編集しました。" }
+      redirect_to questions_post_path(@post), flash: { notice: '質問を編集しました。' }
     else
       render :edit
     end
@@ -62,7 +62,7 @@ class Questions::PostsController < ApplicationController
 
   # 親カテゴリーを選択した際に子カテゴリーを動的に変化させる処理
   def get_children_categories
-    @children_categories = Category.find_by(id: "#{params[:parent_category_id]}", ancestry: nil).children
+    @children_categories = Category.find_by(id: params[:parent_category_id].to_s, ancestry: nil).children
   end
 
   # ベストアンサーを選出する処理
@@ -72,33 +72,32 @@ class Questions::PostsController < ApplicationController
     @post_form.assign_attributes(post_params)
     if @post_form.save
       post.send_notice_to_answerers # 回答者全員に通知を送信する
-      redirect_to questions_post_path(post), flash: { notice: "ベストアンサーが決定しました！" }
+      redirect_to questions_post_path(post), flash: { notice: 'ベストアンサーが決定しました！' }
     else
-      render "questions/posts/show"
+      render 'questions/posts/show'
     end
   end
 
   private
 
-    def post_params
-      params.require(:post_form).permit(:category_id, :title, :content, :status, :best_answer_id, pictures_attributes: [:picture]).merge(user_id: current_user.id)
-    end
+  def post_params
+    params.require(:post_form).permit(:category_id, :title, :content, :status, :best_answer_id, pictures_attributes: [:picture]).merge(user_id: current_user.id)
+  end
 
-    # 新規作成画面のセレクトボックスの初期値を表示
-    def set_categories_for_new
-      @parent_categories = Category.where(ancestry: nil)
-      @children_categories = @parent_categories.first&.children
-    end
+  # 新規作成画面のセレクトボックスの初期値を表示
+  def set_categories_for_new
+    @parent_categories = Category.where(ancestry: nil)
+    @children_categories = @parent_categories.first&.children
+  end
 
-    # 編集画面のセレクトボックスの初期値を表示
-    def set_categories_for_edit
-      @parent_categories = Category.where(ancestry: nil)
-      @children_categories = Post.find(params[:id]).category.parent.children
-    end
+  # 編集画面のセレクトボックスの初期値を表示
+  def set_categories_for_edit
+    @parent_categories = Category.where(ancestry: nil)
+    @children_categories = Post.find(params[:id]).category.parent.children
+  end
 
-    # 他人の質問編集画面を閲覧できない、かつ編集できない制限
-    def restricted_editing_post
-      redirect_to users_basic_path(current_user) if current_user.posts.ids.exclude?(params[:id].to_i)
-    end
-
+  # 他人の質問編集画面を閲覧できない、かつ編集できない制限
+  def restricted_editing_post
+    redirect_to users_basic_path(current_user) if current_user.posts.ids.exclude?(params[:id].to_i)
+  end
 end

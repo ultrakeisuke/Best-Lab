@@ -1,5 +1,4 @@
 module LoginMacros
-
   # 一般ユーザーのログイン
   def login_as_user(user)
     visit sign_in_path
@@ -15,5 +14,4 @@ module LoginMacros
     fill_in 'パスワード', with: admin.password
     click_button 'ログイン'
   end
-
 end

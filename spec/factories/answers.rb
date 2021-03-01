@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :answer, class: Answer do
-    body { "answer" }
+    body { 'answer' }
   end
   factory :answer_form, class: AnswerForm do
-    body { "answer_form" }
+    body { 'answer_form' }
   end
 end

@@ -6,29 +6,29 @@ class Post < ApplicationRecord
   belongs_to :user
   belongs_to :category
 
-  STATUS = { open: "受付中", closed: "解決済" }
+  STATUS = { open: '受付中', closed: '解決済' }.freeze
 
   # 自己解決した場合の処理
   def solved_by_questioner
-    best_answer = Answer.find_by(post_id: self, user_id: self.user_id)
-    self.status = "closed"
+    best_answer = Answer.find_by(post_id: self, user_id: user_id)
+    self.status = 'closed'
     self.best_answer_id = best_answer.id
-    self.save
+    save
   end
 
-  # 英語名で保存された投稿状態(status)を日本語で表示 
+  # 英語名で保存された投稿状態(status)を日本語で表示
   def translated_status
-    STATUS[self.status.to_sym]
+    STATUS[status.to_sym]
   end
 
   # 質問投稿者用の通知レコードを作成
   def create_notice
-    QuestionEntry.create(user_id: self.user_id, post_id: self.id)
+    QuestionEntry.create(user_id: user_id, post_id: id)
   end
 
   # ベストアンサー決定時に回答者全員に通知を送信する
   def send_notice_to_answerers
-    answerers = QuestionEntry.where(post_id: self).where.not(user_id: self.user_id)
+    answerers = QuestionEntry.where(post_id: self).where.not(user_id: user_id)
     answerers.each do |answerer|
       answerer.update(notice: true) unless answerer.notice
     end
@@ -46,5 +46,4 @@ class Post < ApplicationRecord
     checked_entry = QuestionEntry.find_by(user_id: user, post_id: self)
     checked_entry&.notice
   end
-
 end

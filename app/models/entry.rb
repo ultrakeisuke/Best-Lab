@@ -17,13 +17,12 @@ class Entry < ApplicationRecord
   def self.sorted_entries(user)
     last_messages = []
     find_each do |another_entry|
-    # メッセージが１つでも存在する部屋のメッセージを取得
+      # メッセージが１つでも存在する部屋のメッセージを取得
       last_messages << another_entry.room.messages.last if another_entry.room.messages.present?
     end
     # メッセージの作成時刻をもとにソート
     sorted_messages = last_messages.sort_by! { |a| a[:created_at] }.reverse
-    sorted_entries = sorted_messages.map { |sorted_message| sorted_message.room.entries.partner_of(user) }
-    sorted_entries
+    sorted_messages.map { |sorted_message| sorted_message.room.entries.partner_of(user) }
   end
 
   # ダイレクトメッセージ用の部屋を相手と共有しているか確認する処理
@@ -39,5 +38,4 @@ class Entry < ApplicationRecord
     # 共通の部屋を持たない、もしくはentryを持っていない場合
     @room_id = nil
   end
-
 end

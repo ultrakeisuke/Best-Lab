@@ -1,5 +1,4 @@
 module VisitUrlMacros
-
   # 本人確認用に送信したメールから本文からurlを抽出
   def extract_url(mail)
     body = mail.body.encoded
@@ -12,5 +11,4 @@ module VisitUrlMacros
     url = extract_url(mail)
     visit url
   end
-
 end

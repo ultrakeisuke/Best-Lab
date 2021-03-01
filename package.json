@@ -1,15 +1,40 @@
 {
-  "name": "Best_Lab",
-  "private": true,
-  "dependencies": {
-    "@rails/actioncable": "^6.0.0",
-    "@rails/activestorage": "^6.0.0",
-    "@rails/ujs": "^6.0.0",
-    "@rails/webpacker": "4.2.2",
-    "turbolinks": "^5.2.0"
+  "name": "Best-Lab",
+  "version": "1.0.0",
+  "description": "This README would normally document whatever steps are necessary to get the application up and running.",
+  "main": "babel.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ultrakeisuke/Best-Lab.git"
   },
-  "version": "0.1.0",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ultrakeisuke/Best-Lab/issues"
+  },
+  "homepage": "https://github.com/ultrakeisuke/Best-Lab#readme",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint app/assets/javascripts --fix"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": "eslint --fix"
+  },
   "devDependencies": {
-    "webpack-dev-server": "^3.11.0"
+    "eslint": "^7.21.0",
+    "eslint-config-prettier": "^8.1.0",
+    "husky": "^3.1.0",
+    "lint-staged": "^10.5.4",
+    "prettier": "^2.2.1"
   }
 }

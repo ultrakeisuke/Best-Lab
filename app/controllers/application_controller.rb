@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-
   protect_from_forgery with: :exception
 
   before_action :profile_search
@@ -23,9 +22,4 @@ class ApplicationController < ActionController::Base
     @parent_categories_for_search = Category.where(ancestry: nil)
     @children_categories_for_search = @parent_categories_for_search.first.children
   end
-
-  protected
-
 end
-
-
