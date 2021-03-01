@@ -36,7 +36,7 @@ window.addEventListener('load', function () {
 
     // リプライ編集をキャンセルするときの処理
     $(document).on('click', '.edit-reply-cancel', function () {
-      replyID = this.getAttribute('data-reply-cancel');
+      var replyID = this.getAttribute('data-reply-cancel');
       // 編集フォームを非表示にする処理
       $('#edit-reply-form-' + replyID).removeClass('show');
       $('#edit-reply-form-' + replyID).addClass('hide');
