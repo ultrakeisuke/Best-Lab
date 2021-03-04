@@ -43,6 +43,9 @@ yarn-debug.log*
 # Ignore /coverage/
 /coverage/
 
+# Ignore config/secrets.yml
+/config/secrets.yml
+
 # Ignore .env
 /.env
 
