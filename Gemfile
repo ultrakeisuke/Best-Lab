@@ -13,16 +13,13 @@ gem 'webpacker', '~> 4.0'
 
 group :development, :test do
   gem 'activerecord-import'
-  gem 'ancestry'
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails'
   gem 'pry-byebug'
   gem 'pry-rails'
   gem 'rails-controller-testing'
-  gem 'ransack'
   gem 'rspec-rails'
   gem 'sqlite3', '1.3.13'
-  gem 'virtus'
 end
 
 group :development do
@@ -45,11 +42,13 @@ end
 
 group :production do
   gem 'pg', '1.2.3'
+  gem 'unicorn'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+gem 'tzinfo-data'
 
+gem 'ancestry'
 gem 'carrierwave'
 gem 'devise'
 gem 'discard'
@@ -61,3 +60,5 @@ gem 'jquery-rails'
 gem 'kaminari'
 gem 'mini_magick'
 gem 'rails-i18n'
+gem 'ransack'
+gem 'virtus'
