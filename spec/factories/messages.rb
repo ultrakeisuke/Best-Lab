@@ -4,5 +4,6 @@ FactoryBot.define do
   end
 
   factory :message_form, class: MessageForm do
+    id { '' }
   end
 end

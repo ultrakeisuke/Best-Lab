@@ -35,7 +35,7 @@ Profile.create(affiliation: 'undergraduate',
                department: 'ゲスト学科',
                laboratory: 'ゲスト研究室',
                description: 'ゲストユーザーです。',
-               user_id: guest_user.id)
+               user_id: 11)
 
 # 退会済みのユーザーを作成
 User.create(name: 'discard',

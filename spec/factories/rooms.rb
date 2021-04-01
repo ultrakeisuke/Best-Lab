@@ -1,5 +1,6 @@
 FactoryBot.define do
   factory :room, class: Room do
+    id { '' }
   end
 
   factory :rooms, class: Room do
