@@ -1,5 +1,6 @@
 FactoryBot.define do
   factory :entry, class: Entry do
+    id { '' }
   end
 
   # ログインユーザーが所有する部屋とその話し相手の情報
