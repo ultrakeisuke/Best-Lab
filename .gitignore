@@ -55,3 +55,9 @@ yarn-debug.log*
 # Ignore eslint and prettier config
 /.eslintrc.json
 /.prettierrc.js
+
+# Ignore .DS_Store, .cache/, .gitconfig, .viminfo
+.DS_Store
+.cache/
+.gitconfig
+.viminfo
