@@ -1,0 +1,8 @@
+test:
+  adapter: postgresql
+  encoding: utf8
+  pool: 5
+  username: 'root'
+  host: '127.0.0.1'
+  port: 5432
+  database: Best-Lab_test
