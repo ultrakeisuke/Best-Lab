@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'アカウントに関するテスト', type: :system do
+RSpec.describe 'アカウントに関するテスト', type: :feature do
   before do
     ActionMailer::Base.deliveries.clear # テストの実行前に送信メールを空にする
     create_list(:test_users, 3)
@@ -62,7 +62,7 @@ RSpec.describe 'ログインとログアウト', type: :system do
   end
 end
 
-RSpec.describe 'パスワード再設定のメールを送信する', type: :system do
+RSpec.describe 'パスワード再設定のメールを送信する', type: :feature do
   let(:user) { create(:user, confirmed_at: Time.current) }
 
   before do
