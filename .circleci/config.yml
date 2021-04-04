@@ -29,64 +29,44 @@ jobs:
 
       # バンドルキャッシュを復元
       - restore_cache:
-        keys:
-          - v1-dependencies-{{ checksum "Gemfile.lock" }}
-          - v1-dependencies-
+          keys:
+            - v1-dependencies-{{ checksum "Gemfile.lock" }}
+            - v1-dependencies-
 
       # bundlerとyarnのインストール
       - run:
-        name: install bundler and yarn
-        command: |
-          gem install bundler -v 2.1.4
-          bundle install
-          yarn install
+          name: install bundler and yarn
+          command: |
+            gem install bundler -v 2.1.4
+            bundle install
+            yarn install
 
       #  rubyの依存関係のバンドルキャッシュを保存
       - save_cache:
-        key: v1-dependencies-{{ checksum "Gemfile.lock" }}
-        paths:
-          - ./vender/bundle
+          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+          paths:
+            - ./vender/bundle
 
       # CI用データベース設定ファイルでdatabase.ymlを上書き
       - run: mv ./config/database.yml.ci ./config/database.yml
 
       # データベースのセットアップ
       - run:
-        name: setup for database
-        # schema.rbをもとにSQLクエリを発行
-        command: |
-          bundle exec rake db:create
-          bundle exec rake db:schema:load
+          name: setup for database
+          # schema.rbをもとにSQLクエリを発行
+          command: |
+            bundle exec rake db:create
+            bundle exec rake db:schema:load
 
       # Rspecによるテスト
       - run:
-        name: run Rspec
-        command: |
-          bundle exec rspec \
-            --format RspecJunitFormatter \
-            --out test_results/rspec.xml \
-            --format progress \
+          name: run Rspec
+          command: |
+            bundle exec rspec \
+              --format RspecJunitFormatter \
+              --out test_results/rspec.xml \
+              --format progress \
 
       # テスト結果を保存(web上のtest summaryから閲覧可)
       - store_test_results:
-        path: test_results
-#   # EC2にSSH接続しデプロイ
-#   deploy:
-#     steps:
-#       # SSHでチェックアウト
-#       - checkout
-
-#       # CircleCIに登録した秘密鍵を呼び出す
-#       - add_ssh_keys:
-#         fingerprint: 4c:14:31:75:ab:ab:65:37:ac:e7:8d:c6:11:96:fd:db
-#       - run: ssh ${USER_NAME}@${HOST_NAME}
-
-# # テストが成功した場合のみdeploy
-# workflows:
-#   version: 2
-#   deploy: # workflow名
-#     jobs:
-#       - deploy:
-#           filters:
-#             branches:
-#               only: master # masterブランチのみdeploy対象とする
+          path: test_results
