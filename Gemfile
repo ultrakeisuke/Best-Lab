@@ -12,7 +12,6 @@ gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 4.0'
 
 group :development, :test do
-  gem 'activerecord-import'
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails'
   gem 'pry-byebug'
@@ -20,6 +19,10 @@ group :development, :test do
   gem 'rails-controller-testing'
   gem 'rspec-rails'
   gem 'sqlite3', '1.3.13'
+end
+
+group :development, :production do
+  gem 'activerecord-import'
 end
 
 group :development do
