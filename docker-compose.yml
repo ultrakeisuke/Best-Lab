@@ -2,12 +2,12 @@ version: '3'
 services:
   db:
     image: postgres:11.11
-    env_file:
-      - .env
     volumes:
       - db-data:/var/lib/postgresql/data:cached
   app:
-    build: .
+    build:
+      context: .
+      dockerfile: ./docker/rails/Dockerfile
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec puma -C config/puma.rb"
     volumes:
       - .:/best-lab:cached
@@ -15,12 +15,13 @@ services:
       - log-data:/best-lab/log
       - public-data:/best-lab/public:cached
       - tmp-data:/best-lab/tmp:cached
-    environment:
-      RAILS_ENV: development
+    tty: true
     links:
       - db
   web:
-    build: nginx
+    build:
+      context: .
+      dockerfile: ./docker/nginx/Dockerfile
     volumes:
       - public-data:/best-lab/public
       - tmp-data:/best-lab/tmp:cached
