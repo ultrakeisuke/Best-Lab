@@ -8,8 +8,8 @@ default: &default
   adapter: postgresql
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: <%= ENV.fetch('POSTGRES_USER') { 'root' } %>
-  password: <%= ENV.fetch('POSTGRES_PASSWORD') { 'password' } %>
+  username: postgres
+  password: postgres
   host: db
   timeout: 5000
   port: 5432
@@ -27,4 +27,7 @@ test:
 
 production:
   <<: *default
-  database: Best-Lab_production
+  username: <%= ENV['POSTGRES_USER'] %>
+  password: <%= ENV['POSTGRES_PASSWORD'] %>
+  database: <%= ENV['POSTGRES_DB'] %>
+  host: <%= ENV['POSTGRES_HOST'] %>
