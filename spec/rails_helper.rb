@@ -4,7 +4,6 @@ require File.expand_path('../config/environment', __dir__)
 # 本番環境でDBのテーブルから全ての行を削除するのを防ぐ
 abort('The Rails environment is running in production mode!') if Rails.env.production?
 require 'rspec/rails'
-
 # support/config配下(テスト用のヘルパーメソッドを使う際に記述するファイル置き場)のファイルを読み込み
 Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
 
@@ -57,5 +56,14 @@ RSpec.configure do |config|
   # テスト終了時に画像を削除する
   config.after(:all) do
     FileUtils.rm_rf(Dir["#{Rails.root}/public/uploads_#{Rails.env}/"]) if Rails.env.test?
+  end
+
+  # selenium-webdriverの設定
+  config.before(:each, type: :system) do
+    driven_by :rack_test
+  end
+
+  config.before(:each, type: :system, js: true) do
+    driven_by :selenium_chrome_headless
   end
 end
