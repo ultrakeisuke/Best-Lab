@@ -12,7 +12,7 @@
       <li>
         <%= link_to(users_basic_path(entry.user)) do %>
           <div class="room-list__image">
-            <%= image_tag entry.user.profile_picture %>
+            <%= image_tag asset_path(entry.user.profile_picture) %>
           </div>
         <% end %>
         <%= link_to(users_room_path(entry.room)) do %>

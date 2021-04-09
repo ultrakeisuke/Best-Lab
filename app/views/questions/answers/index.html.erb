@@ -11,7 +11,7 @@
         <% else %>
           <p class="notice-icon"></p>
         <% end %>
-        <div><%= image_tag comment_list.post.user.profile_picture %></div>
+        <div><%= image_tag asset_path(comment_list.post.user.profile_picture) %></div>
         <div><%= comment_list.post.user.name %></div>
         <div><%= comment_list.post.title %></div>
         <% if comment_list.notice == true %>

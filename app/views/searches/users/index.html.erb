@@ -5,7 +5,7 @@
 <% if @profiles.present? %>
   <% @profiles.each do |profile| %>
     <%= link_to users_basic_path(profile.user_id) do %>
-      <%= image_tag profile.user.profile_picture %>
+      <%= image_tag asset_path(profile.user.profile_picture) %>
       <%= profile.user.name %>
       <%= profile.description %>
     <% end %>
