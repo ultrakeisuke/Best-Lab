@@ -28,7 +28,7 @@ RSpec.describe 'ログインとログアウト', type: :system do
   end
 end
 
-RSpec.describe 'ユーザー情報の閲覧とアカウント削除', type: :system do
+RSpec.describe 'ユーザー情報の閲覧とアカウント削除', js: true, type: :system do
   before do
     parent_category = create(:parent_category)
     create(:children_category, ancestry: parent_category.id)

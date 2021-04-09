@@ -97,7 +97,7 @@ RSpec.describe 'パスワード再設定のメールを送信する', type: :fea
   end
 end
 
-RSpec.describe 'アカウント情報の編集と削除', type: :system do
+RSpec.describe 'アカウント情報の編集と削除', js: true, type: :system do
   let(:user) { create(:user, confirmed_at: Time.current) }
 
   before do
@@ -126,7 +126,7 @@ RSpec.describe 'アカウント情報の編集と削除', type: :system do
   end
 end
 
-RSpec.describe 'ゲストログインとアカウント削除', type: :system do
+RSpec.describe 'ゲストログインとアカウント削除', js: true, type: :system do
   before do
     parent_category = create(:parent_category)
     create(:children_category, ancestry: parent_category.id)

@@ -117,7 +117,7 @@ RSpec.describe '質問掲示板における、回答者からの通知', type: :
   end
 end
 
-RSpec.describe '質問掲示板における、返信者(リプライヤー)からの通知', type: :system do
+RSpec.describe '質問掲示板における、返信者(リプライヤー)からの通知', js: true, type: :system do
   let!(:questioner) { create(:another_user, confirmed_at: Time.current) }
   let!(:answerer) { create(:guest_user, confirmed_at: Time.current) }
   let!(:replier) { create(:user, confirmed_at: Time.current) }
