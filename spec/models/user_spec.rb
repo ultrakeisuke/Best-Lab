@@ -65,7 +65,7 @@ RSpec.describe User, type: :model do
   describe 'profile_pictureメソッド' do
     context '画像が未設定だった場合' do
       it 'default.jpegを返す' do
-        expect(user.profile_picture).to eq 'default.jpeg'
+        expect(user.profile_picture).to eq 'default.jpg'
       end
     end
     context '画像が設定済みだった場合' do
