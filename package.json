@@ -28,7 +28,11 @@
     }
   },
   "lint-staged": {
-    "*.js": "eslint --fix"
+    "*.js": "eslint --fix",
+    "*.{rb,rake}": [
+      "rubocop -a",
+      "rubocop"
+    ]
   },
   "devDependencies": {
     "eslint": "^7.21.0",

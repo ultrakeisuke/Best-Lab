@@ -173,12 +173,12 @@ GEM
       nokogiri (~> 1)
       rake
     mini_magick (4.11.0)
-    mini_mime (1.0.2)
+    mini_mime (1.1.0)
     mini_portile2 (2.5.0)
     minitest (5.14.4)
     msgpack (1.4.2)
     nio4r (2.5.7)
-    nokogiri (1.11.1)
+    nokogiri (1.11.3)
       mini_portile2 (~> 2.5.0)
       racc (~> 1.4)
     orm_adapter (0.5.0)
@@ -202,8 +202,6 @@ GEM
       nio4r (~> 2.0)
     racc (1.5.2)
     rack (2.2.3)
-    rack-proxy (0.6.5)
-      rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (6.0.3.5)
@@ -270,6 +268,8 @@ GEM
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
     rspec-support (3.10.2)
+    rspec_junit_formatter (0.4.1)
+      rspec-core (>= 2, < 4, != 2.12.0)
     rubocop (1.11.0)
       parallel (~> 1.10)
       parser (>= 3.0.0.0)
@@ -348,10 +348,6 @@ GEM
       nokogiri (~> 1.6)
       rubyzip (>= 1.3.0)
       selenium-webdriver (>= 3.0, < 4.0)
-    webpacker (4.3.0)
-      activesupport (>= 4.2)
-      rack-proxy (>= 0.6.1)
-      railties (>= 4.2)
     websocket-driver (0.7.3)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -393,6 +389,7 @@ DEPENDENCIES
   rails-i18n
   ransack
   rspec-rails
+  rspec_junit_formatter
   rubocop
   rubocop-rails
   sass-rails (>= 6.0.0)
@@ -406,7 +403,6 @@ DEPENDENCIES
   virtus
   web-console (>= 3.3.0)
   webdrivers
-  webpacker (~> 4.0)
 
 RUBY VERSION
    ruby 2.7.1p83

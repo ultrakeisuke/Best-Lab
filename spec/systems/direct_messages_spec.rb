@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'ダイレクトメッセージの送信', type: :system do
+RSpec.describe 'ダイレクトメッセージの送信', js: true, type: :system do
   let!(:user) { create(:user, confirmed_at: Time.current) }
   let!(:partner) { create(:another_user, confirmed_at: Time.current) }
   let!(:guest) { create(:guest_user, confirmed_at: Time.current) }

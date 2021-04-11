@@ -9,10 +9,8 @@ gem 'puma', '~> 4.1'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.2'
 gem 'sass-rails', '>= 6.0.0'
 gem 'turbolinks', '~> 5'
-gem 'webpacker', '~> 4.0'
 
 group :development, :test do
-  gem 'activerecord-import'
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails'
   gem 'pry-byebug'
@@ -20,6 +18,10 @@ group :development, :test do
   gem 'rails-controller-testing'
   gem 'rspec-rails'
   gem 'sqlite3', '1.3.13'
+end
+
+group :development, :production do
+  gem 'activerecord-import'
 end
 
 group :development do
@@ -35,6 +37,7 @@ end
 group :test do
   gem 'capybara', '>= 2.15'
   gem 'database_rewinder'
+  gem 'rspec_junit_formatter'
   gem 'selenium-webdriver'
   gem 'simplecov'
   gem 'webdrivers'

@@ -64,6 +64,6 @@ class User < ApplicationRecord
 
   # プロフィール画像の有無で表示する画像を変化する処理
   def profile_picture
-    picture.present? ? picture.url : 'default.jpeg'
+    picture.present? ? picture.url : 'default.jpg'
   end
 end

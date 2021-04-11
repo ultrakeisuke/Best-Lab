@@ -1,0 +1,128 @@
+version: 2.1
+# awsへデプロイするためのorbを定義
+orbs:
+  aws-ecr: circleci/aws-ecr@6.15.3
+  aws-ecs: circleci/aws-ecs@2.1.0
+# タスクを定義し、workflowのjob中で使う
+jobs:
+  # rspecによるテスト
+  build:
+    # rubyとpostgresqlのimageを使用
+    docker:
+      - image: circleci/ruby:2.7.1-node-browsers
+        environment:
+          BUNDLER_VERSION: 2.1.4
+          RAILS_ENV: 'test'
+      - image: circleci/postgres:11.11
+        environment:
+          POSTGRES_USER: root
+          POSTGRES_DB: Best-Lab_test
+          POSTGRES_HOST_AUTH_METHOD: trust # passwordなしで使用
+
+    # stepを実行するディレクトリを設定
+    working_directory: ~/best-lab
+
+    steps:
+      # working_directoryにチェックアウト
+      - checkout
+
+      # bundlerのバージョンを指定
+      - run:
+          name: specify version of bundler
+          command: bundle -v
+
+      # バンドルキャッシュを復元
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "Gemfile.lock" }}
+            - v1-dependencies-
+
+      # bundlerとyarnのインストール
+      - run:
+          name: install bundler and yarn
+          command: |
+            gem install bundler -v 2.1.4
+            bundle install
+            yarn install
+
+      #  rubyの依存関係のバンドルキャッシュを保存
+      - save_cache:
+          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+          paths:
+            - ./vender/bundle
+
+      # CI用データベース設定ファイルでdatabase.ymlを上書き
+      - run: mv ./config/database.yml.ci ./config/database.yml
+
+      # データベースのセットアップ
+      - run:
+          name: setup for database
+          # schema.rbをもとにSQLクエリを発行
+          command: |
+            bundle exec rake db:create
+            bundle exec rake db:schema:load
+
+      # Rspecによるテスト
+      - run:
+          name: run Rspec
+          command: |
+            bundle exec rspec \
+              --format RspecJunitFormatter \
+              --out test_results/rspec.xml \
+              --format progress \
+
+      # テスト結果を保存(web上のtest summaryから閲覧可)
+      - store_test_results:
+          path: test_results
+
+# ビルドとデプロイの流れをworkflowsに定義
+workflows:
+  version: 2
+  # buildとrspecのテスト
+  build-and-test:
+    jobs:
+      - build
+  # nginxのデプロイ
+  nginx-deploy:
+    jobs:
+      - aws-ecr/build-and-push-image:
+          account-url: AWS_ECR_ACCOUNT_URL
+          region: AWS_REGION
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          create-repo: true
+          dockerfile: ./docker/nginx/Dockerfile
+          repo: nginx
+          tag: '${CIRCLE_SHA1}'
+          filters:
+            branches:
+              only: master # masterにマージした場合のみデプロイする
+      - aws-ecs/deploy-service-update:
+          cluster-name: '${ECS_ARN}' # クラスターのARN
+          service-name: '${SERVICE_NAME}' # サービス名
+          container-image-name-updates: 'container=nginx,tag=${CIRCLE_SHA1}'
+          family: '${FAMILY_NAME}' # task名
+          requires:
+            - aws-ecr/build-and-push-image
+  # railsのデプロイ
+  rails-deploy:
+    jobs:
+      - aws-ecr/build-and-push-image:
+          account-url: AWS_ECR_ACCOUNT_URL
+          region: AWS_REGION
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          create-repo: true
+          dockerfile: ./docker/rails/Dockerfile
+          repo: rails
+          tag: '${CIRCLE_SHA1}'
+          filters:
+            branches:
+              only: master
+      - aws-ecs/deploy-service-update:
+          cluster-name: '${ECS_ARN}'
+          service-name: '${SERVICE_NAME}'
+          container-image-name-updates: 'container=rails,tag=${CIRCLE_SHA1}'
+          family: '${FAMILY_NAME}'
+          requires:
+            - aws-ecr/build-and-push-image

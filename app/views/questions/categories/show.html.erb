@@ -4,7 +4,7 @@
 
 <% @posts.each do |post| %>
   <%= link_to(questions_post_path(post)) do %>
-    <%= image_tag post.user.profile_picture %>
+    <%= image_tag asset_path(post.user.profile_picture) %>
     <%= post.user.name %>
     <%= post.title %>
   <% end %>

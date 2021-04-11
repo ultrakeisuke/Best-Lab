@@ -2,7 +2,7 @@
   <div class="message-field__profile">
     <% if message.user_id != current_user.id %>
       <%= link_to(users_basic_path(message.user)) do %>
-        <%= image_tag message.user.profile_picture %>
+        <%= image_tag asset_path(message.user.profile_picture) %>
       <% end %>
     <% end %>
   </div>
