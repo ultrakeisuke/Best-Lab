@@ -75,8 +75,13 @@ jobs:
       - store_test_results:
           path: test_results
 
-# テスト後の処理をworkflowに定義
+# ビルドとデプロイの流れをworkflowsに定義
 workflows:
+  version: 2
+  # buildとrspecのテスト
+  build-and-test:
+    jobs:
+      - build
   # nginxのデプロイ
   nginx-deploy:
     jobs:
