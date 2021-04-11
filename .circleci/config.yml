@@ -1,4 +1,8 @@
 version: 2.1
+# awsへデプロイするためのorbを定義
+orbs:
+  aws-ecr: circleci/aws-ecr@6.15.3
+  aws-ecs: circleci/aws-ecs@2.1.0
 # タスクを定義し、workflowのjob中で使う
 jobs:
   # rspecによるテスト
@@ -70,3 +74,50 @@ jobs:
       # テスト結果を保存(web上のtest summaryから閲覧可)
       - store_test_results:
           path: test_results
+
+# テスト後の処理をworkflowに定義
+workflows:
+  # nginxのデプロイ
+  nginx-deploy:
+    jobs:
+      - aws-ecr/build-and-push-image:
+          account-url: AWS_ECR_ACCOUNT_URL
+          region: AWS_REGION
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          create-repo: true
+          dockerfile: ./docker/nginx/Dockerfile
+          repo: nginx
+          tag: '${CIRCLE_SHA1}'
+          filters:
+            branches:
+              only: master # masterにマージした場合のみデプロイする
+      - aws-ecs/deploy-service-update:
+          cluster-name: '${ECS_ARN}' # クラスターのARN
+          service-name: '${SERVICE_NAME}' # サービス名
+          container-image-name-updates: 'container=nginx,tag=${CIRCLE_SHA1}'
+          family: '${FAMILY_NAME}' # task名
+          requires:
+            - aws-ecr/build-and-push-image
+  # railsのデプロイ
+  rails-deploy:
+    jobs:
+      - aws-ecr/build-and-push-image:
+          account-url: AWS_ECR_ACCOUNT_URL
+          region: AWS_REGION
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          create-repo: true
+          dockerfile: ./docker/rails/Dockerfile
+          repo: rails
+          tag: '${CIRCLE_SHA1}'
+          filters:
+            branches:
+              only: master
+      - aws-ecs/deploy-service-update:
+          cluster-name: '${ECS_ARN}'
+          service-name: '${SERVICE_NAME}'
+          container-image-name-updates: 'container=rails,tag=${CIRCLE_SHA1}'
+          family: '${FAMILY_NAME}'
+          requires:
+            - aws-ecr/build-and-push-image
