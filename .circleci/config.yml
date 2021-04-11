@@ -3,7 +3,6 @@ version: 2.1
 orbs:
   aws-ecr: circleci/aws-ecr@6.15.3
   aws-ecs: circleci/aws-ecs@2.1.0
-# タスクを定義し、workflowのjob中で使う
 jobs:
   # rspecによるテスト
   build:
