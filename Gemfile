@@ -17,7 +17,7 @@ group :development, :test do
   gem 'pry-rails'
   gem 'rails-controller-testing'
   gem 'rspec-rails'
-  gem 'sqlite3', '1.3.13'
+  gem 'sqlite3', '1.4.2'
 end
 
 group :development, :production do
