@@ -97,10 +97,10 @@ workflows:
             branches:
               only: master # masterにマージした場合のみデプロイする
       - aws-ecs/deploy-service-update:
+          family: '${ECS_PARAM_FAMILY}' # task名
           cluster-name: '${ECS_ARN}' # クラスターのARN
           service-name: '${SERVICE_NAME}' # サービス名
           container-image-name-updates: 'container=nginx,tag=${CIRCLE_SHA1}'
-          family: '${FAMILY_NAME}' # task名
           requires:
             - aws-ecr/build-and-push-image
   # railsのデプロイ
@@ -119,9 +119,9 @@ workflows:
             branches:
               only: master
       - aws-ecs/deploy-service-update:
+          family: '${ECS_PARAM_FAMILY}'
           cluster-name: '${ECS_ARN}'
           service-name: '${SERVICE_NAME}'
           container-image-name-updates: 'container=rails,tag=${CIRCLE_SHA1}'
-          family: '${FAMILY_NAME}'
           requires:
             - aws-ecr/build-and-push-image
