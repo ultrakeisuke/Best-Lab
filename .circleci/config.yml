@@ -99,6 +99,7 @@ workflows:
       - aws-ecs/deploy-service-update:
           cluster-name: 'best-lab-cluster' # クラスター名
           family: 'best-lab-task' # タスク名
+          service-name: 'best-lab-ecs-service' # サービス名
           container-image-name-updates: 'container=nginx,tag=${CIRCLE_SHA1}'
           requires:
             - aws-ecr/build-and-push-image
@@ -120,6 +121,7 @@ workflows:
       - aws-ecs/deploy-service-update:
           cluster-name: 'best-lab-cluster'
           family: 'best-lab-task'
+          service-name: 'best-lab-ecs-service'
           container-image-name-updates: 'container=rails,tag=${CIRCLE_SHA1}'
           requires:
             - aws-ecr/build-and-push-image
