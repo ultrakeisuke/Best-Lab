@@ -1,24 +1,52 @@
 <% provide(:title, "Best-Lab") %>
 
-  <h2>Best-Labとは</h2>
+<div class="lp">
+  <div class="lp-main">
+    <div class="lp-main__container row">
+      <div class="lp-main__container--left col-sm-6">
+        <p class="lp-main__subtitle">大学研究者のための情報交換サイト</p>
+        <h1 class="lp-main__title">Best-Lab</h1>
+        <h4 class="lp-main__slogan">研究をもっとおもしろく</h4>
+        <div class="lp-main__guest-sign-in">
+          <% unless user_signed_in? %>
+            <% unless admin_signed_in? %>
+              <%= button_to "ゲストユーザーで体験する", users_guest_sign_in_path, method: :post %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+      <div class="lp-main__container--right col-sm-6">
+        <%= image_tag asset_path("lp-main.jpg") %>
+      </div>
+    </div>
+  </div>
 
-  <h4>Best-Labは、大学生が研究室に配属される際のミスマッチをなくすサービスです。</h4>
-  <h5>大学生の場合：興味のある研究室の先輩とお話できます。</br>
-      大学院生の場合：自分の研究室にマッチしそうな大学生とお話できます。</h5>
-
-  <% unless user_signed_in? %>
-    <% unless admin_signed_in? %>
-      <%= button_to "ゲストログイン(閲覧用)", users_guest_sign_in_path, method: :post %>
-    <% end %>
-  <% end %>
-
-  <p>大学生として体験！</p>
-  <p>大学院生として体験！</p>
-  <%= link_to "新規登録", new_user_registration_path, {class: "sign-up"} %>
-
-  <h5>交流する相手は誰でも構いません</h5>
-
-  <h5>検索機能を使って自分にピッタリの相手を探せます</h5>
-
-  <h5>カレンダーを使ってスケジュール管理ができます</h5>
-  
+  <div class="lp-sub">
+    <div class="lp-sub__container">
+      <h3 class="lp-sub__title">Best-Labは、研究に携わる大学生の悩みを解決します</h3>
+      <ul class="row">
+        <li class="col-sm-4">
+          <div class="card">
+            <h5 class="lp-sub__card-title">質問を投稿</h5>
+            <i class="fas fa-file-upload"></i>
+            <p class="lp-sub__card-sentence">研究に行き詰まったら掲示板に質問を投稿してみましょう。有識者がアドバイスをくれるかもしれません。</p>
+          </div>
+        </li>
+        <li class="col-sm-4">
+          <div class="card">
+            <h5 class="lp-sub__card-title">質問を検索</h5>
+            <i class="fas fa-search"></i>
+            <p class="lp-sub__card-sentence">有識者は自分が興味のある質問を検索できます。解決できそうな質問には積極的に回答してみましょう。</p>
+          </div>
+        </li>
+        <li class="col-sm-4">
+          <div class="card">
+            <h5 class="lp-sub__card-title">安全な情報交換</h5>
+            <i class="fas fa-shield-alt"></i>
+            <p class="lp-sub__card-sentence">研究盗用が心配の方はDMを使った質問が便利。信頼できるユーザーを検索して回答を依頼してみましょう。</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

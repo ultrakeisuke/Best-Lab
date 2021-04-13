@@ -1,9 +1,27 @@
-@import "bootstrap-sprockets";
-@import "bootstrap";
+@import 'bootstrap-sprockets';
+@import 'bootstrap';
 
-h1,h2,h3,h4,h5,h6,p,div,ul,li {
+$color-black: rgb(46, 46, 46);
+$color-grey: rgb(146, 165, 177);
+$color-white: rgb(228, 237, 243);
+$color-light-blue: rgb(229, 243, 255);
+$color-blue: rgb(63, 169, 255);
+$color-green: rgb(86, 198, 0);
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+div,
+ul,
+li {
   padding: 0;
   margin: 0;
+  color: $color-black;
 }
 
 li {
@@ -41,21 +59,18 @@ li {
 //layoutsフォルダ
 //application
 header {
-  padding: 10px;
-  margin: 0 auto;
-  width: 80%;
+  border-bottom: solid 1px $color-white;
   nav {
     text-align: center;
-    font-size: 0;
     a {
       padding: 20px;
       display: inline-block;
-      color: lightskyblue;
-      border: 1px solid lightskyblue;
       font-size: 18px;
+      font-weight: 600;
+      color: $color-black;
       &:hover {
-        background-color: lightskyblue;
-        color: #fff;
+        transition: color 0.3s;
+        color: $color-blue;
         text-decoration: none;
       }
     }
@@ -66,7 +81,6 @@ header {
       display: inline-block;
       &:hover {
         input {
-          background-color: lightskyblue;
           color: #fff;
           text-decoration: none;
         }
@@ -74,11 +88,98 @@ header {
       input {
         padding: 20px;
         background-color: #fff;
-        color: lightskyblue;
-        border: 1px solid lightskyblue;
         border-left: none;
         font-size: 18px;
         white-space: normal;
+      }
+    }
+  }
+}
+
+// lp
+.lp {
+  .lp-main {
+    border-bottom: solid 1px $color-white;
+    padding: 50px 0;
+    .lp-main__container {
+      max-width: 960px;
+      padding: 0 45px;
+      margin: 0 auto;
+      .lp-main__container--left {
+        padding-top: 50px;
+        .lp-main__subtitle {
+          margin-bottom: 15px;
+          font-size: 15px;
+        }
+        .lp-main__title {
+          font-size: 60px;
+        }
+        .lp-main__slogan {
+          margin-top: 60px;
+          font-size: 30px;
+        }
+        .lp-main__guest-sign-in {
+          margin-top: 50px;
+          font-size: 16px;
+          input {
+            padding: 12px;
+            color: white;
+            background-color: $color-blue;
+            border: solid 1px $color-white;
+            border-radius: 5px;
+          }
+          input:hover {
+            color: white;
+            transition: background-color 0.2s;
+            background-color: $color-green;
+            border-color: $color-green;
+          }
+        }
+      }
+      .lp-main__container--right {
+        img {
+          width: 450px;
+          height: 450px;
+        }
+      }
+    }
+  }
+  .lp-sub {
+    background-color: $color-light-blue;
+    padding: 50px 0;
+    .lp-sub__container {
+      width: 72%;
+      margin: 0 auto;
+      text-align: center;
+      .lp-sub__title {
+        font-size: 30px;
+      }
+      ul {
+        padding: 5px;
+        margin-top: 50px;
+        li {
+          .card {
+            margin: 10px auto;
+            padding: 15px;
+            width: 80%;
+            background-color: white;
+            border: solid 1px white;
+            border-radius: 10px;
+            box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.1);
+            .lp-sub__card-title {
+              font-size: 22px;
+            }
+            i {
+              display: block;
+              margin-top: 30px;
+              margin-bottom: 30px;
+              font-size: 50px;
+            }
+            .lp-sub__card-sentence {
+              font-size: 15px;
+            }
+          }
+        }
       }
     }
   }
@@ -268,7 +369,7 @@ header {
     .message-field__message {
       padding: 8px;
       max-width: 80%;
-      border-radius: 12px; 
+      border-radius: 12px;
       background-color: lightskyblue;
       p {
         margin: 0;
@@ -286,7 +387,7 @@ header {
       position: fixed;
       width: 100px;
       text-align-last: left;
-      border: 1px solid #CCC;
+      border: 1px solid #ccc;
       border-radius: 4px;
       background-color: #fff;
       input {
@@ -298,7 +399,7 @@ header {
         background-color: #fff;
         &:hover {
           color: #fff;
-          background-color: #136FFF;
+          background-color: #136fff;
         }
       }
     }
@@ -343,7 +444,7 @@ header {
         color: lightskyblue;
       }
       .too-many-files {
-        color: #FF0000;
+        color: #ff0000;
       }
     }
   }
@@ -385,11 +486,10 @@ header {
     .preview-field__operation--delete {
       display: inline;
       cursor: pointer;
-      color: #347AB7;
+      color: #347ab7;
       i {
         font-size: 25px;
       }
     }
   }
 }
-
