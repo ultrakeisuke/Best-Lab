@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   root 'static_pages#top'
-  get  '/help',    to: 'static_pages#help'
   get  '/contact', to: 'static_pages#contact'
   devise_for :admins, controllers: {
     sessions: 'admins/sessions'
