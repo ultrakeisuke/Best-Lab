@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= yield(:title) %> | Best-Lab</title>
+    <title><%= yield(:title) %></title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -35,11 +35,15 @@
         <%= yield %>
       </div>
 
+      <% unless current_page?(root_path) %>
+        <% if user_signed_in? %>
+          <%= render 'users/shared/search_form' %>
+          <%= render 'questions/shared/search_form' %>
+        <% end %>
+      <% end %>
+
       <% if admin_signed_in? %>
         <%= render 'admins/shared/user_search_form' %>
-      <% else %>
-        <%= render 'users/shared/search_form' %>
-        <%= render 'questions/shared/search_form' %>
       <% end %>
 
     </div>
