@@ -11,7 +11,7 @@ RSpec.describe 'プロフィール検索', type: :system do
 
   it 'プロフィールをもとにユーザーを検索する' do
     login_as_user(user)
-    visit root_path
+    visit users_basic_path(user)
     # 存在しないユーザーを検索する
     find('#q_affiliation_eq').find("option[value='graduate']").select_option
     find('#profile_search').click_button '検索'
@@ -34,7 +34,7 @@ RSpec.describe '質問検索', type: :system do
 
   it 'カテゴリーとキーワードをもとに質問を検索する' do
     login_as_user(user)
-    visit root_path
+    visit users_basic_path(user)
     # 存在しない質問を検索
     find('#parent_category_for_search').find("option[value='#{parent_category.id}']").select_option
     find('#children_category_for_search').find("option[value='#{children_categories[0].id}']").select_option
