@@ -24,6 +24,7 @@
   <div class="lp-sub">
     <div class="lp-sub__container">
       <h3 class="lp-sub__title">Best-Labは、研究に携わる大学生の悩みを解決します</h3>
+      <p class="lp-sub__subtitle">ひとりで悩まず誰かに相談してみましょう</p>
       <ul class="row">
         <li class="col-sm-4">
           <div class="card">
@@ -36,7 +37,7 @@
           <div class="card">
             <h5 class="lp-sub__card-title">質問を検索</h5>
             <i class="fas fa-search"></i>
-            <p class="lp-sub__card-sentence">有識者は自分が興味のある質問を検索できます。解決できそうな質問には積極的に回答してみましょう。</p>
+            <p class="lp-sub__card-sentence">自分と同じ悩みをもつ人が過去に質問を投稿しているかもしれません。検索機能で確認してみてください。</p>
           </div>
         </li>
         <li class="col-sm-4">
@@ -47,6 +48,35 @@
           </div>
         </li>
       </ul>
+    </div>
+  </div>
+
+  <div class="lp-third">
+    <div class="lp-third__container">
+      <div class="lp-third__img-container row">
+        <div class="lp-third__img-container--left col-sm-4">
+          <%= image_tag asset_path("lp-third.jpg") %>
+        </div>
+        <div class="lp-third__img-container--right col-sm-8">
+          <h4 class="lp-third__title">気になる研究室の情報収集にも使えます</h4>
+          <p>学部生にとって研究室選びは大切です。でも、いきなり研究室を訪問するのは少しハードルが高いですよね。<br>
+          <span>そんなときはユーザー検索が便利。</span><br>
+          まずは興味のある研究室の先輩に話を伺ってみましょう。研究室の仕事や雰囲気を教えてくれるかもしれません。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lp-invite">
+    <div class="lp-invite__container">
+      <% unless user_signed_in? %>
+        <% unless admin_signed_in? %>
+          <h4 class="lp-invite__title">体験はこちらから！</h4>
+            <div class="lp-invite__button">
+              <%= button_to "ゲストユーザーでログイン", users_guest_sign_in_path, method: :post %>
+            </div>
+        <% end %>
+      <% end %>
     </div>
   </div>
 </div>
