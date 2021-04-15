@@ -32,19 +32,46 @@
       <p><%= notice %></p>
 
       <div class="yield">
-        <%= yield %>
+        <div class="main">
+          <%= yield %>
+        </div>
+        <% unless current_page?(root_path) %>
+          <div class="sidebar">
+            <% if user_signed_in? %>
+              <div class="sidebar__for-users">
+                <div class="sidebar__for-users--top">
+                  <%= render 'users/shared/search_form' %>
+                </div>
+                <div class="sidebar__for-users--bottom">
+                  <%= render 'questions/shared/search_form' %>
+                </div>
+              </div>
+            <% end %>
+            <% if admin_signed_in? %>
+              <div class="sidebar__for-admin">
+                <%= render 'admins/shared/user_search_form' %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
       </div>
 
-      <% unless current_page?(root_path) %>
-        <% if user_signed_in? %>
-          <%= render 'users/shared/search_form' %>
-          <%= render 'questions/shared/search_form' %>
-        <% end %>
-      <% end %>
-
-      <% if admin_signed_in? %>
-        <%= render 'admins/shared/user_search_form' %>
-      <% end %>
+      <footer>
+        <nav>
+          <% if user_signed_in? %>
+            <%= link_to 'プロフィール', users_basic_path(current_user) %>
+            <%= link_to '質問を投稿する', new_questions_post_path %>
+            <%= link_to 'メッセージ', users_rooms_path %>
+            <%= button_to 'ログアウト', destroy_user_session_path, method: :delete %>
+          <% elsif admin_signed_in? %>
+            <%= button_to 'ログアウト', destroy_admin_session_path, method: :delete %>
+          <% else %>
+            <%= link_to '新規登録', new_user_registration_path %>
+            <%= link_to 'ログイン', new_user_session_path %>
+          <% end %>
+          <small>&copy; 2021 Best-Lab All rights reserved.</small>
+        </nav>
+      </footer>
 
     </div>
   </body>

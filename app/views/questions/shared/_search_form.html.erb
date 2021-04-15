@@ -2,16 +2,20 @@
 
 <%= search_form_for @post_search, url: searches_questions_path do |f| %>
 
-  <div class="filed">
+  <div class="field">
     <%= f.label :category_id_eq, "カテゴリー" %><br />
-    <%= select_tag "parent_category_for_search", options_for_select(@parent_categories_for_search.map{|c| [c.name, c.id]}) %>
-    <%= f.select :category_id_eq, options_for_select(@children_categories_for_search.map{|c| [c.name, c.id]}), {}, {id: "children_category_for_search"} %>
+    <div class="select-container">
+      <%= select_tag "parent_category_for_search", options_for_select(@parent_categories_for_search.map{|c| [c.name, c.id]}) %>
+    </div>
+    <div class="select-container">
+      <%= f.select :category_id_eq, options_for_select(@children_categories_for_search.map{|c| [c.name, c.id]}), {}, {id: "children_category_for_search"} %>
+    </div>
   </div>
 
   <div class="field">
     <%= f.label :content_cont_any, "キーワード" %><br />
+    <p>(スペース区切りで複数検索できます)</p>
     <%= f.text_field :content_cont_any %>
-    <p>スペース区切りで複数検索できます</p><br />
   </div>
 
   <div class="actions">
