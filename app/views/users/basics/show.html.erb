@@ -1,60 +1,72 @@
 <% provide(:title, @user.name) %>
 
-<div class="information">
-  <h4 class="information__title">プロフィール</h4>
-</div>
-
-<div class="profile">
-
-  <div class="profile__picture">
-    <%= image_tag asset_path(@user.profile_picture) %>
-  </div>
-
-  <div class="profile__text">
-    <div class="profile__text--top">
-      <h3><%= @user.name %></h3>
-      <div id="user-affiliation"><%= @user.profile&.translated_affiliation %></div>
+<div class="user-information">
+  <div class="user-profile">
+    <div class="user-profile__picture">
+      <%= image_tag asset_path(@user.profile_picture) %>
+      <h4><%= @user.name %></h4>
     </div>
-    <div class="profile__text--middle">
-        <div id="user-school">学校名：<%= @user.profile&.school %></div>
-        <div id="user-faculty">学部・研究科名：<%= @user.profile&.faculty %></div>
-        <div id="user-department">学科・専攻・コース名：<%= @user.profile&.department %></div>
-        <div id="user-laboratory">研究室名：<%= @user.profile&.laboratory %></div>
-    </div>
-    <div class="profile__text--bottom">
-      <%= @user.profile&.description %>
-    </div>
-
-    <div class="profile__edit">
+    <div class="user-profile__edit">
       <% if user_signed_in? %>
         <% if current_user == @user %>
-          <%= link_to 'アカウント設定', edit_user_registration_path %>
-          <% if @user.profile %>
-            <%= link_to 'プロフィール設定', edit_users_profile_path(@user.profile) %>
-          <% else %>
-            <%= link_to 'プロフィール設定', new_users_profile_path %>
-          <% end %>
+          <div class="user-profile__edit-account">
+            <%= link_to 'アカウント設定', edit_user_registration_path %>
+          </div>
+          <div class="user-profile__edit-profile">
+            <% if @user.profile %>
+              <%= link_to 'プロフィール設定', edit_users_profile_path(@user.profile) %>
+            <% else %>
+              <%= link_to 'プロフィール設定', new_users_profile_path %>
+            <% end %>
+          </div>
         <% end %>
       <% end %>
     </div>
-    
+    <div class="user-profile__details">
+      <div class="user-profile__details--left">
+        <div class="user-profile__detail">
+          <h5>学校名</h5>
+          <%= @user.profile&.school %>
+        </div>
+        <div class="user-profile__detail">
+          <h5>学部・学科名</h5>
+          <p></p><%= @user.profile&.faculty %></p>
+        </div>
+        <div class="user-profile__detail">
+          <h5>学科・専攻・コース名</h5>
+          <p></p><%= @user.profile&.department %></p>
+        </div>
+        <div class="user-profile__detail">
+          <h5>研究室名</h5>
+          <p><%= @user.profile&.laboratory %></p>
+        </div>
+        <div class="user-profile__detail">
+          <h5>所属</h5>
+          <p id="user-affiliation"><%= @user.profile&.translated_affiliation %></p>
+        </div>
+      </div>
+      <div class="user-profile__details--right">
+        <h5>自己紹介</h5>
+        <p><%= @user.profile&.description %></p>
+      </div>
+    </div>
+    <% unless current_user == @user %>
+      <div class="user-information__room-link">
+        <% if @room_id.present? %>
+          <%= button_to "メッセージルーム", users_room_path(@room_id), method: :get %>
+        <% else %>
+          <%= form_with model: @entry.room, url: users_rooms_path, method: :post, local: true do |f| %>
+            <%= f.fields_for @entry do |e| %>
+              <%= e.hidden_field :user_id, value: @user.id %>
+            <% end %>
+            <%= f.submit 'メッセージを始める' %>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
   </div>
-
-  <% unless current_user == @user %>
-    <div class="user-information__room-link">
-      <% if @room_id.present? %>
-        <%= button_to "メッセージルーム", users_room_path(@room_id), method: :get %>
-      <% else %>
-        <%= form_with model: @entry.room, url: users_rooms_path, method: :post, local: true do |f| %>
-          <%= f.fields_for @entry do |e| %>
-            <%= e.hidden_field :user_id, value: @user.id %>
-          <% end %>
-          <%= f.submit 'メッセージを始める' %>
-        <% end %>
-      <% end %>
-    </div>
-  <% end %>
-
+</div>
+<div class="user-question">
   <h4>投稿した質問</h4>
   <% @posts.each do |post| %>
     <%= link_to(questions_post_path(post)) do %>
@@ -66,5 +78,4 @@
       <p><%= post.title %></p>
     <% end %>
   <% end %>
-
 </div>
