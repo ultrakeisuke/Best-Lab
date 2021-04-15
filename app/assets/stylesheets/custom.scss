@@ -29,7 +29,8 @@ li {
 }
 
 .yield {
-  width: 100%;
+  display: flex;
+  padding: 115px 0px 50px;
 }
 
 .container {
@@ -56,9 +57,14 @@ li {
   background-color: red;
 }
 
-//layoutsフォルダ
-//application
+// layoutsフォルダ
+// application
+// ヘッダー
 header {
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+  background-color: #fff;
   border-bottom: solid 1px $color-white;
   nav {
     text-align: center;
@@ -74,9 +80,6 @@ header {
         text-decoration: none;
       }
     }
-    a + a {
-      border-left: none;
-    }
     form {
       display: inline-block;
       &:hover {
@@ -88,19 +91,155 @@ header {
       input {
         padding: 20px;
         background-color: #fff;
-        border-left: none;
+        border: none;
         font-size: 18px;
-        white-space: normal;
+        font-weight: 600;
+        &:hover {
+          transition: color 0.2s;
+          color: $color-blue;
+        }
       }
     }
   }
 }
 
+// フッター
+footer {
+  nav {
+    height: 100px;
+    padding-top: 15px;
+    text-align: center;
+    font-weight: 600;
+    color: $color-grey;
+    background-color: $color-white;
+    a {
+      display: inline-block;
+      padding: 20px;
+      color: $color-grey;
+      font-size: 16px;
+      &:hover {
+        transition: color 0.2s;
+        text-decoration: none;
+        color: $color-black;
+      }
+    }
+    form {
+      display: inline-block;
+      &:hover {
+        input {
+          color: #fff;
+          text-decoration: none;
+        }
+      }
+      input {
+        padding: 20px;
+        background-color: $color-white;
+        border: none;
+        font-size: 16px;
+        font-weight: 600;
+        &:hover {
+          transition: color 0.2s;
+          color: $color-black;
+        }
+      }
+    }
+    small {
+      margin-top: 5px;
+      display: inline-block;
+      font-size: 14px;
+      display: block;
+    }
+  }
+}
+
+// メイン(yield)
+.main {
+  width: 75%;
+}
+
+// サイドバー
+.sidebar {
+  width: 20%;
+  h4 {
+    margin-bottom: 25px;
+    font-size: 20px;
+  }
+  // フォーム
+  .field {
+    margin-bottom: 18px;
+    label {
+      margin-bottom: 0;
+      font-weight: normal;
+    }
+    .select-container {
+      position: relative;
+      width: 80%;
+    }
+    .select-container::after {
+      // セレクトボックスに下向き矢印を追加
+      content: '';
+      position: absolute;
+      width: 0px;
+      height: 0px;
+      border-top: solid 5px $color-black;
+      border-right: solid 5px transparent;
+      border-left: solid 5px transparent;
+      border-bottom: solid 5px transparent;
+      top: 55%;
+      right: 5%;
+      margin-top: -4px;
+    }
+    select,
+    input {
+      padding: 4px;
+      border: solid 1px $color-white;
+      border-radius: 4px;
+      outline: none;
+    }
+    select {
+      width: 100%;
+      appearance: none; // セレクトボックスのデフォルトの下矢印を削除
+    }
+    input {
+      width: 80%;
+    }
+  }
+  // 検索ボタン
+  .actions {
+    text-align: center;
+    input {
+      padding: 5px 30px;
+      border: solid 1px $color-white;
+      border-radius: 4px;
+      background-color: $color-white;
+      &:hover {
+        transition: background-color 0.2s;
+        background-color: $color-grey;
+      }
+    }
+  }
+  .sidebar__for-users--top,
+  .sidebar__for-users--bottom {
+    padding: 18px 30px;
+    border: solid 1px rgb(246, 249, 250);
+    background-color: rgb(246, 249, 250);
+    border-radius: 12px;
+  }
+  // プロフィール検索の詳細設定
+  .sidebar__for-users--top {
+    margin-bottom: 18px;
+  }
+  // 質問検索の詳細設定
+  // .sidebar__for-users--bottom {
+  // }
+}
+
 // lp
 .lp {
+  width: 133.3%;
   .lp-main {
     border-bottom: solid 1px $color-white;
-    padding: 50px 0;
+    padding: 0px 0 50px;
     .lp-main__container {
       max-width: 960px;
       padding: 0 45px;
@@ -146,13 +285,17 @@ header {
   }
   .lp-sub {
     background-color: $color-light-blue;
-    padding: 50px 0;
+    padding: 100px 0;
     .lp-sub__container {
       width: 72%;
       margin: 0 auto;
       text-align: center;
       .lp-sub__title {
         font-size: 30px;
+        margin-bottom: 10px;
+      }
+      .lp-sub__subtitle {
+        font-size: 16px;
       }
       ul {
         padding: 5px;
@@ -183,77 +326,136 @@ header {
       }
     }
   }
+  .lp-third {
+    padding-top: 60px;
+    padding-bottom: 60px;
+    border-bottom: solid 1px $color-white;
+    .lp-third__container {
+      .lp-third__title {
+        font-size: 28px;
+        margin-bottom: 40px;
+      }
+      .lp-third__img-container {
+        max-width: 960px;
+        margin: 0 auto;
+        .lp-third__img-container--left {
+          text-align: center;
+          img {
+            width: 300px;
+          }
+        }
+        .lp-third__img-container--right {
+          margin-top: 60px;
+          p {
+            font-size: 16px;
+          }
+          span {
+            font-weight: 600;
+            line-height: 50px;
+          }
+        }
+      }
+    }
+  }
+  .lp-invite {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    .lp-invite__container {
+      text-align: center;
+      .lp-invite__title {
+        font-size: 24px;
+        margin-bottom: 30px;
+      }
+      .lp-invite__button {
+        input {
+          padding: 12px;
+          font-size: 16px;
+          color: white;
+          background-color: $color-blue;
+          border: solid 1px $color-white;
+          border-radius: 5px;
+        }
+        input:hover {
+          color: white;
+          transition: background-color 0.2s;
+          background-color: $color-green;
+          border-color: $color-green;
+        }
+      }
+    }
+  }
 }
 
 //users/basicsフォルダ
 //index
 
-//show
-.information {
-  padding: 20px 0px 20px 20px;
-  width: 55%;
-  border-bottom: 2px solid lavender;
-  .information__title {
-    color: lightskyblue;
-    font-size: 18px;
+// ユーザー詳細ページ(show)
+.user-information {
+  padding: 18px 30px;
+  margin: 0 6%;
+  border: solid 1px $color-white;
+  border-radius: 12px;
+  h4 {
+    font-size: 25px;
   }
-}
-
-.profile {
-  width: 55%;
-  border-bottom: 2px solid lavender;
-  .profile__picture {
-    padding-top: 20px;
-    padding-left: 15px;
-    img {
-      width: 100px;
-      height: 100px;
-      border: 2px solid lavender;
-      border-radius: 50%;
-    }
-  }
-  .profile__text {
-    padding-top: 20px;
-    padding-right: 10px;
-    padding-left: 15px;
-    .profile__text--top {
-      display: flex;
-      #user-affiliation {
-        margin-left: 12px;
-        padding: 5px;
-        display: inline-block;
-        border-radius: 5px;
-        color: #fff;
-      }
-      .undergraduate {
-        background-color: tomato;
-      }
-      .graduate {
-        background-color: darkgrey;
-      }
-      .technical-students {
-        background-color: darkcyan;
-      }
-      .professional-students {
-        background-color: steelblue;
-      }
-      .working {
-        background-color: deeppink;
-      }
-      .other {
-        background-color: darkorange;
+  .user-profile {
+    .user-profile__picture {
+      text-align: center;
+      img {
+        width: 128px;
+        height: 128px;
+        border: solid 1px $color-white;
+        border-radius: 50%;
       }
     }
-    .profile__text--bottom {
-      margin-top: 12px;
-      font-size: 14px;
-    }
-    .profile__edit {
-      margin-top: 10px;
-      margin-bottom: 10px;
+    .user-profile__edit {
+      display: flex; // 編集ボタンを横並びで右寄せ
+      justify-content: flex-end;
+      padding: 6px 0;
+      border-bottom: solid 1px $color-white;
       a {
-        color: lightskyblue;
+        display: inline-block;
+        padding: 4px 10px;
+        margin: 4px;
         font-size: 15px;
+        border-radius: 12px;
+        color: white;
+        background-color: $color-blue;
+        &:hover {
+          text-decoration: none;
+        }
+      }
+      // プロフィール編集リンク
+      .user-profile__edit-profile {
+        a {
+          color: $color-blue;
+          background-color: $color-white;
+        }
+      }
+    }
+    .user-profile__details {
+      display: flex;
+      h5 {
+        font-size: 15px;
+        font-weight: 600;
+      }
+      .user-profile__details--left {
+        width: 50%;
+        padding: 0 12px;
+        margin-top: 12px;
+        border-right: solid 1px $color-white;
+        .user-profile__detail {
+          margin-bottom: 16px;
+        }
+      }
+      // プロフィール文
+      .user-profile__details--right {
+        width: 50%;
+        padding: 0 12px;
+        margin-top: 12px;
+        h5 {
+          margin-bottom: 24px;
+        }
       }
     }
   }
