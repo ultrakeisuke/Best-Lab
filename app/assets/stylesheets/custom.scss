@@ -8,6 +8,19 @@ $color-light-blue: rgb(229, 243, 255);
 $color-blue: rgb(63, 169, 255);
 $color-green: rgb(86, 198, 0);
 
+html,
+body {
+  // コンテンツの内容に合わせて画面の高さを調整
+  height: 100%;
+}
+
+.content {
+  min-height: 100%;
+  position: relative;
+  // footerと同じ高さを下部に追加
+  padding-bottom: 100px;
+}
+
 h1,
 h2,
 h3,
@@ -105,6 +118,10 @@ header {
 
 // フッター
 footer {
+  width: 100%;
+  height: 100px;
+  position: absolute;
+  bottom: 0;
   nav {
     height: 100px;
     padding-top: 15px;
@@ -232,6 +249,90 @@ footer {
   // 質問検索の詳細設定
   // .sidebar__for-users--bottom {
   // }
+}
+
+// フォーム関連のパーツ
+// 入力欄
+.field {
+  margin-bottom: 18px;
+  label {
+    margin-bottom: 0;
+    font-weight: 600;
+  }
+  input {
+    width: 80%;
+    padding: 4px;
+    margin-bottom: 12px;
+    border: solid 1px $color-white;
+    border-radius: 4px;
+    outline: none;
+  }
+  // フォーム中のテキストエリアのデザイン
+  textarea {
+    width: 80%;
+    height: 120px;
+    padding: 5px;
+    border: solid 1px $color-white;
+    border-radius: 4px;
+    // 右下の斜線を消す
+    resize: none;
+  }
+}
+// 送信、保存などのボタン
+.actions {
+  text-align: center;
+  input {
+    padding: 5px 30px;
+    border: solid 1px $color-white;
+    border-radius: 4px;
+    background-color: $color-white;
+    &:hover {
+      transition: background-color 0.2s;
+      background-color: $color-grey;
+    }
+  }
+}
+// アカウント削除用ボタン
+.account-reset {
+  margin-top: 100px;
+  input {
+    padding: 5px 30px;
+    color: white;
+    border: solid 1px rgb(255, 132, 131);
+    border-radius: 4px;
+    background-color: rgb(255, 132, 131);
+  }
+}
+// 新規登録やログインなどの共通フォーム
+.common-form {
+  // 横幅いっぱいに広げる
+  width: 100vw;
+  .common-form__container {
+    width: 40%;
+    margin: 0 auto; // 横幅を調整し中央に寄せる
+    padding: 50px 30px;
+    border: solid 1px $color-white;
+    border-radius: 6px;
+    h4 {
+      margin-bottom: 25px;
+      font-size: 20px;
+    }
+    // 自動ログインのデザイン
+    .remember-me {
+      // チェックボックス
+      #user_remember_me {
+        width: 50px;
+      }
+    }
+    // linksのデザイン
+    .links-container {
+      margin-top: 18px;
+      a {
+        display: inline-block;
+        margin-top: 4px;
+      }
+    }
+  }
 }
 
 // lp
