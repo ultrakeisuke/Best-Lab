@@ -36,8 +36,8 @@
           <%= yield %>
         </div>
         <% unless current_page?(root_path) %>
-          <div class="sidebar">
-            <% if user_signed_in? %>
+          <% if user_signed_in? %>
+            <div class="sidebar">
               <div class="sidebar__for-users">
                 <div class="sidebar__for-users--top">
                   <%= render 'users/shared/search_form' %>
@@ -46,13 +46,15 @@
                   <%= render 'questions/shared/search_form' %>
                 </div>
               </div>
-            <% end %>
-            <% if admin_signed_in? %>
+            </div>
+          <% end %>
+          <% if admin_signed_in? %>
+            <div class="sidebar">
               <div class="sidebar__for-admin">
                 <%= render 'admins/shared/user_search_form' %>
               </div>
-            <% end %>
-          </div>
+            </div>
+          <% end %>
         <% end %>
       </div>
 
