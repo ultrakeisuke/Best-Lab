@@ -4,10 +4,10 @@
 
   <div class="field">
     <%= f.label :category_id_eq, "カテゴリー" %><br />
-    <div class="select-container">
+    <div class="side-select-container">
       <%= select_tag "parent_category_for_search", options_for_select(@parent_categories_for_search.map{|c| [c.name, c.id]}) %>
     </div>
-    <div class="select-container">
+    <div class="side-select-container">
       <%= f.select :category_id_eq, options_for_select(@children_categories_for_search.map{|c| [c.name, c.id]}), {}, {id: "children_category_for_search"} %>
     </div>
   </div>

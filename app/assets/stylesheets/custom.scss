@@ -41,11 +41,6 @@ li {
   list-style: none;
 }
 
-.yield {
-  display: flex;
-  padding: 115px 0px 50px;
-}
-
 .container {
   padding: 0;
   margin: 0 auto;
@@ -169,14 +164,30 @@ footer {
   }
 }
 
-// メイン(yield)
-.main {
-  width: 75%;
+// メインとサイドバーの設定
+.yield {
+  display: flex;
+  max-width: 100%;
+  padding: 115px 80px 50px;
+  margin: 0 auto;
+}
+
+// メイン
+#primary {
+  width: 66%;
+  padding: 18px 30px;
+  border: solid 1px $color-white;
+  border-radius: 12px;
+  h4 {
+    margin-bottom: 25px;
+    font-size: 20px;
+  }
 }
 
 // サイドバー
-.sidebar {
-  width: 20%;
+#secondary {
+  width: 27%;
+  margin-left: auto;
   h4 {
     margin-bottom: 25px;
     font-size: 20px;
@@ -188,11 +199,11 @@ footer {
       margin-bottom: 0;
       font-weight: normal;
     }
-    .select-container {
+    .side-select-container {
       position: relative;
       width: 80%;
     }
-    .select-container::after {
+    .side-select-container::after {
       // セレクトボックスに下向き矢印を追加
       content: '';
       position: absolute;
@@ -218,21 +229,7 @@ footer {
       appearance: none; // セレクトボックスのデフォルトの下矢印を削除
     }
     input {
-      width: 80%;
-    }
-  }
-  // 検索ボタン
-  .actions {
-    text-align: center;
-    input {
-      padding: 5px 30px;
-      border: solid 1px $color-white;
-      border-radius: 4px;
-      background-color: $color-white;
-      &:hover {
-        transition: background-color 0.2s;
-        background-color: $color-grey;
-      }
+      width: 100%;
     }
   }
   .sidebar__for-users--top,
@@ -246,9 +243,6 @@ footer {
   .sidebar__for-users--top {
     margin-bottom: 18px;
   }
-  // 質問検索の詳細設定
-  // .sidebar__for-users--bottom {
-  // }
 }
 
 // フォーム関連のパーツ
@@ -260,7 +254,7 @@ footer {
     font-weight: 600;
   }
   input {
-    width: 80%;
+    width: 100%;
     padding: 4px;
     margin-bottom: 12px;
     border: solid 1px $color-white;
@@ -269,13 +263,44 @@ footer {
   }
   // フォーム中のテキストエリアのデザイン
   textarea {
-    width: 80%;
+    width: 100%;
     height: 120px;
     padding: 5px;
     border: solid 1px $color-white;
     border-radius: 4px;
     // 右下の斜線を消す
     resize: none;
+  }
+  // セレクトボックス
+  .select-container {
+    position: relative;
+    width: 80%;
+    margin-bottom: 5px;
+  }
+  .select-container::after {
+    // セレクトボックスに下向き矢印を追加
+    content: '';
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    border-top: solid 5px $color-black;
+    border-right: solid 5px transparent;
+    border-left: solid 5px transparent;
+    border-bottom: solid 5px transparent;
+    top: 55%;
+    left: 35%;
+    margin-top: -4px;
+  }
+  select,
+  input {
+    padding: 4px;
+    border: solid 1px $color-white;
+    border-radius: 4px;
+    outline: none;
+  }
+  select {
+    width: 40%;
+    appearance: none; // セレクトボックスのデフォルトの下矢印を削除
   }
 }
 // 送信、保存などのボタン
@@ -303,6 +328,7 @@ footer {
     background-color: rgb(255, 132, 131);
   }
 }
+
 // 新規登録やログインなどの共通フォーム
 .common-form {
   // 横幅いっぱいに広げる
@@ -338,14 +364,14 @@ footer {
 // 検索結果画面
 .search-result {
   .search-result__container {
-    a {
-      text-decoration: none;
-    }
     width: 80%;
     margin: 0 auto; // 横幅を調整し中央に寄せる
     padding: 50px 30px;
     border: solid 1px $color-white;
     border-radius: 6px;
+    a {
+      text-decoration: none;
+    }
     h4 {
       margin-bottom: 25px;
       font-size: 20px;
@@ -370,7 +396,7 @@ footer {
 
 // lp
 .lp {
-  width: 100vw;
+  padding-top: 115px;
   .lp-main {
     border-bottom: solid 1px $color-white;
     padding: 0px 0 50px;
@@ -521,14 +547,11 @@ footer {
 }
 
 //users/basicsフォルダ
-//index
-
 // ユーザー詳細ページ(show)
 .user-information {
+  // width: 80%;
   padding: 18px 30px;
-  margin: 0 6%;
-  border: solid 1px $color-white;
-  border-radius: 12px;
+  margin: 0 auto;
   h4 {
     margin-top: 8px;
     font-size: 25px;
