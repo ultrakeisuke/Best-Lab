@@ -332,13 +332,9 @@ footer {
 // 新規登録やログインなどの共通フォーム
 .common-form {
   // 横幅いっぱいに広げる
-  width: 100vw;
   .common-form__container {
-    width: 40%;
     margin: 0 auto; // 横幅を調整し中央に寄せる
     padding: 50px 30px;
-    border: solid 1px $color-white;
-    border-radius: 6px;
     h4 {
       margin-bottom: 25px;
       font-size: 20px;
