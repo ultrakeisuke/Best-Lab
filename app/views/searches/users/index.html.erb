@@ -1,16 +1,25 @@
 <% provide(:title, "検索結果") %>
 
-<h3>検索結果</h3>
-
-<% if @profiles.present? %>
-  <% @profiles.each do |profile| %>
-    <%= link_to users_basic_path(profile.user_id) do %>
-      <%= image_tag asset_path(profile.user.profile_picture) %>
-      <%= profile.user.name %>
-      <%= profile.description %>
+<div class="search-result">
+  <div class="search-result__container">
+    <h4>検索結果</h4>
+    <% if @profiles.present? %>
+      <% @profiles.each do |profile| %>
+        <%= link_to users_basic_path(profile.user_id) do %>
+          <div class="search-result__info">
+            <div class="search-result__info--left">
+              <%= image_tag asset_path(profile.user.profile_picture) %>
+            </div>
+            <div class="search-result__info--right">
+              <h5><%= profile.user.name %></h5>
+              <p><%= profile.description %></p>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+      <%= paginate @profiles %>
+    <% else %>
+      <p>お探しのユーザーは見つかりませんでした。</p>
     <% end %>
-  <% end %>
-  <%= paginate @profiles %>
-<% else %>
-  <p>お探しのユーザーは見つかりませんでした。</p>
-<% end %>
+  </div>
+</div>

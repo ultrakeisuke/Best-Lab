@@ -335,6 +335,39 @@ footer {
   }
 }
 
+// 検索結果画面
+.search-result {
+  .search-result__container {
+    a {
+      text-decoration: none;
+    }
+    width: 80%;
+    margin: 0 auto; // 横幅を調整し中央に寄せる
+    padding: 50px 30px;
+    border: solid 1px $color-white;
+    border-radius: 6px;
+    h4 {
+      margin-bottom: 25px;
+      font-size: 20px;
+    }
+    .search-result__info {
+      display: flex;
+      padding: 12px;
+      margin-bottom: 3px;
+      border: solid 1px $color-white;
+      border-radius: 6px;
+      img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+      }
+    }
+    .search-result__info--right {
+      padding-left: 12px;
+    }
+  }
+}
+
 // lp
 .lp {
   width: 100vw;
