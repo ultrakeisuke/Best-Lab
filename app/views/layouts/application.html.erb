@@ -31,13 +31,15 @@
       <p><%= alert %></p>
       <p><%= notice %></p>
 
-      <div class="yield">
-        <div class="main">
-          <%= yield %>
-        </div>
-        <% unless current_page?(root_path) %>
+      <% if current_page?(root_path) %>
+        <%= yield %>
+      <% else %>
+        <div class="yield">
+          <main id="primary">
+            <%= yield %>
+          </main>
           <% if user_signed_in? %>
-            <div class="sidebar">
+            <aside id="secondary">
               <div class="sidebar__for-users">
                 <div class="sidebar__for-users--top">
                   <%= render 'users/shared/search_form' %>
@@ -46,17 +48,14 @@
                   <%= render 'questions/shared/search_form' %>
                 </div>
               </div>
-            </div>
-          <% end %>
-          <% if admin_signed_in? %>
-            <div class="sidebar">
+          <% elsif admin_signed_in? %>
               <div class="sidebar__for-admin">
                 <%= render 'admins/shared/user_search_form' %>
               </div>
-            </div>
+            </aside>
           <% end %>
-        <% end %>
-      </div>
+        </div>
+      <% end %>
 
       <footer>
         <nav>
