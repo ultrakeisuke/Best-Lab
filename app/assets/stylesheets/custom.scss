@@ -497,6 +497,7 @@ footer {
   border: solid 1px $color-white;
   border-radius: 12px;
   h4 {
+    margin-top: 8px;
     font-size: 25px;
   }
   .user-profile {
@@ -534,6 +535,22 @@ footer {
         }
       }
     }
+    // メッセージルーム入室ボタン
+    .user-profile__room-link {
+      display: flex;
+      justify-content: flex-end;
+      padding: 6px 0;
+      border-bottom: solid 1px $color-white;
+      input {
+        padding: 4px 10px;
+        font-size: 15px;
+        border-radius: 12px;
+        color: white;
+        background-color: $color-blue;
+        border: solid 1px $color-blue;
+      }
+    }
+    // ユーザーの所属と自己紹介文
     .user-profile__details {
       display: flex;
       h5 {

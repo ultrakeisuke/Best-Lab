@@ -6,9 +6,9 @@
       <%= image_tag asset_path(@user.profile_picture) %>
       <h4><%= @user.name %></h4>
     </div>
-    <div class="user-profile__edit">
-      <% if user_signed_in? %>
-        <% if current_user == @user %>
+    <% if user_signed_in? %>
+      <% if current_user == @user %>
+        <div class="user-profile__edit">
           <div class="user-profile__edit-account">
             <%= link_to 'アカウント設定', edit_user_registration_path %>
           </div>
@@ -19,9 +19,22 @@
               <%= link_to 'プロフィール設定', new_users_profile_path %>
             <% end %>
           </div>
-        <% end %>
+        </div>
+      <% else %>
+        <div class="user-profile__room-link">
+          <% if @room_id.present? %>
+            <%= button_to "メッセージルーム", users_room_path(@room_id), method: :get %>
+          <% else %>
+            <%= form_with model: @entry.room, url: users_rooms_path, method: :post, local: true do |f| %>
+              <%= f.fields_for @entry do |e| %>
+                <%= e.hidden_field :user_id, value: @user.id %>
+              <% end %>
+              <%= f.submit 'メッセージを始める' %>
+            <% end %>
+          <% end %>
+        </div>
       <% end %>
-    </div>
+    <% end %>
     <div class="user-profile__details">
       <div class="user-profile__details--left">
         <div class="user-profile__detail">
@@ -50,20 +63,6 @@
         <p><%= @user.profile&.description %></p>
       </div>
     </div>
-    <% unless current_user == @user %>
-      <div class="user-information__room-link">
-        <% if @room_id.present? %>
-          <%= button_to "メッセージルーム", users_room_path(@room_id), method: :get %>
-        <% else %>
-          <%= form_with model: @entry.room, url: users_rooms_path, method: :post, local: true do |f| %>
-            <%= f.fields_for @entry do |e| %>
-              <%= e.hidden_field :user_id, value: @user.id %>
-            <% end %>
-            <%= f.submit 'メッセージを始める' %>
-          <% end %>
-        <% end %>
-      </div>
-    <% end %>
   </div>
 </div>
 <div class="user-question">
