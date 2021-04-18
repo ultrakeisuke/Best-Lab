@@ -1,19 +1,17 @@
 <% provide(:title, "検索結果") %>
 
 <div class="search-result">
-  <div class="search-result__container">
-    <h4>検索結果</h4>
-    <% if @posts.present? %>
-      <% @posts.each do |post| %>
-        <%= link_to questions_post_path(post) do %>
-          <%= post.user.name %>
-          <%= post.title %>
-          <%= post.content %>
-        <% end %>
+  <h4>検索結果</h4>
+  <% if @posts.present? %>
+    <% @posts.each do |post| %>
+      <%= link_to questions_post_path(post) do %>
+        <%= post.user.name %>
+        <%= post.title %>
+        <%= post.content %>
       <% end %>
-      <%= paginate @posts %>
-    <% else %>
-      <p>お探しの質問は見つかりませんでした。</p>
     <% end %>
-  </div>
+    <%= paginate @posts %>
+  <% else %>
+    <p>お探しの質問は見つかりませんでした。</p>
+  <% end %>
 </div>
