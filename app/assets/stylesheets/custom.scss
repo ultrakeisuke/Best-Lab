@@ -63,7 +63,7 @@ li {
 // ヘッダー
 header {
   position: fixed;
-  z-index: 1;
+  z-index: 100;
   width: 100%;
   background-color: #fff;
   border-bottom: solid 1px $color-white;
@@ -700,11 +700,14 @@ footer {
   border: 1px solid lightgrey;
   border-bottom: none;
   border-radius: 5px 5px 0px 0px;
+  // 自分のメッセージ
   .right-message {
     text-align: right;
     .message-field__content {
       flex-direction: row-reverse;
       .message-field__message {
+        // 吹き出し以上、ヘッダー以下に配置
+        z-index: 2;
         p {
           text-align: left;
         }
@@ -714,6 +717,7 @@ footer {
       }
     }
   }
+  // 相手のメッセージ
   .left-message {
     text-align: left;
     .message-field__content {
@@ -722,8 +726,10 @@ footer {
       }
       .message-field__message {
         position: relative;
-        z-index: 100;
+        z-index: 2;
+        background-color: $color-white;
       }
+      // 吹き出し
       &:before {
         content: '';
         display: block;
@@ -734,8 +740,8 @@ footer {
         height: 0;
         transform: rotate(-50deg);
         border-radius: 50%;
-        border-left: 16px solid lightskyblue;
-        border-bottom: 16px solid lightskyblue;
+        border-left: 16px solid $color-white;
+        border-bottom: 16px solid $color-white;
         border-top: 16px solid transparent;
         border-right: 16px solid transparent;
       }
@@ -771,7 +777,7 @@ footer {
     .message-field__profile {
       margin-bottom: 8px;
       img {
-        width: 40px;
+        width: 44px;
         border: 1px solid lightgrey;
         border-radius: 50%;
       }
@@ -839,7 +845,7 @@ footer {
   border: 1px solid lightgrey;
   border-radius: 0px 0px 5px 5px;
   .post-field__picture {
-    margin-right: 5px;
+    margin-right: 10px;
     label {
       margin: 0;
       vertical-align: middle;
@@ -866,7 +872,7 @@ footer {
     }
   }
   .post-field__submit {
-    margin-left: 5px;
+    margin-left: 10px;
     button {
       border: none;
       padding: 0;
