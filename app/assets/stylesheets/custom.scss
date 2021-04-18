@@ -706,11 +706,41 @@ footer {
     .message-field__content {
       flex-direction: row-reverse;
       .message-field__message {
+        position: relative;
         // 吹き出し以上、ヘッダー以下に配置
         z-index: 2;
-        p {
-          text-align: left;
-        }
+        margin-right: 12px;
+      }
+      // 吹き出し
+      &:before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: -12px;
+        right: -2px;
+        transform: rotate(60deg);
+        border-radius: 50%;
+        border-right: 16px solid skyblue;
+        border-bottom: 16px solid skyblue;
+        border-top: 16px solid transparent;
+        border-left: 16px solid transparent;
+      }
+      &:after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: -17px;
+        right: -5px;
+        z-index: 1;
+        transform: rotate(60deg);
+        border-radius: 50%;
+        border-right: 16px solid #fff;
+        border-bottom: 16px solid #fff;
+        border-top: 16px solid transparent;
+        border-left: 16px solid transparent;
+      }
+      p {
+        text-align: left;
       }
       .message-field__created_at {
         margin-right: 10px;
@@ -736,8 +766,6 @@ footer {
         position: absolute;
         top: 4px;
         left: 48px;
-        width: 0;
-        height: 0;
         transform: rotate(-50deg);
         border-radius: 50%;
         border-left: 16px solid $color-white;
@@ -752,8 +780,6 @@ footer {
         top: -2px;
         left: 46px;
         z-index: 1;
-        width: 0;
-        height: 0;
         transform: rotate(-50deg);
         border-radius: 50%;
         border-left: 16px solid #fff;
