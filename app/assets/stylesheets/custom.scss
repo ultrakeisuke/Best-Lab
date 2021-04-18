@@ -175,7 +175,7 @@ footer {
 // メイン
 #primary {
   width: 66%;
-  padding: 18px 30px;
+  padding: 36px 60px;
   border: solid 1px $color-white;
   border-radius: 12px;
   h4 {
@@ -360,11 +360,6 @@ footer {
 // 検索結果画面
 .search-result {
   .search-result__container {
-    width: 80%;
-    margin: 0 auto; // 横幅を調整し中央に寄せる
-    padding: 50px 30px;
-    border: solid 1px $color-white;
-    border-radius: 6px;
     a {
       text-decoration: none;
     }
@@ -545,8 +540,6 @@ footer {
 //users/basicsフォルダ
 // ユーザー詳細ページ(show)
 .user-information {
-  // width: 80%;
-  padding: 18px 30px;
   margin: 0 auto;
   h4 {
     margin-top: 8px;
@@ -566,7 +559,6 @@ footer {
       display: flex; // 編集ボタンを横並びで右寄せ
       justify-content: flex-end;
       padding: 6px 0;
-      border-bottom: solid 1px $color-white;
       a {
         display: inline-block;
         padding: 4px 10px;
@@ -591,8 +583,8 @@ footer {
     .user-profile__room-link {
       display: flex;
       justify-content: flex-end;
-      padding: 6px 0;
-      border-bottom: solid 1px $color-white;
+      padding-top: 6px;
+      padding-bottom: 6px;
       input {
         padding: 4px 10px;
         font-size: 15px;
@@ -605,6 +597,9 @@ footer {
     // ユーザーの所属と自己紹介文
     .user-profile__details {
       display: flex;
+      padding: 12px 0px;
+      border-top: solid 1px $color-white;
+      border-bottom: solid 1px $color-white;
       h5 {
         font-size: 15px;
         font-weight: 600;
@@ -612,7 +607,6 @@ footer {
       .user-profile__details--left {
         width: 50%;
         padding: 0 12px;
-        margin-top: 12px;
         border-right: solid 1px $color-white;
         .user-profile__detail {
           margin-bottom: 16px;
@@ -622,13 +616,15 @@ footer {
       .user-profile__details--right {
         width: 50%;
         padding: 0 12px;
-        margin-top: 12px;
         h5 {
           margin-bottom: 24px;
         }
       }
     }
   }
+}
+.user-question {
+  padding-top: 36px;
 }
 
 //users/roomsフォルダ
