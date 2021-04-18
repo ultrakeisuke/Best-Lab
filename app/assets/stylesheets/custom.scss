@@ -184,6 +184,8 @@ footer {
   }
   // ページネーション
   nav {
+    display: block;
+    text-align: center;
     span {
       display: inline-block;
       min-width: 40px;
@@ -195,8 +197,10 @@ footer {
       border-radius: 3px;
       &:hover {
         background-color: $color-blue;
+        transition: background-color 0.2s;
         a {
           color: #fff;
+          transition: color 0.2s;
         }
       }
     }
