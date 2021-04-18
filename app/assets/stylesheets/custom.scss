@@ -412,8 +412,12 @@ footer {
       display: flex;
       padding: 12px;
       margin-bottom: 3px;
-      border: solid 1px $color-white;
+      border: solid 2px $color-white;
       border-radius: 6px;
+      &:hover {
+        border-color: $color-blue;
+        transition: border-color 0.2s;
+      }
       img {
         width: 100px;
         height: 100px;
