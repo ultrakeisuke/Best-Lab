@@ -662,8 +662,35 @@ footer {
     }
   }
 }
+// 投稿した質問
 .user-question {
   padding-top: 36px;
+  .user-question__info {
+    padding: 12px;
+    margin-bottom: 3px;
+    border: solid 2px $color-white;
+    border-radius: 6px;
+    &:hover {
+      border-color: $color-blue;
+      transition: border-color 0.2s;
+    }
+    span {
+      display: block;
+      margin-bottom: 6px;
+    }
+    h5 {
+      margin-bottom: 8px;
+      font-size: 18px;
+    }
+  }
+  .user-question__notice {
+    display: flex;
+    align-items: center;
+    // 通知アイコン
+    p {
+      margin-right: 4px;
+    }
+  }
 }
 
 //users/roomsフォルダ

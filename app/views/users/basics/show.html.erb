@@ -70,12 +70,16 @@
   <h4>投稿した質問</h4>
   <% @posts.each do |post| %>
     <%= link_to(questions_post_path(post)) do %>
-      <% if post.check_notice(current_user) == true %>
-        <p class="notice-icon has-notice"></p>
-      <% else %>
-        <p class="notice-icon"></p>
-      <% end %>      
-      <p><%= post.title %></p>
+      <div class="user-question__info">
+        <span><%= l post.created_at, format: :year %></span>
+        <h5><%= post.title %></h5>
+        <% if post.check_notice(current_user) == true %>
+          <div class="user-question__notice">
+            <p class="has-notice"></p>
+            <p>新着のメッセージが届いています</p>
+          </div>
+        <% end %>      
+      </div>
     <% end %>
   <% end %>
 </div>
