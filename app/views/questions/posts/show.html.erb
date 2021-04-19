@@ -1,30 +1,50 @@
 <% provide(:title, @post.title)%>
 
-<h4>質問内容</h4>
-<% if @post.user_id == current_user&.id %>
-  <%= link_to "質問の編集", edit_questions_post_path(@post.id) %>
-<% end %>
-
 <div class="display-post">
   <div class="post-contents">
-    <div class="post-user-information">
-      <%= image_tag asset_path(@post.user.profile_picture) %>
-      <p><%= @post.user.name %></p>
-    </div>
-    <div class="post-contents-category"><%= @post.category.name %></div>
-    <div class="post-contents-status"><%= @post.translated_status %></div>
-    <div class="post-contents-title"><%= @post.title %></div>
-    <div class="post-contents-content"><%= @post.content %></div>
-    <div class="post-contents-pictures">
-      <% if @post.pictures.present? %>
-        <% @post.pictures.each do |picture| %>
-          <%= image_tag picture.picture.url %>
+    <div class="post-contents__post-info">
+      <div class="post-contents__category">
+        <%= link_to(questions_category_path(@post.category_id)) do %>
+          <p>カテゴリー >> <%= @post.category.name %></p>
         <% end %>
+      </div>
+      <div class="post-contents__title">
+        <h5><%= @post.title %></h5>
+      </div>
+      <div class="post-contents__status">
+        <p><%= @post.translated_status %></p>
+        <span>投稿</span>
+        <%= l @post.created_at, format: :year %>
+      </div>
+    </div>
+    <div class="post-contents__content">
+      <p><%= @post.content %></p>
+      <div class="post-contents__pictures">
+        <% if @post.pictures.present? %>
+          <% @post.pictures.each do |picture| %>
+            <%= image_tag picture.picture.url %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+    <div class="post-contents__user-info">
+      <% if @post.user_id == current_user&.id %>
+        <div class="post-contents__user-info--left">
+          <%= link_to(edit_questions_post_path(@post.id)) do %>
+            <i class="fas fa-pen"></i>
+            <p>編集</p>
+          <% end %>
+        </div>
+      <% end %>
+      <%= link_to(users_basic_path(@post.user)) do %>
+        <div class="post-contents__user-info--right">
+          <%= image_tag asset_path(@post.user.profile_picture) %>
+          <h5><%= @post.user.name %></h5>
+        </div>
       <% end %>
     </div>
   </div>
 </div>
-
 
 <%# 質問に対する回答数 %>
 <div class="num-of-answers">

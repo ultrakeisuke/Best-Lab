@@ -7,6 +7,7 @@ $color-white: rgb(228, 237, 243);
 $color-light-blue: rgb(229, 243, 255);
 $color-blue: rgb(63, 169, 255);
 $color-green: rgb(86, 198, 0);
+$color-red: rgb(234, 96, 109);
 
 html,
 body {
@@ -956,6 +957,103 @@ footer {
       font-size: 22px;
       color: lightskyblue;
       background-color: none;
+    }
+  }
+}
+
+// questions/posts
+// show(質問詳細)
+.display-post {
+  // 質問
+  .post-contents {
+    padding: 12px;
+    margin-bottom: 36px;
+    border-bottom: solid 2px $color-white;
+    // 質問内容
+    .post-contents__post-info {
+      padding: 6px 8px;
+      margin-bottom: 12px;
+      background-color: $color-white;
+      // 質問のカテゴリー
+      .post-contents__category {
+        padding-top: 6px;
+        padding-bottom: 6px;
+        margin-bottom: 8px;
+        border-bottom: solid 1px $color-grey;
+        a:hover {
+          p {
+            transition: color 0.2s;
+            color: $color-blue;
+          }
+        }
+      }
+      // 質問のタイトル
+      .post-contents__title {
+        h5 {
+          margin-bottom: 18px;
+          font-size: 25px;
+        }
+      }
+      // 質問の状態
+      .post-contents__status {
+        p {
+          display: inline-block;
+          padding: 4px;
+          margin-right: 6px;
+          color: #fff;
+          background-color: $color-red;
+          border-radius: 2px;
+        }
+      }
+    }
+    // 質問内容
+    .post-contents__content {
+      padding: 6px 8px;
+      p {
+        font-size: 14px;
+      }
+    }
+    // 質問者情報
+    .post-contents__user-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      // 質問の編集リンク
+      .post-contents__user-info--left {
+        display: flex;
+        // 編集用アイコンと文字
+        i,
+        p {
+          display: inline-block;
+        }
+        i {
+          margin-right: 2px;
+        }
+        a {
+          display: inline-block;
+          padding: 4px 10px;
+          font-size: 15px;
+          border-radius: 2px;
+          background-color: $color-white;
+          &:hover {
+            color: #000;
+          }
+        }
+      }
+      .post-contents__user-info--right {
+        display: flex;
+        align-items: center;
+        img {
+          margin-right: 12px;
+          width: 44px;
+          height: 44px;
+          border: solid 1px $color-grey;
+          border-radius: 50%;
+        }
+        h5 {
+          font-size: 18px;
+        }
+      }
     }
   }
 }
