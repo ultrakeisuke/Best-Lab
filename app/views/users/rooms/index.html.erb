@@ -1,35 +1,32 @@
 <% provide(:title, "メッセージ") %>
 
-<h3>メッセージ</h3>
+<div class="room-list">
+  <h4>メッセージ</h4>
 
-<% if @another_entries.blank? %>
-  <p>話したい相手を探してみましょう！</p>
-<% end %>
+  <% if @another_entries.blank? %>
+    <p>話したい相手を探してみましょう！</p>
+  <% end %>
 
-<% @sorted_entries&.each do |entry| %>
-  <div class="room-list">
-    <ul>
-      <li>
-        <%= link_to(users_basic_path(entry.user)) do %>
-          <div class="room-list__image">
-            <%= image_tag asset_path(entry.user.profile_picture) %>
-          </div>
-        <% end %>
-        <%= link_to(users_room_path(entry.room)) do %>
-          <div class="room-list__text">
-            <% if entry.room.check_notice(current_user) == true %>
-              <p class="notice-icon has-notice"></p>
-            <% else %>
-              <p class="notice-icon"></p>
-            <% end %>
-            <p><%= entry.user.name %></p>
-            <%# 最後にメッセージした時間を表示 %>
-            <% if entry.room.messages.present? %>
-              <span><%= l entry.room.messages.last.created_at, format: :default %></span>
-            <% end %>
-          </div>
-        <% end %>
-      </li>
-    </ul>
-  </div>
-<% end %>
+  <% @sorted_entries&.each do |entry| %>
+    <%= link_to(users_room_path(entry.room)) do %>
+      <div class="room-list__info">
+        <div class="room-list__image">
+          <%= image_tag asset_path(entry.user.profile_picture) %>
+        </div>
+        <div class="room-list__text">
+          <h5><%= entry.user.name %></h5>
+          <%# 最後にメッセージした時間を表示 %>
+          <% if entry.room.messages.present? %>
+            <span><%= l entry.room.messages.last.created_at, format: :default %></span>
+          <% end %>
+          <% if entry.room.check_notice(current_user) == true %>
+            <div class="room-list__notice">
+              <p class="has-notice"></p>
+              <p>新着のメッセージが届いています</p>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

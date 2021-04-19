@@ -49,12 +49,10 @@ li {
   display: block;
 }
 
-.notice-icon {
+.has-notice {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-}
-.has-notice {
   background-color: red;
 }
 
@@ -171,9 +169,16 @@ footer {
   padding: 36px 60px;
   border: solid 1px $color-white;
   border-radius: 12px;
+  // 各ページタイトル
   h4 {
     margin-bottom: 25px;
     font-size: 20px;
+  }
+  // リスト中のユーザー名
+  h5 {
+    margin-top: 6px;
+    margin-bottom: 6px;
+    font-size: 18px;
   }
   // ホバー時の下線を非表示
   a:hover {
@@ -397,33 +402,31 @@ footer {
 
 // 検索結果画面
 .search-result {
-  .search-result__container {
-    a {
-      text-decoration: none;
+  a {
+    text-decoration: none;
+  }
+  h4 {
+    margin-bottom: 25px;
+    font-size: 20px;
+  }
+  .search-result__info {
+    display: flex;
+    padding: 12px;
+    margin-bottom: 3px;
+    border: solid 2px $color-white;
+    border-radius: 6px;
+    &:hover {
+      border-color: $color-blue;
+      transition: border-color 0.2s;
     }
-    h4 {
-      margin-bottom: 25px;
-      font-size: 20px;
+    img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
     }
-    .search-result__info {
-      display: flex;
-      padding: 12px;
-      margin-bottom: 3px;
-      border: solid 2px $color-white;
-      border-radius: 6px;
-      &:hover {
-        border-color: $color-blue;
-        transition: border-color 0.2s;
-      }
-      img {
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-      }
-    }
-    .search-result__info--right {
-      padding-left: 12px;
-    }
+  }
+  .search-result__info--right {
+    padding-left: 12px;
   }
 }
 
@@ -672,24 +675,41 @@ footer {
 //users/roomsフォルダ
 //index
 .room-list {
-  border: 1.5px solid grey;
-  background-color: silver;
-  ul > li {
-    padding: 5px;
+  // 通知
+  .room-list__notice {
     display: flex;
-    border-bottom: 1px solid black;
-    .room-list__image {
-      img {
-        width: 50px;
-        border-radius: 50%;
-        vertical-align: middle;
-      }
+    align-items: center;
+    p {
+      margin-right: 4px;
     }
-    .room-list__text {
-      p {
-        font-size: 14px;
-      }
+  }
+  a {
+    display: block;
+    text-decoration: none;
+  }
+  // 最終メッセージ時刻
+  span {
+    display: block;
+    margin-bottom: 16px;
+  }
+  .room-list__info {
+    display: flex;
+    padding: 12px;
+    margin-bottom: 3px;
+    border: solid 2px $color-white;
+    border-radius: 6px;
+    &:hover {
+      border-color: $color-blue;
+      transition: border-color 0.2s;
     }
+    img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+    }
+  }
+  .room-list__info--text {
+    padding-left: 12px;
   }
 }
 //show
