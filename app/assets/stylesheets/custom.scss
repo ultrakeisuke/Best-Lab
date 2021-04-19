@@ -174,12 +174,6 @@ footer {
     margin-bottom: 25px;
     font-size: 20px;
   }
-  // リスト中のユーザー名
-  h5 {
-    margin-top: 6px;
-    margin-bottom: 6px;
-    font-size: 18px;
-  }
   // ホバー時の下線を非表示
   a:hover {
     text-decoration: none;
@@ -682,6 +676,12 @@ footer {
     p {
       margin-right: 4px;
     }
+  }
+  // リスト中のユーザー名
+  h5 {
+    margin-top: 6px;
+    margin-bottom: 6px;
+    font-size: 18px;
   }
   a {
     display: block;
