@@ -965,17 +965,17 @@ footer {
 // show(質問詳細)
 .display-post {
   // 質問
-  .post-contents {
-    padding: 12px;
-    margin-bottom: 36px;
+  .post-container {
+    padding: 12px 10px 30px;
+    margin-bottom: 100px;
     border-bottom: solid 2px $color-white;
     // 質問内容
-    .post-contents__post-info {
+    .post-container__post-info {
       padding: 6px 8px;
-      margin-bottom: 12px;
+      margin-bottom: 36px;
       background-color: $color-white;
       // 質問のカテゴリー
-      .post-contents__category {
+      .post-container__category {
         padding-top: 6px;
         padding-bottom: 6px;
         margin-bottom: 8px;
@@ -988,14 +988,14 @@ footer {
         }
       }
       // 質問のタイトル
-      .post-contents__title {
+      .post-container__title {
         h5 {
           margin-bottom: 18px;
           font-size: 25px;
         }
       }
       // 質問の状態
-      .post-contents__status {
+      .post-container__status {
         p {
           display: inline-block;
           padding: 4px;
@@ -1007,53 +1007,229 @@ footer {
       }
     }
     // 質問内容
-    .post-contents__content {
+    .post-container__content {
       padding: 6px 8px;
       p {
         font-size: 14px;
       }
     }
+    // 質問の編集リンク
+    .post-container__edit {
+      // 編集用アイコンと文字
+      i,
+      p {
+        display: inline-block;
+      }
+      i {
+        margin-right: 2px;
+      }
+      a {
+        display: inline-block;
+        padding: 4px 10px;
+        font-size: 15px;
+        border-radius: 2px;
+        background-color: $color-white;
+        &:hover {
+          color: #000;
+        }
+      }
+    }
     // 質問者情報
-    .post-contents__user-info {
+    .post-container__user-info {
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-end;
       align-items: center;
-      // 質問の編集リンク
-      .post-contents__user-info--left {
-        display: flex;
-        // 編集用アイコンと文字
-        i,
-        p {
-          display: inline-block;
+      img {
+        margin-right: 12px;
+        width: 44px;
+        height: 44px;
+        border: solid 1px $color-grey;
+        border-radius: 50%;
+      }
+      h5 {
+        display: inline-block;
+        font-size: 18px;
+      }
+    }
+  }
+}
+// 回答とリプライ
+.display-comment {
+  .field {
+    margin-bottom: 8px;
+  }
+  // 送信ボタン
+  input {
+    padding: 5px 10px;
+  }
+  // フォームのテキストエリア
+  textarea {
+    height: 36px;
+    border: 2px solid $color-white;
+  }
+  // 添付画像のデザイン
+  img {
+    width: 60px;
+    height: 60px;
+  }
+  // エラー文
+  #error_explanation {
+    li {
+      color: $color-red;
+    }
+  }
+  .comment-container {
+    // ボタンのデザインと配置
+    button {
+      padding: 5px 10px;
+      margin-right: 6px;
+      border-radius: 4px;
+      background-color: $color-white;
+      border: solid 1px $color-white;
+    }
+    .submit-or-cancel {
+      display: flex;
+      justify-content: flex-end;
+    }
+    // 回答
+    .answer-container {
+      position: relative;
+      padding: 12px;
+      margin-bottom: 3px;
+      border-top: solid 1px $color-grey;
+      border-bottom: solid 1px $color-grey;
+      // 回答内容
+      .answer-container__details {
+        .answer-container__best-answer-title {
+          margin-bottom: 12px;
+          span {
+            color: $color-red;
+            font-weight: 600;
+          }
         }
+        .answer-container__body {
+          padding-top: 18px;
+          padding-bottom: 18px;
+        }
+        .edit-answer-form {
+          margin-bottom: 24px;
+        }
+      }
+      // 編集ボタン
+      .answer-container__edit {
+        position: absolute;
+        bottom: 12px;
         i {
-          margin-right: 2px;
-        }
-        a {
           display: inline-block;
-          padding: 4px 10px;
+          padding: 8px 16px;
           font-size: 15px;
           border-radius: 2px;
           background-color: $color-white;
           &:hover {
-            color: #000;
+            cursor: pointer;
           }
         }
       }
-      .post-contents__user-info--right {
+      // 回答者情報
+      .answer-container__user-info {
         display: flex;
+        justify-content: flex-end;
         align-items: center;
+        // ベストアンサーボタン
+        button {
+          background-color: #fff;
+          border-color: #fff;
+          &:hover {
+            i {
+              transition: color 0.2s;
+              color: $color-red;
+            }
+          }
+        }
+        i {
+          font-size: 18px;
+        }
+        // 投稿日
+        span {
+          display: inline-block;
+          margin-right: 8px;
+          font-size: 12px;
+        }
         img {
+          display: inline-block;
           margin-right: 12px;
-          width: 44px;
-          height: 44px;
+          width: 40px;
+          height: 40px;
           border: solid 1px $color-grey;
           border-radius: 50%;
         }
         h5 {
-          font-size: 18px;
+          display: inline-block;
+          font-size: 14px;
         }
       }
+    }
+    // リプライ
+    .reply-container {
+      width: 86%;
+      padding: 12px;
+      margin-left: auto;
+      margin-bottom: 12px;
+      .reply-container__list {
+        position: relative;
+        .reply-container__body {
+          padding-top: 18px;
+          padding-bottom: 18px;
+        }
+        .edit-reply-form {
+          margin-bottom: 24px;
+        }
+        // 編集ボタン
+        .reply-container__edit {
+          position: absolute;
+          bottom: 12px;
+          i {
+            display: inline-block;
+            padding: 8px 16px;
+            font-size: 15px;
+            border-radius: 2px;
+            background-color: $color-white;
+            &:hover {
+              cursor: pointer;
+            }
+          }
+        }
+        // リプライ者情報
+        .reply-container__user-info {
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+          // 投稿日
+          span {
+            display: inline-block;
+            margin-right: 8px;
+            font-size: 12px;
+          }
+          img {
+            display: inline-block;
+            margin-right: 12px;
+            width: 40px;
+            height: 40px;
+            border: solid 1px $color-grey;
+            border-radius: 50%;
+          }
+          h5 {
+            display: inline-block;
+            font-size: 14px;
+          }
+        }
+      }
+    }
+    // リプライ作成
+    .new-reply-form {
+      width: 86%;
+      margin-left: auto;
+      margin-bottom: 124px;
     }
   }
 }

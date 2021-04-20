@@ -1,4 +1,4 @@
-<%= form_with model: reply, url: url, method: method, id: "reply-form" do |f| %>
+<%= form_with model: reply, url: url, method: method, class: "new-reply-form" do |f| %>
   <div id="js-reply-errors-<%= answer.id %>" class="js-reply-errors" data-answer-id="<%= answer.id %>"></div>
 
   <%= f.hidden_field :post_id, value: post.id %>

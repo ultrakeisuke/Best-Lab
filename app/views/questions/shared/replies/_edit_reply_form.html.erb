@@ -1,4 +1,4 @@
-<%= form_with model: reply_form, url: url, method: method, id: "reply-form" do |f| %>
+<%= form_with model: reply_form, url: url, method: method, class: "edit-reply-form" do |f| %>
   <div id="js-edit-reply-errors-<%= reply.id %>"></div>
 
   <%= f.hidden_field :post_id, value: post.id %>
@@ -18,13 +18,16 @@
     <% end %>
   </div>
 
-  <div class="actions">
-    <%= f.submit "リプライを編集" %>
+  <div class="submit-or-cancel">
+    <%# 編集をキャンセルするボタンを設置 %>
+    <% if reply.body.present? || reply.pictures.present? %>
+      <div class="actions">
+        <button id="edit-reply-cancel-<%= reply.id %>" class="edit-reply-cancel" data-reply-cancel="<%= reply.id %>">キャンセル</button>
+      </div>
+    <% end %>
+    <div class="actions">
+      <%= f.submit "リプライを編集" %>
+    </div>
   </div>
 
 <% end%>
-
-<%# 編集をキャンセルするボタンを設置 %>
-<% if reply.body.present? || reply.pictures.present? %>
-  <button id="edit-reply-cancel-<%= reply.id %>" class="edit-reply-cancel" data-reply-cancel="<%= reply.id %>">キャンセル</button>
-<% end %>

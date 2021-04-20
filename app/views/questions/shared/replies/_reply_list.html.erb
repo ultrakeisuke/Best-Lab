@@ -1,24 +1,29 @@
-<%# 回答と回答に紐づいたリプライを表示 %>
-<div id="display-reply-<%= answer.id %>">
+<div id="reply-container-<%= answer.id %>" class="reply-container">
   <% answer.replies&.order(created_at: :asc).each do |reply| %>
-    <div id="reply-contents-<%= reply.id %>">
-      <div class="reply-username">
-        <%= image_tag asset_path(reply.user.profile_picture) %>
-        <p><%= reply.user.name %></p>
+    <div id="reply-container__list-<%= reply.id %>" class="reply-container__list">
+      <div id="reply-container__body-<%= reply.id %>" class="reply-container__body">
+        <%= reply.body %>
       </div>
-      <div class="reply-createdat"><%= l reply.created_at, format: :year %></div>
-      <div class="reply-body"><%= reply.body %></div>
-      <div class="reply-pictures">
+      <div class="reply-container__pictures">
         <% reply.pictures.each do |picture| %>
           <%= image_tag picture.picture.url %>
         <% end %>
       </div>
-      <% if current_user.id == reply.user_id %>
-        <i class="fas fa-pen edit-reply-icon" data-reply-id="<%= reply.id %>"></i>
+      <div id="edit-reply-form-<%= reply.id %>" class="edit-reply-form hide">
+        <%= render "questions/shared/replies/edit_reply_form", reply_form: @reply, reply: reply, answer: answer, post: @post, url: questions_reply_path(reply), method: :patch %>
+      </div>
+      <% if current_user&.id == reply.user_id %>
+        <div class="reply-container__edit">
+          <i id="edit-reply-icon-<%= reply.id %>" class="fas fa-pen edit-reply-icon" data-reply-id="<%= reply.id %>"> 編集</i>
+        </div>
       <% end %>
-    </div>
-    <div id="edit-reply-form-<%= reply.id %>" class="edit-reply-form hide">
-      <%= render "questions/shared/replies/edit_reply_form", reply_form: @reply, reply: reply, answer: answer, post: @post, url: questions_reply_path(reply), method: :patch %>
+      <div class="reply-container__user-info">
+        <span>投稿 <%= l reply.created_at, format: :year %></span>
+        <%= link_to(users_basic_path(reply.user)) do %>
+          <%= image_tag asset_path(reply.user.profile_picture) %>
+          <h5><%= reply.user.name %></h5>
+        <% end %>
+      </div>
     </div>
   <% end %>
 </div>
