@@ -12,7 +12,7 @@
         <h5><%= @post.title %></h5>
       </div>
       <div class="post-container__status">
-        <p><%= @post.translated_status %></p>
+        <p class="post-status-<%= @post.status %>"><%= @post.translated_status %></p>
         <span>投稿</span>
         <%= l @post.created_at, format: :year %>
       </div>

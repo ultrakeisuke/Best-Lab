@@ -220,6 +220,15 @@ footer {
       padding-right: 6px;
     }
   }
+  // 投稿状態による背景色変化
+  .post-status-open {
+    color: #fff;
+    background-color: $color-grey;
+  }
+  .post-status-closed {
+    color: #fff;
+    background-color: $color-red;
+  }
 }
 
 // サイドバー
@@ -1000,8 +1009,6 @@ footer {
           display: inline-block;
           padding: 4px;
           margin-right: 6px;
-          color: #fff;
-          background-color: $color-red;
           border-radius: 2px;
         }
       }
