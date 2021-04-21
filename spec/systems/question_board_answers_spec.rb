@@ -62,7 +62,7 @@ RSpec.describe '回答の作成と編集', type: :system do
     # フォームに回答情報が既にセットされているか確認
     expect(find("#answer-form-#{answer.id}-textarea")).to have_content 'answer'
     # キャンセルボタンを押すとフォームが非表示になることを確認
-    click_button 'キャンセル'
+    find('.edit-answer-cancel').click
     expect(page).not_to have_css("#edit-answer-form-#{answer.id}")
     # 回答の編集に失敗
     find('.edit-answer-icon').click
