@@ -17,7 +17,6 @@
           <% if user_signed_in? %>
             <%= link_to 'プロフィール', users_basic_path(current_user) %>
             <%= link_to '質問を投稿する', new_questions_post_path %>
-            <%= link_to 'あなたの回答', questions_answers_path %>
             <%= link_to 'メッセージ', users_rooms_path %>
             <%= button_to 'ログアウト', destroy_user_session_path, method: :delete %>
           <% elsif admin_signed_in? %>
@@ -33,18 +32,7 @@
       <p><%= notice %></p>
 
       <% if current_page?(root_path) %>
-        <% if admin_signed_in? %>
-          <main id="primary">
-            <%= yield %>
-          </main>
-          <aside id="secondary">
-            <div class="sidebar__for-admin">
-              <%= render 'admins/shared/user_search_form' %>
-            </div>
-          </aside>
-        <% else %>
-          <%= yield %>
-        <% end %>
+        <%= yield %>
       <% else %>
         <div class="yield">
           <main id="primary">
