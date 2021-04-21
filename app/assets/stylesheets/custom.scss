@@ -229,6 +229,12 @@ footer {
     color: #fff;
     background-color: $color-red;
   }
+  // エラーメッセージ
+  #error_explanation {
+    li {
+      color: $color-red;
+    }
+  }
   // 画像をクリックした際のポップアップ
   #popup-background {
     top: 0;
