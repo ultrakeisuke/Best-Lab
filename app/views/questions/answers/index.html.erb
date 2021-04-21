@@ -1,26 +1,35 @@
 <% provide(:title, "あなたの回答") %>
 
-<div class="answer-list">
-  <h4>あなたの回答</h4>
-
-  <% if @comment_lists.blank? %>
-    <p>まだ質問に回答していません</p>
-  <% else %>
-    <% @comment_lists.each do |comment_list| %>
-      <%= link_to(questions_post_path(comment_list.post)) do %>
-        <div class="answer-list__info">
-          <%# 回答した質問の通知の有無を表示 %>
-          <% if comment_list.post.check_notice(current_user) == true %>
-            <p class="has-notice"></p>
-          <% end %>
-          <div class="answer-list__questioner-image"><%= image_tag asset_path(comment_list.post.user.profile_picture) %></div>
-          <div class="answer-list__questioner-name"><%= comment_list.post.user.name %></div>
-          <div class="answre-list__post-title"><%= comment_list.post.title %></div>
+<h4>あなたの回答</h4>
+<% if @comment_lists.blank? %>
+  <p>まだ質問に回答していません</p>
+<% else %>
+  <% @comment_lists.each do |comment_list| %>
+    <%= link_to(questions_post_path(comment_list.post)) do %>
+      <div class="post-list">
+        <div class="post-list__sub-info">
+          <div class="post-list__status">
+            <p class="post-status-<%= comment_list.post.status %>"><%= comment_list.post.translated_status %></p>
+            <span>回答</span>
+            <h5><%= comment_list.post.answers.length %></h5>
+          </div>
+        </div>
+        <div class="post-list__main-info">
+          <div class="post-list__category-and-title">
+            <p>カテゴリー >> <%= comment_list.post.category.name %></p>
+            <h5><%= comment_list.post.title %></h5>
+          </div>
+          <div class="post-list__user-info">
+            <span>投稿 <%= l comment_list.post.created_at, format: :year %></span>
+            <%= image_tag asset_path(comment_list.post.user.profile_picture) %>
+            <p><%= comment_list.post.user.name %></p>
+          </div>
           <% if comment_list.notice == true %>
+            <p class="has-notice"></p>
             <p>新着のメッセージがあります</p>
           <% end %>
         </div>
-      <% end %>
+      </div>
     <% end %>
   <% end %>
-</div>
+<% end %>

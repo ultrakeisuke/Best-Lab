@@ -884,6 +884,7 @@ footer {
       padding-bottom: 4px;
       display: none;
       position: fixed;
+      z-index: 99;
       width: 100px;
       text-align-last: left;
       border: 1px solid #ccc;
@@ -1241,6 +1242,75 @@ footer {
       width: 86%;
       margin-left: auto;
       margin-bottom: 124px;
+    }
+  }
+}
+
+// questions/answers
+// index
+.post-list {
+  display: flex;
+  padding: 12px;
+  margin-bottom: 8px;
+  border: solid 2px $color-white;
+  border-radius: 6px;
+  &:hover {
+    border-color: $color-blue;
+    transition: border-color 0.2s;
+  }
+  img {
+    width: 44px;
+    height: 44px;
+    margin-right: 8px;
+    border-radius: 50%;
+    border: 1px solid $color-grey;
+  }
+  .post-list__sub-info {
+    min-width: 60px;
+    text-align: center;
+    .post-list__status {
+      p {
+        padding: 4px;
+        margin-bottom: 18px;
+        border-radius: 2px;
+      }
+      span {
+        display: inline-block;
+        margin-bottom: 8px;
+      }
+      h5 {
+        margin-bottom: 8px;
+        font-size: 20px;
+      }
+    }
+  }
+  .post-list__main-info {
+    flex: 1;
+    padding-left: 12px;
+    .post-list__category-and-title {
+      // カテゴリー
+      p {
+        display: inline-block;
+        margin-top: 4px;
+        margin-bottom: 12px;
+        font-size: 12px;
+      }
+      // タイトル
+      h5 {
+        margin-left: 3px;
+        margin-bottom: 12px;
+        font-size: 16px;
+      }
+    }
+    .post-list__user-info {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      // 投稿日
+      span {
+        margin-right: 8px;
+        font-size: 12px;
+      }
     }
   }
 }

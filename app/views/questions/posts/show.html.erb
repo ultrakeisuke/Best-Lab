@@ -85,7 +85,9 @@
         <% end %>
         <div class="answer-container__user-info">
           <% if current_user&.id == @post.user_id && @post.best_answer_id.blank? %>
-            <%= render "questions/shared/best_answer_form", post: PostForm.new, answer: answer, url: select_best_answer_questions_post_path(@post), method: :patch %>
+            <div id="best-answer-<%= answer.id %>">
+              <%= render "questions/shared/best_answer_form", post: PostForm.new, answer: answer, url: select_best_answer_questions_post_path(@post), method: :patch %>
+            </div>
           <% end %>
           <span>投稿 <%= l answer.created_at, format: :year %></span>
           <%= link_to(users_basic_path(answer.user)) do%>

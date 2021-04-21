@@ -18,7 +18,7 @@ RSpec.describe 'ダイレクトメッセージの通知', type: :system do
     visit users_room_path(room)
     find('#message_form_body').set('new_message') # メッセージを送信
     find('.post-field').click_button
-    click_button 'ログアウト'
+    click_button 'ログアウト', match: :first
     # メッセージ受信者としてログイン
     login_as_user(partner)
     visit users_rooms_path # メッセージ相手を一覧表示する画面に移動
@@ -53,21 +53,21 @@ RSpec.describe '質問掲示板における、質問者からの通知', type: :
     find("#best-answer-#{answer1.id}").click_button # ベストアンサーボタンをクリック
     page.accept_confirm
     expect(page).to have_content 'ベストアンサーが決定しました！'
-    expect(page).to have_css('.answer-best') # 選出された回答に「ベストアンサー」の表記が入る
-    click_on 'ログアウト'
+    expect(page).to have_css('.answer-container__best-answer-title') # 選出された回答に「ベストアンサー」の表記が入る
+    click_on 'ログアウト', match: :first
     # 回答者1(answerer1)としてログインし、通知を確認
     login_as_user(answerer1)
     visit questions_answers_path # 回答一覧ページに移動
-    expect(page).to have_css('.has-notice')
+    expect(page).to have_content '新着のメッセージがあります'
     # 通知の消失処理も確認
     click_link post.title.to_s # 投稿詳細ページに移動
     visit questions_answers_path # 再度一覧ページに移動
-    expect(page).not_to have_css('.has-notice')
-    click_on 'ログアウト'
+    expect(page).not_to have_content '新着のメッセージがあります'
+    click_on 'ログアウト', match: :first
     # 回答者2(answerer2)としてログインし、通知を確認
     login_as_user(answerer2)
     visit questions_answers_path
-    expect(page).to have_css('.has-notice')
+    expect(page).to have_content '新着のメッセージがあります'
   end
 
   it '自己解決した場合は、回答者全員に通知を送信', js: true do
@@ -76,17 +76,17 @@ RSpec.describe '質問掲示板における、質問者からの通知', type: :
     visit questions_post_path(post)
     find('#answer_form_body').set('solved_by_questioner')
     find('#answer_form').click_button
-    expect(page).to have_css('.answer-best') # 選出された回答に「ベストアンサー」の表記が入る
-    click_button 'ログアウト'
+    expect(page).to have_css('.answer-container__best-answer-title') # 選出された回答に「ベストアンサー」の表記が入る
+    click_button 'ログアウト', match: :first
     # 回答者1(answerer1)としてログインし、通知を確認
     login_as_user(answerer1)
     visit questions_answers_path # 回答一覧ページに移動
-    expect(page).to have_css('.has-notice')
-    click_on 'ログアウト'
+    expect(page).to have_content '新着のメッセージがあります'
+    click_on 'ログアウト', match: :first
     # 回答者2(answerer2)としてログインし、通知を確認
     login_as_user(answerer2)
     visit questions_answers_path
-    expect(page).to have_css('.has-notice')
+    expect(page).to have_content '新着のメッセージがあります'
   end
 end
 
@@ -108,7 +108,7 @@ RSpec.describe '質問掲示板における、回答者からの通知', type: :
     visit questions_post_path(post)
     find('#answer_form_body').set('answer')
     find('#answer_form').click_button
-    click_button 'ログアウト'
+    click_button 'ログアウト', match: :first
     # 質問者としてログイン
     login_as_user(questioner)
     visit users_basic_path(questioner)
@@ -136,29 +136,29 @@ RSpec.describe '質問掲示板における、返信者(リプライヤー)か�
   end
 
   it '質問者と回答者、回答に紐づくリプライヤーに通知を送信' do
-    # 返信者(replier)としてログインし、回答を送信
+    # 返信者(replier)としてログインし、リプライを送信
     login_as_user(replier)
     visit questions_post_path(post)
     find("#reply-textarea-#{answer.id}").set('reply')
-    find("#display-#{answer.id}").click_button
-    click_button 'ログアウト'
+    click_button 'リプライを送信', match: :first
+    click_button 'ログアウト', match: :first
     # 質問者としてログイン
     login_as_user(questioner)
     visit users_basic_path(questioner)
-    expect(page).to have_css('.has-notice') # 通知を確認
-    click_button 'ログアウト'
+    expect(page).to have_content '新着のメッセージがあります'
+    click_button 'ログアウト', match: :first
     # 回答者としてログイン
     login_as_user(answerer)
     visit questions_answers_path
-    expect(page).to have_css('.has-notice') # 通知を確認
-    click_button 'ログアウト'
+    expect(page).to have_content '新着のメッセージがあります'
+    click_button 'ログアウト', match: :first
     # 回答に紐づかない返信者(リプライヤー)には通知されないことを確認
     login_as_user(repliers[0])
     visit questions_answers_path
-    expect(page).not_to have_css('.has-notice')
-    click_button 'ログアウト'
+    expect(page).not_to have_content '新着のメッセージがあります'
+    click_button 'ログアウト', match: :first
     login_as_user(repliers[1])
     visit questions_answers_path
-    expect(page).not_to have_css('.has-notice')
+    expect(page).not_to have_content '新着のメッセージがあります'
   end
 end
