@@ -229,6 +229,23 @@ footer {
     color: #fff;
     background-color: $color-red;
   }
+  // 画像をクリックした際のポップアップ
+  #popup-background {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 1000;
+    background: #000;
+    opacity: 0.5;
+  }
+  #popup-item {
+    top: 50%;
+    left: 50%;
+    position: fixed;
+    z-index: 1001;
+  }
 }
 
 // サイドバー
@@ -904,22 +921,6 @@ footer {
       }
     }
   }
-  #popup-background {
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    z-index: 1000;
-    background: #000;
-    opacity: 0.5;
-  }
-  #popup-item {
-    top: 50%;
-    left: 50%;
-    position: fixed;
-    z-index: 1001;
-  }
 }
 .post-field {
   padding: 10px;
@@ -1020,9 +1021,15 @@ footer {
     }
     // 質問内容
     .post-container__content {
-      padding: 6px 8px;
-      p {
-        font-size: 14px;
+      margin-bottom: 18px;
+    }
+    // 添付画像のデザイン
+    .post-container__pictures {
+      img {
+        display: inline-block;
+        margin-bottom: 18px;
+        width: 100px;
+        height: 100px;
       }
     }
     // 質問の編集リンク
@@ -1079,30 +1086,7 @@ footer {
     height: 36px;
     border: 2px solid $color-white;
   }
-  // 添付画像のデザイン
-  img {
-    width: 60px;
-    height: 60px;
-  }
-  // エラー文
-  #error_explanation {
-    li {
-      color: $color-red;
-    }
-  }
   .comment-container {
-    // ボタンのデザインと配置
-    button {
-      padding: 5px 10px;
-      margin-right: 6px;
-      border-radius: 4px;
-      background-color: $color-white;
-      border: solid 1px $color-white;
-    }
-    .submit-or-cancel {
-      display: flex;
-      justify-content: flex-end;
-    }
     // 回答
     .answer-container {
       position: relative;
@@ -1122,6 +1106,14 @@ footer {
         .answer-container__body {
           padding-top: 18px;
           padding-bottom: 18px;
+        }
+        .answer-container__pictures {
+          margin-bottom: 12px;
+          // 添付画像のデザイン
+          img {
+            width: 100px;
+            height: 100px;
+          }
         }
         .edit-answer-form {
           margin-bottom: 24px;
@@ -1192,6 +1184,14 @@ footer {
         .reply-container__body {
           padding-top: 18px;
           padding-bottom: 18px;
+        }
+        .reply-container__pictures {
+          margin-bottom: 12px;
+          // 添付画像のデザイン
+          img {
+            width: 60px;
+            height: 60px;
+          }
         }
         .edit-reply-form {
           margin-bottom: 24px;

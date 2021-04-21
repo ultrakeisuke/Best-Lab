@@ -18,15 +18,17 @@
       </div>
     </div>
     <div class="post-container__content">
-      <p><%= @post.content %></p>
+      <%= @post.content %>
+    </div>
+    <% unless @post.pictures.blank? %>
       <div class="post-container__pictures">
         <% if @post.pictures.present? %>
           <% @post.pictures.each do |picture| %>
-            <%= image_tag picture.picture.url %>
+            <%= image_tag asset_path(picture.picture.url), class:"popup-img" %>
           <% end %>
         <% end %>
       </div>
-    </div>
+    <% end %>
     <% if @post.user_id == current_user&.id %>
       <div class="post-container__edit">
         <%= link_to(edit_questions_post_path(@post.id)) do %>
@@ -68,11 +70,13 @@
           <div id="answer-container__body-<%= answer.id %>" class="answer-container__body">
             <%= answer.body %>
           </div>
-          <div class="answer-container__pictures">
-            <% answer.pictures.each do |picture| %>
-              <%= image_tag picture.picture.url %>
-            <% end %>
-          </div>
+          <% unless answer.pictures.blank? %>
+            <div id="answer-container__pictures-<%= answer.id %>" class="answer-container__pictures">
+              <% answer.pictures.each do |picture| %>
+                <%= image_tag asset_path(picture.picture.url), class:"popup-img" %>
+              <% end %>
+            </div>
+          <% end %>
           <div id="edit-answer-form-<%= answer.id %>" class="edit-answer-form hide">
             <%= render "questions/shared/answers/edit_answer_form", answer_form: @answer, answer: answer, post: @post, url: questions_answer_path(answer), method: :patch %>
           </div>
@@ -103,11 +107,13 @@
             <div id="reply-container__body-<%= reply.id %>" class="reply-container__body">
               <%= reply.body %>
             </div>
-            <div class="reply-container__pictures">
-              <% reply.pictures.each do |picture| %>
-                <%= image_tag picture.picture.url %>
-              <% end %>
-            </div>
+            <% unless reply.pictures.blank? %>
+              <div id="reply-container__pictures-<%= reply.id %>" class="reply-container__pictures">
+                <% reply.pictures.each do |picture| %>
+                  <%= image_tag asset_path(picture.picture.url), class:"popup-img" %>
+                <% end %>
+              </div>
+            <% end %>
             <div id="edit-reply-form-<%= reply.id %>" class="edit-reply-form hide">
               <%= render "questions/shared/replies/edit_reply_form", reply_form: @reply, reply: reply, answer: answer, post: @post, url: questions_reply_path(reply), method: :patch %>
             </div>
@@ -131,6 +137,8 @@
     </div>
   <% end %>
 </div>
+<div id="popup-background"></div>
+<img id="popup-item" src="" />
 
 <div id="your-answer">
   <%# 自分の質問以外の質問に対して、まだ回答していない場合は回答用のフォームを表示 %>

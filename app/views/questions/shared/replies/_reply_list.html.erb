@@ -4,11 +4,13 @@
       <div id="reply-container__body-<%= reply.id %>" class="reply-container__body">
         <%= reply.body %>
       </div>
-      <div class="reply-container__pictures">
-        <% reply.pictures.each do |picture| %>
-          <%= image_tag picture.picture.url %>
-        <% end %>
-      </div>
+      <% unless reply.pictures.blank? %>
+        <div id="reply-container__pictures-<%= reply.id %>" class="reply-container__pictures">
+          <% reply.pictures.each do |picture| %>
+            <%= image_tag asset_path(picture.picture.url), class:"popup-img" %>
+          <% end %>
+        </div>
+      <% end %>
       <div id="edit-reply-form-<%= reply.id %>" class="edit-reply-form hide">
         <%= render "questions/shared/replies/edit_reply_form", reply_form: @reply, reply: reply, answer: answer, post: @post, url: questions_reply_path(reply), method: :patch %>
       </div>
