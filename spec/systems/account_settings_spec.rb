@@ -134,7 +134,7 @@ RSpec.describe 'ゲストログインとアカウント削除', js: true, type: 
 
   it 'ゲストユーザーのアカウントを編集・削除できない' do
     visit root_path
-    click_on 'ゲストユーザーで体験する'
+    click_on 'ゲストユーザーで体験する', match: :first
     # ゲストログイン後の画面表示確認
     expect(page).to have_content 'ゲストユーザーでログインしました。'
     # アカウントを編集
