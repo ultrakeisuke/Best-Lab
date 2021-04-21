@@ -6,6 +6,7 @@ window.addEventListener('load', function () {
       var answerID = this.getAttribute('data-answer-id');
       // 回答とアイコンを非表示にする処理
       $('#answer-container__body-' + answerID).addClass('hide');
+      $('#answer-container__pictures-' + answerID).addClass('hide');
       $('#edit-answer-icon-' + answerID).addClass('hide');
       // 回答の編集フォームを表示する処理
       $('#edit-answer-form-' + answerID).removeClass('hide');
@@ -20,6 +21,7 @@ window.addEventListener('load', function () {
       $('#edit-answer-form-' + answerID).addClass('hide');
       // 回答とアイコンを表示する処理
       $('#answer-container__body-' + answerID).removeClass('hide');
+      $('#answer-container__pictures-' + answerID).removeClass('hide');
       $('#edit-answer-icon-' + answerID).removeClass('hide');
     });
   }
@@ -33,6 +35,7 @@ window.addEventListener('load', function () {
       var replyID = this.getAttribute('data-reply-id');
       // リプライとアイコンを非表示にする処理
       $('#reply-container__body-' + replyID).addClass('hide');
+      $('#reply-container__pictures-' + replyID).addClass('hide');
       $('#edit-reply-icon-' + replyID).addClass('hide');
       // 編集フォームを表示する処理
       $('#edit-reply-form-' + replyID).removeClass('hide');
@@ -47,6 +50,7 @@ window.addEventListener('load', function () {
       $('#edit-reply-form-' + replyID).addClass('hide');
       // リプライとアイコンを表示する処理
       $('#reply-container__body-' + replyID).removeClass('hide');
+      $('#reply-container__pictures-' + replyID).removeClass('hide');
       $('#edit-reply-icon-' + replyID).removeClass('hide');
     });
   }
