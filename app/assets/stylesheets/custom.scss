@@ -1093,6 +1093,22 @@ footer {
     border: 2px solid $color-white;
   }
   .comment-container {
+    // フォームのボタンデザインと配置
+    .submit-or-cancel {
+      display: flex;
+      justify-content: flex-end;
+      .edit-answer-cancel,
+      .edit-reply-cancel {
+        padding: 5px 10px;
+        margin-right: 4px;
+        border-radius: 4px;
+        background-color: $color-white;
+        border: solid 1px $color-white;
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
     // 回答
     .answer-container {
       position: relative;

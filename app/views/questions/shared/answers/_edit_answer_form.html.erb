@@ -19,11 +19,7 @@
 
   <div class="submit-or-cancel">
     <%# 編集をキャンセルするボタンを設置 %>
-    <% if answer.body.present? || answer.pictures.present? %>
-      <div class="actions">
-        <button id="edit-answer-cancel-<%= answer.id %>" class="edit-answer-cancel" data-answer-cancel="<%= answer.id %>">キャンセル</button>
-      </div>
-    <% end %>
+    <div id="edit-answer-cancel-<%= answer.id %>" class="edit-answer-cancel" data-answer-cancel="<%= answer.id %>">キャンセル</div>
     <div class="actions">
       <%= f.submit "回答を編集" %>
     </div>
