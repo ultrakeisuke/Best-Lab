@@ -54,7 +54,7 @@ li {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: red;
+  background-color: $color-red;
 }
 
 // layoutsフォルダ
@@ -735,6 +735,7 @@ footer {
     align-items: center;
     p {
       margin-right: 4px;
+      color: $color-red;
     }
   }
   // リスト中のユーザー名
@@ -1332,6 +1333,14 @@ footer {
       span {
         margin-right: 8px;
         font-size: 12px;
+      }
+    }
+    .post-list__notice {
+      margin-right: 6px;
+      p {
+        display: inline-block;
+        margin-right: 2px;
+        color: $color-red;
       }
     }
   }
