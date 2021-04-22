@@ -845,8 +845,8 @@ footer {
         right: -2px;
         transform: rotate(60deg);
         border-radius: 50%;
-        border-right: 16px solid skyblue;
-        border-bottom: 16px solid skyblue;
+        border-right: 16px solid $color-blue;
+        border-bottom: 16px solid $color-blue;
         border-top: 16px solid transparent;
         border-left: 16px solid transparent;
       }
@@ -937,9 +937,10 @@ footer {
       padding: 8px;
       max-width: 80%;
       border-radius: 12px;
-      background-color: lightskyblue;
+      background-color: $color-blue;
       p {
         margin: 0;
+        color: #fff;
         font-size: 15px;
       }
       img {
@@ -988,7 +989,7 @@ footer {
       cursor: pointer;
       i {
         font-size: 22px;
-        color: lightskyblue;
+        color: $color-blue;
       }
       .too-many-files {
         color: #ff0000;
@@ -1002,7 +1003,7 @@ footer {
       height: 2em;
       resize: none;
       overflow: hidden;
-      border-color: lightskyblue;
+      border-color: $color-blue;
       border-radius: 5px;
       outline: none;
     }
@@ -1017,7 +1018,7 @@ footer {
     }
     i {
       font-size: 22px;
-      color: lightskyblue;
+      color: $color-blue;
       background-color: none;
     }
   }
