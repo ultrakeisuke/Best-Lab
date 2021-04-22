@@ -13,6 +13,9 @@ html,
 body {
   // コンテンツの内容に合わせて画面の高さを調整
   height: 100%;
+  font-family: 'Lato', 'Noto Sans JP', 'ヒラギノ角ゴ ProN',
+    'Hiragino Kaku Gothic ProN', 'メイリオ', 'Meiryo', 'ＭＳＰゴシック',
+    'MS PGothic', sans-serif;
 }
 
 .content {
@@ -64,39 +67,41 @@ header {
   position: fixed;
   z-index: 100;
   width: 100%;
+  padding-right: 40px;
   background-color: #fff;
   border-bottom: solid 1px $color-white;
   nav {
-    text-align: center;
+    display: flex;
+    align-items: center;
     a {
       padding: 20px;
-      display: inline-block;
-      font-size: 18px;
-      font-weight: 600;
-      color: $color-black;
+      font-size: 16px;
+      color: $color-grey;
       &:hover {
         transition: color 0.3s;
-        color: $color-blue;
+        color: $color-black;
         text-decoration: none;
       }
     }
-    form {
-      display: inline-block;
+    // アイコンのデザイン
+    a:first-child {
+      margin-right: auto;
+      font-size: 22px;
+      color: $color-blue;
       &:hover {
-        input {
-          color: #fff;
-          text-decoration: none;
-        }
+        color: $color-green;
       }
+    }
+    form {
       input {
         padding: 20px;
         background-color: #fff;
         border: none;
-        font-size: 18px;
-        font-weight: 600;
+        font-size: 16px;
+        color: $color-grey;
         &:hover {
           transition: color 0.2s;
-          color: $color-blue;
+          color: $color-black;
         }
       }
     }

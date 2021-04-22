@@ -7,6 +7,7 @@
 
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
   </head>
 
   <body>
@@ -17,6 +18,7 @@
           <% if user_signed_in? %>
             <%= link_to 'プロフィール', users_basic_path(current_user) %>
             <%= link_to '質問を投稿する', new_questions_post_path %>
+            <%= link_to 'あなたの回答', questions_answers_path %>
             <%= link_to 'メッセージ', users_rooms_path %>
             <%= button_to 'ログアウト', destroy_user_session_path, method: :delete %>
           <% elsif admin_signed_in? %>
@@ -72,6 +74,7 @@
           <% if user_signed_in? %>
             <%= link_to 'プロフィール', users_basic_path(current_user) %>
             <%= link_to '質問を投稿する', new_questions_post_path %>
+            <%= link_to 'あなたの回答', questions_answers_path %>
             <%= link_to 'メッセージ', users_rooms_path %>
             <%= button_to 'ログアウト', destroy_user_session_path, method: :delete %>
           <% elsif admin_signed_in? %>
