@@ -30,8 +30,11 @@
         </nav>
       </header>
 
-      <p><%= alert %></p>
-      <p><%= notice %></p>
+      <div class="flash-message">
+        <% flash.each do |message_type, message| %>
+          <div class="flash flash-<%= message_type %>"><%= message %></div>
+        <% end %>
+      </div>
 
       <% if current_page?(root_path) %>
         <% if admin_signed_in? %>

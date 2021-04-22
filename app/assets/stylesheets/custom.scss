@@ -160,11 +160,33 @@ footer {
   }
 }
 
+// フラッシュ
+.flash-message {
+  padding-top: 95px;
+  margin-left: 80px;
+  margin-bottom: 30px;
+  .flash {
+    display: inline-block;
+    padding: 8px 14px;
+    border-radius: 4px;
+  }
+  .flash-alert {
+    color: $color-red;
+    background-color: rgb(242, 192, 193);
+  }
+  .flash-notice {
+    color: rgb(116, 148, 121);
+    background-color: rgb(222, 241, 217);
+  }
+}
+
 // メインとサイドバーの設定
 .yield {
   display: flex;
   max-width: 100%;
-  padding: 115px 80px 50px;
+  padding-right: 80px;
+  padding-left: 80px;
+  padding-bottom: 50px;
   margin: 0 auto;
 }
 
@@ -463,7 +485,6 @@ footer {
 
 // lp
 .lp {
-  padding-top: 115px;
   .top {
     border-bottom: solid 1px $color-light-grey;
     padding: 0px 0 50px;
