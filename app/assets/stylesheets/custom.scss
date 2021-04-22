@@ -1079,8 +1079,12 @@ footer {
     }
   }
 }
-// 回答数
+// 質問への回答数
 .num-of-answers {
+  margin-bottom: 52px;
+  h5 {
+    font-size: 20px;
+  }
   span {
     color: $color-blue;
   }
