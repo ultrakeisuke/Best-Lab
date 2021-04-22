@@ -666,15 +666,19 @@ footer {
     .user-profile__room-link {
       display: flex;
       justify-content: flex-end;
-      padding-top: 6px;
-      padding-bottom: 6px;
       input {
+        display: inline-block;
         padding: 4px 10px;
+        margin: 4px;
         font-size: 15px;
-        border-radius: 12px;
-        color: white;
+        border-radius: 4px;
+        color: #fff;
         background-color: $color-blue;
         border: solid 1px $color-blue;
+        &:hover {
+          transition: background-color 0.4s;
+          background-color: $color-dark-blue;
+        }
       }
     }
     // ユーザーの所属と自己紹介文
