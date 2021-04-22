@@ -70,16 +70,31 @@
   <h4>投稿した質問</h4>
   <% @posts.each do |post| %>
     <%= link_to(questions_post_path(post)) do %>
-      <div class="user-question__info">
-        <span><%= l post.created_at, format: :year %></span>
-        <h5><%= post.title %></h5>
-        <% if post.check_notice(current_user) == true %>
-          <div class="user-question__notice">
-            <p class="has-notice"></p>
-            <p>新着のメッセージがあります</p>
+      <div class="post-list">
+        <div class="post-list__sub-info">
+          <div class="post-list__status">
+            <p class="post-status-<%= post.status %>"><%= post.translated_status %></p>
+            <span>回答</span>
+            <h5><%= post.answers.length %></h5>
           </div>
-        <% end %>      
+        </div>
+        <div class="post-list__main-info">
+          <div class="post-list__category-and-title">
+            <p><%= post.category.parent.name %> > <%= post.category.name %></p>
+            <h5><%= post.title %></h5>
+          </div>
+          <% if post.check_notice(post.user) == true %>
+            <div class="post-list__notice">
+              <p class="has-notice"></p>
+              <p>新着のメッセージがあります</p>
+            </div>
+          <% end %>
+          <div class="post-list__user-info">
+            <span>投稿 <%= l post.created_at, format: :year %></span>
+          </div>
+        </div>
       </div>
     <% end %>
   <% end %>
+  <%= paginate @posts %>
 </div>
