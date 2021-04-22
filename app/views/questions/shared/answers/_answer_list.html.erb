@@ -36,7 +36,7 @@
           <span>投稿 <%= l answer.created_at, format: :year %></span>
           <%= link_to(users_basic_path(answer.user)) do%>
             <%= image_tag asset_path(answer.user.profile_picture) %>
-            <h5><%= answer.user.name %></h5>
+            <span><%= answer.user.name %></span>
           <% end %>
         </div>
       </div>
@@ -67,7 +67,7 @@
               <span>投稿 <%= l reply.created_at, format: :year %></span>
               <%= link_to(users_basic_path(reply.user)) do %>
                 <%= image_tag asset_path(reply.user.profile_picture) %>
-                <h5><%= reply.user.name %></h5>
+                <span><%= reply.user.name %></span>
               <% end %>
             </div>
           </div>

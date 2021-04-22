@@ -1013,7 +1013,7 @@ footer {
       .post-container__title {
         h5 {
           margin-bottom: 18px;
-          font-size: 25px;
+          font-size: 22px;
         }
       }
       // 質問の状態
@@ -1065,16 +1065,15 @@ footer {
       display: flex;
       justify-content: flex-end;
       align-items: center;
+      span {
+        margin-right: 8px;
+      }
       img {
         margin-right: 12px;
         width: 44px;
         height: 44px;
         border: solid 1px $color-grey;
         border-radius: 50%;
-      }
-      h5 {
-        display: inline-block;
-        font-size: 18px;
       }
     }
   }
