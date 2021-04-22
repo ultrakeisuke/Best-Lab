@@ -3,9 +3,10 @@
 
 $color-black: rgb(46, 46, 46);
 $color-grey: rgb(146, 165, 177);
-$color-white: rgb(228, 237, 243);
+$color-light-grey: rgb(228, 237, 243);
 $color-light-blue: rgb(229, 243, 255);
 $color-blue: rgb(63, 169, 255);
+$color-dark-blue: rgb(7, 139, 255);
 $color-green: rgb(86, 198, 0);
 $color-red: rgb(234, 96, 109);
 
@@ -69,7 +70,7 @@ header {
   width: 100%;
   padding-right: 40px;
   background-color: #fff;
-  border-bottom: solid 1px $color-white;
+  border-bottom: solid 1px $color-light-grey;
   nav {
     display: flex;
     align-items: center;
@@ -114,7 +115,7 @@ footer {
   height: 150px;
   position: absolute;
   bottom: 0;
-  background-color: $color-white;
+  background-color: $color-light-grey;
   nav {
     height: 100px;
     padding: 15px;
@@ -141,7 +142,7 @@ footer {
       }
       input {
         padding: 20px;
-        background-color: $color-white;
+        background-color: $color-light-grey;
         border: none;
         font-size: 16px;
         &:hover {
@@ -171,7 +172,7 @@ footer {
 #primary {
   width: 66%;
   padding: 36px 60px;
-  border: solid 1px $color-white;
+  border: solid 1px $color-light-grey;
   border-radius: 12px;
   // 各ページタイトル
   h4 {
@@ -193,7 +194,7 @@ footer {
       margin-right: 3px;
       text-align: center;
       font-size: 16px;
-      border: solid 1px $color-white;
+      border: solid 1px $color-light-grey;
       border-radius: 3px;
       &:hover {
         background-color: $color-blue;
@@ -293,7 +294,7 @@ footer {
     select,
     input {
       padding: 4px;
-      border: solid 1px $color-white;
+      border: solid 1px $color-light-grey;
       border-radius: 4px;
       outline: none;
     }
@@ -330,7 +331,7 @@ footer {
     width: 100%;
     padding: 4px;
     margin-bottom: 12px;
-    border: solid 1px $color-white;
+    border: solid 1px $color-light-grey;
     border-radius: 4px;
     outline: none;
   }
@@ -339,7 +340,7 @@ footer {
     width: 100%;
     height: 120px;
     padding: 5px;
-    border: solid 1px $color-white;
+    border: solid 1px $color-light-grey;
     border-radius: 4px;
     // 右下の斜線を消す
     resize: none;
@@ -367,7 +368,7 @@ footer {
   select,
   input {
     padding: 4px;
-    border: solid 1px $color-white;
+    border: solid 1px $color-light-grey;
     border-radius: 4px;
     outline: none;
   }
@@ -381,9 +382,9 @@ footer {
   text-align: center;
   input {
     padding: 5px 30px;
-    border: solid 1px $color-white;
+    border: solid 1px $color-light-grey;
     border-radius: 4px;
-    background-color: $color-white;
+    background-color: $color-light-grey;
     &:hover {
       transition: background-color 0.2s;
       background-color: $color-grey;
@@ -443,7 +444,7 @@ footer {
     display: flex;
     padding: 12px;
     margin-bottom: 3px;
-    border: solid 2px $color-white;
+    border: solid 2px $color-light-grey;
     border-radius: 6px;
     &:hover {
       border-color: $color-blue;
@@ -464,7 +465,7 @@ footer {
 .lp {
   padding-top: 115px;
   .top {
-    border-bottom: solid 1px $color-white;
+    border-bottom: solid 1px $color-light-grey;
     padding: 0px 0 50px;
     .top__container {
       max-width: 960px;
@@ -490,7 +491,7 @@ footer {
             padding: 12px;
             color: white;
             background-color: $color-blue;
-            border: solid 1px $color-white;
+            border: solid 1px $color-light-grey;
             border-radius: 5px;
           }
           input:hover {
@@ -555,7 +556,7 @@ footer {
   .sub-feature {
     padding-top: 60px;
     padding-bottom: 60px;
-    border-bottom: solid 1px $color-white;
+    border-bottom: solid 1px $color-light-grey;
     .sub-feature__container {
       .sub-feature__title {
         font-size: 28px;
@@ -598,7 +599,7 @@ footer {
           font-size: 16px;
           color: white;
           background-color: $color-blue;
-          border: solid 1px $color-white;
+          border: solid 1px $color-light-grey;
           border-radius: 5px;
         }
         input:hover {
@@ -626,7 +627,7 @@ footer {
       img {
         width: 128px;
         height: 128px;
-        border: solid 1px $color-white;
+        border: solid 1px $color-light-grey;
         border-radius: 50%;
       }
     }
@@ -639,18 +640,25 @@ footer {
         padding: 4px 10px;
         margin: 4px;
         font-size: 15px;
-        border-radius: 12px;
-        color: white;
+        border-radius: 4px;
+        color: #fff;
         background-color: $color-blue;
+        border: solid 1px $color-blue;
         &:hover {
-          text-decoration: none;
+          transition: background-color 0.4s;
+          background-color: $color-dark-blue;
         }
       }
       // プロフィール編集リンク
       .user-profile__edit-profile {
         a {
-          color: $color-blue;
-          background-color: $color-white;
+          color: $color-grey;
+          background-color: rgb(245, 249, 252);
+          border: solid 1px $color-light-grey;
+          &:hover {
+            transition: background-color 0.4s;
+            background-color: $color-light-grey;
+          }
         }
       }
     }
@@ -673,8 +681,8 @@ footer {
     .user-profile__details {
       display: flex;
       padding: 12px 0px;
-      border-top: solid 1px $color-white;
-      border-bottom: solid 1px $color-white;
+      border-top: solid 1px $color-light-grey;
+      border-bottom: solid 1px $color-light-grey;
       h5 {
         font-size: 15px;
         font-weight: 600;
@@ -682,7 +690,7 @@ footer {
       .user-profile__details--left {
         width: 50%;
         padding: 0 12px;
-        border-right: solid 1px $color-white;
+        border-right: solid 1px $color-light-grey;
         .user-profile__detail {
           margin-bottom: 16px;
         }
@@ -704,7 +712,7 @@ footer {
   .user-question__info {
     padding: 12px;
     margin-bottom: 3px;
-    border: solid 2px $color-white;
+    border: solid 2px $color-light-grey;
     border-radius: 6px;
     &:hover {
       border-color: $color-blue;
@@ -760,7 +768,7 @@ footer {
     display: flex;
     padding: 12px;
     margin-bottom: 3px;
-    border: solid 2px $color-white;
+    border: solid 2px $color-light-grey;
     border-radius: 6px;
     &:hover {
       border-color: $color-blue;
@@ -841,7 +849,7 @@ footer {
       .message-field__message {
         position: relative;
         z-index: 2;
-        background-color: $color-white;
+        background-color: $color-light-grey;
       }
       // 吹き出し
       &:before {
@@ -852,8 +860,8 @@ footer {
         left: 48px;
         transform: rotate(-50deg);
         border-radius: 50%;
-        border-left: 16px solid $color-white;
-        border-bottom: 16px solid $color-white;
+        border-left: 16px solid $color-light-grey;
+        border-bottom: 16px solid $color-light-grey;
         border-top: 16px solid transparent;
         border-right: 16px solid transparent;
       }
@@ -989,7 +997,7 @@ footer {
   .post-container {
     padding: 12px 10px 30px;
     margin-bottom: 100px;
-    border-bottom: solid 2px $color-white;
+    border-bottom: solid 2px $color-light-grey;
     // 質問内容
     .post-container__post-info {
       padding: 6px 8px;
@@ -1057,7 +1065,7 @@ footer {
         padding: 4px 10px;
         font-size: 15px;
         border-radius: 2px;
-        background-color: $color-white;
+        background-color: $color-light-grey;
         &:hover {
           color: #000;
         }
@@ -1103,7 +1111,7 @@ footer {
   // フォームのテキストエリア
   textarea {
     height: 36px;
-    border: 2px solid $color-white;
+    border: 2px solid $color-light-grey;
   }
   .comment-container {
     // フォームのボタンデザインと配置
@@ -1115,8 +1123,8 @@ footer {
         padding: 5px 10px;
         margin-right: 4px;
         border-radius: 4px;
-        background-color: $color-white;
-        border: solid 1px $color-white;
+        background-color: $color-light-grey;
+        border: solid 1px $color-light-grey;
         &:hover {
           cursor: pointer;
         }
@@ -1163,7 +1171,7 @@ footer {
           padding: 8px 16px;
           font-size: 15px;
           border-radius: 2px;
-          background-color: $color-white;
+          background-color: $color-light-grey;
           &:hover {
             cursor: pointer;
           }
@@ -1240,7 +1248,7 @@ footer {
             padding: 8px 16px;
             font-size: 15px;
             border-radius: 2px;
-            background-color: $color-white;
+            background-color: $color-light-grey;
             &:hover {
               cursor: pointer;
             }
@@ -1287,7 +1295,7 @@ footer {
   display: flex;
   padding: 12px;
   margin-bottom: 8px;
-  border: solid 2px $color-white;
+  border: solid 2px $color-light-grey;
   border-radius: 6px;
   &:hover {
     border-color: $color-blue;
