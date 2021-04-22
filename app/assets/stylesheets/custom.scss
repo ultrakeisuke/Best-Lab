@@ -817,7 +817,19 @@ footer {
     padding-left: 12px;
   }
 }
+
 //show
+// メッセージ相手の名前
+.partner-name {
+  a {
+    color: $color-grey;
+    &:hover {
+      transition: color 0.2s;
+      color: $color-blue;
+    }
+  }
+}
+// メッセージ表示部
 .message-field {
   padding: 12px 14px;
   height: 500px;

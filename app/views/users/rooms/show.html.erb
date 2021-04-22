@@ -1,6 +1,6 @@
 <% provide(:title, @another_entry.user.name) %>
 
-<h4><%= link_to @another_entry.user.name, users_basic_path(@another_entry.user) %></h4>
+<h4 class="partner-name"><%= link_to @another_entry.user.name, users_basic_path(@another_entry.user) %></h4>
 
 <%= render "users/shared/error_messages", resource: @message %>
 
