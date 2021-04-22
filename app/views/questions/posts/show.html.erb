@@ -49,7 +49,7 @@
 <%# 質問に対する回答数 %>
 <div class="num-of-answers">
   <% if @answers.present? %>
-    <h4>回答 <%= @answers&.length %> 件</h4>
+    <h4>回答 <span><%= @answers&.length %></span> 件</h4>
   <% else %>
     <h4>回答はまだついていません</h4>
   <% end %>

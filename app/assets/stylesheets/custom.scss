@@ -227,7 +227,7 @@ footer {
   }
   .post-status-closed {
     color: #fff;
-    background-color: $color-red;
+    background-color: $color-blue;
   }
   // エラーメッセージ
   #error_explanation {
@@ -1077,6 +1077,12 @@ footer {
         font-size: 18px;
       }
     }
+  }
+}
+// 回答数
+.num-of-answers {
+  span {
+    color: $color-blue;
   }
 }
 // 回答とリプライ
