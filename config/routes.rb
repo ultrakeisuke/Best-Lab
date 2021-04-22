@@ -31,7 +31,7 @@ Rails.application.routes.draw do
     end
   end
   namespace :questions do
-    resources :posts, only: %i[index show new create edit update] do
+    resources :posts, only: %i[show new create edit update] do
       member do
         # ベストアンサーを選出する処理
         patch 'select_best_answer'
