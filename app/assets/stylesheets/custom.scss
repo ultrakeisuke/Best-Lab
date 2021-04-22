@@ -460,27 +460,27 @@ footer {
 // lp
 .lp {
   padding-top: 115px;
-  .lp-main {
+  .top {
     border-bottom: solid 1px $color-white;
     padding: 0px 0 50px;
-    .lp-main__container {
+    .top__container {
       max-width: 960px;
       padding: 0 45px;
       margin: 0 auto;
-      .lp-main__container--left {
+      .top__container--left {
         padding-top: 50px;
-        .lp-main__subtitle {
+        .top__subtitle {
           margin-bottom: 15px;
           font-size: 15px;
         }
-        .lp-main__title {
+        .top__title {
           font-size: 60px;
         }
-        .lp-main__slogan {
+        .top__slogan {
           margin-top: 60px;
           font-size: 30px;
         }
-        .lp-main__guest-sign-in {
+        .top__guest-sign-in {
           margin-top: 50px;
           font-size: 16px;
           input {
@@ -498,7 +498,7 @@ footer {
           }
         }
       }
-      .lp-main__container--right {
+      .top__container--right {
         img {
           width: 450px;
           height: 450px;
@@ -506,18 +506,18 @@ footer {
       }
     }
   }
-  .lp-sub {
+  .main-feature {
     background-color: $color-light-blue;
     padding: 100px 0;
-    .lp-sub__container {
+    .main-feature__container {
       width: 72%;
       margin: 0 auto;
       text-align: center;
-      .lp-sub__title {
+      .main-feature__title {
         font-size: 30px;
         margin-bottom: 10px;
       }
-      .lp-sub__subtitle {
+      .main-feature__subtitle {
         font-size: 16px;
       }
       ul {
@@ -532,7 +532,7 @@ footer {
             border: solid 1px white;
             border-radius: 10px;
             box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.1);
-            .lp-sub__card-title {
+            .main-feature__card-title {
               font-size: 22px;
             }
             i {
@@ -541,7 +541,7 @@ footer {
               margin-bottom: 30px;
               font-size: 50px;
             }
-            .lp-sub__card-sentence {
+            .main-feature__card-sentence {
               font-size: 15px;
             }
           }
@@ -549,25 +549,25 @@ footer {
       }
     }
   }
-  .lp-third {
+  .sub-feature {
     padding-top: 60px;
     padding-bottom: 60px;
     border-bottom: solid 1px $color-white;
-    .lp-third__container {
-      .lp-third__title {
+    .sub-feature__container {
+      .sub-feature__title {
         font-size: 28px;
         margin-bottom: 40px;
       }
-      .lp-third__img-container {
+      .sub-feature__img-container {
         max-width: 960px;
         margin: 0 auto;
-        .lp-third__img-container--left {
+        .sub-feature__img-container--left {
           text-align: center;
           img {
             width: 300px;
           }
         }
-        .lp-third__img-container--right {
+        .sub-feature__img-container--right {
           margin-top: 60px;
           p {
             font-size: 16px;
@@ -580,16 +580,16 @@ footer {
       }
     }
   }
-  .lp-invite {
+  .invitation {
     padding-top: 50px;
     padding-bottom: 50px;
-    .lp-invite__container {
+    .invitation__container {
       text-align: center;
-      .lp-invite__title {
+      .invitation__title {
         font-size: 24px;
         margin-bottom: 30px;
       }
-      .lp-invite__button {
+      .invitation__button {
         input {
           padding: 12px;
           font-size: 16px;

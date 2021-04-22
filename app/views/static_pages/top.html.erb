@@ -1,13 +1,13 @@
 <% provide(:title, "Best-Lab") %>
 
 <div class="lp">
-  <div class="lp-main">
-    <div class="lp-main__container row">
-      <div class="lp-main__container--left col-sm-6">
-        <p class="lp-main__subtitle">大学研究者のための情報交換サイト</p>
-        <h1 class="lp-main__title">Best-Lab</h1>
-        <h4 class="lp-main__slogan">研究をもっとおもしろく</h4>
-        <div class="lp-main__guest-sign-in">
+  <div class="top">
+    <div class="top__container row">
+      <div class="top__container--left col-sm-6">
+        <p class="top__subtitle">大学研究者のための情報交換サイト</p>
+        <h1 class="top__title">Best-Lab</h1>
+        <h4 class="top__slogan">研究をもっとおもしろく</h4>
+        <div class="top__guest-sign-in">
           <% unless user_signed_in? %>
             <% unless admin_signed_in? %>
               <%= button_to "ゲストユーザーで体験する", users_guest_sign_in_path, method: :post %>
@@ -15,50 +15,50 @@
           <% end %>
         </div>
       </div>
-      <div class="lp-main__container--right col-sm-6">
-        <%= image_tag asset_path("lp-main.jpg") %>
+      <div class="top__container--right col-sm-6">
+        <%= image_tag asset_path("top.jpg") %>
       </div>
     </div>
   </div>
 
-  <div class="lp-sub">
-    <div class="lp-sub__container">
-      <h3 class="lp-sub__title">Best-Labは、研究に携わる大学生の悩みを解決します</h3>
-      <p class="lp-sub__subtitle">ひとりで悩まず誰かに相談してみましょう</p>
+  <div class="main-feature">
+    <div class="main-feature__container">
+      <h3 class="main-feature__title">Best-Labは、研究に携わる大学生の悩みを解決します</h3>
+      <p class="main-feature__subtitle">ひとりで悩まず誰かに相談してみましょう</p>
       <ul class="row">
         <li class="col-sm-4">
           <div class="card">
-            <h5 class="lp-sub__card-title">質問を投稿</h5>
+            <h5 class="main-feature__card-title">質問を投稿</h5>
             <i class="fas fa-file-upload"></i>
-            <p class="lp-sub__card-sentence">研究に行き詰まったら掲示板に質問を投稿してみましょう。有識者がアドバイスをくれるかもしれません。</p>
+            <p class="main-feature__card-sentence">研究に行き詰まったら掲示板に質問を投稿してみましょう。有識者がアドバイスをくれるかもしれません。</p>
           </div>
         </li>
         <li class="col-sm-4">
           <div class="card">
-            <h5 class="lp-sub__card-title">質問を検索</h5>
+            <h5 class="main-feature__card-title">質問を検索</h5>
             <i class="fas fa-search"></i>
-            <p class="lp-sub__card-sentence">自分と同じ悩みをもつ人が過去に質問を投稿しているかもしれません。検索機能で確認してみてください。</p>
+            <p class="main-feature__card-sentence">自分と同じ悩みをもつ人が過去に質問を投稿しているかもしれません。検索機能で確認してみてください。</p>
           </div>
         </li>
         <li class="col-sm-4">
           <div class="card">
-            <h5 class="lp-sub__card-title">安全な情報交換</h5>
+            <h5 class="main-feature__card-title">安全な情報交換</h5>
             <i class="fas fa-shield-alt"></i>
-            <p class="lp-sub__card-sentence">研究盗用が心配の方はDMを使った質問が便利。信頼できるユーザーを検索して回答を依頼してみましょう。</p>
+            <p class="main-feature__card-sentence">研究盗用が心配の方はDMを使った質問が便利。信頼できるユーザーを検索して回答を依頼してみましょう。</p>
           </div>
         </li>
       </ul>
     </div>
   </div>
 
-  <div class="lp-third">
-    <div class="lp-third__container">
-      <div class="lp-third__img-container row">
-        <div class="lp-third__img-container--left col-sm-4">
-          <%= image_tag asset_path("lp-third.jpg") %>
+  <div class="sub-feature">
+    <div class="sub-feature__container">
+      <div class="sub-feature__img-container row">
+        <div class="sub-feature__img-container--left col-sm-4">
+          <%= image_tag asset_path("sub-feature.jpg") %>
         </div>
-        <div class="lp-third__img-container--right col-sm-8">
-          <h4 class="lp-third__title">学部生の方もご利用いただけます</h4>
+        <div class="sub-feature__img-container--right col-sm-8">
+          <h4 class="sub-feature__title">学部生の方もご利用いただけます</h4>
           <p>ユーザー検索を使えば、気になる研究室の先輩にコンタクトを取ることもできます。</p><br>
           <p>研究室の雰囲気や仕事内容を確認し、自分に合った研究室を見つけてみましょう。</p>
         </div>
@@ -68,10 +68,10 @@
 
 <% unless user_signed_in? %>
   <% unless admin_signed_in? %>
-    <div class="lp-invite">
-      <div class="lp-invite__container">
-        <h4 class="lp-invite__title">体験はこちらから！</h4>
-          <div class="lp-invite__button">
+    <div class="invitation">
+      <div class="invitation__container">
+        <h4 class="invitation__title">体験はこちらから！</h4>
+          <div class="invitation__button">
             <%= button_to "ゲストユーザーでログイン", users_guest_sign_in_path, method: :post %>
           </div>
       </div>
