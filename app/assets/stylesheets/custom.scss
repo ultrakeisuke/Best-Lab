@@ -22,7 +22,7 @@ body {
   min-height: 100%;
   position: relative;
   // footerと同じ高さを下部に追加
-  padding-bottom: 100px;
+  padding-bottom: 150px;
 }
 
 h1,
@@ -111,16 +111,15 @@ header {
 // フッター
 footer {
   width: 100%;
-  height: 100px;
+  height: 150px;
   position: absolute;
   bottom: 0;
+  background-color: $color-white;
   nav {
     height: 100px;
-    padding-top: 15px;
+    padding: 15px;
     text-align: center;
-    font-weight: 600;
     color: $color-grey;
-    background-color: $color-white;
     a {
       display: inline-block;
       padding: 20px;
@@ -145,7 +144,6 @@ footer {
         background-color: $color-white;
         border: none;
         font-size: 16px;
-        font-weight: 600;
         &:hover {
           transition: color 0.2s;
           color: $color-black;
@@ -153,10 +151,10 @@ footer {
       }
     }
     small {
-      margin-top: 5px;
-      display: inline-block;
-      font-size: 14px;
       display: block;
+      margin-top: 8px;
+      font-size: 14px;
+      font-weight: 600;
     }
   }
 }
