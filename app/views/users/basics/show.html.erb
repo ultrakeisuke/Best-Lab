@@ -40,28 +40,28 @@
       <div class="user-profile__details--left">
         <div class="user-profile__detail">
           <h5>学校名</h5>
-          <%= @user.profile&.school %>
+          <p><span class="mgl-4"></span><%= @user.profile&.school %></p>
         </div>
         <div class="user-profile__detail">
           <h5>学部・学科名</h5>
-          <p></p><%= @user.profile&.faculty %></p>
+          <p><span class="mgl-4"></span><%= @user.profile&.faculty %></p>
         </div>
         <div class="user-profile__detail">
           <h5>学科・専攻・コース名</h5>
-          <p></p><%= @user.profile&.department %></p>
+          <p><span class="mgl-4"></span><%= @user.profile&.department %></p>
         </div>
         <div class="user-profile__detail">
           <h5>研究室名</h5>
-          <p><%= @user.profile&.laboratory %></p>
+          <p><span class="mgl-4"></span><%= @user.profile&.laboratory %></p>
         </div>
         <div class="user-profile__detail">
           <h5>所属</h5>
-          <p id="user-affiliation"><%= @user.profile&.translated_affiliation %></p>
+          <p id="user-affiliation"><span class="mgl-4"></span><%= @user.profile&.translated_affiliation %></p>
         </div>
       </div>
       <div class="user-profile__details--right">
         <h5>自己紹介</h5>
-        <p><%= @user.profile&.description %></p>
+        <p class="mgl-4"><%= @user.profile&.description %></p>
       </div>
     </div>
   </div>

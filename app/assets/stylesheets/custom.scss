@@ -685,18 +685,25 @@ footer {
     .user-profile__details {
       display: flex;
       padding: 12px 0px;
-      border-top: solid 1px $color-light-grey;
-      border-bottom: solid 1px $color-light-grey;
-      h5 {
-        font-size: 15px;
-        font-weight: 600;
+      border-top: solid 2px $color-light-grey;
+      border-bottom: solid 2px $color-light-grey;
+      // 余白
+      .mgl-4 {
+        margin-left: 4px;
       }
       .user-profile__details--left {
         width: 50%;
         padding: 0 12px;
-        border-right: solid 1px $color-light-grey;
+        border-right: solid 2px $color-light-grey;
+        p {
+          color: $color-grey;
+        }
         .user-profile__detail {
           margin-bottom: 16px;
+          h5 {
+            margin-bottom: 3px;
+            font-size: 15px;
+          }
         }
       }
       // プロフィール文
@@ -704,7 +711,7 @@ footer {
         width: 50%;
         padding: 0 12px;
         h5 {
-          margin-bottom: 24px;
+          margin-bottom: 16px;
         }
       }
     }
