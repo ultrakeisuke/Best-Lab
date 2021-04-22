@@ -16,20 +16,23 @@
         </div>
         <div class="post-list__main-info">
           <div class="post-list__category-and-title">
-            <p>カテゴリー >> <%= comment_list.post.category.name %></p>
+            <p><%= comment_list.post.category.parent.name %> > <%= comment_list.post.category.name %></p>
             <h5><%= comment_list.post.title %></h5>
           </div>
+          <% if comment_list.notice == true %>
+            <div class="post-list__notice">
+              <p class="has-notice"></p>
+              <p>新着のメッセージがあります</p>
+            </div>
+          <% end %>
           <div class="post-list__user-info">
             <span>投稿 <%= l comment_list.post.created_at, format: :year %></span>
             <%= image_tag asset_path(comment_list.post.user.profile_picture) %>
             <p><%= comment_list.post.user.name %></p>
           </div>
-          <% if comment_list.notice == true %>
-            <p class="has-notice"></p>
-            <p>新着のメッセージがあります</p>
-          <% end %>
         </div>
       </div>
     <% end %>
   <% end %>
+  <%= paginate @comment_lists %>
 <% end %>
