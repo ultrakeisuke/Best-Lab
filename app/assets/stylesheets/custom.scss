@@ -406,6 +406,11 @@ footer {
     width: 40%;
     appearance: none; // セレクトボックスのデフォルトの下矢印を削除
   }
+  // ファイル選択
+  #file-upload-button {
+    color: green;
+    background-color: #fff;
+  }
 }
 // 送信、保存などのボタン
 .actions {
@@ -901,6 +906,10 @@ footer {
       }
       .message-field__created_at {
         margin-right: 10px;
+        p {
+          color: #000;
+          font-size: 12px;
+        }
       }
     }
   }
@@ -1023,7 +1032,7 @@ footer {
         color: $color-blue;
       }
       .too-many-files {
-        color: #ff0000;
+        color: $color-red;
       }
     }
   }
