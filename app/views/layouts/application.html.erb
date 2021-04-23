@@ -31,11 +31,15 @@
         </nav>
       </header>
 
-      <div class="flash-message">
-        <% flash.each do |message_type, message| %>
-          <div class="flash flash-<%= message_type %>"><%= message %></div>
-        <% end %>
-      </div>
+      <% if current_page?(root_path) %>
+        <div class="flash-message bg-white">
+          <%= render 'layouts/shared/flash_message' %>
+        </div>
+      <% else %>
+        <div class="flash-message">
+          <%= render 'layouts/shared/flash_message' %>
+        </div>
+      <% end %>
 
       <% if current_page?(root_path) %>
         <% if admin_signed_in? %>
