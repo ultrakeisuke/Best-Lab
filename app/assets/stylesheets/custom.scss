@@ -792,23 +792,13 @@ footer {
       color: $color-red;
     }
   }
-  // リスト中のユーザー名
-  h5 {
-    margin-top: 6px;
-    margin-bottom: 6px;
-    font-size: 18px;
-  }
   a {
     display: block;
     text-decoration: none;
   }
-  // 最終メッセージ時刻
-  span {
-    display: block;
-    margin-bottom: 16px;
-  }
   .room-list__info {
     display: flex;
+    justify-content: space-between;
     padding: 12px;
     margin-bottom: 3px;
     border: solid 2px $color-light-grey;
@@ -817,14 +807,29 @@ footer {
       border-color: $color-blue;
       transition: border-color 0.2s;
     }
-    img {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
+    .room-list__user-info {
+      display: flex;
+      .room-list__text {
+        margin-left: 9px;
+        // リスト中のユーザー名
+        h5 {
+          margin-bottom: 9px;
+          font-size: 14px;
+        }
+      }
+      // プロフィール画像
+      img {
+        width: 48px;
+        height: 48px;
+        border: solid 2px $color-light-grey;
+        border-radius: 50%;
+      }
     }
-  }
-  .room-list__info--text {
-    padding-left: 12px;
+    // 最終投稿時刻
+    .room-list__post-info {
+      color: $color-grey;
+      font-size: 12px;
+    }
   }
 }
 

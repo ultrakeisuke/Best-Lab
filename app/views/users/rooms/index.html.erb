@@ -10,20 +10,24 @@
   <% @sorted_entries&.each do |entry| %>
     <%= link_to(users_room_path(entry.room)) do %>
       <div class="room-list__info">
-        <div class="room-list__image">
-          <%= image_tag asset_path(entry.user.profile_picture) %>
+        <div class="room-list__user-info">
+          <div class="room-list__image">
+            <%= image_tag asset_path(entry.user.profile_picture) %>
+          </div>
+          <div class="room-list__text">
+            <h5><%= entry.user.name %></h5>
+            <% if entry.room.check_notice(current_user) == true %>
+              <div class="room-list__notice">
+                <p class="has-notice"></p>
+                <p>新着のメッセージがあります</p>
+              </div>
+            <% end %>
+          </div>
         </div>
-        <div class="room-list__text">
-          <h5><%= entry.user.name %></h5>
+        <div class="room-list__post-info">
           <%# 最後にメッセージした時間を表示 %>
           <% if entry.room.messages.present? %>
-            <span><%= l entry.room.messages.last.created_at, format: :default %></span>
-          <% end %>
-          <% if entry.room.check_notice(current_user) == true %>
-            <div class="room-list__notice">
-              <p class="has-notice"></p>
-              <p>新着のメッセージが届いています</p>
-            </div>
+            <%= l entry.room.messages.last.created_at, format: :default %>
           <% end %>
         </div>
       </div>
