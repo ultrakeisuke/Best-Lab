@@ -463,8 +463,8 @@ footer {
     background-color: rgb(255, 132, 131);
     &:hover {
       transition: border-color 0.2s, background-color 0.2s;
-      border-color: rgb(225, 8, 51);
-      background-color: rgb(225, 8, 51);
+      border-color: $color-dark-red;
+      background-color: $color-dark-red;
     }
   }
 }
@@ -610,6 +610,15 @@ footer {
               margin-top: 30px;
               margin-bottom: 30px;
               font-size: 50px;
+            }
+            .fa-file-upload {
+              color: rgb(91, 168, 255);
+            }
+            .fa-search {
+              color: rgba(0, 0, 0, 0.7);
+            }
+            .fa-shield-alt {
+              color: rgb(255, 178, 78);
             }
             .main-feature__card-sentence {
               font-size: 15px;
