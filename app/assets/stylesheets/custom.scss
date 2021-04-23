@@ -10,6 +10,7 @@ $color-blue: rgb(63, 169, 255);
 $color-dark-blue: rgb(7, 139, 255);
 $color-green: rgb(86, 198, 0);
 $color-red: rgb(234, 96, 109);
+$color-dark-red: rgb(225, 8, 51);
 
 html,
 body {
@@ -460,6 +461,11 @@ footer {
     border: solid 1px rgb(255, 132, 131);
     border-radius: 4px;
     background-color: rgb(255, 132, 131);
+    &:hover {
+      transition: border-color 0.2s, background-color 0.2s;
+      border-color: rgb(225, 8, 51);
+      background-color: rgb(225, 8, 51);
+    }
   }
 }
 
