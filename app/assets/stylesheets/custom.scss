@@ -782,9 +782,9 @@ footer {
 
 //users/roomsフォルダ
 //index
-.room-list {
+.user-list {
   // 通知
-  .room-list__notice {
+  .user-list__notice {
     display: flex;
     align-items: center;
     p {
@@ -796,7 +796,7 @@ footer {
     display: block;
     text-decoration: none;
   }
-  .room-list__info {
+  .user-list__info {
     display: flex;
     justify-content: space-between;
     padding: 12px;
@@ -807,16 +807,8 @@ footer {
       border-color: $color-blue;
       transition: border-color 0.2s;
     }
-    .room-list__user-info {
+    .user-list__user-info {
       display: flex;
-      .room-list__text {
-        margin-left: 9px;
-        // リスト中のユーザー名
-        h5 {
-          margin-bottom: 9px;
-          font-size: 14px;
-        }
-      }
       // プロフィール画像
       img {
         width: 48px;
@@ -824,9 +816,21 @@ footer {
         border: solid 2px $color-light-grey;
         border-radius: 50%;
       }
+      .user-list__text {
+        margin-left: 9px;
+        // リスト中のユーザー名
+        h5 {
+          margin-bottom: 9px;
+          font-size: 14px;
+        }
+        // リスト中のプロフィール文
+        span {
+          font-size: 12px;
+        }
+      }
     }
     // 最終投稿時刻
-    .room-list__post-info {
+    .user-list__post-info {
       color: $color-grey;
       font-size: 12px;
     }
