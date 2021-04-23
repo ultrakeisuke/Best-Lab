@@ -110,8 +110,7 @@ RSpec.describe 'アカウント情報の編集と削除', js: true, type: :syste
     click_link 'アカウント設定'
     # アカウントを編集
     fill_in '名前', with: 'user!'
-    # attach_file 'プロフィール画像', "#{Rails.root}/spec/factories/images/rails.png"
-    attach_file 'プロフィール画像', Rails.root.join('spec/factories/images/rails.png')
+    attach_file '', Rails.root.join('spec/factories/images/rails.png'), make_visible: true
     click_on '保存'
     # 編集後の画面表示を確認
     expect(page).to have_current_path users_basic_path(user)
