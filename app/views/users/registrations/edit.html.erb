@@ -16,9 +16,12 @@
         <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
       </div>
 
-      <div class="field">
-        <%= f.label :picture %><br />
-        <%= f.file_field :picture %>
+      <div class="field attached-pictures">
+        <label for="setting-picture-for-account" >
+          <i id="picture-file-icon" class="fas fa-plus-circle"></i>
+          <p id="picture-file-text">プロフィール画像</p>
+        </label>
+        <%= f.file_field :picture, id: "setting-picture-for-account" %>
       </div>
 
       <div class="field">

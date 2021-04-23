@@ -412,6 +412,29 @@ footer {
     background-color: #fff;
   }
 }
+// 画像投稿用ボタン
+.attached-pictures {
+  label {
+    padding: 5px 8px;
+    margin: 0;
+    border-radius: 4px;
+    background-color: $color-light-blue;
+    font-weight: normal;
+    cursor: pointer;
+    .too-many-files {
+      color: $color-red;
+    }
+  }
+  p,
+  i {
+    display: inline-block;
+    color: $color-blue;
+  }
+  // 通常のファイル選択ボタンは非表示
+  input {
+    display: none;
+  }
+}
 // 送信、保存などのボタン
 .actions {
   text-align: center;
