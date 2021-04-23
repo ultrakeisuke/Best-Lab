@@ -12,9 +12,13 @@
     <%= f.text_area :body, id: "reply-#{reply.id}-textarea", value: "#{reply.body}" %>
   </div>
 
-  <div class="field">
+  <div class="field attached-pictures">
+    <label for="picture-file__edit-reply-<%= reply.id %>" class="picture-file__edit-reply" data-picture-file__edit-reply="<%= reply.id %>" >
+      <p>画像</p>
+      <i id="picture-file-icon__edit-reply-<%= reply.id %>" class="fas fa-plus-circle"></i>
+    </label>
     <%= f.fields_for :pictures do |picture| %>
-      <%= picture.file_field :picture, multiple: "multiple", name: "reply_form[pictures_attributes][][picture]" %>
+      <%= picture.file_field :picture, multiple: "multiple", name: "reply_form[pictures_attributes][][picture]", id: "picture-file__edit-reply-#{reply.id}" %>
     <% end %>
   </div>
 
