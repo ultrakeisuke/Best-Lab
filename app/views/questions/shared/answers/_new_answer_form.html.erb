@@ -7,9 +7,13 @@
     <%= f.text_area :body, placeholder: "回答を入力してください。" %>
   </div>
 
-  <div class="field">
+  <div class="field attached-pictures">
+    <label for="picture-file" >
+      <p>画像</p>
+      <i id="picture-file-icon" class="fas fa-plus-circle"></i>
+    </label>
     <%= f.fields_for :pictures do |picture| %>
-      <%= picture.file_field :picture, multiple: "multiple", name: "answer_form[pictures_attributes][][picture]" %>
+      <%= picture.file_field :picture, multiple: "multiple", name: "answer_form[pictures_attributes][][picture]", id: "picture-file" %>
     <% end %>
   </div>
 

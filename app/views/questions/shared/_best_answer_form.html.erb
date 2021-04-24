@@ -3,10 +3,8 @@
   <%= f.hidden_field :best_answer_id, value: answer.id %>
   <%= f.hidden_field :status, value: "closed" %>
 
-  <div class="action">
-    <%= button_tag type: "submit", data: { confirm: "この回答をベストアンサーにします。修正はできませんがよろしいですか？" } do %>
-      <i class="far fa-star"></i>
-    <% end %>
-  </div>
+  <%= button_tag type: "submit", data: { confirm: "この回答をベストアンサーにします。修正はできませんがよろしいですか？" } do %>
+    <i class="far fa-heart"></i>
+  <% end %>
 
 <% end%>

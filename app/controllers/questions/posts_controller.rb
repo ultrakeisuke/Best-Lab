@@ -6,11 +6,6 @@ class Questions::PostsController < ApplicationController
   before_action :set_categories_for_new, only: %i[new create]
   before_action :set_categories_for_edit, only: %i[edit update]
 
-  # すべての質問一覧
-  def index
-    @posts = Post.all.order(id: :desc)
-  end
-
   # 各質問の表示画面
   def show
     @post = Post.find(params[:id])

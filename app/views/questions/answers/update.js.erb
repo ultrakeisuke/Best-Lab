@@ -1,2 +1,2 @@
 <%# 投稿した回答表示部を更新 %>
-$('.comment-list').replaceWith("<%= j(render partial: 'questions/shared/answers/answer_list', locals: { answers: @answers }) %>");
+$('.display-comment').replaceWith("<%= j(render partial: 'questions/shared/answers/answer_list', locals: { answers: @answers }) %>");

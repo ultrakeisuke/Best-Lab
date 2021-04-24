@@ -1,24 +1,82 @@
 <% provide(:title, "Best-Lab") %>
 
-  <h2>Best-Labとは</h2>
+<div class="lp">
+  <div class="top">
+    <div class="top__container row">
+      <div class="top__container--left col-sm-6">
+        <p class="top__subtitle">大学研究者のための情報交換サイト</p>
+        <h1 class="top__title">Best-Lab</h1>
+        <h4 class="top__slogan">研究をもっとおもしろく</h4>
+        <div class="top__guest-sign-in">
+          <% unless user_signed_in? %>
+            <% unless admin_signed_in? %>
+              <%= button_to "ゲストユーザーで体験する", users_guest_sign_in_path, method: :post %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+      <div class="top__container--right col-sm-6">
+        <%= image_tag asset_path("top.jpg") %>
+      </div>
+    </div>
+  </div>
 
-  <h4>Best-Labは、大学生が研究室に配属される際のミスマッチをなくすサービスです。</h4>
-  <h5>大学生の場合：興味のある研究室の先輩とお話できます。</br>
-      大学院生の場合：自分の研究室にマッチしそうな大学生とお話できます。</h5>
+  <div class="main-feature">
+    <div class="main-feature__container">
+      <h3 class="main-feature__title">Best-Labは、研究に携わる大学生の悩みを解決します</h3>
+      <p class="main-feature__subtitle">ひとりで悩まず誰かに相談してみましょう</p>
+      <ul class="row">
+        <li class="col-sm-4">
+          <div class="card">
+            <h5 class="main-feature__card-title">質問を投稿</h5>
+            <i class="fas fa-file-upload"></i>
+            <p class="main-feature__card-sentence">研究に行き詰まったら掲示板に質問を投稿してみましょう。有識者がアドバイスをくれるかもしれません。</p>
+          </div>
+        </li>
+        <li class="col-sm-4">
+          <div class="card">
+            <h5 class="main-feature__card-title">質問を検索</h5>
+            <i class="fas fa-search"></i>
+            <p class="main-feature__card-sentence">自分と同じ悩みをもつ人が過去に質問を投稿しているかもしれません。検索機能で確認してみてください。</p>
+          </div>
+        </li>
+        <li class="col-sm-4">
+          <div class="card">
+            <h5 class="main-feature__card-title">安全な情報交換</h5>
+            <i class="fas fa-shield-alt"></i>
+            <p class="main-feature__card-sentence">研究盗用が心配の方はDMを使った質問が便利。信頼できるユーザーを検索して回答を依頼してみましょう。</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
 
-  <% unless user_signed_in? %>
-    <% unless admin_signed_in? %>
-      <%= button_to "ゲストログイン(閲覧用)", users_guest_sign_in_path, method: :post %>
-    <% end %>
+  <div class="sub-feature">
+    <div class="sub-feature__container">
+      <div class="sub-feature__img-container row">
+        <div class="sub-feature__img-container--left col-sm-4">
+          <%= image_tag asset_path("sub-feature.jpg") %>
+        </div>
+        <div class="sub-feature__img-container--right col-sm-8">
+          <h4 class="sub-feature__title">学部生の方もご利用になれます</h4>
+          <p>気になる研究室があれば、そこに在籍している先輩に話を聞くことも可能です。</p><br>
+          <p>研究内容や雰囲気を確認し、自分に合った研究室を見つけてみましょう。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<% unless user_signed_in? %>
+  <% unless admin_signed_in? %>
+    <div class="invitation">
+      <div class="invitation__container">
+        <h4 class="invitation__title">体験はこちらから！</h4>
+          <div class="invitation__button">
+            <%= button_to "ゲストユーザーでログイン", users_guest_sign_in_path, method: :post %>
+          </div>
+      </div>
+    </div>
   <% end %>
+<% end %>
 
-  <p>大学生として体験！</p>
-  <p>大学院生として体験！</p>
-  <%= link_to "新規登録", new_user_registration_path, {class: "sign-up"} %>
-
-  <h5>交流する相手は誰でも構いません</h5>
-
-  <h5>検索機能を使って自分にピッタリの相手を探せます</h5>
-
-  <h5>カレンダーを使ってスケジュール管理ができます</h5>
-  
+</div>

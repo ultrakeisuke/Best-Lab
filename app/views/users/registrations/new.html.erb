@@ -1,33 +1,36 @@
 <% provide(:title, "新規登録") %>
 
-<h3>新規登録</h3>
+<div class="common-form">
+  <div class="common-form__container">
+    <h4>新規登録</h4>
+    <%= form_with model: resource, url: user_registration_path, local: true do |f| %>
+      <%= render "users/shared/error_messages", resource: resource %>
 
-<%= form_with model: resource, url: user_registration_path, local: true do |f| %>
-  <%= render "users/shared/error_messages", resource: resource %>
+      <div class="field">
+        <%= f.label :name %><br />
+        <%= f.text_field :name, autofocus: true %>
+      </div>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name, autofocus: true %>
+      <div class="field">
+        <%= f.label :email %><br />
+        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :password %><br />
+        <%= f.password_field :password, autocomplete: "off" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :password_confirmation %><br />
+        <%= f.password_field :password_confirmation, autocomplete: "off" %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "登録" %>
+      </div>
+    <% end %>
+
+    <%= render "users/shared/links" %>
   </div>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "送信" %>
-  </div>
-<% end %>
-
-<%= render "users/shared/links" %>
+</div>

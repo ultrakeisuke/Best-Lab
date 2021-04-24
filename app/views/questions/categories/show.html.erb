@@ -1,13 +1,28 @@
 <% provide(:title, @category.name) %>
 
-<h4>カテゴリー：<%= @category.parent.name %>/<%= @category.name %></h4>
-
+<h4><%= @category.parent.name %> > <%= @category.name %></h4>
 <% @posts.each do |post| %>
   <%= link_to(questions_post_path(post)) do %>
-    <%= image_tag asset_path(post.user.profile_picture) %>
-    <%= post.user.name %>
-    <%= post.title %>
+      <div class="post-list">
+        <div class="post-list__sub-info">
+          <div class="post-list__status">
+            <p class="post-status-<%= post.status %>"><%= post.translated_status %></p>
+            <span>回答</span>
+            <h5><%= post.answers.length %></h5>
+          </div>
+        </div>
+        <div class="post-list__main-info">
+          <div class="post-list__category-and-title">
+            <p><%= post.category.parent.name %> > <%= post.category.name %></p>
+            <h5><%= post.title %></h5>
+          </div>
+          <div class="post-list__user-info">
+            <span>投稿 <%= l post.created_at, format: :year %></span>
+            <%= image_tag asset_path(post.user.profile_picture) %>
+            <p><%= post.user.name %></p>
+          </div>
+        </div>
+      </div>
   <% end %>
 <% end %>
-
 <%= paginate @posts %>

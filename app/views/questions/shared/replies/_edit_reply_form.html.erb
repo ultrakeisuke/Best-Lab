@@ -1,4 +1,4 @@
-<%= form_with model: reply_form, url: url, method: method, id: "reply-form" do |f| %>
+<%= form_with model: reply_form, url: url, method: method, class: "edit-reply-form" do |f| %>
   <div id="js-edit-reply-errors-<%= reply.id %>"></div>
 
   <%= f.hidden_field :post_id, value: post.id %>
@@ -12,19 +12,22 @@
     <%= f.text_area :body, id: "reply-#{reply.id}-textarea", value: "#{reply.body}" %>
   </div>
 
-  <div class="field">
+  <div class="field attached-pictures">
+    <label for="picture-file__edit-reply-<%= reply.id %>" class="picture-file__edit-reply" data-picture-file__edit-reply="<%= reply.id %>" >
+      <p>画像</p>
+      <i id="picture-file-icon__edit-reply-<%= reply.id %>" class="fas fa-plus-circle"></i>
+    </label>
     <%= f.fields_for :pictures do |picture| %>
-      <%= picture.file_field :picture, multiple: "multiple", name: "reply_form[pictures_attributes][][picture]" %>
+      <%= picture.file_field :picture, multiple: "multiple", name: "reply_form[pictures_attributes][][picture]", id: "picture-file__edit-reply-#{reply.id}" %>
     <% end %>
   </div>
 
-  <div class="actions">
-    <%= f.submit "リプライを編集" %>
+  <div class="submit-or-cancel">
+    <%# 編集をキャンセルするボタンを設置 %>
+    <div id="edit-reply-cancel-<%= reply.id %>" class="edit-reply-cancel" data-reply-cancel="<%= reply.id %>">キャンセル</div>
+    <div class="actions">
+      <%= f.submit "リプライを編集" %>
+    </div>
   </div>
 
 <% end%>
-
-<%# 編集をキャンセルするボタンを設置 %>
-<% if reply.body.present? || reply.pictures.present? %>
-  <button id="edit-reply-cancel-<%= reply.id %>" class="edit-reply-cancel" data-reply-cancel="<%= reply.id %>">キャンセル</button>
-<% end %>

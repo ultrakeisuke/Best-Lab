@@ -1,4 +1,4 @@
-<%= form_with model: reply, url: url, method: method, id: "reply-form" do |f| %>
+<%= form_with model: reply, url: url, method: method, class: "new-reply-form" do |f| %>
   <div id="js-reply-errors-<%= answer.id %>" class="js-reply-errors" data-answer-id="<%= answer.id %>"></div>
 
   <%= f.hidden_field :post_id, value: post.id %>
@@ -8,9 +8,13 @@
     <%= f.text_area :body, id: "reply-textarea-#{answer.id}", placeholder: "回答に対するコメントを入力してください。" %>
   </div>
 
-  <div class="field">
+  <div class="field attached-pictures">
+    <label for="picture-file__new-reply-<%= answer.id %>" class="picture-file__new-reply" data-picture-file__new-reply="<%= answer.id %>" >
+      <p>画像</p>
+      <i id="picture-file-icon__new-reply-<%= answer.id %>" class="fas fa-plus-circle"></i>
+    </label>
     <%= f.fields_for :pictures do |picture| %>
-      <%= picture.file_field :picture, multiple: "multiple", name: "reply_form[pictures_attributes][][picture]" %>
+      <%= picture.file_field :picture, multiple: "multiple", name: "reply_form[pictures_attributes][][picture]", id: "picture-file__new-reply-#{answer.id}" %>
     <% end %>
   </div>
 

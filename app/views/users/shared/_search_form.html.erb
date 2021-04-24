@@ -4,7 +4,9 @@
 
   <div class="field">
     <%= f.label :affiliation_eq, "所属" %>
-    <%= f.select(:affiliation_eq, ProfileForm::AFFILIATIONS.invert) %>
+    <div class="side-select-container">
+      <%= f.select(:affiliation_eq, ProfileForm::AFFILIATIONS.invert) %>
+    </div>
   </div>
 
   <div class="field">
@@ -29,8 +31,8 @@
 
   <div class="field">
     <%= f.label :description_cont_any, "プロフィール・研究分野など" %><br />
+    <p>(スペース区切りで複数検索できます)</p>
     <%= f.text_field :description_cont_any %>
-    <p>スペース区切りで複数検索できます</p><br />
   </div>
 
   <div class="actions">

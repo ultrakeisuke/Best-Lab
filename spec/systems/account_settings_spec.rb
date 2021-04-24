@@ -15,7 +15,7 @@ RSpec.describe 'アカウントに関するテスト', type: :feature do
     fill_in 'メールアドレス', with: 'user@example.com'
     fill_in 'パスワード', with: 'password'
     fill_in '確認用パスワード', with: 'password'
-    expect { click_on '送信' }.to change { ActionMailer::Base.deliveries.size }.by(1).and change(User, :count).by(1)
+    expect { click_on '登録' }.to change { ActionMailer::Base.deliveries.size }.by(1).and change(User, :count).by(1)
     # 登録後の画面表示を確認
     expect(page).to have_current_path root_path
     expect(page).to have_content '本人確認用のメールを送信しました。メール内のリンクから登録を完了させてください。'
@@ -31,7 +31,7 @@ RSpec.describe 'アカウントに関するテスト', type: :feature do
   it 'アカウント有効化用のメール送信処理' do
     user = create(:another_user)
     visit new_user_registration_path
-    click_on '本人確認のためのメールが届かない、またはメールを紛失した方はこちら'
+    click_on '本人確認のメールが届かない、またはメールを紛失した方はこちら'
     # メールを送信する
     fill_in 'メールアドレス', with: user.email
     expect { click_on '送信' }.to change { ActionMailer::Base.deliveries.size }.by(1)
@@ -57,7 +57,7 @@ RSpec.describe 'ログインとログアウト', type: :system do
     click_button 'ログイン'
     expect(page).to have_content 'ログインしました。'
     # ログアウトする
-    click_on 'ログアウト'
+    click_on 'ログアウト', match: :first
     expect(page).to have_current_path root_path
   end
 end
@@ -88,7 +88,7 @@ RSpec.describe 'パスワード再設定のメールを送信する', type: :fea
     click_on '保存'
     expect(page).to have_content 'パスワードが正しく変更されました。'
     # 新しいパスワードでログインできることを確認
-    click_on 'ログアウト'
+    click_on 'ログアウト', match: :first
     visit new_user_session_path
     fill_in 'メールアドレス', with: user.email
     fill_in 'パスワード', with: '123456'
@@ -110,8 +110,7 @@ RSpec.describe 'アカウント情報の編集と削除', js: true, type: :syste
     click_link 'アカウント設定'
     # アカウントを編集
     fill_in '名前', with: 'user!'
-    # attach_file 'プロフィール画像', "#{Rails.root}/spec/factories/images/rails.png"
-    attach_file 'プロフィール画像', Rails.root.join('spec/factories/images/rails.png')
+    attach_file '', Rails.root.join('spec/factories/images/rails.png'), make_visible: true
     click_on '保存'
     # 編集後の画面表示を確認
     expect(page).to have_current_path users_basic_path(user)
@@ -134,7 +133,7 @@ RSpec.describe 'ゲストログインとアカウント削除', js: true, type: 
 
   it 'ゲストユーザーのアカウントを編集・削除できない' do
     visit root_path
-    click_on 'ゲストログイン(閲覧用)'
+    click_on 'ゲストユーザーで体験する', match: :first
     # ゲストログイン後の画面表示確認
     expect(page).to have_content 'ゲストユーザーでログインしました。'
     # アカウントを編集

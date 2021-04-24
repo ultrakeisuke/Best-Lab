@@ -1,18 +1,21 @@
 <% provide(:title, "本人確認") %>
 
-<h3>本人確認のためのメールを送信します</h3>
+<div class="common-form">
+  <div class="common-form__container">
+    <h4>本人確認のためのメールを送信します</h4>
+    <%= form_with model: resource, url: user_confirmation_path, local: true do |f| %>
+      <%= render "users/shared/error_messages", resource: resource %>
 
-<%= form_with model: resource, url: user_confirmation_path, local: true do |f| %>
-  <%= render "users/shared/error_messages", resource: resource %>
+      <div class="field">
+        <%= f.label :email %><br />
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>
+      </div>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>
+      <div class="actions">
+        <%= f.submit "送信" %>
+      </div>
+    <% end %>
+
+    <%= render "users/shared/links" %>
   </div>
-
-  <div class="actions">
-    <%= f.submit "送信" %>
-  </div>
-<% end %>
-
-<%= render "users/shared/links" %>
+</div>
