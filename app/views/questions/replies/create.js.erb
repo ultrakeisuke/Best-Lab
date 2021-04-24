@@ -2,6 +2,10 @@
 $('#reply-container-<%= @reply.answer_id %>').replaceWith("<%= j(render partial: 'questions/shared/replies/reply_list', locals: { answer: @answer, post: @post }) %>");
 <%# 入力したフォームの値をリセット %>
 $('#reply-textarea-<%= @reply.answer_id %>').val("");
+<%# 添付したファイル情報をリセット %>
+$('#picture-file__new-reply-<%= @reply.answer_id %>').val("");
+<%# 添付したファイル数のカウントをリセット %>
+$('#num-of-files').replaceWith("<%= j(render partial: 'questions/shared/replies/picture_count', locals: { answer: @answer}) %>")
 <%# リプライの投稿前にエラーメッセージを出していた場合は消去する %>
 var errorMessage = document.getElementById('js-reply-errors-<%= @reply.answer_id %>');
 errorMessage.style.display = "none";
