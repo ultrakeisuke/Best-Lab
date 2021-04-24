@@ -91,14 +91,31 @@ header {
         text-decoration: none;
       }
     }
-    // アイコンのデザイン
+    // ロゴのデザイン
     a:first-child {
-      margin-left: 54px;
+      display: flex;
+      align-items: center;
+      margin-left: 18px;
       margin-right: auto;
-      font-size: 22px;
-      color: $color-blue;
       &:hover {
-        color: $color-green;
+        h5,
+        i {
+          color: $color-dark-blue;
+        }
+      }
+      h5 {
+        margin-left: 2px;
+        margin-right: 2px;
+        color: $color-blue;
+        font-size: 22px;
+      }
+      i {
+        color: $color-blue;
+        font-size: 14px;
+        // 羽を左右反転
+        &:first-child {
+          transform: scale(-1, 1);
+        }
       }
     }
     form {

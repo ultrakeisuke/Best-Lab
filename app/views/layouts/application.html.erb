@@ -15,7 +15,11 @@
     <div class="content">
       <header>
         <nav>
-          <%= link_to "Best-Lab", root_path %>
+          <%= link_to root_path do %>
+            <i class="fas fa-feather-alt"></i>
+            <h5>Best-Lab</h5>
+            <i class="fas fa-feather-alt"></i>
+          <% end %>
           <% if user_signed_in? %>
             <%= link_to 'プロフィール', users_basic_path(current_user) %>
             <%= link_to '質問を投稿する', new_questions_post_path %>
