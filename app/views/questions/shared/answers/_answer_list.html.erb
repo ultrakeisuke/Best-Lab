@@ -1,58 +1,75 @@
-<%# 回答と回答に紐づいたリプライを表示 %>
-<div class="comment-list">
+<div class="display-comment">
   <% answers&.each do |answer| %>
-    <div id="display-<%= answer.id %>">
-      <div id="display-answer-<%= answer.id %>">
-        <div id="answer-contents-<%= answer.id %>">
+    <div class="comment-container">
+      <%# 回答表示部 %>
+      <div class="answer-container">
+        <div class="answer-container__details">
           <% if @post.best_answer_id == answer.id %>
-            <div class="answer-best">
+            <div class="answer-container__best-answer-title">
               <span>ベストアンサー</span>
             </div>
           <% end %>
-          <div class="answer-username">
-            <%= image_tag asset_path(answer.user.profile_picture) %>
-            <p><%= answer.user.name %></p>
+          <div id="answer-container__body-<%= answer.id %>" class="answer-container__body">
+            <%= answer.body %>
           </div>
-          <div class="answer-createdat"><%= l answer.created_at, format: :year %></div>
-          <div class="answer-body"><%= answer.body %></div>
-          <div class="answer-pictures">
-            <% answer.pictures.each do |picture| %>
-              <%= image_tag picture.picture.url %>
-            <% end %>
-          </div>
-          <% if current_user.id == @post.user_id && @post.best_answer_id.blank? %>
-            <div id="best-answer-<%= answer.id %>">
-              <%= render "questions/shared/best_answer_form", post: PostForm.new, answer: answer, url: select_best_answer_questions_post_path(@post), method: :patch %>
-            </div>
-          <% end %>
-          <% if current_user.id == answer.user_id %>
-            <i class="fas fa-pen edit-answer-icon" data-answer-id="<%= answer.id %>"></i>
-          <% end %>
-        </div>
-        <div id="edit-answer-form-<%= answer.id %>" class="edit-answer-form hide">
-          <%= render "questions/shared/answers/edit_answer_form", answer_form: @answer, answer: answer, post: @post, url: questions_answer_path(answer), method: :patch %>
-        </div>
-      </div>
-      <div id="display-reply-<%= answer.id %>">
-        <% answer.replies&.order(created_at: :asc).each do |reply| %>
-          <div id="reply-contents-<%= reply.id %>">
-            <div class="reply-username">
-              <%= image_tag asset_path(reply.user.profile_picture) %>
-              <p><%= reply.user.name %></p>
-            </div>
-            <div class="reply-createdat"><%= l reply.created_at, format: :year %></div>
-            <div class="reply-body"><%= reply.body %></div>
-            <div class="reply-pictures">
-              <% reply.pictures.each do |picture| %>
-                <%= image_tag picture.picture.url %>
+          <% unless answer.pictures.blank? %>
+            <div id="answer-container__pictures-<%= answer.id %>" class="answer-container__pictures">
+              <% answer.pictures.each do |picture| %>
+                <%= image_tag asset_path(picture.picture.url), class:"popup-img" %>
               <% end %>
             </div>
-            <% if current_user.id == reply.user_id %>
-              <i class="fas fa-pen edit-reply-icon" data-reply-id="<%= reply.id %>"></i>
-            <% end %>
+          <% end %>
+          <div id="edit-answer-form-<%= answer.id %>" class="edit-answer-form hide">
+            <%= render "questions/shared/answers/edit_answer_form", answer_form: @answer, answer: answer, post: @post, url: questions_answer_path(answer), method: :patch %>
           </div>
-          <div id="edit-reply-form-<%= reply.id %>" class="edit-reply-form hide">
-            <%= render "questions/shared/replies/edit_reply_form", reply_form: @reply, reply: reply, answer: answer, post: @post, url: questions_reply_path(reply), method: :patch %>
+        </div>
+        <%# 回答下部の編集ボタンとユーザー情報 %>
+        <% if current_user&.id == answer.user_id %>
+          <div class="answer-container__edit">
+            <i id="edit-answer-icon-<%= answer.id %>" class="fas fa-pen edit-answer-icon" data-answer-id="<%= answer.id %>"> 編集</i>
+          </div>
+        <% end %>
+        <div class="answer-container__user-info">
+          <% if current_user&.id == @post.user_id && @post.best_answer_id.blank? %>
+            <%= render "questions/shared/best_answer_form", post: PostForm.new, answer: answer, url: select_best_answer_questions_post_path(@post), method: :patch %>
+          <% end %>
+          <span>投稿 <%= l answer.created_at, format: :year %></span>
+          <%= link_to(users_basic_path(answer.user)) do%>
+            <%= image_tag asset_path(answer.user.profile_picture) %>
+            <span><%= answer.user.name %></span>
+          <% end %>
+        </div>
+      </div>
+      <%# 回答に紐づくリプライ %>
+      <div id="reply-container-<%= answer.id %>" class="reply-container">
+        <% answer.replies&.order(created_at: :asc).each do |reply| %>
+          <div id="reply-container__list-<%= reply.id %>" class="reply-container__list">
+            <div id="reply-container__body-<%= reply.id %>" class="reply-container__body">
+              <%= reply.body %>
+            </div>
+            <% unless reply.pictures.blank? %>
+              <div id="reply-container__pictures-<%= reply.id %>" class="reply-container__pictures">
+                <% reply.pictures.each do |picture| %>
+                  <%= image_tag asset_path(picture.picture.url), class:"popup-img" %>
+                <% end %>
+              </div>
+            <% end %>
+            <div id="edit-reply-form-<%= reply.id %>" class="edit-reply-form hide">
+              <%= render "questions/shared/replies/edit_reply_form", reply_form: @reply, reply: reply, answer: answer, post: @post, url: questions_reply_path(reply), method: :patch %>
+            </div>
+            <% if current_user&.id == reply.user_id %>
+              <div class="reply-container__edit">
+                <i id="edit-reply-icon-<%= reply.id %>" class="fas fa-pen edit-reply-icon" data-reply-id="<%= reply.id %>"> 編集</i>
+              </div>
+            <% end %>
+            <%# リプライ下部のユーザー情報 %>
+            <div class="reply-container__user-info">
+              <span>投稿 <%= l reply.created_at, format: :year %></span>
+              <%= link_to(users_basic_path(reply.user)) do %>
+                <%= image_tag asset_path(reply.user.profile_picture) %>
+                <span><%= reply.user.name %></span>
+              <% end %>
+            </div>
           </div>
         <% end %>
       </div>

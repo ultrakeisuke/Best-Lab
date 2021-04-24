@@ -1,8 +1,8 @@
 <div class="post-title">
   <% if params[:id].present? %>
-    <h3>質問編集</h3>
+    <h4>質問編集</h4>
   <% else %>
-    <h3>質問作成</h3>
+    <h4>質問作成</h4>
   <% end %>
 </div>
 
@@ -12,16 +12,22 @@
   <% if params[:id].present? %>
     <div class="field">
       <%= f.label :status %>
-      <%= f.select :status, { open: "受付中", closed: "解決済" }.invert %>
+      <div class="select-container">
+        <%= f.select :status, { open: "受付中", closed: "解決済" }.invert %>
+      </div>
     </div>
   <% else %>
     <%= f.hidden_field :status, value: "open" %>
   <% end %>
 
-  <div class="filed">
+  <div class="field">
     <%= f.label :category_id %>
-    <%= select_tag "parent_category", options_for_select(@parent_categories.map{|c| [c.name, c.id]}, selected: @selected_parent_category&.id) %>
-    <%= f.select :category_id, options_for_select(@children_categories.map{|c| [c.name, c.id]}), {}, {id: "children_category"} %>
+    <div class="select-container">
+      <%= select_tag "parent_category", options_for_select(@parent_categories.map{|c| [c.name, c.id]}, selected: @selected_parent_category&.id) %>
+    </div>
+    <div class="select-container">
+      <%= f.select :category_id, options_for_select(@children_categories.map{|c| [c.name, c.id]}), {}, {id: "children_category"} %>
+    </div>
   </div>
 
   <div class="field">
@@ -34,9 +40,13 @@
     <%= f.text_area :content %>
   </div>
 
-  <div class="field">
+  <div class="field attached-pictures">
+    <label for="picture-file" >
+      <p>画像</p>
+      <i id="picture-file-icon" class="fas fa-plus-circle"></i>
+    </label>
     <%= f.fields_for :pictures do |picture| %>
-      <%= picture.file_field :picture, multiple: "multiple", name: "post_form[pictures_attributes][][picture]" %>
+      <%= picture.file_field :picture, multiple: "multiple", name: "post_form[pictures_attributes][][picture]", id: "picture-file" %>
     <% end %>
   </div>
 

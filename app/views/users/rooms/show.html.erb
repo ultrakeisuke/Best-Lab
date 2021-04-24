@@ -1,10 +1,10 @@
 <% provide(:title, @another_entry.user.name) %>
 
-<h3><%= link_to @another_entry.user.name, users_basic_path(@another_entry.user) %></h3>
+<h4 class="partner-name"><%= link_to @another_entry.user.name, users_basic_path(@another_entry.user) %></h4>
 
 <%= render "users/shared/error_messages", resource: @message %>
 
-<div class="message-field container">
+<div class="message-field">
   <div id="message-field__scroll">
     <% @room.messages.each do |message| %>
       <% if message.user_id == current_user.id %>
@@ -22,14 +22,10 @@
   <img id="popup-item" src="" />
 </div>
 
-<div class="preview-field container">
-  <div class="insert-point"></div>
-</div>
-
 <%= form_with model: @message, url: users_messages_path, local: true do |f| %>
   <%= f.hidden_field :room_id, value: @room.id %>
 
-  <div class="post-field container">
+  <div class="post-field">
     <div class="post-field__picture">
       <label for="picture-file" >
         <i id="picture-file-icon" class="fas fa-camera"></i>

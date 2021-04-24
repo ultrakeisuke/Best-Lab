@@ -12,7 +12,7 @@ class Users::BasicsController < ApplicationController
     # room_idがない場合はルーム作成フォーム用のインスタンスを生成
     @entry = Entry.new if @room_id.nil?
     # ユーザーが投稿した質問を降順で表示
-    @posts = Post.where(user_id: @user).order(created_at: :desc)
+    @posts = Post.where(user_id: @user).order(created_at: :desc).page(params[:page])
   end
 end
 

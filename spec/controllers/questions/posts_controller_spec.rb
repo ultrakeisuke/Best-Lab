@@ -6,13 +6,6 @@ RSpec.describe Questions::PostsController, type: :request do
   let!(:parent_category) { create(:parent_category) }
   let!(:children_category) { create(:children_category, ancestry: parent_category.id) }
 
-  describe 'indexアクション' do
-    it 'すべての質問を表示する' do
-      get questions_posts_path
-      expect(response).to have_http_status '200'
-    end
-  end
-
   describe 'showアクション' do
     let(:post) { create(:post, category_id: children_category.id, user_id: user.id) }
     it '質問詳細画面を表示する' do

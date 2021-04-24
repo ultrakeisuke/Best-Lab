@@ -6,7 +6,7 @@ class Searches::QuestionsController < ApplicationController
     if params[:q][:content_cont_any].present?
       params[:q][:content_cont_any] = params[:q][:content_cont_any].split(/[[:blank:]]+/)
     end
-    @posts = Post.ransack(params[:q]).result.page(params[:page])
+    @posts = Post.order(created_at: :desc).ransack(params[:q]).result.page(params[:page])
   end
 
   # 質問の検索フォームで親カテゴリーを選択した際に子カテゴリーを動的に変化させる処理

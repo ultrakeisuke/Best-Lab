@@ -68,7 +68,7 @@ RSpec.describe '質問の作成と編集', type: :system do
     expect(page).to have_content 'title'
     expect(page).to have_content 'content'
     # 質問詳細画面から編集画面に移動
-    click_link '質問の編集'
+    click_link '編集', match: :first
     # 投稿に失敗する場合
     find('#post_form_title').set('')
     find('#post_form_content').set('')

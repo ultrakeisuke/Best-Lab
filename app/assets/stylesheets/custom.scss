@@ -1,24 +1,52 @@
-@import "bootstrap-sprockets";
-@import "bootstrap";
+@import 'bootstrap-sprockets';
+@import 'bootstrap';
 
-h1,h2,h3,h4,h5,h6,p,div,ul,li {
+$color-background: rgb(241, 242, 245);
+$color-black: rgb(46, 46, 46);
+$color-grey: rgb(146, 165, 177);
+$color-light-grey: rgb(228, 237, 243);
+$color-light-blue: rgb(229, 243, 255);
+$color-blue: rgb(63, 169, 255);
+$color-dark-blue: rgb(7, 139, 255);
+$color-green: rgb(86, 198, 0);
+$color-red: rgb(234, 96, 109);
+$color-dark-red: rgb(225, 8, 51);
+
+html,
+body {
+  // コンテンツの内容に合わせて画面の高さを調整
+  height: 100%;
+  font-family: 'Lato', 'Noto Sans JP', 'ヒラギノ角ゴ ProN',
+    'Hiragino Kaku Gothic ProN', 'メイリオ', 'Meiryo', 'ＭＳＰゴシック',
+    'MS PGothic', sans-serif;
+}
+
+.content {
+  min-height: 100%;
+  position: relative;
+  // footerと同じ高さを下部に追加
+  padding-bottom: 150px;
+  background-color: $color-background;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+div,
+ul,
+li {
   padding: 0;
   margin: 0;
+  color: $color-black;
 }
 
 li {
   list-style: none;
-}
-
-.yield {
-  width: 100%;
-}
-
-.container {
-  padding: 0;
-  margin: 0 auto;
-  width: 65%;
-  background-color: #fff;
 }
 
 .hide {
@@ -29,159 +57,858 @@ li {
   display: block;
 }
 
-.notice-icon {
+.has-notice {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-}
-.has-notice {
-  background-color: red;
+  background-color: $color-red;
 }
 
-//layoutsフォルダ
-//application
+.bg-white {
+  background-color: #fff;
+}
+
+// layoutsフォルダ
+// application
+// ヘッダー
 header {
-  padding: 10px;
-  margin: 0 auto;
-  width: 80%;
+  position: fixed;
+  z-index: 100;
+  width: 100%;
+  padding-right: 40px;
+  background-color: #fff;
+  border-bottom: solid 1px $color-light-grey;
   nav {
-    text-align: center;
-    font-size: 0;
+    display: flex;
+    align-items: center;
     a {
       padding: 20px;
-      display: inline-block;
-      color: lightskyblue;
-      border: 1px solid lightskyblue;
-      font-size: 18px;
+      font-size: 16px;
+      color: $color-grey;
       &:hover {
-        background-color: lightskyblue;
-        color: #fff;
+        transition: color 0.3s;
+        color: $color-black;
         text-decoration: none;
       }
     }
-    a + a {
-      border-left: none;
+    // ロゴのデザイン
+    a:first-child {
+      display: flex;
+      align-items: center;
+      margin-left: 18px;
+      margin-right: auto;
+      &:hover {
+        h5,
+        i {
+          color: $color-dark-blue;
+        }
+      }
+      h5 {
+        margin-left: 2px;
+        margin-right: 2px;
+        color: $color-blue;
+        font-size: 22px;
+      }
+      i {
+        color: $color-blue;
+        font-size: 14px;
+        // 羽を左右反転
+        &:first-child {
+          transform: scale(-1, 1);
+        }
+      }
+    }
+    form {
+      input {
+        padding: 20px;
+        background-color: #fff;
+        border: none;
+        font-size: 16px;
+        color: $color-grey;
+        &:hover {
+          transition: color 0.2s;
+          color: $color-black;
+        }
+      }
+    }
+  }
+}
+
+// フッター
+footer {
+  width: 100%;
+  height: 150px;
+  position: absolute;
+  bottom: 0;
+  background-color: $color-light-grey;
+  nav {
+    height: 100px;
+    padding: 15px;
+    text-align: center;
+    color: $color-grey;
+    a {
+      display: inline-block;
+      padding: 20px;
+      color: $color-grey;
+      font-size: 16px;
+      &:hover {
+        transition: color 0.2s;
+        text-decoration: none;
+        color: $color-black;
+      }
     }
     form {
       display: inline-block;
       &:hover {
         input {
-          background-color: lightskyblue;
           color: #fff;
           text-decoration: none;
         }
       }
       input {
         padding: 20px;
+        background-color: $color-light-grey;
+        border: none;
+        font-size: 16px;
+        &:hover {
+          transition: color 0.2s;
+          color: $color-black;
+        }
+      }
+    }
+    small {
+      display: block;
+      margin-top: 8px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+  }
+}
+
+// フラッシュ
+.flash-message {
+  padding-top: 95px;
+  padding-left: 80px;
+  padding-bottom: 30px;
+  .flash {
+    display: inline-block;
+    padding: 8px 14px;
+    border-radius: 4px;
+  }
+  .flash-alert {
+    color: $color-red;
+    background-color: rgb(242, 192, 193);
+  }
+  .flash-notice {
+    color: rgb(116, 148, 121);
+    background-color: rgb(222, 241, 217);
+  }
+}
+
+// メインとサイドバーの設定
+.yield {
+  display: flex;
+  max-width: 100%;
+  padding-right: 80px;
+  padding-left: 80px;
+  padding-bottom: 50px;
+  margin: 0 auto;
+}
+
+// メイン
+#primary {
+  width: 66%;
+  padding: 36px 60px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+  // 各ページタイトル
+  h4 {
+    margin-bottom: 25px;
+    font-size: 20px;
+  }
+  // ホバー時の下線を非表示
+  a:hover {
+    text-decoration: none;
+  }
+  // ページネーション
+  nav {
+    display: block;
+    text-align: center;
+    span {
+      display: inline-block;
+      min-width: 40px;
+      line-height: 38px;
+      margin-right: 3px;
+      text-align: center;
+      font-size: 16px;
+      border: solid 1px $color-light-grey;
+      border-radius: 3px;
+      &:hover {
+        background-color: $color-blue;
+        transition: background-color 0.2s;
+        a {
+          color: #fff;
+          transition: color 0.2s;
+        }
+      }
+    }
+    a {
+      display: block;
+    }
+    // 現在のページ
+    .current {
+      font-weight: 600;
+      &:hover {
+        // ホバーで色を変化させない
+        color: $color-black;
         background-color: #fff;
-        color: lightskyblue;
-        border: 1px solid lightskyblue;
-        border-left: none;
-        font-size: 18px;
-        white-space: normal;
+      }
+    }
+    // 「最初」「最後」のデザイン
+    .first,
+    .last {
+      padding-left: 6px;
+      padding-right: 6px;
+    }
+  }
+  // 投稿状態による背景色変化
+  .post-status-open {
+    color: #fff;
+    background-color: $color-grey;
+  }
+  .post-status-closed {
+    color: #fff;
+    background-color: $color-red;
+  }
+  // エラーメッセージ
+  #error_explanation {
+    li {
+      color: $color-red;
+    }
+  }
+  // 画像をクリックした際のポップアップ
+  #popup-background {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 1000;
+    background: #000;
+    opacity: 0.5;
+  }
+  #popup-item {
+    top: 50%;
+    left: 50%;
+    position: fixed;
+    z-index: 1001;
+  }
+}
+
+// サイドバー
+#secondary {
+  width: 25%;
+  margin-left: auto;
+  h4 {
+    margin-bottom: 25px;
+    font-size: 20px;
+  }
+  // フォーム
+  .field {
+    margin-bottom: 18px;
+    label {
+      margin-bottom: 0;
+      font-weight: normal;
+    }
+    .side-select-container {
+      position: relative;
+      width: 80%;
+    }
+    .side-select-container::after {
+      // セレクトボックスに下向き矢印を追加
+      content: '';
+      position: absolute;
+      width: 0px;
+      height: 0px;
+      border-top: solid 5px $color-black;
+      border-right: solid 5px transparent;
+      border-left: solid 5px transparent;
+      border-bottom: solid 5px transparent;
+      top: 55%;
+      right: 21%;
+      margin-top: -4px;
+    }
+    select,
+    input {
+      padding: 4px;
+      border: solid 1px $color-light-grey;
+      border-radius: 4px;
+      outline: none;
+    }
+    select {
+      width: 86%;
+      appearance: none; // セレクトボックスのデフォルトの下矢印を削除
+    }
+    input {
+      width: 86%;
+    }
+  }
+  .sidebar__for-users--top,
+  .sidebar__for-users--bottom {
+    padding: 18px 30px;
+    border-radius: 12px;
+    background-color: #fff;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+  }
+  // プロフィール検索の詳細設定
+  .sidebar__for-users--top {
+    margin-bottom: 18px;
+  }
+}
+
+// フォーム関連のパーツ
+// 入力欄
+.field {
+  margin-bottom: 18px;
+  label {
+    margin-bottom: 0;
+    font-weight: 600;
+  }
+  input {
+    width: 100%;
+    padding: 4px;
+    margin-bottom: 12px;
+    border: solid 1px $color-light-grey;
+    border-radius: 4px;
+    outline: none;
+  }
+  // フォーム中のテキストエリアのデザイン
+  textarea {
+    width: 100%;
+    height: 120px;
+    padding: 5px;
+    border: solid 1px $color-light-grey;
+    border-radius: 4px;
+    // 右下の斜線を消す
+    resize: none;
+  }
+  // セレクトボックス
+  .select-container {
+    position: relative;
+    width: 80%;
+    margin-bottom: 5px;
+  }
+  .select-container::after {
+    // セレクトボックスに下向き矢印を追加
+    content: '';
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    border-top: solid 5px $color-black;
+    border-right: solid 5px transparent;
+    border-left: solid 5px transparent;
+    border-bottom: solid 5px transparent;
+    top: 55%;
+    left: 35%;
+    margin-top: -4px;
+  }
+  select,
+  input {
+    padding: 4px;
+    border: solid 1px $color-light-grey;
+    border-radius: 4px;
+    outline: none;
+  }
+  select {
+    width: 40%;
+    appearance: none; // セレクトボックスのデフォルトの下矢印を削除
+  }
+  // ファイル選択
+  #file-upload-button {
+    color: green;
+    background-color: #fff;
+  }
+}
+// 画像投稿用ボタン
+.attached-pictures {
+  label {
+    padding: 5px 8px;
+    margin: 0;
+    border-radius: 4px;
+    background-color: $color-light-blue;
+    font-weight: normal;
+    cursor: pointer;
+    .too-many-files {
+      color: $color-red;
+    }
+  }
+  p,
+  i {
+    display: inline-block;
+    color: $color-blue;
+  }
+  // 通常のファイル選択ボタンは非表示
+  input {
+    display: none;
+  }
+}
+// 送信、保存などのボタン
+.actions {
+  text-align: center;
+  input {
+    padding: 6px 23px;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    background-color: $color-blue;
+    font-size: 14px;
+    &:hover {
+      transition: background-color 0.2s;
+      background-color: $color-dark-blue;
+    }
+  }
+}
+// アカウント削除用ボタン
+.account-reset {
+  margin-top: 100px;
+  input {
+    padding: 5px 30px;
+    color: white;
+    border: solid 1px rgb(255, 132, 131);
+    border-radius: 4px;
+    background-color: rgb(255, 132, 131);
+    &:hover {
+      transition: border-color 0.2s, background-color 0.2s;
+      border-color: $color-dark-red;
+      background-color: $color-dark-red;
+    }
+  }
+}
+
+// 新規登録やログインなどの共通フォーム
+.common-form {
+  // 横幅いっぱいに広げる
+  .common-form__container {
+    margin: 0 auto; // 横幅を調整し中央に寄せる
+    padding: 50px 30px;
+    h4 {
+      margin-bottom: 25px;
+      font-size: 20px;
+    }
+    // 自動ログインのデザイン
+    .remember-me {
+      // チェックボックス
+      #user_remember_me {
+        width: 50px;
+      }
+    }
+    // linksのデザイン
+    .links-container {
+      margin-top: 18px;
+      a {
+        display: inline-block;
+        margin-top: 4px;
+      }
+    }
+  }
+}
+
+// 検索結果画面
+.search-result {
+  a {
+    text-decoration: none;
+  }
+  h4 {
+    margin-bottom: 25px;
+    font-size: 20px;
+  }
+  .search-result__info {
+    display: flex;
+    padding: 12px;
+    margin-bottom: 3px;
+    border: solid 2px $color-light-grey;
+    border-radius: 6px;
+    &:hover {
+      border-color: $color-blue;
+      transition: border-color 0.2s;
+    }
+    img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+    }
+  }
+  .search-result__info--right {
+    padding-left: 12px;
+  }
+}
+
+// lp
+.lp {
+  background-color: #fff;
+  .top {
+    border-bottom: solid 1px $color-light-grey;
+    padding: 0px 0 50px;
+    .top__container {
+      max-width: 960px;
+      padding: 0 45px;
+      margin: 0 auto;
+      .top__container--left {
+        padding-top: 50px;
+        .top__subtitle {
+          margin-bottom: 15px;
+          font-size: 15px;
+        }
+        .top__title {
+          font-size: 60px;
+        }
+        .top__slogan {
+          margin-top: 60px;
+          font-size: 30px;
+        }
+        .top__guest-sign-in {
+          margin-top: 50px;
+          font-size: 16px;
+          input {
+            padding: 12px;
+            color: white;
+            background-color: $color-blue;
+            border: solid 1px $color-light-grey;
+            border-radius: 5px;
+          }
+          input:hover {
+            color: white;
+            transition: background-color 0.2s;
+            background-color: $color-green;
+            border-color: $color-green;
+          }
+        }
+      }
+      .top__container--right {
+        img {
+          width: 450px;
+          height: 450px;
+        }
+      }
+    }
+  }
+  .main-feature {
+    background-color: $color-light-blue;
+    padding: 100px 0;
+    .main-feature__container {
+      width: 72%;
+      margin: 0 auto;
+      text-align: center;
+      .main-feature__title {
+        font-size: 30px;
+        margin-bottom: 10px;
+      }
+      .main-feature__subtitle {
+        font-size: 16px;
+      }
+      ul {
+        padding: 5px;
+        margin-top: 50px;
+        li {
+          .card {
+            margin: 10px auto;
+            padding: 15px;
+            width: 80%;
+            background-color: white;
+            border: solid 1px white;
+            border-radius: 10px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+            .main-feature__card-title {
+              font-size: 22px;
+            }
+            i {
+              display: block;
+              margin-top: 30px;
+              margin-bottom: 30px;
+              font-size: 50px;
+            }
+            .fa-file-upload {
+              color: rgb(91, 168, 255);
+            }
+            .fa-search {
+              color: rgba(0, 0, 0, 0.7);
+            }
+            .fa-shield-alt {
+              color: rgb(255, 178, 78);
+            }
+            .main-feature__card-sentence {
+              font-size: 15px;
+            }
+          }
+        }
+      }
+    }
+  }
+  .sub-feature {
+    padding-top: 60px;
+    padding-bottom: 60px;
+    border-bottom: solid 1px $color-light-grey;
+    .sub-feature__container {
+      .sub-feature__title {
+        font-size: 28px;
+        margin-bottom: 40px;
+      }
+      .sub-feature__img-container {
+        max-width: 960px;
+        margin: 0 auto;
+        .sub-feature__img-container--left {
+          text-align: center;
+          img {
+            width: 300px;
+          }
+        }
+        .sub-feature__img-container--right {
+          margin-top: 60px;
+          p {
+            font-size: 16px;
+          }
+          span {
+            font-weight: 600;
+            line-height: 50px;
+          }
+        }
+      }
+    }
+  }
+  .invitation {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    .invitation__container {
+      text-align: center;
+      .invitation__title {
+        font-size: 24px;
+        margin-bottom: 30px;
+      }
+      .invitation__button {
+        input {
+          padding: 12px;
+          font-size: 16px;
+          color: white;
+          background-color: $color-blue;
+          border: solid 1px $color-light-grey;
+          border-radius: 5px;
+        }
+        input:hover {
+          color: white;
+          transition: background-color 0.2s;
+          background-color: $color-green;
+          border-color: $color-green;
+        }
       }
     }
   }
 }
 
 //users/basicsフォルダ
-//index
-
-//show
-.information {
-  padding: 20px 0px 20px 20px;
-  width: 55%;
-  border-bottom: 2px solid lavender;
-  .information__title {
-    color: lightskyblue;
-    font-size: 18px;
+// ユーザー詳細ページ(show)
+.user-information {
+  margin: 0 auto;
+  h4 {
+    margin-top: 8px;
+    font-size: 25px;
+  }
+  .user-profile {
+    .user-profile__picture {
+      text-align: center;
+      img {
+        width: 128px;
+        height: 128px;
+        border: solid 1px $color-light-grey;
+        border-radius: 50%;
+      }
+    }
+    .user-profile__edit {
+      display: flex; // 編集ボタンを横並びで右寄せ
+      justify-content: flex-end;
+      padding: 6px 0;
+      a {
+        display: inline-block;
+        padding: 4px 10px;
+        margin: 4px;
+        font-size: 15px;
+        border-radius: 4px;
+        color: #fff;
+        background-color: $color-blue;
+        border: solid 1px $color-blue;
+        &:hover {
+          transition: background-color 0.4s;
+          background-color: $color-dark-blue;
+        }
+      }
+      // プロフィール編集リンク
+      .user-profile__edit-profile {
+        a {
+          color: $color-grey;
+          background-color: rgb(245, 249, 252);
+          border: solid 1px $color-light-grey;
+          &:hover {
+            transition: background-color 0.4s;
+            background-color: $color-light-grey;
+          }
+        }
+      }
+    }
+    // メッセージルーム入室ボタン
+    .user-profile__room-link {
+      display: flex;
+      justify-content: flex-end;
+      input {
+        display: inline-block;
+        padding: 4px 10px;
+        margin: 4px;
+        font-size: 15px;
+        border-radius: 4px;
+        color: #fff;
+        background-color: $color-blue;
+        border: solid 1px $color-blue;
+        &:hover {
+          transition: background-color 0.4s;
+          background-color: $color-dark-blue;
+        }
+      }
+    }
+    // ユーザーの所属と自己紹介文
+    .user-profile__details {
+      display: flex;
+      padding: 12px 0px;
+      border-top: solid 2px $color-light-grey;
+      border-bottom: solid 2px $color-light-grey;
+      // 余白
+      .mgl-4 {
+        margin-left: 4px;
+      }
+      .user-profile__details--left {
+        width: 50%;
+        padding: 0 12px;
+        border-right: solid 2px $color-light-grey;
+        p {
+          color: $color-grey;
+        }
+        .user-profile__detail {
+          margin-bottom: 16px;
+          h5 {
+            margin-bottom: 3px;
+            font-size: 15px;
+          }
+        }
+      }
+      // プロフィール文
+      .user-profile__details--right {
+        width: 50%;
+        padding: 0 12px;
+        h5 {
+          margin-bottom: 16px;
+        }
+      }
+    }
   }
 }
-
-.profile {
-  width: 55%;
-  border-bottom: 2px solid lavender;
-  .profile__picture {
-    padding-top: 20px;
-    padding-left: 15px;
-    img {
-      width: 100px;
-      height: 100px;
-      border: 2px solid lavender;
-      border-radius: 50%;
+// 投稿した質問
+.user-question {
+  padding-top: 36px;
+  .user-question__info {
+    padding: 12px;
+    margin-bottom: 3px;
+    border: solid 2px $color-light-grey;
+    border-radius: 6px;
+    &:hover {
+      border-color: $color-blue;
+      transition: border-color 0.2s;
+    }
+    span {
+      display: block;
+      margin-bottom: 6px;
+    }
+    h5 {
+      margin-bottom: 8px;
+      font-size: 18px;
     }
   }
-  .profile__text {
-    padding-top: 20px;
-    padding-right: 10px;
-    padding-left: 15px;
-    .profile__text--top {
-      display: flex;
-      #user-affiliation {
-        margin-left: 12px;
-        padding: 5px;
-        display: inline-block;
-        border-radius: 5px;
-        color: #fff;
-      }
-      .undergraduate {
-        background-color: tomato;
-      }
-      .graduate {
-        background-color: darkgrey;
-      }
-      .technical-students {
-        background-color: darkcyan;
-      }
-      .professional-students {
-        background-color: steelblue;
-      }
-      .working {
-        background-color: deeppink;
-      }
-      .other {
-        background-color: darkorange;
-      }
-    }
-    .profile__text--bottom {
-      margin-top: 12px;
-      font-size: 14px;
-    }
-    .profile__edit {
-      margin-top: 10px;
-      margin-bottom: 10px;
-      a {
-        color: lightskyblue;
-        font-size: 15px;
-      }
+  .user-question__notice {
+    display: flex;
+    align-items: center;
+    // 通知アイコン
+    p {
+      margin-right: 4px;
     }
   }
 }
 
 //users/roomsフォルダ
 //index
-.room-list {
-  border: 1.5px solid grey;
-  background-color: silver;
-  ul > li {
-    padding: 5px;
+.user-list {
+  // 通知
+  .user-list__notice {
     display: flex;
-    border-bottom: 1px solid black;
-    .room-list__image {
+    align-items: center;
+    p {
+      margin-right: 4px;
+      color: $color-red;
+    }
+  }
+  a {
+    display: block;
+    text-decoration: none;
+  }
+  .user-list__info {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: solid 2px $color-light-grey;
+    border-radius: 6px;
+    &:hover {
+      border-color: $color-blue;
+      transition: border-color 0.2s;
+    }
+    .user-list__user-info {
+      display: flex;
+      // プロフィール画像
       img {
-        width: 50px;
+        width: 48px;
+        height: 48px;
+        border: solid 2px $color-light-grey;
         border-radius: 50%;
-        vertical-align: middle;
+      }
+      .user-list__text {
+        margin-left: 9px;
+        // リスト中のユーザー名
+        h5 {
+          margin-bottom: 9px;
+          font-size: 14px;
+        }
+        // リスト中のプロフィール文
+        span {
+          font-size: 12px;
+        }
       }
     }
-    .room-list__text {
-      p {
-        font-size: 14px;
-      }
+    // 最終投稿時刻
+    .user-list__post-info {
+      color: $color-grey;
+      font-size: 12px;
     }
   }
 }
+
 //show
+// メッセージ相手の名前
+.partner-name {
+  a {
+    color: $color-grey;
+    &:hover {
+      transition: color 0.2s;
+      color: $color-blue;
+    }
+  }
+}
+// メッセージ表示部
 .message-field {
   padding: 12px 14px;
   height: 500px;
@@ -189,20 +916,59 @@ header {
   border: 1px solid lightgrey;
   border-bottom: none;
   border-radius: 5px 5px 0px 0px;
+  // 自分のメッセージ
   .right-message {
     text-align: right;
     .message-field__content {
       flex-direction: row-reverse;
       .message-field__message {
-        p {
-          text-align: left;
-        }
+        position: relative;
+        // 吹き出し以上、ヘッダー以下に配置
+        z-index: 2;
+        margin-right: 12px;
+      }
+      // 吹き出し
+      &:before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: -12px;
+        right: -2px;
+        transform: rotate(60deg);
+        border-radius: 50%;
+        border-right: 16px solid $color-blue;
+        border-bottom: 16px solid $color-blue;
+        border-top: 16px solid transparent;
+        border-left: 16px solid transparent;
+      }
+      &:after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: -17px;
+        right: -5px;
+        z-index: 1;
+        transform: rotate(60deg);
+        border-radius: 50%;
+        border-right: 16px solid #fff;
+        border-bottom: 16px solid #fff;
+        border-top: 16px solid transparent;
+        border-left: 16px solid transparent;
+      }
+      p {
+        text-align: left;
+        color: #fff;
       }
       .message-field__created_at {
         margin-right: 10px;
+        p {
+          color: #000;
+          font-size: 12px;
+        }
       }
     }
   }
+  // 相手のメッセージ
   .left-message {
     text-align: left;
     .message-field__content {
@@ -211,20 +977,20 @@ header {
       }
       .message-field__message {
         position: relative;
-        z-index: 100;
+        z-index: 2;
+        background-color: $color-light-grey;
       }
+      // 吹き出し
       &:before {
         content: '';
         display: block;
         position: absolute;
         top: 4px;
         left: 48px;
-        width: 0;
-        height: 0;
         transform: rotate(-50deg);
         border-radius: 50%;
-        border-left: 16px solid lightskyblue;
-        border-bottom: 16px solid lightskyblue;
+        border-left: 16px solid $color-light-grey;
+        border-bottom: 16px solid $color-light-grey;
         border-top: 16px solid transparent;
         border-right: 16px solid transparent;
       }
@@ -235,8 +1001,6 @@ header {
         top: -2px;
         left: 46px;
         z-index: 1;
-        width: 0;
-        height: 0;
         transform: rotate(-50deg);
         border-radius: 50%;
         border-left: 16px solid #fff;
@@ -260,7 +1024,7 @@ header {
     .message-field__profile {
       margin-bottom: 8px;
       img {
-        width: 40px;
+        width: 44px;
         border: 1px solid lightgrey;
         border-radius: 50%;
       }
@@ -268,8 +1032,8 @@ header {
     .message-field__message {
       padding: 8px;
       max-width: 80%;
-      border-radius: 12px; 
-      background-color: lightskyblue;
+      border-radius: 12px;
+      background-color: $color-blue;
       p {
         margin: 0;
         font-size: 15px;
@@ -284,9 +1048,10 @@ header {
       padding-bottom: 4px;
       display: none;
       position: fixed;
+      z-index: 99;
       width: 100px;
       text-align-last: left;
-      border: 1px solid #CCC;
+      border: 1px solid #ccc;
       border-radius: 4px;
       background-color: #fff;
       input {
@@ -298,52 +1063,31 @@ header {
         background-color: #fff;
         &:hover {
           color: #fff;
-          background-color: #136FFF;
+          background-color: #136fff;
         }
       }
     }
   }
-  #popup-background {
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    z-index: 1000;
-    background: #000;
-    opacity: 0.5;
-  }
-  #popup-item {
-    top: 50%;
-    left: 50%;
-    position: fixed;
-    z-index: 1001;
-  }
-}
-.preview-field {
-  display: flex;
-  justify-content: center;
-  border: 1px solid lightgrey;
-  border-bottom: none;
 }
 .post-field {
   padding: 10px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   border: 1px solid lightgrey;
   border-radius: 0px 0px 5px 5px;
   .post-field__picture {
+    margin-right: 10px;
     label {
       margin: 0;
       vertical-align: middle;
       cursor: pointer;
       i {
         font-size: 22px;
-        color: lightskyblue;
+        color: $color-blue;
       }
       .too-many-files {
-        color: #FF0000;
+        color: $color-red;
       }
     }
   }
@@ -354,42 +1098,401 @@ header {
       height: 2em;
       resize: none;
       overflow: hidden;
-      border-color: lightskyblue;
+      border-color: $color-blue;
       border-radius: 5px;
       outline: none;
     }
   }
   .post-field__submit {
+    margin-left: 10px;
     button {
       border: none;
+      padding: 0;
+      margin-left: auto;
       background-color: transparent;
     }
     i {
       font-size: 22px;
-      color: lightskyblue;
+      color: $color-blue;
       background-color: none;
     }
   }
 }
-.preview-field__box {
-  padding: 10px;
-  width: 13%;
-  text-align: center;
-  .preview-field__content {
-    padding-top: 12px;
-    border: 1px solid grey;
-    background-color: #fff;
-  }
-  .preview-field__operation {
-    margin-top: 12px;
-    .preview-field__operation--delete {
-      display: inline;
-      cursor: pointer;
-      color: #347AB7;
+
+// questions/posts
+// show(質問詳細)
+.display-post {
+  // 質問
+  .post-container {
+    padding: 12px 10px 30px;
+    margin-bottom: 100px;
+    border-bottom: solid 2px $color-light-grey;
+    // 質問内容
+    .post-container__post-info {
+      padding: 6px 8px;
+      margin-bottom: 36px;
+      background-color: $color-light-grey;
+      border-radius: 3px;
+      // 質問のカテゴリー
+      .post-container__category {
+        padding-top: 6px;
+        padding-bottom: 6px;
+        margin-bottom: 8px;
+        border-bottom: solid 1px $color-grey;
+        // 横一面のリンク防止
+        a {
+          display: inline-block;
+        }
+        a:hover {
+          p {
+            transition: color 0.2s;
+            color: $color-blue;
+          }
+        }
+      }
+      // 質問のタイトル
+      .post-container__title {
+        h5 {
+          margin-bottom: 18px;
+          font-size: 22px;
+        }
+      }
+      // 質問の状態
+      .post-container__status {
+        p {
+          display: inline-block;
+          padding: 4px;
+          margin-right: 6px;
+          border-radius: 2px;
+        }
+      }
+    }
+    // 質問内容
+    .post-container__content {
+      margin-bottom: 18px;
+    }
+    // 添付画像のデザイン
+    .post-container__pictures {
+      img {
+        display: inline-block;
+        margin-bottom: 18px;
+        width: 100px;
+        height: 100px;
+      }
+    }
+    // 質問の編集リンク
+    .post-container__edit {
+      // 編集用アイコンと文字
+      i,
+      p {
+        display: inline-block;
+      }
       i {
-        font-size: 25px;
+        margin-right: 2px;
+      }
+      a {
+        display: inline-block;
+        padding: 4px 10px;
+        font-size: 15px;
+        border-radius: 2px;
+        background-color: $color-light-grey;
+        &:hover {
+          color: #000;
+        }
+      }
+    }
+    // 質問者情報
+    .post-container__user-info {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      span {
+        margin-right: 8px;
+      }
+      img {
+        margin-right: 12px;
+        width: 44px;
+        height: 44px;
+        border: solid 1px $color-grey;
+        border-radius: 50%;
       }
     }
   }
 }
+// 質問への回答数
+.num-of-answers {
+  margin-bottom: 52px;
+  h5 {
+    font-size: 20px;
+  }
+  span {
+    color: $color-blue;
+  }
+}
+// 回答とリプライ
+.display-comment {
+  .field {
+    margin-bottom: 8px;
+  }
+  // 送信ボタン
+  input {
+    padding: 5px 10px;
+  }
+  // フォームのテキストエリア
+  textarea {
+    height: 36px;
+    margin-top: 4px;
+    border: 2px solid $color-light-grey;
+  }
+  .comment-container {
+    // フォームのボタンデザインと配置
+    .submit-or-cancel {
+      display: flex;
+      justify-content: flex-end;
+      .edit-answer-cancel,
+      .edit-reply-cancel {
+        padding: 5px 10px;
+        margin-right: 4px;
+        border-radius: 4px;
+        background-color: $color-light-grey;
+        border: solid 1px $color-light-grey;
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+    // 回答
+    .answer-container {
+      position: relative;
+      padding: 12px;
+      margin-bottom: 3px;
+      border-top: solid 1px $color-grey;
+      border-bottom: solid 1px $color-grey;
+      // 回答内容
+      .answer-container__details {
+        .answer-container__best-answer-title {
+          margin-bottom: 12px;
+          span {
+            color: $color-red;
+            font-weight: 600;
+          }
+        }
+        .answer-container__body {
+          padding-top: 18px;
+          padding-bottom: 18px;
+        }
+        .answer-container__pictures {
+          margin-bottom: 12px;
+          // 添付画像のデザイン
+          img {
+            width: 100px;
+            height: 100px;
+          }
+        }
+        .edit-answer-form {
+          margin-bottom: 24px;
+        }
+      }
+      // 編集ボタン
+      .answer-container__edit {
+        position: absolute;
+        bottom: 12px;
+        i {
+          display: inline-block;
+          padding: 8px 16px;
+          font-size: 15px;
+          border-radius: 2px;
+          background-color: $color-light-grey;
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+      // 回答者情報
+      .answer-container__user-info {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        // ベストアンサーボタン
+        button {
+          background-color: #fff;
+          border: none;
+          &:hover {
+            i {
+              transition: color 0.2s;
+              color: $color-red;
+            }
+          }
+        }
+        i {
+          font-size: 18px;
+        }
+        // 投稿日
+        span {
+          display: inline-block;
+          margin-right: 8px;
+          font-size: 12px;
+        }
+        img {
+          display: inline-block;
+          margin-right: 12px;
+          width: 40px;
+          height: 40px;
+          border: solid 1px $color-grey;
+          border-radius: 50%;
+        }
+        h5 {
+          display: inline-block;
+          font-size: 14px;
+        }
+      }
+    }
+    // リプライ
+    .reply-container {
+      width: 86%;
+      padding: 12px;
+      margin-left: auto;
+      margin-bottom: 12px;
+      .reply-container__list {
+        position: relative;
+        .reply-container__body {
+          padding-top: 18px;
+          padding-bottom: 18px;
+        }
+        .reply-container__pictures {
+          margin-bottom: 12px;
+          // 添付画像のデザイン
+          img {
+            width: 60px;
+            height: 60px;
+          }
+        }
+        .edit-reply-form {
+          margin-bottom: 24px;
+        }
+        // 編集ボタン
+        .reply-container__edit {
+          position: absolute;
+          bottom: 12px;
+          i {
+            display: inline-block;
+            padding: 8px 16px;
+            font-size: 15px;
+            border-radius: 2px;
+            background-color: $color-light-grey;
+            &:hover {
+              cursor: pointer;
+            }
+          }
+        }
+        // リプライ者情報
+        .reply-container__user-info {
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+          // 投稿日
+          span {
+            display: inline-block;
+            margin-right: 8px;
+            font-size: 12px;
+          }
+          img {
+            display: inline-block;
+            margin-right: 12px;
+            width: 40px;
+            height: 40px;
+            border: solid 1px $color-grey;
+            border-radius: 50%;
+          }
+          h5 {
+            display: inline-block;
+            font-size: 14px;
+          }
+        }
+      }
+    }
+    // リプライ作成
+    .new-reply-form {
+      width: 86%;
+      margin-left: auto;
+      margin-bottom: 124px;
+    }
+  }
+}
 
+// questions/answers
+// index
+.post-list {
+  display: flex;
+  padding: 12px;
+  margin-bottom: 8px;
+  border: solid 2px $color-light-grey;
+  border-radius: 6px;
+  &:hover {
+    border-color: $color-blue;
+    transition: border-color 0.2s;
+  }
+  img {
+    width: 44px;
+    height: 44px;
+    margin-right: 8px;
+    border-radius: 50%;
+    border: 1px solid $color-grey;
+  }
+  .post-list__sub-info {
+    min-width: 60px;
+    text-align: center;
+    .post-list__status {
+      p {
+        padding: 4px;
+        margin-bottom: 18px;
+        border-radius: 2px;
+      }
+      span {
+        display: inline-block;
+        margin-bottom: 8px;
+      }
+      h5 {
+        margin-bottom: 8px;
+        font-size: 20px;
+      }
+    }
+  }
+  .post-list__main-info {
+    flex: 1;
+    padding-left: 12px;
+    .post-list__category-and-title {
+      // カテゴリー
+      p {
+        display: inline-block;
+        margin-top: 4px;
+        margin-bottom: 12px;
+        font-size: 12px;
+      }
+      // タイトル
+      h5 {
+        margin-left: 3px;
+        margin-bottom: 12px;
+        font-size: 16px;
+      }
+    }
+    .post-list__user-info {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      // 投稿日
+      span {
+        margin-right: 8px;
+        font-size: 12px;
+      }
+    }
+    .post-list__notice {
+      margin-right: 6px;
+      p {
+        display: inline-block;
+        margin-right: 2px;
+        color: $color-red;
+      }
+    }
+  }
+}

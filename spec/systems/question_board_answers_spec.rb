@@ -7,6 +7,11 @@ RSpec.describe '回答の作成と編集', type: :system do
   let!(:children_category) { create(:children_category, ancestry: parent_category.id) }
   let!(:post) { create(:post, user_id: questioner.id, category_id: children_category.id) }
 
+  before do
+    # 質問者の通知用レコードを作成
+    create(:question_entry, user_id: questioner.id, post_id: post.id)
+  end
+
   it '回答の新規作成', js: true do
     login_as_user(answerer)
     visit questions_post_path(post)
@@ -16,13 +21,13 @@ RSpec.describe '回答の作成と編集', type: :system do
     expect(page).to have_content 'コメントか画像を送信してください。'
     # 回答前の表示確認
     expect(page).to have_content '回答はまだついていません'
-    expect(page).to have_content 'あなたの回答'
+    expect(page).to have_css('#your-answer')
     # 回答を送信
     find('#answer_form_body').set('answer')
     find('#answer_form').click_button
     # 回答後の表示確認
     expect(page).to have_content '回答1'
-    expect(page).not_to have_content 'あなたの回答'
+    expect(page).not_to have_css('#your-answer')
     expect(page).not_to have_css('#answer_form')
   end
 
@@ -57,7 +62,7 @@ RSpec.describe '回答の作成と編集', type: :system do
     # フォームに回答情報が既にセットされているか確認
     expect(find("#answer-form-#{answer.id}-textarea")).to have_content 'answer'
     # キャンセルボタンを押すとフォームが非表示になることを確認
-    click_button 'キャンセル'
+    find('.edit-answer-cancel').click
     expect(page).not_to have_css("#edit-answer-form-#{answer.id}")
     # 回答の編集に失敗
     find('.edit-answer-icon').click

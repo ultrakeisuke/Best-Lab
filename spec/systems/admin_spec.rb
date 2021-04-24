@@ -23,7 +23,7 @@ RSpec.describe 'ログインとログアウト', type: :system do
     click_button 'ログイン'
     expect(page).to have_content 'ログインしました。'
     expect(page).to have_current_path root_path
-    click_button 'ログアウト'
+    click_button 'ログアウト', match: :first
     expect(page).to have_current_path new_admin_session_path
   end
 end
@@ -47,7 +47,7 @@ RSpec.describe 'ユーザー情報の閲覧とアカウント削除', js: true, 
     # メールアドレスでユーザー検索
     fill_in '名前', with: ''
     fill_in 'メールアドレス', with: user.email
-    click_button '検索'
+    click_button '検索', match: :first
     expect(page).to have_content user.name
   end
 
