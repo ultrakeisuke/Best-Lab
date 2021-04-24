@@ -65,6 +65,7 @@ yarn-debug.log*
 # Ignore .webdrivers
 .webdrivers
 
-# Ignore .bash_history, .local/
+# Ignore .bash_history, .local/, .pki/
 .bash_history
 .local/
+.pki/
