@@ -89,9 +89,8 @@ workflows:
           region: AWS_DEFAULT_REGION
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          create-repo: true
           dockerfile: ./docker/nginx/Dockerfile
-          repo: nginx
+          repo: best-lab_web
           tag: '${CIRCLE_SHA1}'
           filters:
             branches:
@@ -111,9 +110,8 @@ workflows:
           region: AWS_DEFAULT_REGION
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          create-repo: true
           dockerfile: ./docker/rails/Dockerfile
-          repo: rails
+          repo: best-lab_app
           tag: '${CIRCLE_SHA1}'
           filters:
             branches:
