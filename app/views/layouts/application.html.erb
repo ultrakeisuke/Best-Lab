@@ -13,25 +13,41 @@
 
   <body>
     <div class="content">
-      <header>
-        <nav>
+      <!-- header --->
+      <header id="header">
+        <div class="header__logo">
           <%= link_to root_path do %>
             <i class="fas fa-feather-alt"></i>
             <h5>Best-Lab</h5>
             <i class="fas fa-feather-alt"></i>
           <% end %>
-          <% if user_signed_in? %>
-            <%= link_to 'プロフィール', users_basic_path(current_user) %>
-            <%= link_to '質問を投稿する', new_questions_post_path %>
-            <%= link_to 'あなたの回答', questions_answers_path %>
-            <%= link_to 'メッセージ', users_rooms_path %>
-            <%= button_to 'ログアウト', destroy_user_session_path, method: :delete %>
-          <% elsif admin_signed_in? %>
-            <%= button_to 'ログアウト', destroy_admin_session_path, method: :delete %>
-          <% else %>
-            <%= link_to '新規登録', new_user_registration_path %>
-            <%= link_to 'ログイン', new_user_session_path %>
-          <% end %>
+        </div>
+        <!-- ハンバーガーメニュー -->
+        <div id="nav-toggle">
+          <div>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+        <!-- ハンバーガーメニュークリック時の背景 -->
+        <div id="toggle-background"></div>
+        <!-- ナビゲーションバー -->
+        <nav id="global-nav">
+          <ul>
+            <% if user_signed_in? %>
+              <li><%= link_to 'プロフィール', users_basic_path(current_user) %></li>
+              <li><%= link_to '質問を投稿する', new_questions_post_path %></li>
+              <li><%= link_to 'あなたの回答', questions_answers_path %></li>
+              <li><%= link_to 'メッセージ', users_rooms_path %></li>
+              <li><%= button_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
+            <% elsif admin_signed_in? %>
+              <%= button_to 'ログアウト', destroy_admin_session_path, method: :delete %>
+            <% else %>
+              <li><%= link_to '新規登録', new_user_registration_path %></li>
+              <li><%= link_to 'ログイン', new_user_session_path %></li>
+            <% end %>
+          </ul>
         </nav>
       </header>
 

@@ -73,35 +73,23 @@ li {
 // ヘッダー
 header {
   position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   z-index: 100;
   width: 100%;
   padding-right: 40px;
   background-color: #fff;
   border-bottom: solid 1px $color-light-grey;
-  nav {
-    display: flex;
-    align-items: center;
+  .header__logo {
+    display: inline-block;
     a {
-      padding: 20px;
-      font-size: 16px;
-      color: $color-grey;
-      &:hover {
-        transition: color 0.3s;
-        color: $color-black;
-        text-decoration: none;
-      }
-    }
-    // ロゴのデザイン
-    a:first-child {
       display: flex;
       align-items: center;
+      padding: 20px;
       margin-left: 18px;
-      margin-right: auto;
       &:hover {
-        h5,
-        i {
-          color: $color-dark-blue;
-        }
+        text-decoration: none;
       }
       h5 {
         margin-left: 2px;
@@ -117,17 +105,52 @@ header {
           transform: scale(-1, 1);
         }
       }
+      // ロゴをホバー時のデザイン
+      &:hover {
+        h5,
+        i {
+          color: $color-dark-blue;
+        }
+      }
     }
-    form {
-      input {
+  }
+  #nav-toggle {
+    display: none;
+    position: absolute;
+    right: 12px;
+    top: 15px;
+    width: 34px;
+    height: 36px;
+    cursor: pointer;
+    div {
+      position: relative;
+    }
+  }
+  nav {
+    ul {
+      display: flex;
+      align-items: center;
+      a {
         padding: 20px;
-        background-color: #fff;
-        border: none;
         font-size: 16px;
         color: $color-grey;
         &:hover {
-          transition: color 0.2s;
+          transition: color 0.3s;
           color: $color-black;
+          text-decoration: none;
+        }
+      }
+      form {
+        input {
+          padding: 20px;
+          background-color: #fff;
+          border: none;
+          font-size: 16px;
+          color: $color-grey;
+          &:hover {
+            transition: color 0.2s;
+            color: $color-black;
+          }
         }
       }
     }
@@ -1492,6 +1515,96 @@ footer {
         display: inline-block;
         margin-right: 2px;
         color: $color-red;
+      }
+    }
+  }
+}
+
+// スマホ版デザイン(ブラウザの都合上500pxに設定 -> 最終480pxに変更)
+@media screen and (max-width: 500px) {
+  // ハンバーガーメニュー押下時のアニメーション
+  @keyframes anim {
+    0% {
+      transform: translateX(0px);
+    }
+    100% {
+      transform: translateX(200px);
+    }
+  }
+  // ヘッダー
+  header {
+    #nav-toggle {
+      display: block;
+      span {
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 3px;
+        background: $color-grey;
+        left: 0;
+        &:nth-child(1) {
+          top: 0;
+        }
+        &:nth-child(2) {
+          top: 12px;
+        }
+        &:nth-child(3) {
+          top: 24px;
+        }
+      }
+    }
+    #global-nav {
+      position: absolute;
+      // 開いていない時は画面外に配置
+      top: -500px;
+    }
+  }
+  // トグルボタンをクリックした後のデザイン
+  .open {
+    #nav-toggle {
+      span {
+        &:nth-child(1) {
+          top: 11px;
+          transform: rotate(315deg);
+          background-color: #fff;
+        }
+        &:nth-child(2) {
+          width: 0;
+          left: 50%;
+        }
+        &:nth-child(3) {
+          top: 11px;
+          transform: rotate(-315deg);
+          background-color: #fff;
+        }
+      }
+    }
+    #toggle-background {
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      z-index: -1;
+      background: #000;
+      opacity: 0.5;
+    }
+    #global-nav {
+      position: absolute;
+      width: 200px;
+      top: 0;
+      left: -200px;
+      animation: anim 0.3s forwards;
+      ul {
+        display: block;
+        a {
+          display: block;
+          text-align: center;
+          background-color: #fff;
+        }
+        input {
+          width: 100%;
+        }
       }
     }
   }
