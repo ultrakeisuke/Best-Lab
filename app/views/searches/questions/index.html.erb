@@ -2,7 +2,7 @@
 
 <h4>検索結果</h4>
 <% if @posts.blank? %>
-  <p>お探しの質問は見つかりませんでした。</p>
+  <p class="no-result">お探しの質問は見つかりませんでした。</p>
 <% else %>
   <% @posts.each do |post| %>
     <%= link_to questions_post_path(post) do %>

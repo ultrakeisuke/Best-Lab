@@ -2,7 +2,7 @@
 
 <h4>あなたの回答</h4>
 <% if @comment_lists.blank? %>
-  <p>まだ質問に回答していません</p>
+  <p class="no-result">まだ質問に回答していません</p>
 <% else %>
   <% @comment_lists.each do |comment_list| %>
     <%= link_to(questions_post_path(comment_list.post)) do %>

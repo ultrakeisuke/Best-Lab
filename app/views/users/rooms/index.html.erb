@@ -4,7 +4,7 @@
   <h4>メッセージ</h4>
 
   <% if @another_entries.blank? %>
-    <p>話したい相手を探してみましょう！</p>
+    <p class="no-result">話したい相手を探してみましょう！</p>
   <% end %>
 
   <% @sorted_entries&.each do |entry| %>
