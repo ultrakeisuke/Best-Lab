@@ -20,11 +20,15 @@
         </div>
       <% end %>
       <div class="reply-container__user-info">
-        <span>投稿 <%= l reply.created_at, format: :year %></span>
-        <%= link_to(users_basic_path(reply.user)) do %>
-          <%= image_tag asset_path(reply.user.profile_picture) %>
-          <span><%= reply.user.name %></span>
-        <% end %>
+        <div class="reply-container__img-and-name">
+          <%= link_to(users_basic_path(reply.user)) do %>
+            <%= image_tag asset_path(reply.user.profile_picture) %>
+            <span><%= reply.user.name %></span>
+          <% end %>
+        </div>
+        <div class="reply-container__created_at">
+          <span>投稿 <%= l reply.created_at, format: :year %></span>
+        </div>
       </div>
     </div>
   <% end %>

@@ -1215,6 +1215,9 @@ footer {
       }
       // 質問の状態
       .post-container__status {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         p {
           display: inline-block;
           padding: 4px;
@@ -1364,11 +1367,7 @@ footer {
           }
         }
       }
-      // 回答者情報
-      .answer-container__user-info {
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
+      .best-answer-button {
         // ベストアンサーボタン
         button {
           background-color: #fff;
@@ -1383,23 +1382,35 @@ footer {
         i {
           font-size: 18px;
         }
+      }
+      // 回答者情報
+      .answer-container__user-info {
+        // 回答者情報
+        .answer-container__img-and-name {
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+          margin-bottom: 12px;
+          img {
+            display: inline-block;
+            margin-right: 12px;
+            width: 40px;
+            height: 40px;
+            border: solid 1px $color-grey;
+            border-radius: 50%;
+          }
+          h5 {
+            display: inline-block;
+            font-size: 14px;
+          }
+        }
         // 投稿日
-        span {
-          display: inline-block;
-          margin-right: 8px;
-          font-size: 12px;
-        }
-        img {
-          display: inline-block;
-          margin-right: 12px;
-          width: 40px;
-          height: 40px;
-          border: solid 1px $color-grey;
-          border-radius: 50%;
-        }
-        h5 {
-          display: inline-block;
-          font-size: 14px;
+        .answer-container__created_at {
+          display: flex;
+          justify-content: flex-end;
+          span {
+            font-size: 12px;
+          }
         }
       }
     }
@@ -1443,26 +1454,33 @@ footer {
         }
         // リプライ者情報
         .reply-container__user-info {
-          display: flex;
-          justify-content: flex-end;
-          align-items: center;
+          // リプライ者情報
+          // リプライ者情報
+          .reply-container__img-and-name {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-bottom: 12px;
+            img {
+              display: inline-block;
+              margin-right: 12px;
+              width: 40px;
+              height: 40px;
+              border: solid 1px $color-grey;
+              border-radius: 50%;
+            }
+            h5 {
+              display: inline-block;
+              font-size: 14px;
+            }
+          }
           // 投稿日
-          span {
-            display: inline-block;
-            margin-right: 8px;
-            font-size: 12px;
-          }
-          img {
-            display: inline-block;
-            margin-right: 12px;
-            width: 40px;
-            height: 40px;
-            border: solid 1px $color-grey;
-            border-radius: 50%;
-          }
-          h5 {
-            display: inline-block;
-            font-size: 14px;
+          .reply-container__created_at {
+            display: flex;
+            justify-content: flex-end;
+            span {
+              font-size: 12px;
+            }
           }
         }
       }
@@ -2100,6 +2118,152 @@ footer {
     .post-field__submit {
       i {
         font-size: 16px;
+      }
+    }
+  }
+  // posts/show
+  .display-post {
+    .post-container {
+      padding: 6px 1px 8px;
+      margin-bottom: 24px;
+      .post-container__post-info {
+        margin-bottom: 12px;
+        .post-container__category {
+          padding-top: 3px;
+          padding-bottom: 3px;
+          margin-bottom: 3px;
+          p {
+            font-size: 10px;
+          }
+        }
+        .post-container__title {
+          h5 {
+            font-size: 16px;
+          }
+        }
+        .post-container__status {
+          p,
+          span {
+            font-size: 10px;
+          }
+        }
+      }
+      .post-container__content {
+        margin-bottom: 12px;
+        font-size: 12px;
+      }
+      .post-container__user-info {
+        img {
+          margin-right: 2px;
+          width: 21px;
+          height: 21px;
+        }
+        span {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+  .num-of-answers {
+    margin-bottom: 12px;
+    h5 {
+      font-size: 14px;
+    }
+  }
+  .display-comment {
+    .comment-container {
+      .answer-container {
+        padding: 12px 3px 12px;
+        .answer-container__details {
+          .answer-container__body {
+            padding-top: 0;
+            font-size: 12px;
+          }
+          .answer-container__pictures {
+            img {
+              width: 80px;
+              height: 80px;
+            }
+          }
+        }
+        // 回答編集フォーム
+        .edit-answer-form {
+          textarea {
+            padding: 4px;
+            height: 30px;
+          }
+          .submit-or-cancel {
+            font-size: 11px;
+          }
+        }
+        .answer-container__edit {
+          i {
+            padding: 6px;
+            font-size: 12px;
+          }
+        }
+        .answer-container__user-info {
+          .answer-container__img-and-name {
+            margin-bottom: 2px;
+            img {
+              width: 20px;
+              height: 20px;
+              margin-right: 2px;
+            }
+            span {
+              font-size: 12px;
+            }
+          }
+          .answer-container__created_at {
+            span {
+              font-size: 10px;
+            }
+          }
+        }
+      }
+      .reply-container {
+        .reply-container__list {
+          .edit-reply-form {
+            textarea {
+              font-size: 10px;
+            }
+            .edit-reply-cancel {
+              padding: 4px;
+              font-size: 11px;
+            }
+          }
+          .reply-container__edit {
+            i {
+              padding: 6px;
+              font-size: 12px;
+            }
+          }
+          .reply-container__user-info {
+            .reply-container__img-and-name {
+              margin-bottom: 2px;
+              img {
+                width: 20px;
+                height: 20px;
+                margin-right: 2px;
+              }
+              span {
+                font-size: 12px;
+              }
+            }
+            .reply-container__created_at {
+              span {
+                font-size: 10px;
+              }
+            }
+          }
+        }
+      }
+      .new-reply-form {
+        .field {
+          textarea {
+            font-size: 10px;
+          }
+        }
       }
     }
   }
