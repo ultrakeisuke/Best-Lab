@@ -26,9 +26,13 @@
             </div>
           <% end %>
           <div class="post-list__user-info">
-            <span>投稿 <%= l comment_list.post.created_at, format: :year %></span>
-            <%= image_tag asset_path(comment_list.post.user.profile_picture) %>
-            <p><%= comment_list.post.user.name %></p>
+            <div class="post-list__img-and-name">
+              <%= image_tag asset_path(comment_list.post.user.profile_picture) %>
+              <p><%= comment_list.post.user.name %></p>
+            </div>
+            <div class="post-list__created_at">
+              <span>投稿 <%= l comment_list.post.created_at, format: :year %></span>
+            </div>
           </div>
         </div>
       </div>

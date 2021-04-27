@@ -1533,13 +1533,19 @@ footer {
       }
     }
     .post-list__user-info {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      // 投稿日
-      span {
-        margin-right: 8px;
-        font-size: 12px;
+      .post-list__img-and-name {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin-bottom: 8px;
+      }
+      .post-list__created_at {
+        display: flex;
+        justify-content: flex-end;
+        // 投稿日
+        span {
+          font-size: 12px;
+        }
       }
     }
     .post-list__notice {
@@ -1952,8 +1958,20 @@ footer {
         }
       }
       .post-list__user-info {
-        span {
-          font-size: 10px;
+        .post-list__img-and-name {
+          margin-bottom: 2px;
+          img {
+            width: 20px;
+            height: 20px;
+          }
+          p {
+            font-size: 12px;
+          }
+        }
+        .post-list__created_at {
+          span {
+            font-size: 10px;
+          }
         }
       }
     }

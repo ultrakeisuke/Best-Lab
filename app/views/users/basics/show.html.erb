@@ -90,7 +90,9 @@
             </div>
           <% end %>
           <div class="post-list__user-info">
-            <span>投稿 <%= l post.created_at, format: :year %></span>
+            <div class="post-list__created_at">
+              <span>投稿 <%= l post.created_at, format: :year %></span>
+            </div>
           </div>
         </div>
       </div>
