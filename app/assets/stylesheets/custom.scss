@@ -534,6 +534,24 @@ footer {
         margin-top: 4px;
       }
     }
+    .select-container {
+      position: relative;
+      width: 80%;
+    }
+    .select-container::after {
+      // セレクトボックスに下向き矢印を追加
+      content: '';
+      position: absolute;
+      width: 0px;
+      height: 0px;
+      border-top: solid 5px $color-black;
+      border-right: solid 5px transparent;
+      border-left: solid 5px transparent;
+      border-bottom: solid 5px transparent;
+      top: 55%;
+      right: 21%;
+      margin-top: -4px;
+    }
   }
 }
 
@@ -1800,6 +1818,10 @@ footer {
         .field {
           label {
             font-size: 12px;
+          }
+          // セレクトボックスに下向き矢印を追加
+          .select-container {
+            width: 100%;
           }
           select {
             padding: 2px;
