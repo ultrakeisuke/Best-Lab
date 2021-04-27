@@ -5,7 +5,7 @@
     <h4>プロフィール</h4>
     <div class="user-profile__picture">
       <%= image_tag asset_path(@user.profile_picture) %>
-      <h4><%= @user.name %></h4>
+      <h5><%= @user.name %></h5>
     </div>
     <% if user_signed_in? %>
       <% if current_user == @user %>

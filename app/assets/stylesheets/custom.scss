@@ -745,6 +745,11 @@ footer {
         border: solid 1px $color-light-grey;
         border-radius: 50%;
       }
+      h5 {
+        margin-top: 8px;
+        margin-bottom: 25px;
+        font-size: 25px;
+      }
     }
     .user-profile__edit {
       display: flex; // 編集ボタンを横並びで右寄せ
@@ -1734,5 +1739,117 @@ footer {
   // フラッシュメッセージ
   .flash-message {
     padding-bottom: 10px;
+  }
+  // メインとサイドバーの設定
+  .yield {
+    display: block;
+    padding-right: 22px;
+    padding-left: 22px;
+    margin: 0 auto;
+  }
+  // メイン
+  #primary {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 30px;
+    // タイトル
+    h4 {
+      font-size: 14px;
+    }
+  }
+  #secondary {
+    width: 100%;
+    h4 {
+      font-size: 14px;
+    }
+    label {
+      font-size: 12px;
+    }
+    .field {
+      margin-bottom: 8px;
+      select {
+        padding: 0;
+        font-size: 12px;
+      }
+      input {
+        padding: 0;
+        margin-bottom: 0;
+      }
+      p {
+        font-size: 10px;
+      }
+    }
+    .actions {
+      input {
+        padding: 6px 12px;
+        font-size: 11px;
+      }
+    }
+    .sidebar__for-users--top {
+      padding: 12px;
+    }
+    .sidebar__for-users--bottom {
+      padding: 12px;
+    }
+  }
+  // users/basics
+  // ユーザー詳細画面(show)
+  .user-information {
+    .user-profile {
+      .user-profile__picture {
+        img {
+          width: 30%;
+          height: 30%;
+        }
+        h5 {
+          margin-bottom: 8px;
+          font-size: 14px;
+        }
+      }
+      .user-profile__edit {
+        justify-content: center;
+        a {
+          padding: 4px;
+          font-size: 11px;
+        }
+      }
+      .user-profile__room-link {
+        input {
+          padding: 4px;
+          font-size: 11px;
+        }
+      }
+      .user-profile__details {
+        display: block;
+        .user-profile__details--left {
+          width: 100%;
+          padding-left: 4px;
+          padding-right: 4px;
+          border-right: none;
+          .user-profile__detail {
+            h5 {
+              font-size: 12px;
+            }
+            p {
+              font-size: 12px;
+            }
+          }
+        }
+        .user-profile__details--right {
+          width: 100%;
+          padding-top: 12px;
+          padding-left: 4px;
+          padding-right: 4px;
+          border-top: 1px solid $color-light-grey;
+          h5 {
+            margin-bottom: 6px;
+            font-size: 12px;
+          }
+          p {
+            font-size: 12px;
+          }
+        }
+      }
+    }
   }
 }
