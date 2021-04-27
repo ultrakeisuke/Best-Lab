@@ -1792,6 +1792,54 @@ footer {
       padding: 12px;
     }
   }
+  // 新規登録・ログインなどのフォーム
+  .common-form {
+    .common-form__container {
+      padding: 0;
+      form {
+        .field {
+          label {
+            font-size: 12px;
+          }
+          select {
+            padding: 2px;
+            font-size: 12px;
+          }
+          input {
+            padding: 2px;
+            margin-bottom: 0;
+            font-size: 12px;
+          }
+          i {
+            font-size: 12px;
+          }
+          textarea {
+            height: 50px;
+            font-size: 12px;
+          }
+        }
+        .actions {
+          input {
+            padding: 6px 12px;
+            font-size: 11px;
+          }
+        }
+      }
+      .account-reset {
+        margin-top: 30px;
+        input {
+          padding: 5px 10px;
+          font-size: 11px;
+        }
+      }
+      .links-container {
+        a {
+          margin-bottom: 6px;
+          font-size: 12px;
+        }
+      }
+    }
+  }
   // users/basics
   // ユーザー詳細画面(show)
   .user-information {
