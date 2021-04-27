@@ -1880,6 +1880,33 @@ footer {
       font-size: 12px;
     }
   }
+  // ユーザーリスト
+  .user-list {
+    .user-list__info {
+      padding: 4px;
+      .user-list__user-info {
+        .user-list__image {
+          img {
+            width: 35px;
+            height: 35px;
+          }
+        }
+        .user-list__text {
+          h5 {
+            font-size: 12px;
+          }
+        }
+        .user-list__notice {
+          p {
+            font-size: 10px;
+          }
+        }
+      }
+      .user-list__post-info {
+        font-size: 8px;
+      }
+    }
+  }
   // 質問リスト
   .post-list {
     padding: 4px;
