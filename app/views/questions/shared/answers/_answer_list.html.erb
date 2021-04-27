@@ -29,13 +29,13 @@
             <i id="edit-answer-icon-<%= answer.id %>" class="fas fa-pen edit-answer-icon" data-answer-id="<%= answer.id %>"> 編集</i>
           </div>
         <% end %>
-        <% if current_user&.id == @post.user_id && @post.best_answer_id.blank? %>
-          <div id="best-answer-<%= answer.id %>" class="best-answer-button">
-            <%= render "questions/shared/best_answer_form", post: PostForm.new, answer: answer, url: select_best_answer_questions_post_path(@post), method: :patch %>
-          </div>
-        <% end %>
         <div class="answer-container__user-info">
           <div class="answer-container__img-and-name">
+            <% if current_user&.id == @post.user_id && @post.best_answer_id.blank? %>
+              <div id="best-answer-<%= answer.id %>" class="best-answer-button">
+                <%= render "questions/shared/best_answer_form", post: PostForm.new, answer: answer, url: select_best_answer_questions_post_path(@post), method: :patch %>
+              </div>
+            <% end %>
             <%= link_to(users_basic_path(answer.user)) do%>
               <%= image_tag asset_path(answer.user.profile_picture) %>
               <span><%= answer.user.name %></span>

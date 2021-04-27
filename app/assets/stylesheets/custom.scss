@@ -1391,6 +1391,10 @@ footer {
           justify-content: flex-end;
           align-items: center;
           margin-bottom: 12px;
+          // ベストアンサーボタン
+          .best-answer-button {
+            margin-right: 8px;
+          }
           img {
             display: inline-block;
             margin-right: 12px;
@@ -2205,6 +2209,13 @@ footer {
         .answer-container__user-info {
           .answer-container__img-and-name {
             margin-bottom: 2px;
+            // ベストアンサーボタン
+            .best-answer-button {
+              margin-right: 4px;
+              i {
+                font-size: 14px;
+              }
+            }
             img {
               width: 20px;
               height: 20px;
