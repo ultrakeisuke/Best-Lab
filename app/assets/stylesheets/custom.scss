@@ -1560,6 +1560,10 @@ footer {
   .content {
     padding-bottom: 95px;
   }
+  .has-notice {
+    width: 8px;
+    height: 8px;
+  }
   // ヘッダー
   header {
     #nav-toggle {
@@ -1874,6 +1878,47 @@ footer {
     a {
       margin-bottom: 6px;
       font-size: 12px;
+    }
+  }
+  // 質問リスト
+  .post-list {
+    padding: 4px;
+    .post-list__sub-info {
+      min-width: 40px;
+      .post-list__status {
+        p {
+          margin-bottom: 4px;
+          font-size: 12px;
+        }
+        span {
+          font-size: 12px;
+        }
+        h5 {
+          font-size: 14px;
+        }
+      }
+    }
+    .post-list__main-info {
+      padding-left: 8px;
+      .post-list__category-and-title {
+        p {
+          margin-bottom: 4px;
+          font-size: 10px;
+        }
+        h5 {
+          font-size: 14px;
+        }
+      }
+      .post-list__notice {
+        p {
+          font-size: 10px;
+        }
+      }
+      .post-list__user-info {
+        span {
+          font-size: 10px;
+        }
+      }
     }
   }
   // users/basics
