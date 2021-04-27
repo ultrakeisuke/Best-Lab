@@ -1520,8 +1520,8 @@ footer {
   }
 }
 
-// スマホ版デザイン(ブラウザの都合上500pxに設定 -> 最終480pxに変更)
-@media screen and (max-width: 500px) {
+// スマホ版デザイン
+@media screen and (max-width: 480px) {
   // ハンバーガーメニュー押下時のアニメーション
   @keyframes anim {
     0% {
@@ -1607,5 +1607,119 @@ footer {
         }
       }
     }
+  }
+  // LP
+  .lp {
+    .top {
+      padding-bottom: 25px;
+      .top__container {
+        padding-right: 22px;
+        padding-left: 22px;
+        .top__container--left {
+          padding-top: 0;
+          text-align: center;
+          .top__subtitle {
+            margin-bottom: 10px;
+            font-size: 12px;
+          }
+          .top__title {
+            font-size: 38px;
+          }
+          .top__slogan {
+            margin-top: 24px;
+            font-size: 16px;
+          }
+          .top__guest-sign-in {
+            margin-top: 24px;
+            // ゲストログイン
+            input {
+              padding: 8px;
+              font-size: 12px;
+            }
+          }
+        }
+        .top__container--right {
+          padding-top: 12px;
+          text-align: center;
+          img {
+            width: 75%;
+            height: 75%;
+          }
+        }
+      }
+    }
+    .main-feature {
+      padding-top: 50px;
+      padding-bottom: 50px;
+      .main-feature__container {
+        .main-feature__title {
+          font-size: 16px;
+        }
+        .main-feature__subtitle {
+          font-size: 10px;
+        }
+        ul {
+          margin-top: 25px;
+          li {
+            .card {
+              margin-bottom: 12px;
+              .main-feature__card-title {
+                font-size: 13px;
+              }
+              i {
+                margin-top: 12px;
+                margin-bottom: 12px;
+                font-size: 38px;
+              }
+              .main-feature__card-sentence {
+                font-size: 10px;
+              }
+            }
+          }
+        }
+      }
+    }
+    .sub-feature {
+      padding-top: 30px;
+      padding-bottom: 50px;
+      .sub-feature__container {
+        .sub-feature__img-container {
+          .sub-feature__img-container--left {
+            img {
+              width: 75%;
+              height: 75%;
+            }
+          }
+          .sub-feature__img-container--right {
+            margin-top: 12px;
+            .sub-feature__title {
+              text-align: center;
+              margin-bottom: 24px;
+              font-size: 15px;
+            }
+            p {
+              font-size: 10px;
+            }
+          }
+        }
+      }
+    }
+    .invitation {
+      .invitation__container {
+        .invitation__title {
+          font-size: 16px;
+        }
+        .invitation__button {
+          input {
+            padding: 8px;
+            font-size: 12px;
+          }
+        }
+      }
+    }
+  }
+  // フラッシュメッセージ
+  .flash-message {
+    padding-bottom: 10px;
   }
 }
