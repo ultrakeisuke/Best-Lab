@@ -83,7 +83,7 @@
             <p><%= post.category.parent.name %> > <%= post.category.name %></p>
             <h5><%= post.title %></h5>
           </div>
-          <% if post.check_notice(post.user) == true %>
+          <% if post.check_notice(post.user) == true && post.user == current_user %>
             <div class="post-list__notice">
               <p class="has-notice"></p>
               <p>新着のメッセージがあります</p>
