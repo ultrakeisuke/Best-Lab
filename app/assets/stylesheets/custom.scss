@@ -1531,6 +1531,9 @@ footer {
       transform: translateX(200px);
     }
   }
+  .content {
+    padding-bottom: 95px;
+  }
   // ヘッダー
   header {
     #nav-toggle {
@@ -1605,6 +1608,16 @@ footer {
         input {
           width: 100%;
         }
+      }
+    }
+  }
+  // フッター
+  footer {
+    height: 100px;
+    nav {
+      a,
+      input {
+        display: none;
       }
     }
   }
