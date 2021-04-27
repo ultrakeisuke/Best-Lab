@@ -306,8 +306,11 @@ footer {
   }
   // エラーメッセージ
   #error_explanation {
-    li {
-      color: $color-red;
+    ul {
+      margin-bottom: 6px;
+      li {
+        color: $color-red;
+      }
     }
   }
   // 画像をクリックした際のポップアップ
@@ -1773,6 +1776,12 @@ footer {
     // タイトル
     h4 {
       font-size: 14px;
+    }
+    // エラーメッセージ
+    #error_explanation {
+      li {
+        font-size: 12px;
+      }
     }
   }
   #secondary {
