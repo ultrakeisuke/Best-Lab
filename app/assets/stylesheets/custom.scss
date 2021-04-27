@@ -64,6 +64,10 @@ li {
   background-color: $color-red;
 }
 
+#num-of-files {
+  color: $color-blue;
+}
+
 .bg-white {
   background-color: #fff;
 }
@@ -1059,6 +1063,7 @@ footer {
       }
       .message-field__created_at {
         margin-left: 10px;
+        font-size: 12px;
       }
     }
   }
@@ -1067,7 +1072,6 @@ footer {
     margin-bottom: 10px;
     position: relative;
     display: flex;
-    align-items: flex-end;
     border-radius: 5px;
     word-wrap: break-word;
     .message-field__profile {
@@ -1091,6 +1095,9 @@ footer {
         width: 80px;
         height: 100px;
       }
+    }
+    .message-field__created_at {
+      margin-top: auto;
     }
     .message-field__menu {
       padding-top: 4px;
@@ -2008,6 +2015,73 @@ footer {
             font-size: 12px;
           }
         }
+      }
+    }
+  }
+  // rooms/show
+  .message-field {
+    height: 300px;
+    .left-message {
+      max-width: 75%;
+      .message-field__content {
+        // 吹き出し
+        &:before {
+          top: -5px;
+          left: 33px;
+        }
+        &:after {
+          top: -9px;
+          left: 33px;
+        }
+        .message-field__created_at {
+          p {
+            font-size: 10px;
+          }
+        }
+      }
+    }
+    .right-message {
+      .message-field__content {
+        .message-field__created_at {
+          p {
+            font-size: 10px;
+          }
+        }
+      }
+    }
+    .message-field__content {
+      .message-field__profile {
+        img {
+          width: 25px;
+        }
+      }
+      .message-field__message {
+        padding: 6px;
+        border-radius: 6px;
+        p {
+          font-size: 14px;
+        }
+        img {
+          width: 28px;
+          height: 35px;
+        }
+      }
+    }
+  }
+  .post-field {
+    .post-field__picture {
+      #picture-file-icon {
+        font-size: 16px;
+      }
+    }
+    .post-field__textarea {
+      textarea {
+        font-size: 12px;
+      }
+    }
+    .post-field__submit {
+      i {
+        font-size: 16px;
       }
     }
   }
