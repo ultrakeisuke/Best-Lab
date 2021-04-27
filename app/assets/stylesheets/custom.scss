@@ -1823,52 +1823,57 @@ footer {
   .common-form {
     .common-form__container {
       padding: 0;
-      form {
-        .field {
-          label {
-            font-size: 12px;
-          }
-          // セレクトボックスに下向き矢印を追加
-          .select-container {
-            width: 100%;
-          }
-          select {
-            padding: 2px;
-            font-size: 12px;
-          }
-          input {
-            padding: 2px;
-            margin-bottom: 0;
-            font-size: 12px;
-          }
-          i {
-            font-size: 12px;
-          }
-          textarea {
-            height: 50px;
-            font-size: 12px;
-          }
-        }
-        .actions {
-          input {
-            padding: 6px 12px;
-            font-size: 11px;
-          }
-        }
+    }
+  }
+  form {
+    .field {
+      label {
+        font-size: 12px;
       }
-      .account-reset {
-        margin-top: 30px;
-        input {
-          padding: 5px 10px;
-          font-size: 11px;
-        }
+      // セレクトボックス
+      select {
+        width: 78%;
       }
-      .links-container {
-        a {
-          margin-bottom: 6px;
-          font-size: 12px;
-        }
+      // セレクトボックスに下向き矢印を追加
+      .select-container::after {
+        // セレクトボックスに下向き矢印を追加
+        left: 70%;
       }
+      select {
+        padding: 2px;
+        font-size: 12px;
+      }
+      input {
+        padding: 2px;
+        margin-bottom: 0;
+        font-size: 12px;
+      }
+      i {
+        font-size: 12px;
+      }
+      textarea {
+        height: 50px;
+        font-size: 12px;
+      }
+    }
+    .actions {
+      input {
+        padding: 6px 12px;
+        font-size: 11px;
+      }
+    }
+  }
+  .account-reset {
+    margin-top: 30px;
+    input {
+      padding: 5px 10px;
+      font-size: 11px;
+    }
+  }
+  .links-container {
+    a {
+      margin-bottom: 6px;
+      font-size: 12px;
     }
   }
   // users/basics
