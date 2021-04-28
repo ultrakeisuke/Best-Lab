@@ -2205,7 +2205,7 @@ footer {
     }
   }
   .num-of-answers {
-    margin-bottom: 12px;
+    margin-bottom: 24px;
     h5 {
       font-size: 14px;
     }
@@ -2312,6 +2312,12 @@ footer {
           }
         }
       }
+    }
+  }
+  #your-answer {
+    .your-answer__title {
+      margin-bottom: 4px;
+      font-size: 12px;
     }
   }
 }
