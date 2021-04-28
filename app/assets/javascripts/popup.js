@@ -25,11 +25,11 @@ function showPopup() {
   //ポップアップ用の背景を表示
   $('#popup-background').fadeIn(function () {
     var cssObj = {
-      marginTop: -250,
-      marginLeft: -200,
-      width: 400,
-      height: 500
-    }
+      marginTop: -150,
+      marginLeft: -120,
+      width: 240,
+      height: 300,
+    };
     // ポップアップ画像を表示
     $('#popup-item').css(cssObj).fadeIn(100);
   });
