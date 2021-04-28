@@ -2156,6 +2156,15 @@ footer {
         margin-bottom: 12px;
         font-size: 12px;
       }
+      .post-container__edit {
+        i,
+        p {
+          font-size: 11px;
+        }
+        a {
+          padding: 1px 5px;
+        }
+      }
       .post-container__user-info {
         img {
           margin-right: 2px;
