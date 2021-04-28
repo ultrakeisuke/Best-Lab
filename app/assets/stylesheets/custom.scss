@@ -1837,6 +1837,21 @@ footer {
         font-size: 12px;
       }
     }
+    // ページネーション
+    nav {
+      span {
+        min-width: 26px;
+        line-height: 20px;
+        margin-right: 3px;
+        font-size: 10px;
+      }
+      // 「最初」「最後」のデザイン
+      .first,
+      .last {
+        padding-left: 4px;
+        padding-right: 4px;
+      }
+    }
   }
   #secondary {
     width: 100%;
