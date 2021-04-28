@@ -2,7 +2,7 @@
 
 <h4>検索結果</h4>
 <% if @posts.blank? %>
-  <p>お探しの質問は見つかりませんでした。</p>
+  <p class="no-result">お探しの質問は見つかりませんでした。</p>
 <% else %>
   <% @posts.each do |post| %>
     <%= link_to questions_post_path(post) do %>
@@ -20,9 +20,13 @@
             <h5><%= post.title %></h5>
           </div>
           <div class="post-list__user-info">
-            <span>投稿 <%= l post.created_at, format: :year %></span>
-            <%= image_tag asset_path(post.user.profile_picture) %>
-            <p><%= post.user.name %></p>
+            <div class="post-list__img-and-name">
+              <%= image_tag asset_path(post.user.profile_picture) %>
+              <p><%= post.user.name %></p>
+            </div>
+            <div class="post-list__created_at">
+              <span>投稿 <%= l post.created_at, format: :year %></span>
+            </div>
           </div>
         </div>
       </div>

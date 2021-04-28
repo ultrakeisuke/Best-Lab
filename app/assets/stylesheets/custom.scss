@@ -64,6 +64,10 @@ li {
   background-color: $color-red;
 }
 
+#num-of-files {
+  color: $color-blue;
+}
+
 .bg-white {
   background-color: #fff;
 }
@@ -73,35 +77,23 @@ li {
 // ヘッダー
 header {
   position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   z-index: 100;
   width: 100%;
   padding-right: 40px;
   background-color: #fff;
   border-bottom: solid 1px $color-light-grey;
-  nav {
-    display: flex;
-    align-items: center;
+  .header__logo {
+    display: inline-block;
     a {
-      padding: 20px;
-      font-size: 16px;
-      color: $color-grey;
-      &:hover {
-        transition: color 0.3s;
-        color: $color-black;
-        text-decoration: none;
-      }
-    }
-    // ロゴのデザイン
-    a:first-child {
       display: flex;
       align-items: center;
+      padding: 20px;
       margin-left: 18px;
-      margin-right: auto;
       &:hover {
-        h5,
-        i {
-          color: $color-dark-blue;
-        }
+        text-decoration: none;
       }
       h5 {
         margin-left: 2px;
@@ -117,17 +109,52 @@ header {
           transform: scale(-1, 1);
         }
       }
+      // ロゴをホバー時のデザイン
+      &:hover {
+        h5,
+        i {
+          color: $color-dark-blue;
+        }
+      }
     }
-    form {
-      input {
+  }
+  #nav-toggle {
+    display: none;
+    position: absolute;
+    right: 12px;
+    top: 15px;
+    width: 34px;
+    height: 36px;
+    cursor: pointer;
+    div {
+      position: relative;
+    }
+  }
+  nav {
+    ul {
+      display: flex;
+      align-items: center;
+      a {
         padding: 20px;
-        background-color: #fff;
-        border: none;
         font-size: 16px;
         color: $color-grey;
         &:hover {
-          transition: color 0.2s;
+          transition: color 0.3s;
           color: $color-black;
+          text-decoration: none;
+        }
+      }
+      form {
+        input {
+          padding: 20px;
+          background-color: #fff;
+          border: none;
+          font-size: 16px;
+          color: $color-grey;
+          &:hover {
+            transition: color 0.2s;
+            color: $color-black;
+          }
         }
       }
     }
@@ -283,8 +310,11 @@ footer {
   }
   // エラーメッセージ
   #error_explanation {
-    li {
-      color: $color-red;
+    ul {
+      margin-bottom: 6px;
+      li {
+        color: $color-red;
+      }
     }
   }
   // 画像をクリックした際のポップアップ
@@ -511,6 +541,24 @@ footer {
         margin-top: 4px;
       }
     }
+    .select-container {
+      position: relative;
+      width: 80%;
+    }
+    .select-container::after {
+      // セレクトボックスに下向き矢印を追加
+      content: '';
+      position: absolute;
+      width: 0px;
+      height: 0px;
+      border-top: solid 5px $color-black;
+      border-right: solid 5px transparent;
+      border-left: solid 5px transparent;
+      border-bottom: solid 5px transparent;
+      top: 55%;
+      right: 21%;
+      margin-top: -4px;
+    }
   }
 }
 
@@ -721,6 +769,11 @@ footer {
         height: 128px;
         border: solid 1px $color-light-grey;
         border-radius: 50%;
+      }
+      h5 {
+        margin-top: 8px;
+        margin-bottom: 25px;
+        font-size: 25px;
       }
     }
     .user-profile__edit {
@@ -1010,6 +1063,7 @@ footer {
       }
       .message-field__created_at {
         margin-left: 10px;
+        font-size: 12px;
       }
     }
   }
@@ -1018,7 +1072,6 @@ footer {
     margin-bottom: 10px;
     position: relative;
     display: flex;
-    align-items: flex-end;
     border-radius: 5px;
     word-wrap: break-word;
     .message-field__profile {
@@ -1042,6 +1095,9 @@ footer {
         width: 80px;
         height: 100px;
       }
+    }
+    .message-field__created_at {
+      margin-top: auto;
     }
     .message-field__menu {
       padding-top: 4px;
@@ -1159,6 +1215,9 @@ footer {
       }
       // 質問の状態
       .post-container__status {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         p {
           display: inline-block;
           padding: 4px;
@@ -1308,11 +1367,7 @@ footer {
           }
         }
       }
-      // 回答者情報
-      .answer-container__user-info {
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
+      .best-answer-button {
         // ベストアンサーボタン
         button {
           background-color: #fff;
@@ -1327,23 +1382,39 @@ footer {
         i {
           font-size: 18px;
         }
+      }
+      // 回答者情報
+      .answer-container__user-info {
+        // 回答者情報
+        .answer-container__img-and-name {
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+          margin-bottom: 12px;
+          // ベストアンサーボタン
+          .best-answer-button {
+            margin-right: 8px;
+          }
+          img {
+            display: inline-block;
+            margin-right: 12px;
+            width: 40px;
+            height: 40px;
+            border: solid 1px $color-grey;
+            border-radius: 50%;
+          }
+          h5 {
+            display: inline-block;
+            font-size: 14px;
+          }
+        }
         // 投稿日
-        span {
-          display: inline-block;
-          margin-right: 8px;
-          font-size: 12px;
-        }
-        img {
-          display: inline-block;
-          margin-right: 12px;
-          width: 40px;
-          height: 40px;
-          border: solid 1px $color-grey;
-          border-radius: 50%;
-        }
-        h5 {
-          display: inline-block;
-          font-size: 14px;
+        .answer-container__created_at {
+          display: flex;
+          justify-content: flex-end;
+          span {
+            font-size: 12px;
+          }
         }
       }
     }
@@ -1387,26 +1458,33 @@ footer {
         }
         // リプライ者情報
         .reply-container__user-info {
-          display: flex;
-          justify-content: flex-end;
-          align-items: center;
+          // リプライ者情報
+          // リプライ者情報
+          .reply-container__img-and-name {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-bottom: 12px;
+            img {
+              display: inline-block;
+              margin-right: 12px;
+              width: 40px;
+              height: 40px;
+              border: solid 1px $color-grey;
+              border-radius: 50%;
+            }
+            h5 {
+              display: inline-block;
+              font-size: 14px;
+            }
+          }
           // 投稿日
-          span {
-            display: inline-block;
-            margin-right: 8px;
-            font-size: 12px;
-          }
-          img {
-            display: inline-block;
-            margin-right: 12px;
-            width: 40px;
-            height: 40px;
-            border: solid 1px $color-grey;
-            border-radius: 50%;
-          }
-          h5 {
-            display: inline-block;
-            font-size: 14px;
+          .reply-container__created_at {
+            display: flex;
+            justify-content: flex-end;
+            span {
+              font-size: 12px;
+            }
           }
         }
       }
@@ -1477,13 +1555,19 @@ footer {
       }
     }
     .post-list__user-info {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      // 投稿日
-      span {
-        margin-right: 8px;
-        font-size: 12px;
+      .post-list__img-and-name {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin-bottom: 8px;
+      }
+      .post-list__created_at {
+        display: flex;
+        justify-content: flex-end;
+        // 投稿日
+        span {
+          font-size: 12px;
+        }
       }
     }
     .post-list__notice {
@@ -1493,6 +1577,747 @@ footer {
         margin-right: 2px;
         color: $color-red;
       }
+    }
+  }
+}
+
+// スマホ版デザイン
+@media screen and (max-width: 480px) {
+  // ハンバーガーメニュー押下時のアニメーション
+  @keyframes anim {
+    0% {
+      transform: translateX(0px);
+    }
+    100% {
+      transform: translateX(200px);
+    }
+  }
+  .content {
+    padding-bottom: 95px;
+  }
+  .has-notice {
+    width: 8px;
+    height: 8px;
+  }
+  .no-result {
+    font-size: 10px;
+  }
+  // ヘッダー
+  header {
+    .header__logo {
+      a {
+        padding: 10px;
+      }
+    }
+    #nav-toggle {
+      display: block;
+      span {
+        display: block;
+        position: absolute;
+        width: 85%;
+        height: 3px;
+        background: $color-grey;
+        left: 0;
+        &:nth-child(1) {
+          top: 0;
+        }
+        &:nth-child(2) {
+          top: 7px;
+        }
+        &:nth-child(3) {
+          top: 14px;
+        }
+      }
+    }
+    #global-nav {
+      position: absolute;
+      // 開いていない時は画面外に配置
+      top: -500px;
+    }
+  }
+  // トグルボタンをクリックした後のデザイン
+  .open {
+    #nav-toggle {
+      span {
+        &:nth-child(1) {
+          top: 9px;
+          transform: rotate(315deg);
+          background-color: #fff;
+        }
+        &:nth-child(2) {
+          width: 0;
+          left: 50%;
+        }
+        &:nth-child(3) {
+          top: 9px;
+          transform: rotate(-315deg);
+          background-color: #fff;
+        }
+      }
+    }
+    #toggle-background {
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      z-index: -1;
+      background: #000;
+      opacity: 0.5;
+    }
+    #global-nav {
+      position: absolute;
+      width: 200px;
+      top: 0;
+      left: -200px;
+      animation: anim 0.3s forwards;
+      ul {
+        display: block;
+        a {
+          display: block;
+          text-align: center;
+          background-color: #fff;
+        }
+        input {
+          width: 100%;
+        }
+      }
+    }
+  }
+  // フッター
+  footer {
+    height: 100px;
+    nav {
+      a,
+      input {
+        display: none;
+      }
+    }
+  }
+  // LP
+  .lp {
+    .top {
+      padding-bottom: 25px;
+      .top__container {
+        padding-right: 22px;
+        padding-left: 22px;
+        .top__container--left {
+          padding-top: 0;
+          text-align: center;
+          .top__subtitle {
+            margin-bottom: 10px;
+            font-size: 12px;
+          }
+          .top__title {
+            font-size: 38px;
+          }
+          .top__slogan {
+            margin-top: 24px;
+            font-size: 16px;
+          }
+          .top__guest-sign-in {
+            margin-top: 24px;
+            // ゲストログイン
+            input {
+              padding: 8px;
+              font-size: 12px;
+            }
+          }
+        }
+        .top__container--right {
+          padding-top: 12px;
+          text-align: center;
+          img {
+            width: 75%;
+            height: 75%;
+          }
+        }
+      }
+    }
+    .main-feature {
+      padding-top: 50px;
+      padding-bottom: 50px;
+      .main-feature__container {
+        .main-feature__title {
+          font-size: 16px;
+        }
+        .main-feature__subtitle {
+          font-size: 10px;
+        }
+        ul {
+          margin-top: 25px;
+          li {
+            .card {
+              margin-bottom: 12px;
+              .main-feature__card-title {
+                font-size: 13px;
+              }
+              i {
+                margin-top: 12px;
+                margin-bottom: 12px;
+                font-size: 38px;
+              }
+              .main-feature__card-sentence {
+                font-size: 10px;
+              }
+            }
+          }
+        }
+      }
+    }
+    .sub-feature {
+      padding-top: 30px;
+      padding-bottom: 50px;
+      .sub-feature__container {
+        .sub-feature__img-container {
+          .sub-feature__img-container--left {
+            img {
+              width: 75%;
+              height: 75%;
+            }
+          }
+          .sub-feature__img-container--right {
+            margin-top: 12px;
+            .sub-feature__title {
+              text-align: center;
+              margin-bottom: 24px;
+              font-size: 15px;
+            }
+            p {
+              font-size: 10px;
+            }
+          }
+        }
+      }
+    }
+    .invitation {
+      .invitation__container {
+        .invitation__title {
+          font-size: 16px;
+        }
+        .invitation__button {
+          input {
+            padding: 8px;
+            font-size: 12px;
+          }
+        }
+      }
+    }
+  }
+  // フラッシュメッセージ
+  .flash-message {
+    padding-top: 60px;
+    padding-left: 0px;
+    padding-bottom: 20px;
+    text-align: center;
+    .flash {
+      padding: 4px 7px;
+      font-size: 12px;
+    }
+  }
+  // メインとサイドバーの設定
+  .yield {
+    display: block;
+    padding-right: 22px;
+    padding-left: 22px;
+    margin: 0 auto;
+  }
+  // メイン
+  #primary {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 30px;
+    // タイトル
+    h4 {
+      font-size: 14px;
+    }
+    // エラーメッセージ
+    #error_explanation {
+      li {
+        font-size: 12px;
+      }
+    }
+    // ページネーション
+    nav {
+      span {
+        min-width: 26px;
+        line-height: 20px;
+        margin-right: 3px;
+        font-size: 10px;
+      }
+      // 「最初」「最後」のデザイン
+      .first,
+      .last {
+        padding-left: 4px;
+        padding-right: 4px;
+      }
+    }
+  }
+  #secondary {
+    width: 100%;
+    h4 {
+      font-size: 14px;
+    }
+    label {
+      font-size: 12px;
+    }
+    .field {
+      margin-bottom: 8px;
+      select {
+        padding: 0;
+        font-size: 12px;
+      }
+      input {
+        padding: 0;
+        margin-bottom: 0;
+      }
+      p {
+        font-size: 10px;
+      }
+    }
+    .actions {
+      input {
+        padding: 6px 12px;
+        font-size: 11px;
+      }
+    }
+    .sidebar__for-users--top {
+      padding: 12px;
+    }
+    .sidebar__for-users--bottom {
+      padding: 12px;
+    }
+  }
+  // 新規登録・ログインなどのフォーム
+  .common-form {
+    .common-form__container {
+      padding: 0;
+    }
+  }
+  form {
+    .field {
+      label {
+        font-size: 12px;
+      }
+      // セレクトボックス
+      select {
+        width: 78%;
+      }
+      // セレクトボックスに下向き矢印を追加
+      .select-container::after {
+        // セレクトボックスに下向き矢印を追加
+        left: 70%;
+      }
+      select {
+        padding: 2px;
+        font-size: 12px;
+      }
+      input {
+        padding: 2px;
+        margin-bottom: 0;
+        font-size: 12px;
+      }
+      i {
+        font-size: 12px;
+      }
+      textarea {
+        height: 50px;
+        font-size: 12px;
+      }
+    }
+    .actions {
+      input {
+        padding: 6px 12px;
+        font-size: 11px;
+      }
+    }
+  }
+  .account-reset {
+    margin-top: 30px;
+    input {
+      padding: 5px 10px;
+      font-size: 11px;
+    }
+  }
+  .links-container {
+    a {
+      margin-bottom: 6px;
+      font-size: 12px;
+    }
+  }
+  // ユーザーリスト
+  .user-list {
+    .user-list__info {
+      padding: 4px;
+      .user-list__user-info {
+        .user-list__image {
+          img {
+            width: 35px;
+            height: 35px;
+          }
+        }
+        .user-list__text {
+          h5 {
+            font-size: 12px;
+          }
+        }
+        .user-list__notice {
+          p {
+            font-size: 10px;
+          }
+        }
+      }
+      .user-list__post-info {
+        font-size: 8px;
+      }
+    }
+  }
+  // 質問リスト
+  .post-list {
+    padding: 4px;
+    .post-list__sub-info {
+      min-width: 40px;
+      .post-list__status {
+        p {
+          margin-bottom: 4px;
+          font-size: 12px;
+        }
+        span {
+          font-size: 12px;
+        }
+        h5 {
+          font-size: 14px;
+        }
+      }
+    }
+    .post-list__main-info {
+      padding-left: 8px;
+      .post-list__category-and-title {
+        p {
+          margin-bottom: 4px;
+          font-size: 10px;
+        }
+        h5 {
+          font-size: 14px;
+        }
+      }
+      .post-list__notice {
+        p {
+          font-size: 10px;
+        }
+      }
+      .post-list__user-info {
+        .post-list__img-and-name {
+          margin-bottom: 2px;
+          img {
+            width: 20px;
+            height: 20px;
+          }
+          p {
+            font-size: 12px;
+          }
+        }
+        .post-list__created_at {
+          span {
+            font-size: 10px;
+          }
+        }
+      }
+    }
+  }
+  // users/basics
+  // ユーザー詳細画面(show)
+  .user-information {
+    .user-profile {
+      .user-profile__picture {
+        img {
+          width: 24%;
+          height: 24%;
+        }
+        h5 {
+          margin-bottom: 8px;
+          font-size: 13px;
+        }
+      }
+      .user-profile__edit {
+        justify-content: center;
+        a {
+          padding: 4px;
+          font-size: 11px;
+        }
+      }
+      .user-profile__room-link {
+        input {
+          padding: 4px;
+          font-size: 11px;
+        }
+      }
+      .user-profile__details {
+        display: block;
+        .user-profile__details--left {
+          width: 100%;
+          padding-left: 4px;
+          padding-right: 4px;
+          border-right: none;
+          .user-profile__detail {
+            h5 {
+              font-size: 12px;
+            }
+            p {
+              font-size: 12px;
+            }
+          }
+        }
+        .user-profile__details--right {
+          width: 100%;
+          padding-top: 12px;
+          padding-left: 4px;
+          padding-right: 4px;
+          border-top: 1px solid $color-light-grey;
+          h5 {
+            margin-bottom: 6px;
+            font-size: 12px;
+          }
+          p {
+            font-size: 12px;
+          }
+        }
+      }
+    }
+  }
+  // rooms/show
+  .message-field {
+    height: 300px;
+    .left-message {
+      max-width: 75%;
+      .message-field__content {
+        // 吹き出し
+        &:before {
+          top: -5px;
+          left: 33px;
+        }
+        &:after {
+          top: -9px;
+          left: 33px;
+        }
+        .message-field__created_at {
+          p {
+            font-size: 10px;
+          }
+        }
+      }
+    }
+    .right-message {
+      .message-field__content {
+        .message-field__created_at {
+          p {
+            font-size: 10px;
+          }
+        }
+      }
+    }
+    .message-field__content {
+      .message-field__profile {
+        img {
+          width: 25px;
+        }
+      }
+      .message-field__message {
+        padding: 6px;
+        border-radius: 6px;
+        p {
+          font-size: 14px;
+        }
+        img {
+          width: 28px;
+          height: 35px;
+        }
+      }
+    }
+  }
+  .post-field {
+    .post-field__picture {
+      #picture-file-icon {
+        font-size: 16px;
+      }
+    }
+    .post-field__textarea {
+      textarea {
+        font-size: 12px;
+      }
+    }
+    .post-field__submit {
+      i {
+        font-size: 16px;
+      }
+    }
+  }
+  // posts/show
+  .display-post {
+    .post-container {
+      padding: 6px 1px 8px;
+      margin-bottom: 24px;
+      .post-container__post-info {
+        margin-bottom: 12px;
+        .post-container__category {
+          padding-top: 3px;
+          padding-bottom: 3px;
+          margin-bottom: 3px;
+          p {
+            font-size: 10px;
+          }
+        }
+        .post-container__title {
+          h5 {
+            font-size: 16px;
+          }
+        }
+        .post-container__status {
+          p,
+          span {
+            font-size: 10px;
+          }
+        }
+      }
+      .post-container__content {
+        margin-bottom: 12px;
+        font-size: 12px;
+      }
+      .post-container__edit {
+        i,
+        p {
+          font-size: 11px;
+        }
+        a {
+          padding: 1px 5px;
+        }
+      }
+      .post-container__user-info {
+        img {
+          margin-right: 2px;
+          width: 21px;
+          height: 21px;
+        }
+        span {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+  .num-of-answers {
+    margin-bottom: 24px;
+    h5 {
+      font-size: 14px;
+    }
+  }
+  .display-comment {
+    .comment-container {
+      .answer-container {
+        padding: 12px 3px 12px;
+        .answer-container__details {
+          .answer-container__body {
+            padding-top: 0;
+            font-size: 12px;
+          }
+          .answer-container__pictures {
+            img {
+              width: 80px;
+              height: 80px;
+            }
+          }
+        }
+        // 回答編集フォーム
+        .edit-answer-form {
+          textarea {
+            padding: 4px;
+            height: 30px;
+          }
+          .submit-or-cancel {
+            font-size: 11px;
+          }
+        }
+        .answer-container__edit {
+          i {
+            padding: 6px;
+            font-size: 12px;
+          }
+        }
+        .answer-container__user-info {
+          .answer-container__img-and-name {
+            margin-bottom: 2px;
+            // ベストアンサーボタン
+            .best-answer-button {
+              margin-right: 4px;
+              i {
+                font-size: 14px;
+              }
+            }
+            img {
+              width: 20px;
+              height: 20px;
+              margin-right: 2px;
+            }
+            span {
+              font-size: 12px;
+            }
+          }
+          .answer-container__created_at {
+            span {
+              font-size: 10px;
+            }
+          }
+        }
+      }
+      .reply-container {
+        .reply-container__list {
+          .edit-reply-form {
+            textarea {
+              font-size: 10px;
+            }
+            .edit-reply-cancel {
+              padding: 4px;
+              font-size: 11px;
+            }
+          }
+          .reply-container__edit {
+            i {
+              padding: 6px;
+              font-size: 12px;
+            }
+          }
+          .reply-container__user-info {
+            .reply-container__img-and-name {
+              margin-bottom: 2px;
+              img {
+                width: 20px;
+                height: 20px;
+                margin-right: 2px;
+              }
+              span {
+                font-size: 12px;
+              }
+            }
+            .reply-container__created_at {
+              span {
+                font-size: 10px;
+              }
+            }
+          }
+        }
+      }
+      .new-reply-form {
+        .field {
+          textarea {
+            font-size: 10px;
+          }
+        }
+      }
+    }
+  }
+  #your-answer {
+    .your-answer__title {
+      margin-bottom: 4px;
+      font-size: 12px;
     }
   }
 }

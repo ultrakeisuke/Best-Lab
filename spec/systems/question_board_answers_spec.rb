@@ -26,7 +26,7 @@ RSpec.describe '回答の作成と編集', type: :system do
     find('#answer_form_body').set('answer')
     find('#answer_form').click_button
     # 回答後の表示確認
-    expect(page).to have_content '回答1'
+    expect(page).to have_content '回答 1 件'
     expect(page).not_to have_css('#your-answer')
     expect(page).not_to have_css('#answer_form')
   end
@@ -42,7 +42,7 @@ RSpec.describe '回答の作成と編集', type: :system do
     find('#answer_form_body').set('answer')
     find('#answer_form').click_button
     # 回答後の表示確認
-    expect(page).to have_content '回答1'
+    expect(page).to have_content '回答 1 件'
     expect(page).to have_content 'ベストアンサー'
     expect(page).not_to have_content '回答はまだついていません'
     expect(page).not_to have_content '解決方法'

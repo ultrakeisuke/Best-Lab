@@ -5,7 +5,7 @@
     <h4>プロフィール</h4>
     <div class="user-profile__picture">
       <%= image_tag asset_path(@user.profile_picture) %>
-      <h4><%= @user.name %></h4>
+      <h5><%= @user.name %></h5>
     </div>
     <% if user_signed_in? %>
       <% if current_user == @user %>
@@ -83,14 +83,16 @@
             <p><%= post.category.parent.name %> > <%= post.category.name %></p>
             <h5><%= post.title %></h5>
           </div>
-          <% if post.check_notice(post.user) == true %>
+          <% if post.check_notice(post.user) == true && post.user == current_user %>
             <div class="post-list__notice">
               <p class="has-notice"></p>
               <p>新着のメッセージがあります</p>
             </div>
           <% end %>
           <div class="post-list__user-info">
-            <span>投稿 <%= l post.created_at, format: :year %></span>
+            <div class="post-list__created_at">
+              <span>投稿 <%= l post.created_at, format: :year %></span>
+            </div>
           </div>
         </div>
       </div>
