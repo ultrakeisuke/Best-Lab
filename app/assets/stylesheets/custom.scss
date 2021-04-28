@@ -1604,6 +1604,11 @@ footer {
   }
   // ヘッダー
   header {
+    .header__logo {
+      a {
+        padding: 10px;
+      }
+    }
     #nav-toggle {
       display: block;
       span {
@@ -1617,10 +1622,10 @@ footer {
           top: 0;
         }
         &:nth-child(2) {
-          top: 12px;
+          top: 7px;
         }
         &:nth-child(3) {
-          top: 24px;
+          top: 14px;
         }
       }
     }
@@ -1635,7 +1640,7 @@ footer {
     #nav-toggle {
       span {
         &:nth-child(1) {
-          top: 11px;
+          top: 9px;
           transform: rotate(315deg);
           background-color: #fff;
         }
@@ -1644,7 +1649,7 @@ footer {
           left: 50%;
         }
         &:nth-child(3) {
-          top: 11px;
+          top: 9px;
           transform: rotate(-315deg);
           background-color: #fff;
         }
