@@ -10,13 +10,13 @@ AllCops:
   TargetRubyVersion: 2.7
   # 下記のフォルダ、ファイルを対象外にする
   Exclude:
-  - 'bin/**'
-  - 'config/**/*'
-  - 'lib/**'
-  - 'db/**/*'
-  - 'node_modules/**/*'
-  - 'tmp/**/*'
-  - 'vendor/**/*'
+    - 'bin/**'
+    - 'config/**/*'
+    - 'lib/**'
+    - 'db/**/*'
+    - 'node_modules/**/*'
+    - 'tmp/**/*'
+    - 'vendor/**/*'
   # バージョンアップと同時にルールを有効化
   NewCops: enable
 
