@@ -1,11 +1,21 @@
 <% provide(:title, "ユーザー") %>
 
-<h3>ユーザー</h3>
+<div class="user-list">
+  <h4>ユーザー</h4>
 
-<% @users.each do |user| %>
-  <%= link_to(admins_user_path(user)) do %>
-    <%= image_tag asset_path(user.profile_picture) %>
-    <%= user.name %>
+  <% @users.each do |user| %>
+    <%= link_to(admins_user_path(user)) do %>
+      <div class="user-list__info">
+        <div class="user-list__user-info">
+          <div class="user-list__image">
+            <%= image_tag asset_path(user.profile_picture) %>
+          </div>
+          <div class="user-list__text">
+            <%= user.name %>
+          </div>
+        </div>
+      </div>
+    <% end %>
   <% end %>
-<% end %>
-<%= paginate @users %>
+  <%= paginate @users %>
+</div>

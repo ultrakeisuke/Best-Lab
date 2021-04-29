@@ -64,11 +64,8 @@
 
       <% if current_page?(root_path) %>
         <% if admin_signed_in? %>
-          <main id="primary">
-            <%= yield %>
-          </main>
           <aside id="secondary">
-            <div class="sidebar__for-admin">
+            <div class="sidebar__for-admins--top">
               <%= render 'admins/shared/user_search_form' %>
             </div>
           </aside>
@@ -82,18 +79,20 @@
           </main>
           <aside id="secondary">
             <% if admin_signed_in? %>
-              <div class="sidebar__for-admin">
+              <div class="sidebar__for-admins--top">
                 <%= render 'admins/shared/user_search_form' %>
               </div>
             <% end %>
-            <div class="sidebar__for-users">
-              <div class="sidebar__for-users--top">
-                <%= render 'users/shared/search_form' %>
+            <% if user_signed_in? %>
+              <div class="sidebar__for-users">
+                <div class="sidebar__for-users--top">
+                  <%= render 'users/shared/search_form' %>
+                </div>
+                <div class="sidebar__for-users--bottom">
+                  <%= render 'questions/shared/search_form' %>
+                </div>
               </div>
-              <div class="sidebar__for-users--bottom">
-                <%= render 'questions/shared/search_form' %>
-              </div>
-            </div>
+            <% end %>
           </aside>
         </div>
       <% end %>
