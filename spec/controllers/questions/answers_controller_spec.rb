@@ -30,7 +30,7 @@ RSpec.describe Questions::AnswersController, type: :request do
     end
     context 'フォーム入力が有効であった場合' do
       let(:answer_form) { build(:answer_form) }
-      let!(:questioner) { create(:question_entry, user_id: another_user.id, post_id: another_post.id) }
+      let!(:questioner) { create(:question_notice, user_id: another_user.id, post_id: another_post.id) }
       it '回答の作成に成功する' do
         login_user(user)
         expect do
@@ -67,7 +67,7 @@ RSpec.describe Questions::AnswersController, type: :request do
     end
     context 'フォーム入力が有効であった場合' do
       let(:answer_form) { build(:answer_form) }
-      let!(:questioner) { create(:question_entry, user_id: another_user.id, post_id: another_post.id) }
+      let!(:questioner) { create(:question_notice, user_id: another_user.id, post_id: another_post.id) }
       it '回答の作成に成功する' do
         login_user(user)
         expect do

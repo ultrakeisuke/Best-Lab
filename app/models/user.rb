@@ -13,7 +13,7 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :answers, dependent: :destroy
   has_many :replies, dependent: :destroy
-  has_many :question_entries, dependent: :destroy
+  has_many :question_notices, dependent: :destroy
 
   # アカウント認証が済むまでログインできない処理
   def active_for_authentication?
@@ -53,7 +53,7 @@ class User < ApplicationRecord
 
   # 退会したユーザーに紐づく投稿と追知を削除
   def inactivate_comments_and_notices
-    secondary_array = [posts, answers, replies, question_entries]
+    secondary_array = [posts, answers, replies, question_notices]
     secondary_array.each do |array|
       array.each do |element|
         element.destroy

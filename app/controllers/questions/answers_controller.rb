@@ -6,7 +6,7 @@ class Questions::AnswersController < ApplicationController
 
   # 回答、リプライした質問を一覧表示
   def index
-    @comment_lists = QuestionEntry.sorted_comment_entries(current_user)
+    @comment_lists = QuestionNotice.sorted_comment_entries(current_user)
     @comment_lists = @comment_lists.page(params[:page])
   end
 

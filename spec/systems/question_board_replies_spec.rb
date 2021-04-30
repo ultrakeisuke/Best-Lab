@@ -10,8 +10,8 @@ RSpec.describe 'リプライの作成と編集', type: :system do
   let!(:answer) { create(:answer, user_id: answerer.id, post_id: post.id) }
 
   before do
-    create(:question_entry, user_id: questioner.id, post_id: post.id)
-    create(:question_entry, user_id: answerer.id, post_id: post.id)
+    create(:question_notice, user_id: questioner.id, post_id: post.id)
+    create(:question_notice, user_id: answerer.id, post_id: post.id)
   end
 
   it 'リプライの新規作成', js: true do

@@ -96,14 +96,14 @@ ActiveRecord::Schema.define(version: 20_210_208_130_131) do
     t.index ['user_id'], name: 'index_profiles_on_user_id'
   end
 
-  create_table 'question_entries', force: :cascade do |t|
+  create_table 'question_notices', force: :cascade do |t|
     t.bigint 'user_id', null: false
     t.bigint 'post_id', null: false
     t.boolean 'notice', default: false, null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
-    t.index ['post_id'], name: 'index_question_entries_on_post_id'
-    t.index ['user_id'], name: 'index_question_entries_on_user_id'
+    t.index ['post_id'], name: 'index_question_notices_on_post_id'
+    t.index ['user_id'], name: 'index_question_notices_on_user_id'
   end
 
   create_table 'replies', force: :cascade do |t|
@@ -153,8 +153,8 @@ ActiveRecord::Schema.define(version: 20_210_208_130_131) do
   add_foreign_key 'posts', 'categories'
   add_foreign_key 'posts', 'users'
   add_foreign_key 'profiles', 'users'
-  add_foreign_key 'question_entries', 'posts'
-  add_foreign_key 'question_entries', 'users'
+  add_foreign_key 'question_notices', 'posts'
+  add_foreign_key 'question_notices', 'users'
   add_foreign_key 'replies', 'answers'
   add_foreign_key 'replies', 'posts'
   add_foreign_key 'replies', 'users'

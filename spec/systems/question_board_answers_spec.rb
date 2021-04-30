@@ -9,7 +9,7 @@ RSpec.describe '回答の作成と編集', type: :system do
 
   before do
     # 質問者の通知用レコードを作成
-    create(:question_entry, user_id: questioner.id, post_id: post.id)
+    create(:question_notice, user_id: questioner.id, post_id: post.id)
   end
 
   it '回答の新規作成', js: true do
