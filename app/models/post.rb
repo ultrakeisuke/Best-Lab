@@ -36,13 +36,13 @@ class Post < ApplicationRecord
   # 投稿詳細画面に入ると通知が外れる処理
   def remove_notice(user)
     # 通知用レコードがない場合はこの処理をスキップ
-    entry = QuestionNotice.find_by(user_id: user, post_id: self)
-    entry.update(notice: false) if entry&.notice
+    notice = QuestionNotice.find_by(user_id: user, post_id: self)
+    notice.update(notice: false) if notice&.notice
   end
 
   # 投稿への通知の有無を返す処理
   def check_notice(user)
-    checked_entry = QuestionNotice.find_by(user_id: user, post_id: self)
-    checked_entry&.notice
+    checked_notice = QuestionNotice.find_by(user_id: user, post_id: self)
+    checked_notice&.notice
   end
 end
