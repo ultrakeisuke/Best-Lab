@@ -16,7 +16,7 @@ class Questions::RepliesController < ApplicationController
         @answers = @post.answers
         reply = Reply.where(user_id: @reply.user_id).last
         reply&.send_notice_to_commenter # 回答にリプライした際の通知処理
-        format.html { redirect_to questions_post_path(@reply.post_id) }
+        format.html { redirect_to questions_post_path(reply.answer.post_id) }
         format.js
       else
         format.html { render 'questions/posts/show' }
@@ -37,7 +37,7 @@ class Questions::RepliesController < ApplicationController
     @post = @answer.post
     respond_to do |format|
       if @reply.save
-        format.html { redirect_to questions_post_path(@reply.post_id) }
+        format.html { redirect_to questions_post_path(@target_reply.answer.post_id) }
         format.js
       else
         format.html { render 'questions/posts/show' }
@@ -49,7 +49,7 @@ class Questions::RepliesController < ApplicationController
   private
 
   def reply_params
-    params.require(:reply_form).permit(:id, :body, :post_id, :answer_id, pictures_attributes: [:picture]).merge(user_id: current_user.id)
+    params.require(:reply_form).permit(:id, :body, :answer_id, pictures_attributes: [:picture]).merge(user_id: current_user.id)
   end
 
   # 他人のリプライは編集できないよう制限する

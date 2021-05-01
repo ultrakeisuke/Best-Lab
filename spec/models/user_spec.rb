@@ -50,7 +50,7 @@ RSpec.describe User, type: :model do
       children_category = create(:children_category, ancestry: parent_category.id)
       post = create(:post, user_id: user.id, category_id: children_category.id)
       answer = create(:answer, user_id: user.id, post_id: post.id)
-      create(:reply, user_id: user.id, answer_id: answer.id, post_id: post.id)
+      create(:reply, user_id: user.id, answer_id: answer.id)
       create(:question_notice, user_id: user.id, post_id: post.id)
     end
     it 'ユーザーのコメントと通知を削除する' do

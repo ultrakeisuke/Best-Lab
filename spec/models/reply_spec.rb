@@ -14,7 +14,7 @@ RSpec.describe Reply, type: :model do
       it '回答者にのみ通知を送信する' do
         answer = create(:answer, user_id: user1.id, post_id: post.id) # user1が回答を作成
         answerer = create(:question_notice, user_id: user1.id, post_id: post.id) # 回答者の通知レコードを作成
-        reply = create(:reply, user_id: user3.id, post_id: post.id, answer_id: answer.id) # 返信者は質問者と同じuser3
+        reply = create(:reply, user_id: user3.id, answer_id: answer.id) # 返信者は質問者と同じuser3
         reply.send_notice_to_questioner_and_answerer
         expect(questioner.reload.notice).to eq false
         expect(answerer.reload.notice).to eq true
@@ -24,7 +24,7 @@ RSpec.describe Reply, type: :model do
       it '質問者投稿者にのみ通知を送信する' do
         answer = create(:answer, user_id: user1.id, post_id: post.id) # user1が回答を作成
         answerer = create(:question_notice, user_id: user1.id, post_id: post.id) # 回答者の通知レコードを作成
-        reply = create(:reply, user_id: user1.id, post_id: post.id, answer_id: answer.id) # 返信者は回答者と同じuser1
+        reply = create(:reply, user_id: user1.id, answer_id: answer.id) # 返信者は回答者と同じuser1
         reply.send_notice_to_questioner_and_answerer
         expect(questioner.reload.notice).to eq true
         expect(answerer.reload.notice).to eq false
@@ -34,7 +34,7 @@ RSpec.describe Reply, type: :model do
       it '質問投稿者と回答者の両方に通知を送信する' do
         answer = create(:answer, user_id: user1.id, post_id: post.id) # user1が回答を作成
         answerer = create(:question_notice, user_id: user1.id, post_id: post.id) # 回答者の通知レコードを作成
-        reply = create(:reply, user_id: user2.id, post_id: post.id, answer_id: answer.id) # 返信者は質問者でも回答者でもないuser2
+        reply = create(:reply, user_id: user2.id, answer_id: answer.id) # 返信者は質問者でも回答者でもないuser2
         reply.send_notice_to_questioner_and_answerer
         expect(questioner.reload.notice).to eq true
         expect(answerer.reload.notice).to eq true
@@ -46,10 +46,10 @@ RSpec.describe Reply, type: :model do
     it '回答に紐づく返信者に通知を送信する' do
       answer = create(:answer, user_id: user1.id, post_id: post.id) # user1が回答を作成
       answerer = create(:question_notice, user_id: user1.id, post_id: post.id) # 回答者の通知レコードを作成
-      create(:reply, user_id: user1.id, post_id: post.id, answer_id: answer.id)
-      create(:reply, user_id: user2.id, post_id: post.id, answer_id: answer.id)
+      create(:reply, user_id: user1.id, answer_id: answer.id)
+      create(:reply, user_id: user2.id, answer_id: answer.id)
       replier = create(:question_notice, user_id: user2.id, post_id: post.id) # 返信者用の通知レコードを作成
-      reply = create(:reply, user_id: user3.id, post_id: post.id, answer_id: answer.id)
+      reply = create(:reply, user_id: user3.id, answer_id: answer.id)
       reply.send_notice_to_commenter # user3が返信した場合
       # 他の返信者(user1,user2)に通知が送信される
       expect(replier.reload.notice).to eq true # user2に通知を送信する

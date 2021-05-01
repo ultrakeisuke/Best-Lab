@@ -109,12 +109,10 @@ ActiveRecord::Schema.define(version: 20_210_208_130_131) do
   create_table 'replies', force: :cascade do |t|
     t.string 'body'
     t.bigint 'user_id', null: false
-    t.bigint 'post_id', null: false
+    t.bigint 'answer_id', null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
-    t.bigint 'answer_id'
     t.index ['answer_id'], name: 'index_replies_on_answer_id'
-    t.index ['post_id'], name: 'index_replies_on_post_id'
     t.index ['user_id'], name: 'index_replies_on_user_id'
   end
 
@@ -156,6 +154,5 @@ ActiveRecord::Schema.define(version: 20_210_208_130_131) do
   add_foreign_key 'question_notices', 'posts'
   add_foreign_key 'question_notices', 'users'
   add_foreign_key 'replies', 'answers'
-  add_foreign_key 'replies', 'posts'
   add_foreign_key 'replies', 'users'
 end
