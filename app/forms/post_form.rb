@@ -22,7 +22,7 @@ class PostForm
 
   mount_uploader :picture, PictureUploader
 
-  attr_accessor :pictures
+  attr_accessor :pictures, :post
 
   def initialize(post = Post.new)
     @post = post
@@ -42,6 +42,12 @@ class PostForm
     @params.delete(:pictures_attributes)
     @post.assign_attributes(@params) if @post.persisted?
     super(@params)
+  end
+
+  # ベストアンサー用フォームに不正な値があった場合は処理を中断する
+  def check_best_answer_params(params)
+    # 質問に紐づく回答以外のidを入力した場合、またはstatusが「closed」以外を入力した場合にfalseを返す
+    return false if post.answers.ids.exclude?(params[:best_answer_id].to_i) || params[:status] != 'closed'
   end
 
   def save
