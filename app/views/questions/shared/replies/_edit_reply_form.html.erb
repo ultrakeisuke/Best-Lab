@@ -1,7 +1,6 @@
 <%= form_with model: reply_form, url: url, method: method, class: "edit-reply-form" do |f| %>
   <div id="js-edit-reply-errors-<%= reply.id %>"></div>
 
-  <%= f.hidden_field :post_id, value: post.id %>
   <%= f.hidden_field :answer_id, value: answer.id %>
 
   <% if reply.body.present? || reply.pictures.present? %>
