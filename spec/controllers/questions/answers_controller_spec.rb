@@ -39,6 +39,19 @@ RSpec.describe Questions::AnswersController, type: :request do
         expect(response).to have_http_status '200'
       end
     end
+    context 'フォーム入力が有効かつ添付画像がある場合' do
+      let(:answer_form) { build(:answer_form) }
+      let!(:questioner) { create(:question_notice, user_id: another_user.id, post_id: another_post.id) }
+      it '回答の作成に成功する' do
+        login_user(user)
+        expect do
+          post questions_answers_path, xhr: true, params: { answer_form: { post_id: another_post.id,
+                                                                           body: answer_form.body,
+                                                                           pictures_attributes: [picture: Rack::Test::UploadedFile.new(Rails.root.join('spec/factories/images/rails.png'))] } }
+        end.to change(Answer, :count).by(1)
+        expect(response).to have_http_status '200'
+      end
+    end
     context 'フォーム入力が有効、かつ自己解決した場合' do
       let(:answer_form) { build(:answer_form) }
       it '回答の作成に成功し、質問を「解決済」に変更する' do

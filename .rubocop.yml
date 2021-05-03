@@ -29,3 +29,8 @@ Rails/FilePath:
 # before_actionに定義するDeviseのアクション用
 Rails/LexicallyScopedActionFilter:
   Enabled: false
+
+# 1ブロックあたりの行数制限を廃止
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
