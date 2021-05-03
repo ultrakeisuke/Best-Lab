@@ -32,6 +32,19 @@ RSpec.describe Questions::RepliesController, type: :request do
         expect(response).to render_template 'questions/replies/create'
       end
     end
+    context 'フォーム入力が有効かつ添付画像がある場合' do
+      let(:reply_form) { build(:reply_form) }
+      it 'リプライの作成に成功する' do
+        login_user(user)
+        expect do
+          post questions_replies_path, xhr: true, params: { reply_form: { answer_id: answer.id,
+                                                                          body: reply_form.body,
+                                                                          pictures_attributes: [picture: Rack::Test::UploadedFile.new(Rails.root.join('spec/factories/images/rails.png'))] } }
+        end.to change(Reply, :count).by(1)
+        expect(response).to have_http_status '200'
+        expect(response).to render_template 'questions/replies/create'
+      end
+    end
   end
 
   describe '同期通信によるcreateアクション' do

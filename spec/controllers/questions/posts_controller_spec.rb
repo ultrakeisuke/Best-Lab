@@ -48,6 +48,21 @@ RSpec.describe Questions::PostsController, type: :request do
         expect(response).to redirect_to users_basic_path(user)
       end
     end
+    context 'フォーム入力が有効かつ添付画像がある場合' do
+      let(:post_form) { build(:post_form) }
+      it 'ユーザー詳細画面にリダイレクトする' do
+        login_user(user)
+        expect do
+          post questions_posts_path, params: { post_form: { category_id: children_category.id,
+                                                            title: post_form.title,
+                                                            content: post_form.content,
+                                                            status: 'open',
+                                                            pictures_attributes: [{ picture: Rack::Test::UploadedFile.new(Rails.root.join('spec/factories/images/rails.png')) }] } }
+        end.to change(Post, :count).by(1)
+        expect(response).to have_http_status '302'
+        expect(response).to redirect_to users_basic_path(user)
+      end
+    end
   end
 
   describe 'editアクション' do
@@ -119,16 +134,25 @@ RSpec.describe Questions::PostsController, type: :request do
   end
 
   describe 'select_best_answerアクション' do
-    let(:another_user) { create(:another_user) }
-    let(:post) { create(:post, category_id: children_category.id, user_id: user.id) }
-    let(:answer) { create(:answer, user_id: another_user.id, post_id: post.id) }
-    it 'ベストアンサーを選出しshow画面にリダイレクトする' do
-      login_user(user)
-      patch select_best_answer_questions_post_path(post), params: { post_form: { status: 'closed', best_answer_id: answer.id } }
-      expect(response).to have_http_status '302'
-      expect(response).to redirect_to questions_post_path(post)
-      expect(post.reload.status).to eq 'closed'
-      expect(post.reload.best_answer_id).to eq answer.id
+    let!(:post) { create(:post, category_id: children_category.id, user_id: user.id) }
+    let!(:answer) { create(:answer, user_id: another_user.id, post_id: post.id) }
+    context 'フォームに無効な値を入力した場合' do
+      it 'ユーザー詳細画面にリダイレクトする' do
+        login_user(user)
+        patch select_best_answer_questions_post_path(post), params: { post_form: { status: 'closed', best_answer_id: -1 } }
+        expect(response).to have_http_status '302'
+        expect(response).to redirect_to users_basic_path(user)
+      end
+    end
+    context 'フォームに有効な値を入力した場合' do
+      it 'ベストアンサーを選出し質問詳細画面にリダイレクトする' do
+        login_user(user)
+        patch select_best_answer_questions_post_path(post), params: { post_form: { status: 'closed', best_answer_id: answer.id } }
+        expect(response).to have_http_status '302'
+        expect(response).to redirect_to questions_post_path(post)
+        expect(post.reload.status).to eq 'closed'
+        expect(post.reload.best_answer_id).to eq answer.id
+      end
     end
   end
 end

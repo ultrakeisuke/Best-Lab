@@ -17,6 +17,7 @@ services:
       - log-data:/best-lab/log
       - public-data:/best-lab/public:cached
       - tmp-data:/best-lab/tmp:cached
+    stdin_open: true
     tty: true
     links:
       - db

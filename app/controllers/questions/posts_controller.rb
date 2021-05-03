@@ -64,13 +64,14 @@ class Questions::PostsController < ApplicationController
   def select_best_answer
     post = Post.find(params[:id])
     @post_form = PostForm.new(post)
+    # ベストアンサー用フォームに不正な値が入力された場合は処理を中断する
+    return redirect_to users_basic_path(current_user) if @post_form.check_best_answer_params(post_params) == false
+
     @post_form.assign_attributes(post_params)
-    if @post_form.save
-      post.send_notice_to_answerers # 回答者全員に通知を送信する
-      redirect_to questions_post_path(post), flash: { notice: 'ベストアンサーが決定しました！' }
-    else
-      render 'questions/posts/show'
-    end
+    return unless @post_form.save
+
+    post.send_notice_to_answerers # 回答者全員に通知を送信する
+    redirect_to questions_post_path(post), flash: { notice: 'ベストアンサーが決定しました！' }
   end
 
   private
