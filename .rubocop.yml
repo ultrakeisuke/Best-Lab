@@ -30,7 +30,7 @@ Rails/FilePath:
 Rails/LexicallyScopedActionFilter:
   Enabled: false
 
-# 1ブロックあたりの行数の制限を解除
+# 1ブロックあたりの行数制限を廃止
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
