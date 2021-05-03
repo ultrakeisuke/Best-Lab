@@ -48,6 +48,21 @@ RSpec.describe Questions::PostsController, type: :request do
         expect(response).to redirect_to users_basic_path(user)
       end
     end
+    context 'フォーム入力が有効かつ添付画像がある場合' do
+      let(:post_form) { build(:post_form) }
+      it 'ユーザー詳細画面にリダイレクトする' do
+        login_user(user)
+        expect do
+          post questions_posts_path, params: { post_form: { category_id: children_category.id,
+                                                            title: post_form.title,
+                                                            content: post_form.content,
+                                                            status: 'open',
+                                                            pictures_attributes: [{ picture: Rack::Test::UploadedFile.new(Rails.root.join('spec/factories/images/rails.png')) }] } }
+        end.to change(Post, :count).by(1)
+        expect(response).to have_http_status '302'
+        expect(response).to redirect_to users_basic_path(user)
+      end
+    end
   end
 
   describe 'editアクション' do
