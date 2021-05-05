@@ -8,14 +8,14 @@ RSpec.describe Reply, type: :model do
   let!(:answer) { create(:answer, user_id: user.id, post_id: test_post.id) }
 
   it 'コメントも画像もない場合は無効' do
-    reply = build(:reply_form, user_id: user.id, post_id: test_post.id, answer_id: answer.id, body: '')
+    reply = build(:reply_form, user_id: user.id, answer_id: answer.id, body: '')
     reply.pictures = []
     expect(reply).not_to be_valid
     expect(reply.errors[:base]).to include('コメントか画像を送信してください。')
   end
 
   it '5枚以上の画像を投稿した場合は無効' do
-    reply = build(:reply_form, user_id: user.id, post_id: test_post.id, answer_id: answer.id, body: '')
+    reply = build(:reply_form, user_id: user.id, answer_id: answer.id, body: '')
     pictures = build_list(:picture, 5)
     reply.pictures = pictures
     expect(reply).not_to be_valid
@@ -23,14 +23,14 @@ RSpec.describe Reply, type: :model do
   end
 
   it '4枚以下の画像を投稿した場合は有効' do
-    reply = build(:reply_form, user_id: user.id, post_id: test_post.id, body: '')
+    reply = build(:reply_form, user_id: user.id, body: '')
     pictures = build_list(:picture, 4)
     reply.pictures = pictures
     expect(reply).to be_valid
   end
 
   it 'コメントと4枚以下の画像を投稿した場合は有効' do
-    reply = build(:reply_form, user_id: user.id, post_id: test_post.id)
+    reply = build(:reply_form, user_id: user.id)
     pictures = build_list(:picture, 4)
     reply.pictures = pictures
     expect(reply).to be_valid

@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :question_entry do
+  factory :question_notice do
     user { nil }
     post { nil }
     notice { false }

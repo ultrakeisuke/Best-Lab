@@ -10,8 +10,8 @@ RSpec.describe 'リプライの作成と編集', type: :system do
   let!(:answer) { create(:answer, user_id: answerer.id, post_id: post.id) }
 
   before do
-    create(:question_entry, user_id: questioner.id, post_id: post.id)
-    create(:question_entry, user_id: answerer.id, post_id: post.id)
+    create(:question_notice, user_id: questioner.id, post_id: post.id)
+    create(:question_notice, user_id: answerer.id, post_id: post.id)
   end
 
   it 'リプライの新規作成', js: true do
@@ -30,8 +30,8 @@ RSpec.describe 'リプライの作成と編集', type: :system do
   end
 
   it 'リプライの編集', js: true do
-    reply = create(:reply, user_id: replier.id, post_id: post.id, answer_id: answer.id, body: 'reply')
-    another_reply = create(:reply, user_id: replier.id, post_id: post.id, answer_id: answer.id, body: 'another_reply')
+    reply = create(:reply, user_id: replier.id, answer_id: answer.id, body: 'reply')
+    another_reply = create(:reply, user_id: replier.id, answer_id: answer.id, body: 'another_reply')
     # 返信者としてログインし、質問詳細画面に移動
     login_as_user(replier)
     visit questions_post_path(post)

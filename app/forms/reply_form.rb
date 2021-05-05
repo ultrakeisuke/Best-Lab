@@ -10,7 +10,6 @@ class ReplyForm
   validate :max_num_of_pictures
 
   attribute :user_id, Integer
-  attribute :post_id, Integer
   attribute :answer_id, Integer
   attribute :body, String
 
@@ -46,7 +45,6 @@ class ReplyForm
       @reply.save!
     else
       reply = Reply.new(user_id: user_id,
-                        post_id: post_id,
                         answer_id: answer_id,
                         body: body)
       reply.pictures = pictures if pictures.present?

@@ -30,11 +30,24 @@ RSpec.describe Questions::AnswersController, type: :request do
     end
     context 'フォーム入力が有効であった場合' do
       let(:answer_form) { build(:answer_form) }
-      let!(:questioner) { create(:question_entry, user_id: another_user.id, post_id: another_post.id) }
+      let!(:questioner) { create(:question_notice, user_id: another_user.id, post_id: another_post.id) }
       it '回答の作成に成功する' do
         login_user(user)
         expect do
           post questions_answers_path, xhr: true, params: { answer_form: { post_id: another_post.id, body: answer_form.body } }
+        end.to change(Answer, :count).by(1)
+        expect(response).to have_http_status '200'
+      end
+    end
+    context 'フォーム入力が有効かつ添付画像がある場合' do
+      let(:answer_form) { build(:answer_form) }
+      let!(:questioner) { create(:question_notice, user_id: another_user.id, post_id: another_post.id) }
+      it '回答の作成に成功する' do
+        login_user(user)
+        expect do
+          post questions_answers_path, xhr: true, params: { answer_form: { post_id: another_post.id,
+                                                                           body: answer_form.body,
+                                                                           pictures_attributes: [picture: Rack::Test::UploadedFile.new(Rails.root.join('spec/factories/images/rails.png'))] } }
         end.to change(Answer, :count).by(1)
         expect(response).to have_http_status '200'
       end
@@ -67,7 +80,7 @@ RSpec.describe Questions::AnswersController, type: :request do
     end
     context 'フォーム入力が有効であった場合' do
       let(:answer_form) { build(:answer_form) }
-      let!(:questioner) { create(:question_entry, user_id: another_user.id, post_id: another_post.id) }
+      let!(:questioner) { create(:question_notice, user_id: another_user.id, post_id: another_post.id) }
       it '回答の作成に成功する' do
         login_user(user)
         expect do
