@@ -27,8 +27,8 @@ RSpec.describe Post, type: :model do
   describe 'create_noticeメソッド' do
     it '質問とユーザーを紐づけたリストを作成し、通知カラムがfalseになっている' do
       post.create_notice
-      question_entry = QuestionEntry.find_by(user_id: post.user_id, post_id: post)
-      expect(question_entry.notice).to eq false
+      question_notice = QuestionNotice.find_by(user_id: post.user_id, post_id: post)
+      expect(question_notice.notice).to eq false
     end
   end
 
@@ -36,9 +36,9 @@ RSpec.describe Post, type: :model do
   describe 'send_notice_to_answerers' do
     let(:user1) { create(:another_user) }
     let(:user2) { create(:guest_user) }
-    let!(:questioner) { create(:question_entry, user_id: user.id, post_id: post.id) }
-    let!(:answerer1) { create(:question_entry, user_id: user1.id, post_id: post.id) }
-    let!(:answerer2) { create(:question_entry, user_id: user2.id, post_id: post.id) }
+    let!(:questioner) { create(:question_notice, user_id: user.id, post_id: post.id) }
+    let!(:answerer1) { create(:question_notice, user_id: user1.id, post_id: post.id) }
+    let!(:answerer2) { create(:question_notice, user_id: user2.id, post_id: post.id) }
     it '回答者の通知カラムがtrueを返す' do
       post.send_notice_to_answerers
       expect(questioner.reload.notice).to eq false # 質問者には通知が送信されない
@@ -49,7 +49,7 @@ RSpec.describe Post, type: :model do
 
   # 投稿詳細画面に入ると通知が外れる処理
   describe 'remove_noticeメソッド' do
-    let!(:entry) { create(:question_entry, user_id: user.id, post_id: post.id, notice: true) }
+    let!(:entry) { create(:question_notice, user_id: user.id, post_id: post.id, notice: true) }
     it '通知カラムがfalseを返す' do
       post.remove_notice(user)
       expect(entry.reload.notice).to eq false
@@ -58,7 +58,7 @@ RSpec.describe Post, type: :model do
 
   # 自分が投稿した質問、もしくは回答した質問に通知が来ているか確認する処理
   describe 'check_noticeメソッド' do
-    let!(:entry) { create(:question_entry, user_id: user.id, post_id: post.id, notice: true) }
+    let!(:entry) { create(:question_notice, user_id: user.id, post_id: post.id, notice: true) }
     it '通知があるのでnoticeカラムがtrueを返す' do
       post.check_notice(user)
       expect(entry.reload.notice).to eq true

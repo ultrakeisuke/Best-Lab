@@ -41,9 +41,9 @@ RSpec.describe '質問掲示板における、質問者からの通知', type: :
 
   before do
     # 質問者と回答者用の通知レコードを作成
-    create(:question_entry, user_id: questioner.id, post_id: post.id)
-    create(:question_entry, user_id: answerer1.id, post_id: post.id)
-    create(:question_entry, user_id: answerer2.id, post_id: post.id)
+    create(:question_notice, user_id: questioner.id, post_id: post.id)
+    create(:question_notice, user_id: answerer1.id, post_id: post.id)
+    create(:question_notice, user_id: answerer2.id, post_id: post.id)
   end
 
   it 'ベストアンサーを決定した場合は、回答者全員に通知を送信', js: true do
@@ -99,7 +99,7 @@ RSpec.describe '質問掲示板における、回答者からの通知', type: :
 
   before do
     # 質問者の通知用レコードを作成
-    create(:question_entry, user_id: questioner.id, post_id: post.id)
+    create(:question_notice, user_id: questioner.id, post_id: post.id)
   end
 
   it '質問者に通知を送信' do
@@ -129,10 +129,10 @@ RSpec.describe '質問掲示板における、返信者(リプライヤー)か�
 
   before do
     # 通知用レコードを作成
-    create(:question_entry, user_id: questioner.id, post_id: post.id)
-    create(:question_entry, user_id: answerer.id, post_id: post.id)
-    create(:question_entry, user_id: repliers[0].id, post_id: post.id)
-    create(:question_entry, user_id: repliers[1].id, post_id: post.id)
+    create(:question_notice, user_id: questioner.id, post_id: post.id)
+    create(:question_notice, user_id: answerer.id, post_id: post.id)
+    create(:question_notice, user_id: repliers[0].id, post_id: post.id)
+    create(:question_notice, user_id: repliers[1].id, post_id: post.id)
   end
 
   it '質問者と回答者、回答に紐づくリプライヤーに通知を送信' do

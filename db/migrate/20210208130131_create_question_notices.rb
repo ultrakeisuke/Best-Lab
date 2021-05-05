@@ -1,9 +1,9 @@
-class CreateAnswers < ActiveRecord::Migration[6.0]
+class CreateQuestionNotices < ActiveRecord::Migration[6.0]
   def change
-    create_table :answers do |t|
-      t.string :body
+    create_table :question_notices do |t|
       t.references :user, null: false, foreign_key: true
       t.references :post, null: false, foreign_key: true
+      t.boolean :notice, null: false, default: false
 
       t.timestamps
     end
