@@ -36,6 +36,8 @@
 
 # AWS 構成図
 
+<img src="best-lab-figure-AWS.svg">
+
 ## CircleCI CI/CD ツール
 
 <p>Githubにpush時に、RubocopとESLint、Rspecが自動で実行されます。</br>
@@ -76,3 +78,5 @@ masterブランチにマージした場合は、Rspecのテスト成功後に自
 </ul>
 
 # ER 図
+
+<img src="best-lab-figure-ER.svg">
