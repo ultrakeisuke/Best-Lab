@@ -1,25 +1,78 @@
-# README
+# Best-Lab
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+<p>大学研究者のための情報交換サイトです。</br>
+研究に関する質問を投稿し、他のユーザーとメッセージを通じて解決していきます。</br>
+研究内容の盗用が心配な場合は、ダイレクトメッセージを利用いただけます。</p>
+（スマートフォンのブラウザからでも閲覧できます）
 
-Things you may want to cover:
+# URL
 
-* Ruby version
-ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+<p>https://best-laboratory.com</br>
+トップページ上部の「ゲストユーザーで体験する」から、メールアドレスとパスワードを入力せずにログインできます。</p>
 
-* System dependencies
+# 使用技術
 
-* Configuration
+<ul>
+  <li>Ruby 2.7.1</li>
+  <li>Ruby on Rails 6.0.3</li>
+  <li>Docker/Docker-Compose</li>
+  <ul>
+    <li>PostgresQL 11.11</li>
+    <li>Nginx</li>
+    <li>Puma</li>
+  </ul>
+  <li>AWS</li>
+  <ul>
+    <li>ALB</li>
+    <li>ECR</li>
+    <li>ECS</li>
+    <li>RDS</li>
+    <li>Route53</li>
+    <li>VPC</li>
+  </ul>
+  <li>CircleCI CI/CD</li>
+  <li>Rspec</li>
+</ul>
 
-* Database creation
+# AWS 構成図
 
-* Database initialization
+## CircleCI CI/CD ツール
 
-* How to run the test suite
+<p>Githubにpush時に、RubocopとESLint、Rspecが自動で実行されます。</br>
+masterブランチにマージした場合は、Rspecのテスト成功後に自動でECSにデプロイされます。</p>
 
-* Services (job queues, cache servers, search engines, etc.)
+# 機能一覧
 
-* Deployment instructions
+<ul>
+  <li>ユーザー登録、アカウント有効化、ログイン、パスワードリセット機能（gem devise）</li>
+  <li>ユーザープロフィール作成機能</li>
+  <li>ユーザープロフィール検索機能(gem ransack)</li>
+  <li>質問掲示板機能</li>
+  <ul>
+    <li>質問の投稿</li>
+    <li>質問への回答</li>
+    <li>回答に対するリプライ</li>
+    <li>ベストアンサー</li>
+  </ul>
+  <li>質問検索機能(gem ransack)</li>
+  <li>ダイレクトメッセージ機能</li>
+  <li>画像添付機能（*）</li>
+  <ul>
+    <li>画像の拡大表示</li>
+  </ul>
+  <li>通知機能（*）</li>
+</ul>
+<p>( * 質問掲示板、ダイレクトメッセージ共に対応 )</p>
 
-* ...
+# テスト
+
+<ul>
+  <li>Rspec</li>
+  <ul>
+    <li>単体テスト（gem simplecov）</li>
+	  <li>機能テスト（gem simplecov）</li>
+    <li>システムテスト</li>
+  </ul>
+</ul>
+
+# ER 図
