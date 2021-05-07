@@ -8,6 +8,8 @@ class Searches::UsersController < ApplicationController
     if params[:q][:description_cont_any].present?
       params[:q][:description_cont_any] = params[:q][:description_cont_any].split(/[[:blank:]]+/)
     end
+    # 所属が未設定の場合は全検索とする
+    params[:q][:affiliation_eq].clear if params[:q][:affiliation_eq] == '未設定'
     @profiles = Profile.ransack(params[:q]).result.page(params[:page])
   end
 end
