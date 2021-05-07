@@ -1,16 +1,16 @@
-# Best-Lab
+<h1>Best-Lab</h1>
 
 <p>大学研究者のための情報交換サイトです。</br>
 研究に関する質問を投稿し、他のユーザーとメッセージを通じて解決していきます。</br>
 研究内容の盗用が心配な場合は、ダイレクトメッセージを利用いただけます。</p>
 （スマートフォンのブラウザからでも閲覧できます）
 
-# URL
+<h2>URL</h2>
 
 <p>https://best-laboratory.com</br>
 トップページ上部の「ゲストユーザーで体験する」から、メールアドレスとパスワードを入力せずにログインできます。</p>
 
-# 使用技術
+<h2>使用技術</h2>
 
 <ul>
   <li>Ruby 2.7.1</li>
@@ -34,16 +34,16 @@
   <li>Rspec</li>
 </ul>
 
-# AWS 構成図
+<h2>AWS 構成図</h2>
 
 <img src="best-lab-figure-AWS.svg">
 
-## CircleCI CI/CD ツール
+<h3>CircleCI</h3>
 
 <p>Githubにpush時に、RubocopとESLint、Rspecが自動で実行されます。</br>
 masterブランチにマージした場合は、Rspecのテスト成功後に自動でECSにデプロイされます。</p>
 
-# 機能一覧
+<h2>機能一覧</h2>
 
 <ul>
   <li>ユーザー登録、アカウント有効化、ログイン、パスワードリセット機能（gem devise）</li>
@@ -66,7 +66,7 @@ masterブランチにマージした場合は、Rspecのテスト成功後に自
 </ul>
 <p>( * 質問掲示板、ダイレクトメッセージ共に対応 )</p>
 
-# テスト
+<h2>テスト</h2>
 
 <ul>
   <li>Rspec</li>
@@ -77,6 +77,6 @@ masterブランチにマージした場合は、Rspecのテスト成功後に自
   </ul>
 </ul>
 
-# ER 図
+<h2>ER図</h2>
 
 <img src="best-lab-figure-ER.svg">
