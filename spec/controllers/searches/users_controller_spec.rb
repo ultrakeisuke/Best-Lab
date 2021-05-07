@@ -11,7 +11,7 @@ RSpec.describe Searches::UsersController, type: :request do
     let!(:another_profile) { create(:profile, affiliation: 'graduate', user_id: another_user.id) }
     it '所属にかかわらず、すべてのユーザーを表示する' do
       login_user(user)
-      get searches_users_path, params: { q: { affiliation_eq: '未設定',
+      get searches_users_path, params: { q: { affiliation_eq: 'unselected',
                                               school_eq: '',
                                               faculty_eq: '',
                                               department_eq: '',
