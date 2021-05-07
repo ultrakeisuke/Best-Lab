@@ -2271,6 +2271,9 @@ footer {
       }
       .reply-container {
         .reply-container__list {
+          .reply-container__body {
+            font-size: 11px;
+          }
           .edit-reply-form {
             textarea {
               font-size: 10px;
