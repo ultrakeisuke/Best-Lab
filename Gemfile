@@ -50,6 +50,7 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data'
 
+gem "actionpack", ">= 6.0.3.7"
 gem 'ancestry'
 gem 'carrierwave'
 gem 'devise'
