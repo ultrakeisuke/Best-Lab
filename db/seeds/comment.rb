@@ -17,13 +17,13 @@ end
 Post.import posts
 
 # 質問者用の通知レコード
-question_notices = []
+post_notices = []
 posts.each do |post|
-  question_notices << QuestionNotice.new(notice: true,
-                                         user_id: post.user_id,
-                                         post_id: post.id)
+  post_notices << QuestionNotice.new(notice: true,
+                                     user_id: post.user_id,
+                                     post_id: post.id)
 end
-QuestionNotice.import question_notices
+QuestionNotice.import post_notices
 
 # 回答
 answers = []
@@ -45,7 +45,7 @@ end
 QuestionNotice.import answer_notices
 
 # ゲストユーザー用データ
-# 質問
+# 質問を2つ作成
 posts_for_guest = []
 guest = User.find(1001)
 2.times do |n|
@@ -56,16 +56,16 @@ guest = User.find(1001)
 end
 Post.import posts_for_guest
 
-# 質問者用の通知レコード
-question_notices_for_guest = []
+# 質問者用の通知レコードを2つ作成
+post_notices_for_guest = []
 posts_for_guest.each do |post|
-  question_notices_for_guest << QuestionNotice.new(notice: true,
-                                                   user_id: 1001,
-                                                   post_id: post.id)
+  post_notices_for_guest << QuestionNotice.new(notice: true,
+                                               user_id: 1001,
+                                               post_id: post.id)
 end
-QuestionNotice.import question_notices_for_guest
+QuestionNotice.import post_notices_for_guest
 
-# 回答
+# ゲストの質問への回答
 answers_for_guest = []
 posts_for_guest.each do |post|
   answers_for_guest << Answer.new(body: "#{post.user.name}への回答です。",
@@ -78,14 +78,6 @@ Answer.import answers_for_guest
 posts_for_guest[0].update(status: 'closed',
                           best_answer_id: answers_for_guest[0].id)
 
-# 回答者用の通知レコード
-answer_notices_for_guest = []
-posts_for_guest.each do |post|
-  question_notices_for_guest << QuestionNotice.new(user_id: 1,
-                                                   post_id: post.id)
-end
-QuestionNotice.import answer_notices_for_guest
-
 # リプライ
 replies_for_guest = []
 answers_for_guest.each do |answer|
@@ -94,3 +86,20 @@ answers_for_guest.each do |answer|
                                  answer_id: answer.id)
 end
 Reply.import replies_for_guest
+
+# 他人の質問に対するゲストの回答
+answers_for_other_from_guest = []
+5.times do |n|
+  answers_for_other_from_guest << Answer.new(body: 'guestの回答です。',
+                                             user_id: 1001,
+                                             post_id: n + 1)
+end
+Answer.import answers_for_other_from_guest
+
+# 他人の質問に回答した際のゲストの通知レコード
+answer_notices_for_guest = []
+5.times do |n|
+  answer_notices_for_guest << QuestionNotice.new(user_id: 1001,
+                                                 post_id: n + 1)
+end
+QuestionNotice.import answer_notices_for_guest
