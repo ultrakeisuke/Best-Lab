@@ -99,7 +99,8 @@ Answer.import answers_for_other_from_guest
 # 他人の質問に回答した際のゲストの通知レコード
 answer_notices_for_guest = []
 5.times do |n|
-  answer_notices_for_guest << QuestionNotice.new(user_id: 1001,
+  answer_notices_for_guest << QuestionNotice.new(notice: true,
+                                                 user_id: 1001,
                                                  post_id: n + 1)
 end
 QuestionNotice.import answer_notices_for_guest
