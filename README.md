@@ -22,8 +22,8 @@
   <li>Docker/Docker-Compose</li>
   <ul>
     <li>PostgresQL 11.11</li>
-    <li>Nginx</li>
-    <li>Puma</li>
+    <li>Nginx 1.18.0</li>
+    <li>Puma 4.3.7</li>
   </ul>
   <li>AWS</li>
   <ul>
@@ -50,17 +50,17 @@ masterブランチにマージした場合は、Rspecのテスト成功後に自
 <h2>機能一覧</h2>
 
 <ul>
-  <li>ユーザー登録、アカウント有効化、ログイン、パスワードリセット機能（gem devise）</li>
+  <li>ユーザー登録、アカウント有効化、ログイン、パスワードリセット機能（devise）</li>
   <li>ユーザープロフィール作成機能</li>
-  <li>ユーザープロフィール検索機能(gem ransack)</li>
+  <li>ユーザープロフィール検索機能(ransack)</li>
   <li>質問掲示板機能</li>
   <ul>
     <li>質問の投稿</li>
-    <li>質問への回答</li>
-    <li>回答に対するリプライ</li>
-    <li>ベストアンサー</li>
+    <li>質問への回答(ajax)</li>
+    <li>回答に対するリプライ(ajax)</li>
+    <li>ベストアンサー(ajax)</li>
   </ul>
-  <li>質問検索機能(gem ransack)</li>
+  <li>質問検索機能(ransack)</li>
   <li>ダイレクトメッセージ機能</li>
   <li>画像添付機能（*）</li>
   <ul>
@@ -75,8 +75,8 @@ masterブランチにマージした場合は、Rspecのテスト成功後に自
 <ul>
   <li>Rspec</li>
   <ul>
-    <li>単体テスト（gem simplecov）</li>
-	  <li>機能テスト（gem simplecov）</li>
+    <li>単体テスト（simplecov）</li>
+	  <li>機能テスト（simplecov）</li>
     <li>システムテスト</li>
   </ul>
 </ul>
